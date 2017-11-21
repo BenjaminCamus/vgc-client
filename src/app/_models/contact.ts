@@ -1,0 +1,17 @@
+export class Contact {
+    id: number = 0;
+    email: string = '';
+    firstName: string = '';
+    lastName: string = '';
+    nickname: string = '';
+    phone: string = '';
+    address: string = '';
+    zipcode: string = '';
+    city: string = '';
+
+    constructor (firstName: string = '') {
+        this.firstName = firstName;
+    }
+}
+
+export const NewContact: Contact = new Contact('Nouveau Contact');

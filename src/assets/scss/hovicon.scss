@@ -1,0 +1,72 @@
+$hovicon-size: 40px;
+$hovicon-color: rgb(51, 122, 183);
+.hovicon {
+  font-style: normal;
+  display: inline-block;
+  font-size: 26px;
+  line-height: $hovicon-size;
+  cursor: pointer;
+  margin: 10px;
+  width: $hovicon-size;
+  height: $hovicon-size;
+  text-align: center;
+  position: relative;
+  text-decoration: none;
+  z-index: 1;
+  border-radius: 50%;
+  -webkit-transition: background 0.2s, color 0.2s;
+  -moz-transition: background 0.2s, color 0.2s;
+  transition: background 0.2s, color 0.2s;
+}
+.hovicon:hover {
+  color: $hovicon-color;
+}
+.hovicon:hover span {
+  background: $hovicon-color;
+}
+
+.hovicon:after {
+  pointer-events: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  content:'';
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+  border-radius: 50%;
+  top: -7px;
+  left: -7px;
+  padding: 7px;
+  box-shadow: 0 0 0 4px rgba(51, 122, 183,0.2);
+  -webkit-transition: -webkit-transform 0.2s, opacity 0.2s;
+  -moz-transition: -moz-transform 0.2s, opacity 0.2s;
+  transition: transform 0.2s, opacity 0.2s;
+  opacity: 0;
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  transform: scale(1.2);
+}
+.hovicon:before {
+  speak: none;
+  line-height: $hovicon-size;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  display: block;
+  -webkit-font-smoothing: antialiased;
+}
+
+.hovicon:hover:after {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+  opacity: 1;
+}
+
+.hoviconForm {
+  padding-top: 12px;
+}

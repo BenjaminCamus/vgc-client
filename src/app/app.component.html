@@ -1,0 +1,26 @@
+<nav id="topnav">
+
+  <div class="appTitle">{{title}}</div>
+
+  <i id="nav-icon" class="hovicon fa fa-bars" onclick="sideNav('left')"></i>
+
+  <span *ngIf="!currentUser || !currentUser.username"><a routerLink="/login">Connexion</a> • <a routerLink="/login">Inscription</a></span>
+  <span *ngIf="currentUser && currentUser.username">{{currentUser.username}}</span>
+
+  <!--<i *ngIf="currentUser && currentUser.username" id="nav-icon-right" class="hovicon fa fa-search" onclick="sideNav('right')"></i>-->
+</nav>
+
+<nav id="sidenav-left" class="sidenav" role="navigation">
+  <ul class="nav navmenu-nav">
+    <li><a routerLink="/games" routerLinkActive="active">Mes Jeux</a></li>
+    <li><a routerLink="/game/new" routerLinkActive="active">Nouveau Jeu</a></li>
+    <li><a routerLink="/login" routerLinkActive="active">Déconnexion</a></li>
+  </ul>
+</nav>
+<!--<nav *ngIf="currentUser && currentUser.username" id="sidenav-right" class="sidenav" role="navigation">-->
+  <!--<span><a routerLink="/login">Déconnexion</a> ]</span>-->
+<!--</nav>-->
+
+<ng2-slim-loading-bar></ng2-slim-loading-bar>
+
+<router-outlet></router-outlet>

@@ -1,0 +1,147 @@
+.gameBox {
+  background: #111;
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(1vw);
+  transition: opacity 1s, transform 1s;
+}
+
+.gameBox.visible_anim {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#gameBanner {
+  width: 100%;
+  display: block;
+  height: calc(25vh - 70px);
+}
+
+#gameBanner div {
+  width: 100%;
+  display: block;
+  height: 25vh;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: height 1s, opacity 1s, filter 1s;
+}
+
+#gameBanner.gameBannerBig {
+  height: calc(50vh - 70px);
+}
+
+#gameBanner.gameBannerBig div {
+  margin-top: -70px;
+  height: 50vh;
+}
+
+//#gameBanner:hover div {
+//  height: 100vh;
+//}
+
+#gameCover {
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+.gameCover {
+  width: 100%;
+  height: 100%;
+  opacity: 1;
+  filter: grayscale(0%);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transition: height 1s, opacity 1s, filter 1s;
+}
+
+.gameTitle {
+  font-size: 1.2em;
+  height:40%;
+  transition: height 1s, opacity 1s, margin 1s;
+  opacity:0;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.gameBox:hover {
+  .gameCover {
+    height: 50%;
+    opacity: 0.1;
+    filter: grayscale(100%);
+  }
+
+  .gameTitle {
+    margin-top:-20%;
+    height: 20%;
+    opacity:1;
+  }
+}
+
+.gameInfos {
+  font-size: smaller;
+  padding: 5px;
+  width: 100%;
+  height: 100%;
+}
+
+
+
+@media only screen and (max-width : 600px) {
+  .gameBox {
+    width: calc(100% / 2);
+    height: calc(100vw / 2);
+  }
+}
+@media only screen and (min-width : 601px) and (max-width : 800px) {
+  .gameBox {
+    width: calc(100% / 4);
+    height: calc(100vw / 4);
+  }
+}
+@media only screen and (min-width : 801px) and (max-width : 1000px) {
+  .gameBox {
+    width: calc(100% / 4);
+    height: calc(100vw / 4);
+  }
+}
+@media only screen and (min-width : 1001px) and (max-width : 1200px) {
+  .gameBox {
+    width: calc(100% / 6);
+    height: calc(100vw / 6);
+  }
+}
+@media only screen and (min-width : 1201px) and (max-width : 1400px) {
+  .gameBox {
+    width: calc(100% / 6);
+    height: calc(100vw / 6);
+  }
+}
+@media only screen and (min-width : 1401px) and (max-width : 1600px) {
+  .gameBox {
+    width: calc(100% / 8);
+    height: calc(100vw / 8);
+  }
+}
+@media only screen and (min-width : 1601px) and (max-width : 1800px) {
+  .gameBox {
+    width: calc(100% / 8);
+    height: calc(100vw / 8);
+  }
+}
+@media only screen and (min-width : 1801px) and (max-width : 2000px) {
+  .gameBox {
+    width: calc(100% / 10);
+    height: calc(100vw / 10);
+  }
+}
+@media only screen and (min-width : 2001px) {
+  .gameBox {
+    width: calc(100% / 10);
+    height: calc(100vw / 10);
+  }
+}

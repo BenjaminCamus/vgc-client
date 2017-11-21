@@ -1,0 +1,68 @@
+<div id="gameBanner">
+    <div *ngIf="games && games[0].screenshots" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinary_id + '.jpg)' | safe: 'style'"></div>
+    <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinary_id + '.jpg)' | safe: 'style'"></div>-->
+</div>
+
+<div class="container-fluid">
+
+    <div class="row" style="padding-bottom: 15px">
+        <div class="col-md-12">
+            <h1>Nouveau Jeu</h1>
+        </div>
+    </div>
+
+    <div class="row" style="padding-bottom: 15px">
+        <div class="col-md-4">
+            <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+                <input type="text" id="name"
+                       required
+                       [(ngModel)]="model.name" name="name"
+                       #name="ngModel"
+                       autocomplete="off">
+                <span class="bar"></span>
+                <div [hidden]="name.valid || name.pristine"
+                     class="text-danger">
+                    You should probably type some keywords...
+                </div>
+                <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">Rechercher via IGDB.com</button>
+            </form>
+        </div>
+    </div>
+    <div class="row" [hidden]="!submitted">
+
+        <div class="col-md-12">
+            <section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
+                <div class="gameCover" *ngIf="game.cover"
+                     [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinary_id + '.jpg)' | safe: 'style'"></div>
+                <div class=gameInfos>
+                    <div class="gameTitle">
+                        {{ game.name }}
+                    </div>
+
+                    <section *ngIf="game.platform">
+                        <button *ngFor="let p of game.platform" (click)="onSelect(game, p)" class="btn btn-sm btn-primary">
+                            {{p.name}}
+                        </button>
+                    </section>
+                </div>
+            </section>
+        </div>
+
+    </div>
+</div>
+
+
+<div>
+</div>
+
+<modal #modal>
+    <modal-header [show-close]="true">
+        <h4 class="modal-title">New Game</h4>
+    </modal-header>
+    <modal-body>
+        <game-form [game]="selectedGame" [platform]="selectedPlatform"></game-form>
+    </modal-body>
+    <modal-footer>
+        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
+    </modal-footer>
+</modal>

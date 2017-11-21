@@ -1,0 +1,37 @@
+[
+  {
+    "id": "27101056-b064-11e7-be9d-782bcba7af22",
+    "name": "Leboncoin",
+    "slug": "leboncoin"
+  },
+  {
+    "id": "37341231-b064-11e7-be9d-782bcba7af22",
+    "name": "E-bay",
+    "slug": "e-bay"
+  },
+  {
+    "id": "495ea9bb-b064-11e7-be9d-782bcba7af22",
+    "name": "Micromania",
+    "slug": "micromania"
+  },
+  {
+    "id": "6ca0771d-b064-11e7-be9d-782bcba7af22",
+    "name": "Vide-Grenier",
+    "slug": "vide-grenier"
+  },
+  {
+    "id": "788e5fad-b064-11e7-be9d-782bcba7af22",
+    "name": "Vide-Grenier du Geek",
+    "slug": "vide-grenier-du-geek"
+  },
+  {
+    "id": "88744b18-b064-11e7-be9d-782bcba7af22",
+    "name": "Marché de la Mode Vintage",
+    "slug": "marche-de-la-mode-vintage"
+  },
+  {
+    "id": "a89062ef-b064-11e7-be9d-782bcba7af22",
+    "name": "Cadeau",
+    "slug": "cadeau"
+  }
+]

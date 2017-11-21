@@ -1,0 +1,73 @@
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Mes Jeux <i class="hovicon fa fa-refresh" [ngClass]="loading ? 'rotating' : 'rotatingOff'"
+                            (click)="getGames()"></i></h1>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="loading">
+        <div class="col-md-12">
+            Synchronisation en cours...
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!loading" style="padding-bottom: 15px">
+        <div class="col-md-3">
+            <label for="name">Développeur</label><br>
+            <tag *ngFor="let developer of developerTags;"
+                 [tag]="developer.name"
+                 [suffix]="developerCount[developer.id]"
+                 (uploaded)="toggleTag('developer', $event, developer)"></tag>
+        </div>
+        <div class="col-md-3">
+            <label for="name">Éditeur</label><br>
+            <tag *ngFor="let publisher of publisherTags;"
+                 [tag]="publisher.name"
+                 [suffix]="publisherCount[publisher.id]"
+                 (uploaded)="toggleTag('publisher', $event, publisher)"></tag>
+        </div>
+        <div class="col-md-3">
+            <input type="text" id="name" name="name"
+                   [(ngModel)]="userGameFilter.game.name"
+                   #name="ngModel"
+                   autocomplete="off">
+            <span class="bar"></span>
+            <label for="name">Titre</label>
+        </div>
+    </div>
+
+    <div class="row" *ngIf="!loading">
+        <div class="col-md-12">
+            <section *ngFor="let userGame of userGames | filter: userGameFilter;"
+                     routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"
+                     class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
+                <div class="gameCover" *ngIf="userGame.game.cover"
+                     [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
+                <div class=gameInfos>
+                    <div class="gameTitle">
+                        {{ userGame.game.name }}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            Demandé {{ userGame.priceAsked }}€
+                        </div>
+                        <div class="col-md-6">
+                            Payé {{ userGame.pricePaid }}€
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            Revente {{ userGame.priceResale }}€
+                        </div>
+                        <div class="col-md-6">
+                            Vendu {{ userGame.priceSold }}€
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

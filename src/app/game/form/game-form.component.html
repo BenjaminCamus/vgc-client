@@ -1,0 +1,245 @@
+<form (ngSubmit)="postUserGame()" #postUserGameForm="ngForm">
+    <div id="gameBanner" *ngIf="game">
+        <div *ngIf="game.screenshots"
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + game.screenshots[0].cloudinary_id + '.jpg)' | safe: 'style'"></div>
+        <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinary_id + '.jpg)' | safe: 'style'"></div>-->
+    </div>
+
+    <div class="container-fluid">
+        <div *ngIf="game" class="row">
+            <div class="col-md-4" style="text-align: center;">
+
+                <img id="gameCover" *ngIf="game.cover"
+                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.cloudinary_id}}.jpg"/>
+                <div>
+                    <img width="50" height="50" *ngFor="let sc of game.screenshots;"
+                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinary_id}}.jpg"
+                         style="margin: 5px;"/>
+                </div>
+            </div>
+
+            <div class="col-md-8">
+
+                <h1>{{ game.name }}</h1>
+
+                <div class="row">
+                    <div class="col-md-3">
+                        <select id="selectedPlatform"
+                                required
+                                [(ngModel)]="platform" name="selectedPlatform"
+                                #name="ngModel">
+                            <option *ngFor="let p of game.platform" [ngValue]="p">{{p.name}}</option>
+                        </select>
+                        <span class="bar"></span>
+                        <label for="selectedPlatform">Plateforme</label>
+                    </div>
+                    <div class="col-md-2">
+                        <select id="version"
+                                required
+                                [(ngModel)]="userGame.version" name="version"
+                                #name="ngModel">
+                            <option value="FRA" selected>FRA</option>
+                            <option value="EUR">EUR</option>
+                            <option value="FAH">FAH</option>
+                        </select>
+                        <span class="bar"></span>
+                        <label for="version">Version</label>
+                    </div>
+                    <div class="col-md-2">
+                        <div>
+                            <input type="checkbox" checked id="box"
+                                   [(ngModel)]="userGame.box" name="box"
+                                   #name="ngModel">
+                            <label for="box">Boîte</label>
+                        </div>
+                        <div>
+                            <input type="checkbox" checked id="manual"
+                                   [(ngModel)]="userGame.manual" name="manual"
+                                   #name="ngModel">
+                            <label for="manual">Livret</label>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <input type="text" id="rating"
+                               required
+                               [(ngModel)]="userGame.rating" name="rating"
+                               #name="ngModel">
+                        <span class="bar"></span>
+                        <label for="rating">Note</label>
+                    </div>
+                    <div class="col-md-3">
+                        <select id="progress"
+                                required
+                                [(ngModel)]="userGame.progress" name="progress"
+                                #name="ngModel">
+                            <option value="2">Terminé</option>
+                            <option value="1" selected>En cours</option>
+                            <option value="0">Jamais joué</option>
+                            <option value="3">Abandonné</option>
+                        </select>
+                        <span class="bar"></span>
+                        <label for="progress">Progression</label>
+                    </div>
+                </div>
+
+                <section *ngFor="let sp of ['purchase', 'sale']">
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-md-3" *ngIf="sp == 'purchase'">
+                            <input type="text" id="priceAsked"
+                                   required
+                                   [(ngModel)]="userGame.priceAsked" name="priceAsked"
+                                   #name="ngModel">
+                            <span class="bar"></span>
+                            <label for="priceAsked">Prix demandé</label>
+                        </div>
+                        <div class="col-md-3" *ngIf="sp == 'purchase'">
+                            <input type="text" id="pricePaid"
+                                   required
+                                   [(ngModel)]="userGame.pricePaid" name="pricePaid"
+                                   #name="ngModel">
+                            <span class="bar"></span>
+                            <label for="pricePaid">Prix payé</label>
+                        </div>
+                        <div class="col-md-3" *ngIf="sp == 'sale'">
+                            <input type="text" id="priceResale"
+                                   [(ngModel)]="userGame.priceResale" name="priceResale"
+                                   #name="ngModel">
+                            <span class="bar"></span>
+                            <label for="priceResale">Estimation vente</label>
+                        </div>
+                        <div class="col-md-3" *ngIf="sp == 'sale'">
+                            <input type="text" id="priceSold"
+                                   [(ngModel)]="userGame.priceSold" name="priceSold"
+                                   #name="ngModel">
+                            <span class="bar"></span>
+                            <label for="priceSold">Prix vendu</label>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" id="{{ sp }}Date"
+                                   [required]="sp == 'purchase'"
+                                   [(ngModel)]="userGame[sp+'Date']" name="{{ sp }}Date"
+                                   #name="ngModel">
+                            <span class="bar"></span>
+                            <label for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <select id="{{ sp }}Place"
+                                    [required]="sp == 'purchase'"
+                                    [(ngModel)]="userGame[sp+'Place']" name="{{ sp }}Place"
+                                    #name="ngModel">
+                                <option *ngFor="let p of places" [ngValue]="p">{{p.name}}</option>
+                            </select>
+                            <span class="bar"></span>
+                            <label for="{{ sp }}Place">Lieu {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                        </div>
+                        <div class="col-md-6">
+                            <select id="newContacts{{sp}}"
+                                    [required]="sp == 'purchase'"
+                                    [(ngModel)]="userGame[sp+'Contact']" name="newContacts{{sp}}"
+                                    #name="ngModel">
+                                <option [ngValue]="newContact">{{newContact | formatName}}</option>
+                                <option *ngFor="let c of userContacts" [ngValue]="c">{{c | formatName}}</option>
+                            </select>
+
+                            <span class="bar"></span>
+                            <label for="newContacts{{sp}}">Contact {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                        </div>
+                    </div>
+
+                    <section *ngIf="userGame[sp+'Contact'] && userGame[sp+'Contact'].id == 0">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}FirstName"
+                                       required
+                                       [(ngModel)]="newContacts[sp].firstName" name="newContacts{{sp}}FirstName"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}FirstName">Prénom</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}LastName"
+                                       [(ngModel)]="newContacts[sp].lastName" name="newContacts{{sp}}LastName"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}LastName">Nom</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}Nickame"
+                                       [(ngModel)]="newContacts[sp].nickname" name="newContacts{{sp}}Nickame"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}Nickame">Pseudo</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}Email"
+                                       [(ngModel)]="newContacts[sp].email" name="newContacts{{sp}}Email"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}Email">E-mail</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}Phone"
+                                       [(ngModel)]="newContacts[sp].phone" name="newContacts{{sp}}Phone"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}Phone">Téléphone</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}Address"
+                                       [(ngModel)]="newContacts[sp].address" name="newContacts{{sp}}Address"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}Address">Adresse</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}Zipcode"
+                                       [(ngModel)]="newContacts[sp].zipcode" name="newContacts{{sp}}Zipcode"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}Zipcode">Code Postal</label>
+                            </div>
+                            <div class="col-md-3">
+                                <input type="text" id="newContacts{{sp}}City"
+                                       [(ngModel)]="newContacts[sp].city" name="newContacts{{sp}}City"
+                                       #name="ngModel">
+                                <span class="bar"></span>
+                                <label for="newContacts{{sp}}City">Ville</label>
+                            </div>
+                        </div>
+                    </section>
+
+                </section>
+
+                <hr/>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <textarea id="note"
+                                  [(ngModel)]="userGame.note" name="note"
+                                  #name="ngModel"></textarea>
+                        <span class="bar"></span>
+                        <label for="note">Notes</label>
+
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success" *ngIf="postUserGameForm"
+                                [disabled]="!postUserGameForm.form.valid">Sauvegarder
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

@@ -20,11 +20,11 @@
                        #name="ngModel"
                        autocomplete="off">
                 <span class="bar"></span>
-                <div [hidden]="name.valid || name.pristine"
-                     class="text-danger">
-                    You should probably type some keywords...
-                </div>
-                <button type="submit" class="btn btn-success" [disabled]="!searchForm.form.valid">Rechercher via IGDB.com</button>
+                <button type="submit"
+                        class="btn btn-success"
+                        [disabled]="slimLoadingBarService.visible">
+                    <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.visible ? 'fa-spin' : ''"></i>
+                    Rechercher via IGDB.com</button>
             </form>
         </div>
     </div>

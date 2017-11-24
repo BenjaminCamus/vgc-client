@@ -7,6 +7,7 @@ import {GameService}       from '../../_services/game.service';
 import {UserGame} from "../../_models/userGame";
 import {Company} from "../../_models/company";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
+import {Platform} from "../../_models/platform";
 
 @Component({
     moduleId: module.id,
@@ -28,8 +29,10 @@ export class GamesComponent implements OnInit {
     errorMessage: string;
     userGames: UserGame[] = [];
     userGameFilter: UserGame = new UserGame();
+    platformTags: Platform[] = [];
     developerTags: Company[] = [];
     publisherTags: Company[] = [];
+    platformCount: number[] = [];
     developerCount: number[] = [];
     publisherCount: number[] = [];
 
@@ -88,6 +91,17 @@ export class GamesComponent implements OnInit {
 
         for (let userGame of this.userGames) {
 
+            // Platform
+            if (deepIndexOf(this.platformTags, userGame.platform) < 0) {
+
+                this.platformTags.push(userGame.platform);
+                this.platformCount[userGame.platform.id] = 0;
+            }
+
+            this.platformCount[userGame.platform.id]++;
+
+
+            // Developers
             if (userGame.game.developers && userGame.game.developers.length > 0) {
 
                 for (let developer of userGame.game.developers) {
@@ -102,8 +116,7 @@ export class GamesComponent implements OnInit {
                 }
             }
 
-            this.developerTags.sort(orderByCount(this.developerCount));
-
+            // Publishers
             if (userGame.game.publishers && userGame.game.publishers.length > 0) {
 
                 for (let publisher of userGame.game.publishers) {
@@ -117,9 +130,12 @@ export class GamesComponent implements OnInit {
                     this.publisherCount[publisher.id]++;
                 }
             }
-
-            this.publisherTags.sort(orderByCount(this.publisherCount));
         }
+
+        // orderByCount
+        this.platformTags.sort(orderByCount(this.platformCount));
+        this.developerTags.sort(orderByCount(this.developerCount));
+        this.publisherTags.sort(orderByCount(this.publisherCount));
     }
 
 
@@ -127,15 +143,25 @@ export class GamesComponent implements OnInit {
 
         switch (type) {
 
+            case 'platform':
+
+                if (active) {
+                    this.userGameFilter.addPlatform(tag);
+                }
+                else {
+                    this.userGameFilter.removePlatform(tag);
+                }
+                break;
+
             case 'developer':
             case 'publisher':
 
-                    if (active) {
-                        this.userGameFilter.game.addCompany(type, tag);
-                    }
-                    else {
-                        this.userGameFilter.game.removeCompany(type, tag);
-                    }
+                if (active) {
+                    this.userGameFilter.game.addCompany(type, tag);
+                }
+                else {
+                    this.userGameFilter.game.removeCompany(type, tag);
+                }
                 break;
         }
     }

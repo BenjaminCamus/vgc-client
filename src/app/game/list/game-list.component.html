@@ -15,6 +15,13 @@
 
     <div class="row" *ngIf="!loading" style="padding-bottom: 15px">
         <div class="col-md-3">
+            <label for="name">Platforme</label><br>
+            <tag *ngFor="let platform of platformTags;"
+                 [tag]="platform.name"
+                 [suffix]="platformCount[platform.id]"
+                 (uploaded)="toggleTag('platform', $event, platform)"></tag>
+        </div>
+        <div class="col-md-3">
             <label for="name">Développeur</label><br>
             <tag *ngFor="let developer of developerTags;"
                  [tag]="developer.name"

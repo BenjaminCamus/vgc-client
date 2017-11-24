@@ -20,6 +20,19 @@ export class FilterPipe implements PipeTransform {
 
         }).filter(item => {
             /**
+             * Platform
+             */
+            if (filter.platforms && filter.platforms.length > 0) {
+                if (deepIndexOf(filter.platforms, item.platform) > -1) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return true;
+        }).filter(item => {
+            /**
              * Developers
              */
             if (filter.game.developers && filter.game.developers.length > 0) {

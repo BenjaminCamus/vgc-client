@@ -1,4 +1,6 @@
 import {Component, Renderer, Input, OnInit} from '@angular/core';
+import {FormGroup, FormBuilder} from '@angular/forms';
+import {CustomValidators} from 'ng2-validation';
 import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
 
 import {Game}    from '../../_models/game';
@@ -10,6 +12,14 @@ import {Platform} from "../../_models/platform";
 import {Place} from "../../_models/place";
 import {orderByName} from "../../functions";
 import {Contact, NewContact} from "../../_models/contact";
+
+function validatePrice(fc) {
+    let val = fc.value;
+    if (!val || val == '' || CustomValidators.digits(fc) === null) {
+        return null;
+    }
+    return {invalidPrice: true};
+}
 
 @Component({
     moduleId: module.id,
@@ -23,6 +33,8 @@ export class GameFormComponent implements OnInit {
     @Input() platform: Platform;
     userGame: UserGame;
     userContacts: Contact[];
+
+    validateUserGameForm: FormGroup;
 
     newContact = NewContact;
     newContacts = {
@@ -39,7 +51,17 @@ export class GameFormComponent implements OnInit {
     constructor(private gameService: GameService,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
-                private router: Router,) {
+                private router: Router,
+                private fb: FormBuilder,
+    ) {
+        this.validateUserGameForm = fb.group({
+            'rating':  ['', [CustomValidators.range([0, 20])]],
+            'priceAsked':  ['', [validatePrice]],
+            'pricePaid':  ['', [validatePrice]],
+            'priceResale':  ['', [validatePrice]],
+            'priceSold':  ['', [validatePrice]],
+            'date':  ['', [CustomValidators.date]]
+        });
     }
 
     ngOnInit(): void {
@@ -48,6 +70,7 @@ export class GameFormComponent implements OnInit {
         //     this.userGame = JSON.parse(localStorage.getItem('newUserGame'));
         // }
         // else {
+        console.log(this.platform);
             this.userGame = new UserGame();
         // }
 

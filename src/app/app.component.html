@@ -1,11 +1,8 @@
-<nav id="topnav">
+<nav id="topnav" *ngIf="currentUser && currentUser.username">
 
   <div class="appTitle">{{title}}</div>
-
   <i id="nav-icon" class="hovicon fa fa-bars" onclick="sideNav('left')"></i>
-
-  <span *ngIf="!currentUser || !currentUser.username"><a routerLink="/login">Connexion</a> • <a routerLink="/login">Inscription</a></span>
-  <span *ngIf="currentUser && currentUser.username">{{currentUser.username}}</span>
+  <span>{{currentUser.username}}</span>
 
   <!--<i *ngIf="currentUser && currentUser.username" id="nav-icon-right" class="hovicon fa fa-search" onclick="sideNav('right')"></i>-->
 </nav>

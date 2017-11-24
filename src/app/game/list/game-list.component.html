@@ -58,6 +58,19 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-md-12">
+                            {{ userGame.platform.name }}
+                            <br>
+                            <span *ngIf="userGame.game.developers[0]">{{ userGame.game.developers[0].name }}</span>
+                            <br>
+                            {{ userGame.version }}
+                            <span *ngIf="userGame.box && userGame.manual">Complet</span>
+                            <span *ngIf="userGame.box && !userGame.manual">Boîte sans livret</span>
+                            <span *ngIf="!userGame.box && userGame.manual">Livret sans boîte</span>
+                            <span *ngIf="!userGame.box && !userGame.manual">Loose</span>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-6">
                             Demandé {{ userGame.priceAsked }}€
                         </div>

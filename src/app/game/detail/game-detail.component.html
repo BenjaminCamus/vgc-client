@@ -85,9 +85,9 @@
                         </div>
                         <div>
                             <label>État</label>
-                            <tag *ngIf="userGame.box && userGame.manual" [tag]="'CIB (Complete In Box)'"></tag>
-                            <tag *ngIf="userGame.box && !userGame.manual" [tag]="'Box but No Manual'"></tag>
-                            <tag *ngIf="!userGame.box && userGame.manual" [tag]="'Manual but No Box'"></tag>
+                            <tag *ngIf="userGame.box && userGame.manual" [tag]="'Complet'"></tag>
+                            <tag *ngIf="userGame.box && !userGame.manual" [tag]="'Boîte sans livret'"></tag>
+                            <tag *ngIf="!userGame.box && userGame.manual" [tag]="'Livret sans boîte'"></tag>
                             <tag *ngIf="!userGame.box && !userGame.manual" [tag]="'Loose'"></tag>
                         </div>
                         <div *ngIf="userGame.rating">

@@ -8,6 +8,7 @@ import {GameService} from "../../_services/game.service";
 import {UserGame} from "../../_models/userGame";
 import {TagComponent} from "../../tag/tag.component";
 import {Platform} from "../../_models/platform";
+import {Contact} from "../../_models/contact";
 
 @Component({
     moduleId: module.id,
@@ -20,14 +21,17 @@ import {Platform} from "../../_models/platform";
 export class GameDetailComponent implements OnInit {
 
     @ViewChild('modal')
-    modal: ModalComponent;
-    errorMessage: string;
+    private modal: ModalComponent;
+    private errorMessage: string;
 
-    loading: boolean = true;
+    private loading: boolean = false;
 
     public orientation: string;
     private userGame: UserGame;
-    private gameIds = [456, 1245, 3265, 1235 , 32];
+    private userContacts: Contact[];
+    private selectedGame: Game = new Game();
+    private selectedPlatform: Object;
+    private update: number = 0;
 
     constructor (
         private gameService: GameService,
@@ -41,6 +45,7 @@ export class GameDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        // localStorage.clear();
         this.route.params.subscribe(params => {
             this.userGame = new UserGame();
             this.userGame.platform = new Platform();
@@ -50,8 +55,14 @@ export class GameDetailComponent implements OnInit {
 
             // In a real app: dispatch action to load the details here.
         });
-        // this.route.params
-        //     .switchMap((params: Params) => this.game.id = +params['id']);
+
+        if (localStorage.getItem('game/'+this.userGame.platform.slug+'/'+this.userGame.game.slug)) {
+            this.userGame = JSON.parse(localStorage.getItem('game/'+this.userGame.platform.slug+'/'+this.userGame.game.slug));
+        }
+        else {
+            this.loading = true;
+        }
+
         this.getGame();
     }
 
@@ -63,13 +74,20 @@ export class GameDetailComponent implements OnInit {
         this.gameService.getGame(this.userGame)
             .subscribe(
                 userGame => {
-                    console.log(userGame);
                     this.userGame = userGame;
+                    this.update++;
                     this.loading = false;
                     this.slimLoadingBarService.complete();
                 },
                 error =>  this.errorMessage = <any>error);
     };
+
+    editGame(): void {
+
+        this.selectedGame = this.userGame.game;
+        this.selectedPlatform = this.userGame.platform;
+        this.modal.open();
+    }
 
     // // I cycle to the next friend in the collection.
     // public showNextFriend() : void {

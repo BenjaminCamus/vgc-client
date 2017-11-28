@@ -6,7 +6,7 @@ import {Place} from "./place";
 export class UserGame {
     game: Game = new Game;
     platform: Platform = new Platform;
-    platforms: Platform[] = [];
+    platforms: Platform[];
 
     rating: number;
     box: boolean = true;
@@ -19,8 +19,8 @@ export class UserGame {
     priceResale: number;
     priceSold: number;
 
-    purchaseDate: Object;
-    saleDate: Object;
+    purchaseDate: Date;
+    saleDate: Date;
 
     purchasePlace: Place;
     salePlace: Place;

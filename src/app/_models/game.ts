@@ -3,6 +3,7 @@ import {Mode} from "./mode";
 import {Theme} from "./theme";
 import {Genre} from "./genre";
 import {Series} from "./series";
+import {Image} from "./image";
 
 export class Game {
     id: string;
@@ -11,14 +12,14 @@ export class Game {
     rating: number;
     igdbId: number;
     igdbUrl: string;
-    cover: Object;
+    cover: Image;
     series: Series;
     developers: Company[];
     publishers: Company[];
     modes: Mode[];
     themes: Theme[];
     genres: Genre[];
-    screenshots: Array<Object>;
+    screenshots: Array<Image>;
 
     // IGDB
     platform: Array<Object>;

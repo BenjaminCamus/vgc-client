@@ -1,6 +1,6 @@
 <div id="gameBanner">
-    <div *ngIf="games && games[0].screenshots" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinary_id + '.jpg)' | safe: 'style'"></div>
-    <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinary_id + '.jpg)' | safe: 'style'"></div>-->
+    <div *ngIf="games && games[0].screenshots" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+    <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>-->
 </div>
 
 <div class="container-fluid">
@@ -33,7 +33,7 @@
         <div class="col-md-12">
             <section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
                 <div class="gameCover" *ngIf="game.cover"
-                     [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinary_id + '.jpg)' | safe: 'style'"></div>
+                     [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
                 <div class=gameInfos>
                     <div class="gameTitle">
                         {{ game.name }}

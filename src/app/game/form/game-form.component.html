@@ -1,8 +1,8 @@
 <form (ngSubmit)="postUserGame()" #postUserGameForm="ngForm">
     <div id="gameBanner" *ngIf="game">
         <div *ngIf="game.screenshots"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + game.screenshots[0].cloudinary_id + '.jpg)' | safe: 'style'"></div>
-        <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinary_id + '.jpg)' | safe: 'style'"></div>-->
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+        <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinarIid + '.jpg)' | safe: 'style'"></div>-->
     </div>
 
     <div class="container-fluid">
@@ -10,10 +10,10 @@
             <div class="col-md-4" style="text-align: center;">
 
                 <img id="gameCover" *ngIf="game.cover"
-                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.cloudinary_id}}.jpg"/>
+                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.cloudinaryId}}.jpg"/>
                 <div>
                     <img width="50" height="50" *ngFor="let sc of game.screenshots;"
-                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinary_id}}.jpg"
+                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
                          style="margin: 5px;"/>
                 </div>
             </div>
@@ -24,7 +24,8 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <select id="selectedPlatform"
+                        <input *ngIf="!game.platform" disabled type="text" [value]="userGame.platform.name"/>
+                        <select *ngIf="game.platform" id="selectedPlatform"
                                 required
                                 [(ngModel)]="platform" name="platform"
                                 #name="ngModel">
@@ -118,12 +119,14 @@
                             <label for="priceSold">Prix vendu</label>
                         </div>
                         <div class="col-md-6">
-                            <input type="text" id="{{ sp }}Date"
+                            <input id="{{ sp }}Date"
                                    [required]="sp == 'purchase'"
-                                   [(ngModel)]="userGame[sp+'Date']"
-                                   [formControl]="validateUserGameForm.get('date')">
+                                   [formControl]="validateUserGameForm.get(sp+'Date')"
+                                   type="date"
+                                   [ngModel]="userGame[sp+'Date'] | date:'yyyy-MM-dd'"
+                                   (ngModelChange)="updateDate($event,sp)"/>
                             <span class="bar"></span>
-                            <label for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                            <label for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}} {{userGame.purchaseDate | date: 'dd/MM/y'}}</label>
                         </div>
                     </div>
 
@@ -235,7 +238,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success" *ngIf="postUserGameForm"
-                                [disabled]="!postUserGameForm.form.valid">Sauvegarder
+                                [disabled]="!postUserGameForm.form.valid || !validateUserGameForm.valid">Sauvegarder
                         </button>
                     </div>
                 </div>

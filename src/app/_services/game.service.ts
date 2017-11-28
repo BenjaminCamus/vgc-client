@@ -45,8 +45,25 @@ export class GameService {
     getUserGames(): Observable<UserGame[]> {
 
         return this.http.get(this.url + 'user/games', {headers: this.headers})
-            .map(response => response.json() as Game[])
+            .map(response => {
+                var res = response.json();
+                for (let key in res) {
+                    res[key] = this.setDates(res[key]);
+                }
+                return res as UserGame[];
+            })
+            //.map(response => response.json() as UserGame[])
             .catch(this.errorService.handleError.bind(this));
+    }
+
+    setDates(userGame) {
+
+        userGame.purchaseDate = new Date(userGame.purchaseDate.timestamp * 1000);
+        if (userGame.saleDate) {
+            userGame.saleDate = new Date(userGame.saleDate.timestamp * 1000);
+        }
+
+        return userGame;
     }
 
     getUserContacts(): Observable<Contact[]> {
@@ -77,6 +94,7 @@ export class GameService {
             .get(url, {headers: headers})
             .map(response => {
                 var res = response.json();
+                res = this.setDates(res);
                 return res as UserGame;
             })
             .catch(this.errorService.handleError.bind(this));
@@ -94,7 +112,7 @@ export class GameService {
 
     igdbSearch(search: string): Observable<Game[]> {
         return this.http
-            .get(this.igdbUrl + 'games/?search=' + encodeURIComponent(search) + '&fields=*&limit=' + (this.searchLimit+3), {headers: this.igdbHeaders})
+            .get(this.igdbUrl + 'games/?search=' + encodeURIComponent(search) + '&fields=*&limit=' + (this.searchLimit + 3), {headers: this.igdbHeaders})
             .map((res: any) => res.json() as Game[])
             .flatMap((games: Game[]) => {
 
@@ -143,6 +161,15 @@ export class GameService {
 
                                         game.platform.push(platform);
                                         //console.log(game);
+                                        if (game.cover) {
+                                            game.cover.cloudinaryId = game.cover.cloudinary_id;
+                                        }
+                                        if (game.screenshots && game.screenshots.length > 0) {
+                                            for (let key in game.screenshots) {
+                                                game.screenshots[key].cloudinaryId = game.screenshots[key].cloudinary_id;
+                                            }
+                                        }
+
                                         return game;
                                     })
                             );

@@ -91,6 +91,9 @@ export class GamesComponent implements OnInit {
 
         for (let userGame of this.userGames) {
 
+            // userGame local storage
+            localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
+
             // Platform
             if (deepIndexOf(this.platformTags, userGame.platform) < 0) {
 

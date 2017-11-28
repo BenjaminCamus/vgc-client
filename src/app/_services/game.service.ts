@@ -144,7 +144,6 @@ export class GameService {
                                     .get(this.igdbUrl + 'platforms/' + platformId + '?fields=id,name,slug', {headers: this.igdbHeaders})
                                     .map((res: any) => {
 
-                                        //console.log('platformObservable');
                                         let platform: any = res.json();
                                         platform = platform[0];
 
@@ -160,7 +159,7 @@ export class GameService {
                                         platform.name = platform.name.replace('Sega Mega Drive/Genesis', 'Mega Drive');
 
                                         game.platform.push(platform);
-                                        //console.log(game);
+
                                         if (game.cover) {
                                             game.cover.cloudinaryId = game.cover.cloudinary_id;
                                         }

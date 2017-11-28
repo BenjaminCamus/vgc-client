@@ -68,9 +68,8 @@ export class GameDetailComponent implements OnInit {
 
 
     getGame() {
-        this.slimLoadingBarService.start(() => {
-            //console.log('Loading complete');
-        });
+        this.slimLoadingBarService.start();
+
         this.gameService.getGame(this.userGame)
             .subscribe(
                 userGame => {

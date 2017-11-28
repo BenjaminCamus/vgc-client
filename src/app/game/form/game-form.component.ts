@@ -41,12 +41,11 @@ export class GameFormComponent implements OnInit {
     }
 
     updateSelects() {
-        console.log('updateSelects');
+
         if (this.userContacts) {
             if (this.userGame.purchaseContact) {
                 this.userGame.purchaseContact = this.userContacts.find(contact => contact.id === this.userGame.purchaseContact.id);
             }
-            console.log(this.userGame.purchaseContact);
             if (this.userGame.saleContact) {
                 this.userGame.saleContact = this.userContacts.find(contact => contact.id === this.userGame.saleContact.id);
             }

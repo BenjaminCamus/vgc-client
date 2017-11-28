@@ -58,9 +58,7 @@ export class GamesComponent implements OnInit {
 
             this.loading = true;
 
-            this.slimLoadingBarService.start(() => {
-                //console.log('Loading complete');
-            });
+            this.slimLoadingBarService.start();
 
             this.developerTags = [];
             this.publisherTags = [];

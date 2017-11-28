@@ -51,9 +51,7 @@ export class GameNewComponent {
     onSubmit() {
         localStorage.setItem('newGameSearch', this.model.name);
 
-        this.slimLoadingBarService.start(() => {
-            //console.log('Loading complete');
-        });
+        this.slimLoadingBarService.start();
         this.gameService.igdbSearch(this.model.name)
             .subscribe(
                 games => {
@@ -72,16 +70,6 @@ export class GameNewComponent {
         this.selectedGame = game;
         this.selectedPlatform = platform;
         this.modal.open();
-
-        // this.gameService.getGame(game)
-        //     .subscribe(
-        //         game => {
-        //             this.selectedGame = game;
-        //             console.log(this.selectedGame);
-        //             this.selectedGame.selectedPlatform = platform;
-        //             this.modal.open();
-        //             this.slimLoadingBarService.complete();},
-        //         error =>  this.errorMessage = <any>error);
     }
 
 }

@@ -66,26 +66,3 @@ export class FilterPipe implements PipeTransform {
         });
     }
 }
-
-// export class FilterPipe implements PipeTransform {
-//     transform(items: UserGame[], filter: UserGame): Array<any> {
-//         return items.filter(item => {
-//             console.log(item.game.name);
-//             console.log(filter.game.name);
-//             if (item.game.name.includes(filter.game.name)) {
-//                 return true;
-//             }
-//
-//             // let notMatchingField = Object.keys(filter)
-//             //     .find(key => {
-//             //         // console.log('__________');
-//             //         // console.log(key);
-//             //         // console.log(item);
-//             //         // console.log(filter);
-//             //         return item[key] !== filter[key];
-//             //     });
-//             //
-//             // return !notMatchingField; // true if matches all fields
-//         });
-//     }
-// }

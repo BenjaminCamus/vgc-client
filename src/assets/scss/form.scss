@@ -16,7 +16,7 @@ input, textarea, select {
   margin-top: 30px;
   resize: none;
 }
-input[type=text], input[type=password], textarea, select {
+input[type=text], input[type=date], input[type=password], textarea, select {
   display:block;
   background: rgba(0,0,0,.9);
   padding:10px 10px 10px 5px;
@@ -43,7 +43,7 @@ label  {
   height: 20px;
   margin-top: 10px;
 }
-input[type=text] ~ label, input[type=password] ~ label, select ~ label  {
+input[type=text] ~ label, input[type=date] ~ label, input[type=password] ~ label, select ~ label  {
   margin-top: -76px;
   position: absolute;
 }
@@ -51,7 +51,7 @@ textarea ~ label  {
   margin-top: -136px;
   position: absolute;
 }
-input[type=text]:focus ~ label, input[type=password]:focus ~ label, select:focus ~ label,
+input[type=text]:focus ~ label, input[type=date]:focus ~ label, input[type=password]:focus ~ label, select:focus ~ label,
 input[type=checkbox]:checked ~ label, input[type=radio][checked] ~ label {
   color: white;
 }

@@ -6,5 +6,5 @@
 export const environment = {
   production: false,
   vgcApiUrl: 'http://api.vgc.local/',
-  mashapeKey: 'YOUR_MASHAPE_KEY',
+  igdbKey: 'YOUR_IGDB_KEY',
 };

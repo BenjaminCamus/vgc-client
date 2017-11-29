@@ -8,6 +8,7 @@ import {UserGame} from "../../_models/userGame";
 import {Company} from "../../_models/company";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
 import {Platform} from "../../_models/platform";
+import {UserGameFilter} from "../../_models/userGameFilter";
 
 @Component({
     moduleId: module.id,
@@ -28,7 +29,7 @@ export class GamesComponent implements OnInit {
 
     errorMessage: string;
     userGames: UserGame[] = [];
-    userGameFilter: UserGame = new UserGame();
+    userGameFilter: UserGameFilter = new UserGameFilter();
     platformTags: Platform[] = [];
     developerTags: Company[] = [];
     publisherTags: Company[] = [];

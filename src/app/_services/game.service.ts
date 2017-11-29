@@ -30,9 +30,9 @@ export class GameService {
         'Content-Type': 'application/json'
     });
 
-    private igdbUrl = 'https://igdbcom-internet-game-database-v1.p.mashape.com/';
+    private igdbUrl = 'https://api-2445582011268.apicast.io/';
     private igdbHeaders = new Headers({
-        'X-Mashape-Key': environment.mashapeKey,
+        'user-key': environment.igdbKey,
         'Accept': 'application/json'
     });
 
@@ -112,7 +112,7 @@ export class GameService {
 
     igdbSearch(search: string): Observable<Game[]> {
         return this.http
-            .get(this.igdbUrl + 'games/?search=' + encodeURIComponent(search) + '&fields=*&limit=' + (this.searchLimit + 3), {headers: this.igdbHeaders})
+            .get(this.url + 'igdb/search/' + encodeURIComponent(search), {headers: this.headers})
             .map((res: any) => res.json() as Game[])
             .flatMap((games: Game[]) => {
 
@@ -141,7 +141,7 @@ export class GameService {
 
                             platformObservable.push(
                                 this.http
-                                    .get(this.igdbUrl + 'platforms/' + platformId + '?fields=id,name,slug', {headers: this.igdbHeaders})
+                                    .get(this.url + 'igdb/platform/' + platformId, {headers: this.headers})
                                     .map((res: any) => {
 
                                         let platform: any = res.json();

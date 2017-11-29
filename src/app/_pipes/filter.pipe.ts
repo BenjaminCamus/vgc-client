@@ -1,6 +1,7 @@
 import {Pipe, PipeTransform} from '@angular/core';
 import {UserGame} from "../_models/userGame";
 import {deepIndexOf} from "../functions";
+import {UserGameFilter} from "../_models/userGameFilter";
 
 @Pipe({
     name: 'filter',
@@ -8,7 +9,7 @@ import {deepIndexOf} from "../functions";
 })
 
 export class FilterPipe implements PipeTransform {
-    transform(items: UserGame[], filter: UserGame): Array<any> {
+    transform(items: UserGame[], filter: UserGameFilter): Array<any> {
         return items.filter(item => {
             /**
              * Title

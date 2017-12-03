@@ -69,7 +69,9 @@ h1 {
   text-shadow: 2px 2px black;
   background: rgba(0,0,0,.5);
   padding-left: 15px;
+  padding-right: 15px;
   margin-left: -15px;
+  margin-right: -15px;
   overflow: hidden;
   white-space: nowrap;
 }
@@ -140,6 +142,59 @@ hr {
 
 .nav-tabs, .nav-tabs > li > a, .nav-pills > li > a, .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
   border: 0;
+}
+
+.filters {
+  position: absolute;
+  overflow: hidden;
+  z-index: 1;
+  background-color: rgba(0,0,0,.9);
+  height: 0;
+  opacity: 0;
+  padding: 0;
+  margin: 0 30px;
+  animation: FadeOut 1s ease-in-out;
+}
+.filters.on {
+  height: initial;
+  opacity: 1;
+  padding: 15px;
+  margin: 95px 30px;
+  animation: FadeIn 1s ease-in-out;
+}
+@keyframes FadeIn {
+  0% {
+    height: initial;
+    padding: 15px;
+    opacity: 0;
+    margin: 0 30px;
+  }
+  100% {
+    height: initial;
+    padding: 15px;
+    opacity: 1;
+    margin: 95px 30px;
+  }
+}
+@keyframes FadeOut {
+  0% {
+    height: initial;
+    padding: 15px;
+    opacity: 1;
+    margin: 95px 30px;
+  }
+  99% {
+    height: initial;
+    padding: 15px;
+    opacity: 0;
+    margin: 0 30px;
+  }
+  100% {
+    height: 0;
+    padding: 0;
+    opacity: 0;
+    margin: 0 30px;
+  }
 }
 
 //label {

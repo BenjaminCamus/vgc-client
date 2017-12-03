@@ -30,6 +30,7 @@ export class GamesComponent implements OnInit {
     errorMessage: string;
     userGames: UserGame[] = [];
     userGameFilter: UserGameFilter = new UserGameFilter();
+    displayFilters: boolean = false;
     platformTags: Platform[] = [];
     developerTags: Company[] = [];
     publisherTags: Company[] = [];

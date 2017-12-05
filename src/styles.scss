@@ -67,7 +67,7 @@ h1 {
   margin-top: 0;
   line-height: 70px;
   text-shadow: 2px 2px black;
-  background: rgba(0,0,0,.5);
+  background: rgba(0, 0, 0, .5);
   padding-left: 15px;
   padding-right: 15px;
   margin-left: -15px;
@@ -87,12 +87,14 @@ div.appTitle {
 
 #topnav div.appTitle {
   position: absolute;
-  margin: -70px 0 auto;
-  width: 100%;
+  font-size: 50px;
+  opacity: 0.2;
+  text-align: right;
+  right: 15px;
 }
 
 hr {
-  border: 1px rgba(255,255,255,.2) dashed;
+  border: 1px rgba(255, 255, 255, .2) dashed;
 }
 
 .nav > li > a:focus, .nav > li > a:hover {
@@ -126,11 +128,13 @@ hr {
 .modal-body {
   padding: 0;
 }
+
 .close {
   opacity: 0.5;
   color: white;
   font-weight: normal;
 }
+
 .close:hover {
   opacity: 1;
 }
@@ -148,13 +152,14 @@ hr {
   position: absolute;
   overflow: hidden;
   z-index: 1;
-  background-color: rgba(0,0,0,.9);
+  background-color: rgba(0, 0, 0, .9);
   height: 0;
   opacity: 0;
   padding: 0;
   margin: 0 30px;
   animation: FadeOut 1s ease-in-out;
 }
+
 .filters.on {
   height: initial;
   opacity: 1;
@@ -162,6 +167,7 @@ hr {
   margin: 95px 30px;
   animation: FadeIn 1s ease-in-out;
 }
+
 @keyframes FadeIn {
   0% {
     height: initial;
@@ -176,6 +182,7 @@ hr {
     margin: 95px 30px;
   }
 }
+
 @keyframes FadeOut {
   0% {
     height: initial;

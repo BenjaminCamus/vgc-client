@@ -39,8 +39,8 @@
                         {{ game.name }}
                     </div>
 
-                    <section *ngIf="game.platform">
-                        <button *ngFor="let p of game.platform" (click)="onSelect(game, p)" class="btn btn-sm btn-primary">
+                    <section *ngIf="game.platforms">
+                        <button *ngFor="let p of game.platforms" (click)="onSelect(game, p)" class="btn btn-sm btn-primary">
                             {{p.name}}
                         </button>
                     </section>

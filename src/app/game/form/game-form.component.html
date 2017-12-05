@@ -24,12 +24,12 @@
 
                 <div class="row">
                     <div class="col-md-3">
-                        <input *ngIf="!game.platform" disabled type="text" [value]="userGame.platform.name"/>
-                        <select *ngIf="game.platform" id="selectedPlatform"
+                        <input *ngIf="!game.platforms" disabled type="text" [value]="userGame.platform.name"/>
+                        <select *ngIf="game.platforms" id="selectedPlatform"
                                 required
                                 [(ngModel)]="platform" name="platform"
                                 #name="ngModel">
-                            <option *ngFor="let p of game.platform" [ngValue]="p">{{p.name}}</option>
+                            <option *ngFor="let p of game.platforms" [ngValue]="p">{{p.name}}</option>
                         </select>
                         <span class="bar"></span>
                         <label for="selectedPlatform">Plateforme</label>

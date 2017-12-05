@@ -30,12 +30,6 @@ export class GameService {
         'Content-Type': 'application/json'
     });
 
-    private igdbUrl = 'https://api-2445582011268.apicast.io/';
-    private igdbHeaders = new Headers({
-        'user-key': environment.igdbKey,
-        'Accept': 'application/json'
-    });
-
     constructor(private http: Http,
                 private authenticationService: AuthenticationService,
                 private router: Router,
@@ -81,14 +75,8 @@ export class GameService {
     }
 
     getGame(userGame: UserGame, igdb: boolean = false): Observable<UserGame> {
-        if (igdb) {
-            var url = this.igdbUrl + 'games/' + userGame.game.id + '?fields=*';
-            var headers = this.igdbHeaders;
-        }
-        else {
-            var url = this.url + 'user/games/' + userGame.platform.slug + '/' + userGame.game.slug;
-            var headers = this.headers;
-        }
+        var url = this.url + 'user/games/' + userGame.platform.slug + '/' + userGame.game.slug;
+        var headers = this.headers;
 
         return this.http
             .get(url, {headers: headers})
@@ -113,72 +101,9 @@ export class GameService {
     igdbSearch(search: string): Observable<Game[]> {
         return this.http
             .get(this.url + 'igdb/search/' + encodeURIComponent(search), {headers: this.headers})
-            .map((res: any) => res.json() as Game[])
-            .flatMap((games: Game[]) => {
-
-                if (games.length > 0) {
-
-                    var platformObservable = [];
-
-                    games.map((game: Game) => {
-                        if (!game.release_dates || !game.cover) {
-                            return Observable.of([]);
-                        }
-
-                        var platformIds = [];
-
-                        for (var rd in game.release_dates) {
-                            platformIds.push(game.release_dates[rd].platform);
-                        }
-                        platformIds = platformIds.filter(function (elem, index, self) {
-                            return index == self.indexOf(elem);
-                        });
-
-                        game.platform = [];
-
-                        for (var p in platformIds) {
-                            var platformId = platformIds[p];
-
-                            platformObservable.push(
-                                this.http
-                                    .get(this.url + 'igdb/platform/' + platformId, {headers: this.headers})
-                                    .map((res: any) => {
-
-                                        let platform: any = res.json();
-                                        platform = platform[0];
-
-                                        platform.name = platform.name.replace('PC (Microsoft Windows)', 'Windows');
-                                        platform.name = platform.name.replace('PlayStation Portable', 'PSP');
-                                        platform.name = platform.name.replace('PlayStation Network', 'PSN');
-                                        platform.name = platform.name.replace('Nintendo GameCube', 'GameCube');
-                                        platform.name = platform.name.replace('Sega Saturn', 'Saturn');
-                                        platform.name = platform.name.replace('Super Nintendo Entertainment System (SNES)', 'Super Nintendo');
-                                        platform.name = platform.name.replace('Nintendo Entertainment System (NES)', 'NES');
-                                        platform.name = platform.name.replace('Sega Master System', 'Master System');
-                                        platform.name = platform.name.replace('Sega Game Gear', 'Game Gear');
-                                        platform.name = platform.name.replace('Sega Mega Drive/Genesis', 'Mega Drive');
-
-                                        game.platform.push(platform);
-
-                                        if (game.cover) {
-                                            game.cover.cloudinaryId = game.cover.cloudinary_id;
-                                        }
-                                        if (game.screenshots && game.screenshots.length > 0) {
-                                            for (let key in game.screenshots) {
-                                                game.screenshots[key].cloudinaryId = game.screenshots[key].cloudinary_id;
-                                            }
-                                        }
-
-                                        return game;
-                                    })
-                            );
-                        }
-                    });
-
-                    return Observable.forkJoin(platformObservable);
-                }
-
-                return Observable.of([]);
+            .map(response => {
+                var games = response.json();
+                return games as Game[];
             })
             .catch(this.errorService.handleError.bind(this));
     }

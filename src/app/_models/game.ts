@@ -22,8 +22,7 @@ export class Game {
     screenshots: Array<Image>;
 
     // IGDB
-    platform: Array<Object>;
-    release_dates;
+    platforms: Array<Object>;
 
     constructor(name: string = '') {
         this.name = name;

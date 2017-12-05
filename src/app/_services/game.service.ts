@@ -93,6 +93,7 @@ export class GameService {
             .post(this.url + 'user/games/add', JSON.stringify(userGame), {headers: this.headers})
             .map(response => {
                 var res = response.json();
+                res = this.setDates(res);
                 return res as UserGame;
             })
             .catch(this.errorService.handleError.bind(this));

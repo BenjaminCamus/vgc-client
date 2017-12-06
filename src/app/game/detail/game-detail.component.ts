@@ -9,14 +9,15 @@ import {UserGame} from "../../_models/userGame";
 import {TagComponent} from "../../tag/tag.component";
 import {Platform} from "../../_models/platform";
 import {Contact} from "../../_models/contact";
+import {GameFormComponent} from "../form/game-form.component";
 
 @Component({
     moduleId: module.id,
-    providers: [ GameService, TagComponent ],
+    providers: [GameService, TagComponent, GameFormComponent],
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': 'orientation', class: 'mainPage'},
+    host: {'[@routerTransition]': 'orientation', class: 'mainPage'}
 })
 export class GameDetailComponent implements OnInit {
 
@@ -86,6 +87,10 @@ export class GameDetailComponent implements OnInit {
         this.selectedGame = this.userGame.game;
         this.selectedPlatform = this.userGame.platform;
         this.modal.open();
+    }
+
+    formStateUpdate(event) {
+        this.modal.close();
     }
 
     // // I cycle to the next friend in the collection.

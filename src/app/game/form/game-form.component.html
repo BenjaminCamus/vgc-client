@@ -126,7 +126,7 @@
                                    [ngModel]="userGame[sp+'Date'] | date:'yyyy-MM-dd'"
                                    (ngModelChange)="updateDate($event,sp)"/>
                             <span class="bar"></span>
-                            <label for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}} {{userGame.purchaseDate | date: 'dd/MM/y'}}</label>
+                            <label for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
                         </div>
                     </div>
 

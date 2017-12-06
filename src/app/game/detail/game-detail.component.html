@@ -172,7 +172,7 @@
         <h4 class="modal-title">Edit Game</h4>
     </modal-header>
     <modal-body>
-        <game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update"></game-form>
+        <game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update" (state)="formStateUpdate($event)"></game-form>
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>

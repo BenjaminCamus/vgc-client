@@ -1,4 +1,4 @@
-import {Component, Renderer, Input, OnInit} from '@angular/core';
+import {Component, Renderer, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
@@ -60,6 +60,9 @@ export class GameFormComponent implements OnInit {
             }
         }
     }
+
+    @Output()
+    state:EventEmitter<string> = new EventEmitter();
 
     validateUserGameForm: FormGroup;
 
@@ -156,6 +159,7 @@ export class GameFormComponent implements OnInit {
                     localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
 
                     this.router.navigate(['/game', userGame.platform.slug, userGame.game.slug]);
+                    this.state.emit('ok');
                     this.slimLoadingBarService.complete();
                 },
                 error => this.errorMessage = <any>error);

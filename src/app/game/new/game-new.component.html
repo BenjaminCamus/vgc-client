@@ -1,6 +1,5 @@
 <div id="gameBanner">
     <div *ngIf="games && games[0].screenshots" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-    <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>-->
 </div>
 
 <div class="container-fluid">

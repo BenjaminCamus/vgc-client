@@ -24,6 +24,7 @@
   width: 100%;
   display: block;
   height: 25vh;
+  margin-top: -70px;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -34,8 +35,11 @@
   height: calc(50vh - 70px);
 }
 
+.modal-body #gameBanner div {
+  margin-top: 0;
+}
+
 #gameBanner.gameBannerBig div {
-  margin-top: -70px;
   height: 50vh;
 }
 
@@ -70,7 +74,7 @@
 
 .gameBox:hover {
   .gameCover {
-    height: 50%;
+    height: 30%;
     opacity: 0.1;
     filter: grayscale(100%);
   }

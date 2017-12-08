@@ -62,7 +62,7 @@ export class GameFormComponent implements OnInit {
     }
 
     @Output()
-    state:EventEmitter<string> = new EventEmitter();
+    state: EventEmitter<string> = new EventEmitter();
 
     validateUserGameForm: FormGroup;
 
@@ -73,22 +73,20 @@ export class GameFormComponent implements OnInit {
     };
 
     errorMessage: string;
-    submitted = false;
 
     constructor(private gameService: GameService,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
                 private router: Router,
-                private fb: FormBuilder,
-    ) {
+                private fb: FormBuilder,) {
         this.validateUserGameForm = fb.group({
-            'rating':  ['', [CustomValidators.range([0, 20])]],
-            'priceAsked':  ['', [validatePrice]],
-            'pricePaid':  ['', [validatePrice]],
-            'priceResale':  ['', [validatePrice]],
-            'priceSold':  ['', [validatePrice]],
-            'purchaseDate':  ['', [CustomValidators.date]],
-            'saleDate':  ['', [CustomValidators.date]]
+            'rating': ['', [CustomValidators.range([0, 20])]],
+            'priceAsked': ['', [validatePrice]],
+            'pricePaid': ['', [validatePrice]],
+            'priceResale': ['', [validatePrice]],
+            'priceSold': ['', [validatePrice]],
+            'purchaseDate': ['', [CustomValidators.date]],
+            'saleDate': ['', [CustomValidators.date]]
         });
     }
 
@@ -124,10 +122,10 @@ export class GameFormComponent implements OnInit {
 
     updateDate(e, sp) {
         if (!e) {
-            this.userGame[sp+'Date'] = null;
+            this.userGame[sp + 'Date'] = null;
         }
         else {
-            this.userGame[sp+'Date'] = new Date(e);
+            this.userGame[sp + 'Date'] = new Date(e);
         }
     }
 
@@ -155,7 +153,7 @@ export class GameFormComponent implements OnInit {
                 userGame => {
 
                     // userGame local storage
-                    localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
+                    localStorage.setItem('game/' + userGame.platform.slug + '/' + userGame.game.slug, JSON.stringify(userGame));
 
                     this.router.navigate(['/game', userGame.platform.slug, userGame.game.slug]);
                     this.state.emit('success');
@@ -163,7 +161,6 @@ export class GameFormComponent implements OnInit {
                 },
                 error => this.errorMessage = <any>error);
 
-        this.submitted = true;
 
     }
 

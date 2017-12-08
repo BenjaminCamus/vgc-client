@@ -1,4 +1,5 @@
-<div class="col-md-2 col-md-offset-5" style="background: black; margin-top: 30px">
+<div class="full">
+    <div>
 
     <h2 *ngIf="action == 'login'">Connexion</h2>
     <h2 *ngIf="action == 'register'">Inscription</h2>
@@ -36,4 +37,5 @@
         </div>
         <div *ngIf="error" class="alert alert-danger">{{error}}</div>
     </form>
+    </div>
 </div>

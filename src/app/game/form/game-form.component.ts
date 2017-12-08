@@ -72,7 +72,6 @@ export class GameFormComponent implements OnInit {
         'sale': new Contact()
     };
 
-    loading: boolean = false;
     errorMessage: string;
     submitted = false;
 
@@ -110,7 +109,6 @@ export class GameFormComponent implements OnInit {
             this.userContacts = JSON.parse(localStorage.getItem('userContacts'));
         }
         else {
-            this.loading = true;
             this.getContacts();
         }
 
@@ -135,6 +133,7 @@ export class GameFormComponent implements OnInit {
 
     postUserGame() {
         this.slimLoadingBarService.start();
+        this.state.emit('submitted');
 
         if (!this.userGame.game.igdbId) {
             this.userGame.game.igdbId = +this.game.id;
@@ -159,7 +158,7 @@ export class GameFormComponent implements OnInit {
                     localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
 
                     this.router.navigate(['/game', userGame.platform.slug, userGame.game.slug]);
-                    this.state.emit('ok');
+                    this.state.emit('success');
                     this.slimLoadingBarService.complete();
                 },
                 error => this.errorMessage = <any>error);
@@ -169,15 +168,13 @@ export class GameFormComponent implements OnInit {
     }
 
     getContacts() {
-        if (!this.loading) {
-            this.loading = true;
+        if (!this.slimLoadingBarService.visible) {
             this.gameService.getUserContacts()
                 .subscribe(
                     userContacts => {
                         // userContacts.sort(orderByName);
                         this.userContacts = userContacts;
                         localStorage.setItem('userContacts', JSON.stringify(this.userContacts));
-                        this.loading = false;
                     },
                     error => {
                         this.errorMessage = <any>error;

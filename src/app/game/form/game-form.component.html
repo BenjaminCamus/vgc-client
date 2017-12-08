@@ -238,7 +238,8 @@
                 <div class="row">
                     <div class="col-md-12">
                         <button type="submit" class="btn btn-success" *ngIf="postUserGameForm"
-                                [disabled]="!postUserGameForm.form.valid || !validateUserGameForm.valid">Sauvegarder
+                                [disabled]="!postUserGameForm.form.valid || !validateUserGameForm.valid || slimLoadingBarService.visible">
+                            Sauvegarder
                         </button>
                     </div>
                 </div>

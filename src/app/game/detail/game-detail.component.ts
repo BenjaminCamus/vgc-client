@@ -10,10 +10,11 @@ import {TagComponent} from "../../tag/tag.component";
 import {Platform} from "../../_models/platform";
 import {Contact} from "../../_models/contact";
 import {GameFormComponent} from "../form/game-form.component";
+import {LoadingComponent} from "../../loading/loading.component";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, TagComponent, GameFormComponent],
+    providers: [GameService, TagComponent, LoadingComponent, GameFormComponent],
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [routerTransition()],
@@ -33,6 +34,7 @@ export class GameDetailComponent implements OnInit {
     private selectedGame: Game = new Game();
     private selectedPlatform: Object;
     private update: number = 0;
+    private formLoading: boolean = false;
 
     constructor (
         private gameService: GameService,
@@ -83,7 +85,6 @@ export class GameDetailComponent implements OnInit {
     };
 
     editGame(): void {
-
         this.selectedGame = this.userGame.game;
         this.selectedPlatform = this.userGame.platform;
         this.modal.open();
@@ -91,6 +92,14 @@ export class GameDetailComponent implements OnInit {
 
     formStateUpdate(event) {
         this.modal.close();
+        switch (event) {
+            case 'submitted':
+                this.formLoading = true;
+                break;
+            case 'success':
+                this.formLoading = false;
+                break;
+        }
     }
 
     // // I cycle to the next friend in the collection.

@@ -55,6 +55,7 @@ export class GameNewComponent {
         this.gameService.igdbSearch(this.model.name)
             .subscribe(
                 games => {
+                    console.log(games);
                     games = games.filter(function (elem, index, self) {
                         return index == self.indexOf(elem);
                     });

@@ -26,8 +26,6 @@ export class GameNewComponent {
     selectedGame: Game = new Game();
     selectedPlatform: Object;
 
-    submitted = false;
-
     constructor(private gameService: GameService,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,) {
@@ -63,7 +61,6 @@ export class GameNewComponent {
                     this.games = games.slice(0,this.gameService.searchLimit).sort(orderByName);
                     this.slimLoadingBarService.complete();
                 });
-        this.submitted = true;
     }
 
     onSelect(game: Game, platform: Object): void {

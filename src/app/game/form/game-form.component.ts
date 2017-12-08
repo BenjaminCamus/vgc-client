@@ -117,7 +117,9 @@ export class GameFormComponent implements OnInit {
                     this.places = places;
                     this.updateSelects();
                 },
-                error => this.errorMessage = <any>error);
+                error => {
+                    this.errorMessage = <any>error;
+                });
     }
 
     updateDate(e, sp) {
@@ -159,7 +161,10 @@ export class GameFormComponent implements OnInit {
                     this.state.emit('success');
                     this.slimLoadingBarService.complete();
                 },
-                error => this.errorMessage = <any>error);
+                error => {
+                    this.slimLoadingBarService.complete();
+                    this.errorMessage = <any>error;
+                });
 
 
     }

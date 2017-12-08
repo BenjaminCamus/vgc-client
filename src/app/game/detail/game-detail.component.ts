@@ -81,7 +81,10 @@ export class GameDetailComponent implements OnInit {
                     this.loading = false;
                     this.slimLoadingBarService.complete();
                 },
-                error =>  this.errorMessage = <any>error);
+                error => {
+                    this.slimLoadingBarService.complete();
+                    this.errorMessage = <any>error;
+                });
     };
 
     editGame(): void {

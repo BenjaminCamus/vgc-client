@@ -53,13 +53,16 @@ export class GameNewComponent {
         this.gameService.igdbSearch(this.model.name)
             .subscribe(
                 games => {
-                    console.log(games);
                     games = games.filter(function (elem, index, self) {
                         return index == self.indexOf(elem);
                     });
 
                     this.games = games.slice(0,this.gameService.searchLimit).sort(orderByName);
                     this.slimLoadingBarService.complete();
+                },
+                error => {
+                    this.slimLoadingBarService.complete();
+                    this.errorMessage = <any>error;
                 });
     }
 

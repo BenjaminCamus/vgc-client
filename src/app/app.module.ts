@@ -17,6 +17,7 @@ import {TruncatePipe} from "./_pipes/truncate.pipe";
 import {InViewportModule} from "./_in-viewport/in-viewport.module";
 import {GameService} from "./_services/game.service";
 import {TagComponent} from "./tag/tag.component";
+import {LoadingComponent} from "./loading/loading.component";
 import {GamesComponent} from "./game/list/game-list.component";
 import {GameDetailComponent} from "./game/detail/game-detail.component";
 import {GameNewComponent} from "./game/new/game-new.component";
@@ -44,6 +45,7 @@ import {FormatNamePipe} from "./_pipes/formatName.pipe";
         AppComponent,
         LoginComponent,
         TagComponent,
+        LoadingComponent,
 
         GamesComponent,
         GameDetailComponent,

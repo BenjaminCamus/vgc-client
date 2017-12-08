@@ -1,0 +1,35 @@
+.full {
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2000;
+  overflow: hidden;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  text-align: center;
+}
+
+.full > div {
+  background: rgba(0, 0, 0, 0.5);
+  margin: 10% auto;
+  padding: 30px;
+}
+
+.full > div  > h1 {
+  background: none;
+  margin: 0;
+}
+
+
+login .full {
+  text-align: left;
+}
+
+login .full > div {
+  text-align: left;
+  width: 400px;
+  max-width: 90%;
+}

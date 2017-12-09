@@ -113,8 +113,6 @@ export class GamesComponent implements OnInit {
             if (maxP > maxPrice) {
                 maxPrice = maxP;
             }
-            console.log(minP);
-            console.log(maxP);
 
             // userGame local storage
             localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
@@ -176,8 +174,6 @@ export class GamesComponent implements OnInit {
         this.userGameFilter.priceSoldRange = [minPrice, maxPrice];
         this.userGameFilter.minPrice = minPrice;
         this.userGameFilter.maxPrice = maxPrice;
-
-        console.log(this.userGameFilter);
     }
 
 

@@ -48,23 +48,25 @@ export class GameNewComponent {
     }
 
     onSubmit() {
-        localStorage.setItem('newGameSearch', this.model.name);
+        if (this.slimLoadingBarService.progress == 0) {
+            localStorage.setItem('newGameSearch', this.model.name);
 
-        this.slimLoadingBarService.start();
-        this.gameService.igdbSearch(this.model.name)
-            .subscribe(
-                games => {
-                    games = games.filter(function (elem, index, self) {
-                        return index == self.indexOf(elem);
+            this.slimLoadingBarService.start();
+            this.gameService.igdbSearch(this.model.name)
+                .subscribe(
+                    games => {
+                        games = games.filter(function (elem, index, self) {
+                            return index == self.indexOf(elem);
+                        });
+
+                        this.games = games.slice(0,this.gameService.searchLimit).sort(orderByName);
+                        this.slimLoadingBarService.complete();
+                    },
+                    error => {
+                        this.slimLoadingBarService.complete();
+                        this.errorMessage = <any>error;
                     });
-
-                    this.games = games.slice(0,this.gameService.searchLimit).sort(orderByName);
-                    this.slimLoadingBarService.complete();
-                },
-                error => {
-                    this.slimLoadingBarService.complete();
-                    this.errorMessage = <any>error;
-                });
+        }
     }
 
     onSelect(game: Game, platform: Object): void {

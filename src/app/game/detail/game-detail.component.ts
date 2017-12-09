@@ -72,17 +72,22 @@ export class GameDetailComponent implements OnInit {
 
 
     getGame() {
-        this.slimLoadingBarService.start();
+        if (this.slimLoadingBarService.progress == 0) {
+            this.slimLoadingBarService.start();
 
-        this.gameService.getGame(this.userGame)
-            .subscribe(
-                userGame => {
-                    this.userGame = userGame;
-                    this.update++;
-                    this.loading = false;
-                    this.slimLoadingBarService.complete();
-                },
-                error =>  this.errorMessage = <any>error);
+            this.gameService.getGame(this.userGame)
+                .subscribe(
+                    userGame => {
+                        this.userGame = userGame;
+                        this.update++;
+                        this.loading = false;
+                        this.slimLoadingBarService.complete();
+                    },
+                    error => {
+                        this.slimLoadingBarService.complete();
+                        this.errorMessage = <any>error;
+                    });
+        }
     };
 
     openForm(action: string): void {

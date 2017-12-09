@@ -1,5 +1,6 @@
-<div id="gameBanner">
-    <div *ngIf="games && games[0].screenshots" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+<div id="gameBanner" class="gameBannerBig">
+    <div *ngIf="games && games[0].screenshots"
+         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
 </div>
 
 <div class="container-fluid">
@@ -53,7 +54,7 @@
         <h4 class="modal-title">Nouveau Jeu - {{selectedGame.name}}</h4>
     </modal-header>
     <modal-body>
-        <game-form [game]="selectedGame" [platform]="selectedPlatform"></game-form>
+        <game-form [game]="selectedGame" [platform]="selectedPlatform" [action]="'new'"></game-form>
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Annuler</button>

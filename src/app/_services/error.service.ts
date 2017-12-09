@@ -2,11 +2,13 @@ import {Injectable} from '@angular/core';
 import {Response} from '@angular/http';
 import {Router} from "@angular/router";
 import {Observable} from 'rxjs';
+import {SlimLoadingBarService} from "ng2-slim-loading-bar";
 
 
 @Injectable()
 export class ErrorService {
-    constructor(private router: Router) {
+    constructor(private router: Router,
+                private slimLoadingBarService: SlimLoadingBarService) {
     }
 
     handleError(error: Response | any) {
@@ -21,6 +23,7 @@ export class ErrorService {
             const err = body.error || JSON.stringify(body);
 
             if (error.status == 403 || error.status == 401) {
+                this.slimLoadingBarService.stop();
                 this.router.navigate(['/login']);
             }
 

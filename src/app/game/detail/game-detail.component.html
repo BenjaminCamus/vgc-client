@@ -24,10 +24,11 @@
             <h1>{{ userGame.game.name }}</h1>
 
             <section *ngIf="!loading">
-                <div style="float: right">
-                    <i class="hovicon fa fa-pencil-square-o" (click)="openForm('edit')"></i>
-                    <i class="hovicon fa fa-trash-o" (click)="openForm('delete')"></i>
-                </div>
+                <div style="float: right"><!--
+                    --><i *ngIf="!slimLoadingBarService.visible" class="hovicon fa fa-pencil-square-o" (click)="openForm('edit')"></i><!--
+                    --><i *ngIf="!slimLoadingBarService.visible" class="hovicon fa fa-trash-o" (click)="openForm('delete')"></i><!--
+                    --><i [ngClass]="slimLoadingBarService.visible ? 'fa-spin' : ''" class="hovicon fa fa-refresh" (click)="getGame()"></i><!--
+                --></div>
 
                 <div class="row">
                     <div class="col-md-4">

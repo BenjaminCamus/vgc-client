@@ -1,5 +1,6 @@
-<div id="gameBanner">
-    <div *ngIf="userGames && userGames[0] && userGames[0].game.screenshots" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGames[0].game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+<div id="gameBanner" class="gameBannerBig">
+    <div *ngIf="userGames && userGames[0] && userGames[0].game.screenshots"
+         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGames[0].game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
 </div>
 
 <div class="filters" [ngClass]="displayFilters ? 'on' : ''" style="padding-bottom: 15px">

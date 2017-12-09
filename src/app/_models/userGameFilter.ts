@@ -1,10 +1,17 @@
-import {Game} from "./game";
 import {Platform} from "./platform";
 import {UserGame} from "./userGame";
+import {Place} from "./place";
+import {Contact} from "./contact";
 
 export class UserGameFilter extends UserGame{
     platforms: Platform[] = [];
+    purchasePlaces: Place[] = [];
+    salePlaces: Place[] = [];
+    purchaseContacts: Contact[] = [];
+    saleContacts: Contact[] = [];
     ratingRange = [0,1000000];
+    versions = [];
+    progresses = [];
     minRating = 0;
     maxRating = 1000000;
     priceAskedRange = [0,1000000];
@@ -14,20 +21,20 @@ export class UserGameFilter extends UserGame{
     minPrice = 0;
     maxPrice = 1000000;
 
-    addPlatform(platform: Platform) {
-        this.platforms.push(platform);
+    addElement(arrayName, element) {
+        this[arrayName].push(element);
 
-        this.platforms = this.platforms.filter(function(elem, index, self) {
+        this[arrayName] = this[arrayName].filter(function(elem, index, self) {
             return index == self.indexOf(elem);
         });
 
         return this;
     }
 
-    removePlatform(platform: Platform) {
-        var index = this.platforms.indexOf(platform, 0);
+    removeElement(arrayName, element) {
+        var index = this[arrayName].indexOf(element, 0);
         if (index > -1) {
-            this.platforms.splice(index, 1);
+            this[arrayName].splice(index, 1);
         }
 
         return this;

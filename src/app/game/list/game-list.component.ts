@@ -9,6 +9,7 @@ import {Company} from "../../_models/company";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
 import {Platform} from "../../_models/platform";
 import {UserGameFilter} from "../../_models/userGameFilter";
+import {Place} from "../../_models/place";
 
 @Component({
     moduleId: module.id,
@@ -31,9 +32,17 @@ export class GamesComponent implements OnInit {
     userGames: UserGame[] = [];
     userGameFilter: UserGameFilter = new UserGameFilter();
     displayFilters: boolean = false;
+    purchasePlaceTags: Place[] = [];
+    salePlaceTags: Place[] = [];
+    purchaseContactTags: Place[] = [];
+    saleContactTags: Place[] = [];
     platformTags: Platform[] = [];
     developerTags: Company[] = [];
     publisherTags: Company[] = [];
+    purchasePlaceCount: number[] = [];
+    salePlaceCount: number[] = [];
+    purchaseContactCount: number[] = [];
+    saleContactCount: number[] = [];
     platformCount: number[] = [];
     developerCount: number[] = [];
     publisherCount: number[] = [];
@@ -96,6 +105,7 @@ export class GamesComponent implements OnInit {
 
         for (let userGame of this.userGames) {
 
+            // Rating
             if (userGame.rating < minRating) {
                 minRating = userGame.rating;
             }
@@ -117,14 +127,19 @@ export class GamesComponent implements OnInit {
             // userGame local storage
             localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
 
-            // Platform
-            if (deepIndexOf(this.platformTags, userGame.platform) < 0) {
+            // Tags
+            var tagTypes = ['platform', 'purchasePlace', 'salePlace', 'purchaseContact', 'saleContact'];
+            for (let type of tagTypes) {
+                if (userGame[type]) {
+                    if (deepIndexOf(this[type + 'Tags'], userGame[type]) < 0) {
 
-                this.platformTags.push(userGame.platform);
-                this.platformCount[userGame.platform.id] = 0;
+                        this[type + 'Tags'].push(userGame[type]);
+                        this[type + 'Count'][userGame[type].id] = 0;
+                    }
+
+                    this[type + 'Count'][userGame[type].id]++;
+                }
             }
-
-            this.platformCount[userGame.platform.id]++;
 
 
             // Developers
@@ -181,13 +196,18 @@ export class GamesComponent implements OnInit {
 
         switch (type) {
 
-            case 'platform':
+            case 'platforms':
+            case 'purchasePlaces':
+            case 'salePlaces':
+            case 'purchaseContacts':
+            case 'saleContacts':
+            case 'progresses':
 
                 if (active) {
-                    this.userGameFilter.addPlatform(tag);
+                    this.userGameFilter.addElement(type, tag);
                 }
                 else {
-                    this.userGameFilter.removePlatform(tag);
+                    this.userGameFilter.removeElement(type, tag);
                 }
                 break;
 

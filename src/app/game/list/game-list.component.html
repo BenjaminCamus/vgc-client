@@ -1,16 +1,87 @@
 <div id="gameBanner" class="gameBannerBig">
-    <div *ngIf="userGames && userGames[0] && userGames[0].game.screenshots"
-         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGames[0].game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+    <section *ngFor="let userGame of userGames | filter: userGameFilter;
+     let i = index;">
+        <div *ngIf="i == 0 && userGame.game.screenshots && userGame.game.screenshots.length > 0"
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+
+    </section>
 </div>
 
 <div class="filters" [ngClass]="displayFilters ? 'on' : ''" style="padding-bottom: 15px">
+    <div class="row">
+        <div class="col-md-3">
+            <div>
+                <label>Progression</label>
+                <tag [tag]="'Jamais joué'" (uploaded)="toggleTag('progresses', $event, 0)"></tag>
+                <tag [tag]="'En cours'" (uploaded)="toggleTag('progresses', $event, 1)"></tag>
+                <tag [tag]="'Terminé'" (uploaded)="toggleTag('progresses', $event, 2)"></tag>
+                <tag [tag]="'Abandonné'" (uploaded)="toggleTag('progresses', $event, 3)"></tag>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <label for="name">Lieu Achat</label><br>
+            <tag *ngFor="let place of purchasePlaceTags;"
+                 [tag]="place.name"
+                 [suffix]="purchasePlaceCount[place.id]"
+                 (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
+            <br>
+            <label for="name">Contact Achat</label><br>
+            <tag *ngFor="let contact of purchaseContactTags;"
+                 [tag]="contact | formatName"
+                 [suffix]="purchaseContactCount[contact.id]"
+                 (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
+        </div>
+        <div class="col-md-3">
+            <label for="name">Lieu Vente</label><br>
+            <tag *ngFor="let place of salePlaceTags;"
+                 [tag]="place.name"
+                 [suffix]="salePlaceCount[place.id]"
+                 (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
+            <br>
+            <label for="name">Contact Vente</label><br>
+            <tag *ngFor="let contact of saleContactTags;"
+                 [tag]="contact | formatName"
+                 [suffix]="saleContactCount[contact.id]"
+                 (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
+        </div>
+        <div class="col-md-3">
+        </div>
+        <div class="col-md-3">
+            <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' +
+                userGameFilter.ratingRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true" [min]="userGameFilter.minRating"
+                      [max]="userGameFilter.maxRating"></p-slider>
+
+            <label for="name">Prix Payé ({{userGameFilter.pricePaidRange[0] + ' - ' +
+                userGameFilter.pricePaidRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true" [min]="userGameFilter.minPrice"
+                      [max]="userGameFilter.maxPrice"></p-slider>
+
+            <label for="name">Prix Revente ({{userGameFilter.priceResaleRange[0] + ' - ' +
+                userGameFilter.priceResaleRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true" [min]="userGameFilter.minPrice"
+                      [max]="userGameFilter.maxPrice"></p-slider>
+
+            <label for="name">Prix Vendu ({{userGameFilter.priceSoldRange[0] + ' - ' +
+                userGameFilter.priceSoldRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true" [min]="userGameFilter.minPrice"
+                      [max]="userGameFilter.maxPrice"></p-slider>
+
+            <label for="name">Prix Demandé ({{userGameFilter.priceAskedRange[0] + ' - ' +
+                userGameFilter.priceAskedRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true" [min]="userGameFilter.minPrice"
+                      [max]="userGameFilter.maxPrice"></p-slider>
+        </div>
+        <div class="col-md-3">
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3">
             <label for="name">Platforme</label><br>
             <tag *ngFor="let platform of platformTags;"
                  [tag]="platform.name"
                  [suffix]="platformCount[platform.id]"
-                 (uploaded)="toggleTag('platform', $event, platform)"></tag>
+                 (uploaded)="toggleTag('platforms', $event, platform)"></tag>
             <label for="name">Développeur</label><br>
             <tag *ngFor="let developer of developerTags;"
                  [tag]="developer.name"
@@ -22,24 +93,6 @@
                  [suffix]="publisherCount[publisher.id]"
                  (uploaded)="toggleTag('publisher', $event, publisher)"></tag>
         </div>
-        <div class="col-md-3">
-            <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' + userGameFilter.ratingRange[1]}})</label><br>
-            <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true" [min]="userGameFilter.minRating" [max]="userGameFilter.maxRating"></p-slider>
-
-            <label for="name">Prix Payé ({{userGameFilter.pricePaidRange[0] + ' - ' + userGameFilter.pricePaidRange[1]}})</label><br>
-            <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
-
-            <label for="name">Prix Revente ({{userGameFilter.priceResaleRange[0] + ' - ' + userGameFilter.priceResaleRange[1]}})</label><br>
-            <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
-
-            <label for="name">Prix Vendu ({{userGameFilter.priceSoldRange[0] + ' - ' + userGameFilter.priceSoldRange[1]}})</label><br>
-            <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
-
-            <label for="name">Prix Demandé ({{userGameFilter.priceAskedRange[0] + ' - ' + userGameFilter.priceAskedRange[1]}})</label><br>
-            <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
-        </div>
-        <div class="col-md-3">
-        </div>
     </div>
 </div>
 
@@ -50,7 +103,8 @@
                 Mes Jeux<!--
                 --><i class="hovicon fa fa-refresh" (click)="getGames()" [ngClass]="loading ? 'fa-spin' : ''"></i><!--
                 --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i><!--
-                --><div style="width: 400px; position: absolute; margin: 12px; display: inline-block;">
+                -->
+                <div style="width: 400px; position: absolute; margin: 12px; display: inline-block;">
                     <input type="text" id="name" name="name"
                            [(ngModel)]="userGameFilter.game.name"
                            #name="ngModel"
@@ -72,9 +126,9 @@
     <div class="col-md-12">
 
         <!--<p-dataTable [value]="userGames | filter: userGameFilter">-->
-            <!--<p-column field="platform.name" header="Plateforme" [sortable]="true"></p-column>-->
-            <!--<p-column field="game.name" header="Titre" [sortable]="true"></p-column>-->
-            <!--<p-column field="purchaseDate | date: 'dd/MM/y'" header="Date Achat" [sortable]="true"></p-column>-->
+        <!--<p-column field="platform.name" header="Plateforme" [sortable]="true"></p-column>-->
+        <!--<p-column field="game.name" header="Titre" [sortable]="true"></p-column>-->
+        <!--<p-column field="purchaseDate | date: 'dd/MM/y'" header="Date Achat" [sortable]="true"></p-column>-->
         <!--</p-dataTable>-->
 
         <section *ngFor="let userGame of userGames | filter: userGameFilter;"

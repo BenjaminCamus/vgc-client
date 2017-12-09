@@ -25,7 +25,8 @@
 
             <section *ngIf="!loading">
                 <div style="float: right">
-                    <i class="hovicon fa fa-pencil-square-o" (click)="editGame()"></i>
+                    <i class="hovicon fa fa-pencil-square-o" (click)="openForm('edit')"></i>
+                    <i class="hovicon fa fa-trash-o" (click)="openForm('delete')"></i>
                 </div>
 
                 <div class="row">
@@ -175,7 +176,7 @@
     </modal-header>
     <modal-body>
         <game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update"
-                   (state)="formStateUpdate($event)"></game-form>
+                   (state)="formStateUpdate($event)" [action]="formAction"></game-form>
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>

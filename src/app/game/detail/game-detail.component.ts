@@ -34,6 +34,7 @@ export class GameDetailComponent implements OnInit {
     private selectedGame: Game = new Game();
     private selectedPlatform: Object;
     private update: number = 0;
+    private formAction: string;
     private formLoading: boolean = false;
 
     constructor (
@@ -81,13 +82,11 @@ export class GameDetailComponent implements OnInit {
                     this.loading = false;
                     this.slimLoadingBarService.complete();
                 },
-                error => {
-                    this.slimLoadingBarService.complete();
-                    this.errorMessage = <any>error;
-                });
+                error =>  this.errorMessage = <any>error);
     };
 
-    editGame(): void {
+    openForm(action: string): void {
+        this.formAction= action;
         this.selectedGame = this.userGame.game;
         this.selectedPlatform = this.userGame.platform;
         this.modal.open();

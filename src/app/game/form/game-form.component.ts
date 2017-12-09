@@ -32,6 +32,7 @@ export class GameFormComponent implements OnInit {
     @Input() game: Game;
     @Input() platform: Platform;
     @Input() userGame: UserGame;
+    @Input() action: string;
     private userContacts: Contact[];
     private places: Place[];
 
@@ -131,6 +132,15 @@ export class GameFormComponent implements OnInit {
         }
     }
 
+    submitForm() {
+        if (this.action == 'delete') {
+            this.deleteUserGame();
+        }
+        else {
+            this.postUserGame();
+        }
+    }
+
     postUserGame() {
         this.slimLoadingBarService.start();
         this.state.emit('submitted');
@@ -167,6 +177,28 @@ export class GameFormComponent implements OnInit {
                 });
 
 
+    }
+
+    deleteUserGame() {
+        this.slimLoadingBarService.start();
+        this.state.emit('submitted');
+
+        this.gameService.deleteUserGame(this.userGame)
+            .subscribe(
+                response => {
+
+                    // userGame local storage
+                    localStorage.removeItem('game/' + this.userGame.platform.slug + '/' + this.userGame.game.slug);
+                    localStorage.removeItem('userGames');
+
+                    this.router.navigate(['/games']);
+                    this.state.emit('success');
+                    this.slimLoadingBarService.complete();
+                },
+                error => {
+                    this.slimLoadingBarService.complete();
+                    this.errorMessage = <any>error;
+                });
     }
 
     getContacts() {

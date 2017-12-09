@@ -89,7 +89,32 @@ export class GamesComponent implements OnInit {
 
     private setFilters() {
 
+        var minRating = 20;
+        var maxRating = 0;
+        var minPrice = 1000000000;
+        var maxPrice = 0;
+
         for (let userGame of this.userGames) {
+
+            if (userGame.rating < minRating) {
+                minRating = userGame.rating;
+            }
+
+            if (userGame.rating > maxRating) {
+                maxRating = userGame.rating;
+            }
+
+            var minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
+            if (minP < minPrice) {
+                minPrice = minP;
+            }
+
+            var maxP = Math.max(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
+            if (maxP > maxPrice) {
+                maxPrice = maxP;
+            }
+            console.log(minP);
+            console.log(maxP);
 
             // userGame local storage
             localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
@@ -139,6 +164,20 @@ export class GamesComponent implements OnInit {
         this.platformTags.sort(orderByCount(this.platformCount));
         this.developerTags.sort(orderByCount(this.developerCount));
         this.publisherTags.sort(orderByCount(this.publisherCount));
+
+        this.userGameFilter.ratingRange = [minRating, maxRating];
+        this.userGameFilter.minRating = minRating;
+        this.userGameFilter.maxRating = maxRating;
+
+
+        this.userGameFilter.priceAskedRange = [minPrice, maxPrice];
+        this.userGameFilter.pricePaidRange = [minPrice, maxPrice];
+        this.userGameFilter.priceResaleRange = [minPrice, maxPrice];
+        this.userGameFilter.priceSoldRange = [minPrice, maxPrice];
+        this.userGameFilter.minPrice = minPrice;
+        this.userGameFilter.maxPrice = maxPrice;
+
+        console.log(this.userGameFilter);
     }
 
 

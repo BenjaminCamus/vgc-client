@@ -4,6 +4,15 @@ import {UserGame} from "./userGame";
 
 export class UserGameFilter extends UserGame{
     platforms: Platform[] = [];
+    ratingRange = [0,1000000];
+    minRating = 0;
+    maxRating = 1000000;
+    priceAskedRange = [0,1000000];
+    pricePaidRange = [0,1000000];
+    priceResaleRange = [0,1000000];
+    priceSoldRange = [0,1000000];
+    minPrice = 0;
+    maxPrice = 1000000;
 
     addPlatform(platform: Platform) {
         this.platforms.push(platform);

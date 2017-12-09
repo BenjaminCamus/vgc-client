@@ -25,6 +25,7 @@ export class GameNewComponent {
     games: Game[];
     selectedGame: Game = new Game();
     selectedPlatform: Object;
+    errorMessage: string;
 
     constructor(private gameService: GameService,
                 private slimLoadingBarService: SlimLoadingBarService,

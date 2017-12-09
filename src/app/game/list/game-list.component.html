@@ -10,20 +10,34 @@
                  [tag]="platform.name"
                  [suffix]="platformCount[platform.id]"
                  (uploaded)="toggleTag('platform', $event, platform)"></tag>
-        </div>
-        <div class="col-md-3">
             <label for="name">Développeur</label><br>
             <tag *ngFor="let developer of developerTags;"
                  [tag]="developer.name"
                  [suffix]="developerCount[developer.id]"
                  (uploaded)="toggleTag('developer', $event, developer)"></tag>
-        </div>
-        <div class="col-md-3">
             <label for="name">Éditeur</label><br>
             <tag *ngFor="let publisher of publisherTags;"
                  [tag]="publisher.name"
                  [suffix]="publisherCount[publisher.id]"
                  (uploaded)="toggleTag('publisher', $event, publisher)"></tag>
+        </div>
+        <div class="col-md-3">
+            <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' + userGameFilter.ratingRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true" [min]="userGameFilter.minRating" [max]="userGameFilter.maxRating"></p-slider>
+
+            <label for="name">Prix Payé ({{userGameFilter.pricePaidRange[0] + ' - ' + userGameFilter.pricePaidRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
+
+            <label for="name">Prix Revente ({{userGameFilter.priceResaleRange[0] + ' - ' + userGameFilter.priceResaleRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
+
+            <label for="name">Prix Vendu ({{userGameFilter.priceSoldRange[0] + ' - ' + userGameFilter.priceSoldRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
+
+            <label for="name">Prix Demandé ({{userGameFilter.priceAskedRange[0] + ' - ' + userGameFilter.priceAskedRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true" [min]="userGameFilter.minPrice" [max]="userGameFilter.maxPrice"></p-slider>
+        </div>
+        <div class="col-md-3">
         </div>
     </div>
 </div>
@@ -55,6 +69,13 @@
 
 <div class="row" *ngIf="!loading">
     <div class="col-md-12">
+
+        <!--<p-dataTable [value]="userGames | filter: userGameFilter">-->
+            <!--<p-column field="platform.name" header="Plateforme" [sortable]="true"></p-column>-->
+            <!--<p-column field="game.name" header="Titre" [sortable]="true"></p-column>-->
+            <!--<p-column field="purchaseDate | date: 'dd/MM/y'" header="Date Achat" [sortable]="true"></p-column>-->
+        <!--</p-dataTable>-->
+
         <section *ngFor="let userGame of userGames | filter: userGameFilter;"
                  routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"
                  class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">

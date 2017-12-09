@@ -88,6 +88,18 @@ export class GameService {
             .catch(this.errorService.handleError.bind(this));
     }
 
+    deleteUserGame(userGame: UserGame, igdb: boolean = false): Observable<UserGame> {
+        var url = this.url + 'user/games/' + userGame.platform.slug + '/' + userGame.game.slug;
+        var headers = this.headers;
+
+        return this.http
+            .delete(url, {headers: headers})
+            .map(response => {
+                return response;
+            })
+            .catch(this.errorService.handleError.bind(this));
+    }
+
     postUserGame(userGame: UserGame): Observable<UserGame> {
         return this.http
             .post(this.url + 'user/games/add', JSON.stringify(userGame), {headers: this.headers})

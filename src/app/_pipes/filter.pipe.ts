@@ -64,6 +64,36 @@ export class FilterPipe implements PipeTransform {
             }
 
             return true;
+        }).filter(item => {
+            /**
+             * Rating
+             */
+            if (filter.ratingRange) {
+                if (item.rating >= filter.ratingRange[0] && item.rating <= filter.ratingRange[1]) {
+                    return true;
+                }
+
+                return false;
+            }
+
+            return true;
+        }).filter(item => {
+            /**
+             * Rating
+             */
+            return (this.filterRange(filter.ratingRange, item.rating)
+            && this.filterRange(filter.priceAskedRange, item.priceAsked)
+            && this.filterRange(filter.pricePaidRange, item.pricePaid)
+            && this.filterRange(filter.priceResaleRange, item.priceResale)
+            && this.filterRange(filter.priceSoldRange, item.priceSold));
         });
+    }
+
+    private filterRange(range: number[], val: number) {
+        if (val >= range[0] && val <= range[1]) {
+            return true;
+        }
+
+        return false;
     }
 }

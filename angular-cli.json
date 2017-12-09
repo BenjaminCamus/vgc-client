@@ -19,6 +19,8 @@
       "mobile": false,
       "styles": [
         "../node_modules/ng2-slim-loading-bar/style.css",
+        "../node_modules/primeng/resources/themes/cruze/theme.css",
+        "../node_modules/primeng/resources/primeng.min.css",
         "styles.scss"
       ],
       "scripts": [],

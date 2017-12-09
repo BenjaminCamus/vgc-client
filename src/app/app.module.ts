@@ -23,6 +23,7 @@ import {GameDetailComponent} from "./game/detail/game-detail.component";
 import {GameNewComponent} from "./game/new/game-new.component";
 import {GameFormComponent} from "./game/form/game-form.component";
 import {FormatNamePipe} from "./_pipes/formatName.pipe";
+import {SharedModule, SliderModule, DataTableModule} from "primeng/primeng";
 
 @NgModule({
     imports: [
@@ -34,6 +35,9 @@ import {FormatNamePipe} from "./_pipes/formatName.pipe";
         AppRoutingModule,
         SlimLoadingBarModule.forRoot(),
         Ng2Bs3ModalModule,
+        SharedModule,
+        SliderModule,
+        DataTableModule,
         InViewportModule.forRoot(),
     ],
     declarations: [

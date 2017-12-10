@@ -26,18 +26,9 @@ export class FilterPipe implements PipeTransform {
             && this.filterTags('purchasePlace', filter, item)
             && this.filterTags('purchaseContact', filter, item)
             && this.filterTags('salePlace', filter, item)
-            && this.filterTags('saleContact', filter, item));
-        }).filter(item => {
-            /**
-             * Object Tags : platform, dates, contacts
-             */
-
-            return (this.filterTags('platform', filter, item)
-            && this.filterTags('purchasePlace', filter, item)
-            && this.filterTags('purchaseContact', filter, item)
-            && this.filterTags('salePlace', filter, item)
             && this.filterTags('saleContact', filter, item)
-            && this.filterTags('progress', filter, item));
+            && this.filterTags('progress', filter, item)
+            && this.filterTags('version', filter, item));
         }).filter(item => {
             /**
              * Developers
@@ -97,10 +88,7 @@ export class FilterPipe implements PipeTransform {
 
     private filterTags(tagType, filter, item) {
         let filterKey = tagType == 'progress' ? tagType+'es' : tagType+'s';
-        if (filter[filterKey] && filter[filterKey].length > 0) {
-            if (item[tagType] === undefined) {
-                return false;
-            }
+        if (item[tagType] !== undefined && item[tagType] !== null && filter[filterKey] && filter[filterKey].length > 0) {
 
             if (typeof item[tagType] == "number" || typeof item[tagType] == "string") {
                 if (filter[filterKey].indexOf(item[tagType]) > -1) {

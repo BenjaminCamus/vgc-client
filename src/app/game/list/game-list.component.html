@@ -104,8 +104,8 @@
     <div class="row">
         <div class="col-md-12">
             <h1>
-                Mes Jeux<!--
-                --><i class="hovicon fa fa-refresh" (click)="getGames()" [ngClass]="loading ? 'fa-spin' : ''"></i><!--
+                Mes Jeux {{slimLoadingBarService.progress}}<!--
+                --><i class="hovicon fa fa-refresh" (click)="getGames()" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
                 --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i><!--
                 -->
                 <div style="width: 400px; position: absolute; margin: 12px; display: inline-block;">
@@ -118,15 +118,9 @@
             </h1>
         </div>
     </div>
-
-    <div class="row" *ngIf="loading">
-        <div class="col-md-12">
-            Synchronisation en cours...
-        </div>
-    </div>
 </div>
 
-<div class="row" *ngIf="!loading">
+<div class="row">
     <div class="col-md-12">
 
         <!--<p-dataTable [value]="userGames | filter: userGameFilter">-->

@@ -202,7 +202,7 @@ export class GameFormComponent implements OnInit {
     }
 
     getContacts() {
-        if (!this.slimLoadingBarService.visible) {
+        if (this.slimLoadingBarService.progress == 0) {
             this.gameService.getUserContacts()
                 .subscribe(
                     userContacts => {

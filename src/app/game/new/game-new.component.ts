@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit, ViewChild} from '@angular/core';
+import {Component, Renderer, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 
@@ -26,6 +26,7 @@ export class GameNewComponent {
     selectedGame: Game = new Game();
     selectedPlatform: Object;
     errorMessage: string;
+    private subscription;
 
     constructor(private gameService: GameService,
                 private slimLoadingBarService: SlimLoadingBarService,
@@ -33,10 +34,18 @@ export class GameNewComponent {
     }
 
     ngOnInit() {
+        this.slimLoadingBarService.reset();
+
         if (localStorage.getItem('newGameSearch')) {
             this.model.name = localStorage.getItem('newGameSearch');
         }
         this.onSubmit();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
     setItemClass(e) {
@@ -52,7 +61,7 @@ export class GameNewComponent {
             localStorage.setItem('newGameSearch', this.model.name);
 
             this.slimLoadingBarService.start();
-            this.gameService.igdbSearch(this.model.name)
+            this. subscription = this.gameService.igdbSearch(this.model.name)
                 .subscribe(
                     games => {
                         games = games.filter(function (elem, index, self) {

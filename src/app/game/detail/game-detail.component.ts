@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, ChangeDetectorRef} from "@angular/core";
+import {Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -22,11 +22,11 @@ import {LoadingComponent} from "../../loading/loading.component";
 })
 export class GameDetailComponent implements OnInit {
 
+    private subscription;
+
     @ViewChild('modal')
     private modal: ModalComponent;
     private errorMessage: string;
-
-    private loading: boolean = false;
 
     public orientation: string;
     private userGame: UserGame;
@@ -49,7 +49,8 @@ export class GameDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        // localStorage.clear();
+        this.slimLoadingBarService.complete();
+
         this.route.params.subscribe(params => {
             this.userGame = new UserGame();
             this.userGame.platform = new Platform();
@@ -63,11 +64,14 @@ export class GameDetailComponent implements OnInit {
         if (localStorage.getItem('game/'+this.userGame.platform.slug+'/'+this.userGame.game.slug)) {
             this.userGame = JSON.parse(localStorage.getItem('game/'+this.userGame.platform.slug+'/'+this.userGame.game.slug));
         }
-        else {
-            this.loading = true;
-        }
 
         this.getGame();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
+        }
     }
 
 
@@ -75,12 +79,11 @@ export class GameDetailComponent implements OnInit {
         if (this.slimLoadingBarService.progress == 0) {
             this.slimLoadingBarService.start();
 
-            this.gameService.getGame(this.userGame)
+            this.subscription = this.gameService.getGame(this.userGame)
                 .subscribe(
                     userGame => {
                         this.userGame = userGame;
                         this.update++;
-                        this.loading = false;
                         this.slimLoadingBarService.complete();
                     },
                     error => {

@@ -22,8 +22,8 @@
                 <span class="bar"></span>
                 <button type="submit"
                         class="btn btn-success"
-                        [disabled]="slimLoadingBarService.visible">
-                    <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.visible ? 'fa-spin' : ''"></i>
+                        [disabled]="slimLoadingBarService.progress > 0">
+                    <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
                     Rechercher via IGDB.com</button>
             </form>
         </div>

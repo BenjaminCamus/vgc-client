@@ -148,12 +148,12 @@ hr {
 .filters {
   position: absolute;
   overflow: hidden;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, .9);
+  z-index: 10;
+  background-color: rgba(0, 0, 0, .8);
   height: 0;
   opacity: 0;
   padding: 0;
-  margin: 0 30px;
+  margin: 0;
   animation: FadeOut 1s ease-in-out;
 }
 
@@ -161,7 +161,7 @@ hr {
   height: initial;
   opacity: 1;
   padding: 15px;
-  margin: 95px 30px;
+  margin: 70px 0;
   animation: FadeIn 1s ease-in-out;
 }
 
@@ -170,13 +170,13 @@ hr {
     height: initial;
     padding: 15px;
     opacity: 0;
-    margin: 0 30px;
+    margin: 0;
   }
   100% {
     height: initial;
     padding: 15px;
     opacity: 1;
-    margin: 95px 30px;
+    margin: 70px 0;
   }
 }
 
@@ -185,19 +185,19 @@ hr {
     height: initial;
     padding: 15px;
     opacity: 1;
-    margin: 95px 30px;
+    margin: 70px 0;
   }
   99% {
     height: initial;
     padding: 15px;
     opacity: 0;
-    margin: 0 30px;
+    margin: 0;
   }
   100% {
     height: 0;
     padding: 0;
     opacity: 0;
-    margin: 0 30px;
+    margin: 0;
   }
 }
 

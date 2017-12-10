@@ -17,6 +17,12 @@
                 <tag [tag]="'Terminé'" (uploaded)="toggleTag('progresses', $event, 2)"></tag>
                 <tag [tag]="'Abandonné'" (uploaded)="toggleTag('progresses', $event, 3)"></tag>
             </div>
+            <div>
+                <label>Version</label>
+                <tag [tag]="'FRA'" (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
+                <tag [tag]="'EUR'" (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
+                <tag [tag]="'FAH'" (uploaded)="toggleTag('versions', $event, 'FAH')"></tag>
+            </div>
         </div>
         <div class="col-md-3">
             <label for="name">Lieu Achat</label><br>
@@ -43,8 +49,6 @@
                  [tag]="contact | formatName"
                  [suffix]="saleContactCount[contact.id]"
                  (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
-        </div>
-        <div class="col-md-3">
         </div>
         <div class="col-md-3">
             <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' +

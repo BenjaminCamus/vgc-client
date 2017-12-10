@@ -202,6 +202,7 @@ export class GamesComponent implements OnInit {
             case 'purchaseContacts':
             case 'saleContacts':
             case 'progresses':
+            case 'versions':
 
                 if (active) {
                     this.userGameFilter.addElement(type, tag);

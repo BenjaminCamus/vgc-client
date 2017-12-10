@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit, ViewChild} from '@angular/core';
+import {Component, Renderer, OnInit, OnDestroy, ViewChild} from '@angular/core';
 import {Router}            from '@angular/router';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -21,9 +21,8 @@ import {Place} from "../../_models/place";
 })
 export class GamesComponent implements OnInit {
 
-    loading: boolean = false;
-
     state = "none";
+    private subscription;
 
     @ViewChild('modal')
     modal: ModalComponent;
@@ -54,29 +53,29 @@ export class GamesComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.slimLoadingBarService.reset();
+
         if (localStorage.getItem('userGames')) {
             this.userGames = JSON.parse(localStorage.getItem('userGames'));
             this.setFilters();
         }
-        else {
-            this.getGames();
+
+        this.getGames();
+    }
+
+    ngOnDestroy() {
+        if (this.subscription) {
+            this.subscription.unsubscribe();
         }
     }
 
     getGames() {
 
-        if (!this.loading) {
-
-            this.loading = true;
+        if (this.slimLoadingBarService.progress == 0) {
 
             this.slimLoadingBarService.start();
 
-            this.developerTags = [];
-            this.publisherTags = [];
-            this.userGames = [];
-
-            this.gameService.getUserGames()
-                .subscribe(
+            this.subscription = this.gameService.getUserGames().subscribe(
                     userGames => {
 
                         userGames.sort(orderByName);
@@ -86,7 +85,6 @@ export class GamesComponent implements OnInit {
 
                         this.setFilters();
 
-                        this.loading = false;
                         this.slimLoadingBarService.complete();
                     },
                     error => {

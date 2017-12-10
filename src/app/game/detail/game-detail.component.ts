@@ -30,7 +30,6 @@ export class GameDetailComponent implements OnInit {
 
     public orientation: string;
     private userGame: UserGame;
-    private userContacts: Contact[];
     private selectedGame: Game = new Game();
     private selectedPlatform: Object;
     private update: number = 0;

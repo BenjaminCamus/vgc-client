@@ -5,16 +5,16 @@ import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {routerTransition} from "../../_animations/router.animations";
 import {Game} from "../../_models/game";
 import {GameService} from "../../_services/game.service";
+import {GameLocalService} from "../../_services/gameLocal.service";
 import {UserGame} from "../../_models/userGame";
 import {TagComponent} from "../../tag/tag.component";
 import {Platform} from "../../_models/platform";
-import {Contact} from "../../_models/contact";
 import {GameFormComponent} from "../form/game-form.component";
 import {LoadingComponent} from "../../loading/loading.component";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, TagComponent, LoadingComponent, GameFormComponent],
+    providers: [GameService, GameLocalService, TagComponent, LoadingComponent, GameFormComponent],
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [routerTransition()],
@@ -38,7 +38,7 @@ export class GameDetailComponent implements OnInit {
 
     constructor (
         private gameService: GameService,
-        private router: Router,
+        private gameLocalService: GameLocalService,
         private route: ActivatedRoute,
         private slimLoadingBarService: SlimLoadingBarService,
         private changeDetectorRef: ChangeDetectorRef
@@ -48,7 +48,7 @@ export class GameDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.slimLoadingBarService.complete();
+        this.slimLoadingBarService.reset();
 
         this.route.params.subscribe(params => {
             this.userGame = new UserGame();
@@ -60,10 +60,7 @@ export class GameDetailComponent implements OnInit {
             // In a real app: dispatch action to load the details here.
         });
 
-        if (localStorage.getItem('game/'+this.userGame.platform.slug+'/'+this.userGame.game.slug)) {
-            this.userGame = JSON.parse(localStorage.getItem('game/'+this.userGame.platform.slug+'/'+this.userGame.game.slug));
-        }
-
+        this.userGame = this.gameLocalService.getUserGame(this.userGame);
         this.getGame();
     }
 
@@ -82,6 +79,7 @@ export class GameDetailComponent implements OnInit {
                 .subscribe(
                     userGame => {
                         this.userGame = userGame;
+                        this.gameLocalService.setUserGame(this.userGame);
                         this.update++;
                         this.slimLoadingBarService.complete();
                     },

@@ -4,6 +4,7 @@ import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
+import {GameLocalService}       from '../../_services/gameLocal.service';
 import {UserGame} from "../../_models/userGame";
 import {Company} from "../../_models/company";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
@@ -47,6 +48,7 @@ export class GamesComponent implements OnInit {
     publisherCount: number[] = [];
 
     constructor(private gameService: GameService,
+                private gameLocalService: GameLocalService,
                 private router: Router,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,) {
@@ -55,10 +57,8 @@ export class GamesComponent implements OnInit {
     ngOnInit() {
         this.slimLoadingBarService.reset();
 
-        if (localStorage.getItem('userGames')) {
-            this.userGames = JSON.parse(localStorage.getItem('userGames'));
-            this.setFilters();
-        }
+        this.userGames = this.gameLocalService.getUserGames();
+        this.setFilters();
 
         this.getGames();
     }
@@ -81,7 +81,7 @@ export class GamesComponent implements OnInit {
                         userGames.sort(orderByName);
                         this.userGames = userGames;
 
-                        localStorage.setItem('userGames', JSON.stringify(this.userGames));
+                        this.gameLocalService.setUserGames(this.userGames);
 
                         this.setFilters();
 
@@ -121,9 +121,6 @@ export class GamesComponent implements OnInit {
             if (maxP > maxPrice) {
                 maxPrice = maxP;
             }
-
-            // userGame local storage
-            localStorage.setItem('game/'+userGame.platform.slug+'/'+userGame.game.slug, JSON.stringify(userGame));
 
             // Tags
             var tagTypes = ['platform', 'purchasePlace', 'salePlace', 'purchaseContact', 'saleContact'];
@@ -169,6 +166,9 @@ export class GamesComponent implements OnInit {
                     this.publisherCount[publisher.id]++;
                 }
             }
+
+            // UserGame Local Storage
+            this.gameLocalService.setUserGame(userGame);
         }
 
         // orderByCount

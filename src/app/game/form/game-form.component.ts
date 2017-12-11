@@ -1,4 +1,4 @@
-import {Component, Renderer, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
@@ -30,43 +30,20 @@ function validatePrice(fc) {
 })
 export class GameFormComponent implements OnInit {
 
+    errorMessage: string;
+
     @Input() game: Game;
     @Input() platform: Platform;
     @Input() userGame: UserGame = new UserGame();
     @Input() action: string;
-    private userContacts: Contact[];
-    private places: Place[];
-
-    @Input()
-    set update(update: number) {
+    @Input() set update(update: number) {
         this.updateSelects();
     }
+    @Output() state: EventEmitter<string> = new EventEmitter();
 
-    updateSelects() {
-
-        if (this.userContacts) {
-            if (this.userGame.purchaseContact) {
-                this.userGame.purchaseContact = this.userContacts.find(contact => contact.id === this.userGame.purchaseContact.id);
-            }
-            if (this.userGame.saleContact) {
-                this.userGame.saleContact = this.userContacts.find(contact => contact.id === this.userGame.saleContact.id);
-            }
-        }
-
-        if (this.places) {
-            if (this.userGame && this.userGame.purchasePlace) {
-                this.userGame.purchasePlace = this.places.find(place => place.id === this.userGame.purchasePlace.id);
-            }
-            if (this.userGame && this.userGame.salePlace) {
-                this.userGame.salePlace = this.places.find(place => place.id === this.userGame.salePlace.id);
-            }
-        }
-    }
-
-    @Output()
-    state: EventEmitter<string> = new EventEmitter();
-
-    validateUserGameForm: FormGroup;
+    private userContacts: Contact[];
+    private places: Place[];
+    private validateUserGameForm: FormGroup;
 
     newContact = NewContact;
     newContacts = {
@@ -74,12 +51,9 @@ export class GameFormComponent implements OnInit {
         'sale': new Contact()
     };
 
-    errorMessage: string;
-
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private slimLoadingBarService: SlimLoadingBarService,
-                private renderer: Renderer,
                 private router: Router,
                 private fb: FormBuilder,) {
         this.validateUserGameForm = fb.group({
@@ -108,15 +82,6 @@ export class GameFormComponent implements OnInit {
                 error => {
                     this.errorMessage = <any>error;
                 });
-    }
-
-    updateDate(e, sp) {
-        if (!e) {
-            this.userGame[sp + 'Date'] = null;
-        }
-        else {
-            this.userGame[sp + 'Date'] = new Date(e);
-        }
     }
 
     submitForm() {
@@ -199,6 +164,36 @@ export class GameFormComponent implements OnInit {
                     error => {
                         this.errorMessage = <any>error;
                     });
+        }
+    }
+
+    updateSelects() {
+
+        if (this.userContacts) {
+            if (this.userGame.purchaseContact) {
+                this.userGame.purchaseContact = this.userContacts.find(contact => contact.id === this.userGame.purchaseContact.id);
+            }
+            if (this.userGame.saleContact) {
+                this.userGame.saleContact = this.userContacts.find(contact => contact.id === this.userGame.saleContact.id);
+            }
+        }
+
+        if (this.places) {
+            if (this.userGame && this.userGame.purchasePlace) {
+                this.userGame.purchasePlace = this.places.find(place => place.id === this.userGame.purchasePlace.id);
+            }
+            if (this.userGame && this.userGame.salePlace) {
+                this.userGame.salePlace = this.places.find(place => place.id === this.userGame.salePlace.id);
+            }
+        }
+    }
+
+    updateDate(e, sp) {
+        if (!e) {
+            this.userGame[sp + 'Date'] = null;
+        }
+        else {
+            this.userGame[sp + 'Date'] = new Date(e);
         }
     }
 }

@@ -17,14 +17,12 @@ export class LoadingComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        switch (this.status){
+        switch (this.status) {
             default:
                 this.title = 'Sauvegarde en cours';
                 this.subtitle = 'Veuillez ne pas éteindre la console ni retirer la cartouche';
                 break;
 
         }
-
-
     }
 }

@@ -20,15 +20,16 @@ import {GameLocalService} from "../../_services/gameLocal.service";
 })
 export class GameNewComponent {
 
+    errorMessage: string;
+
+    private search: string = '';
+    private games: Game[];
+    private selectedGame: Game = new Game();
+    private selectedPlatform: Platform = new Platform();
+    private subscription;
+
     @ViewChild('modal')
     modal: ModalComponent;
-
-    search: string = '';
-    games: Game[];
-    selectedGame: Game = new Game();
-    selectedPlatform: Platform = new Platform();
-    errorMessage: string;
-    private subscription;
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -52,14 +53,6 @@ export class GameNewComponent {
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
-        }
-    }
-
-    setItemClass(e) {
-        if (e.value) {
-            this.renderer.setElementProperty(e.target, 'className', 'gameBox visible_anim');
-        } else {
-            this.renderer.setElementProperty(e.target, 'className', 'gameBox');
         }
     }
 
@@ -92,6 +85,14 @@ export class GameNewComponent {
         this.selectedGame = game;
         this.selectedPlatform = platform;
         this.modal.open();
+    }
+
+    setItemClass(e) {
+        if (e.value) {
+            this.renderer.setElementProperty(e.target, 'className', 'gameBox visible_anim');
+        } else {
+            this.renderer.setElementProperty(e.target, 'className', 'gameBox');
+        }
     }
 
 }

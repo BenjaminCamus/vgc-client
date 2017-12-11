@@ -12,9 +12,9 @@ import {AuthenticationService} from "../_services/authentification.service";
     host: {'[@routerTransition]': 'state', class: 'mainPage'}
 })
 export class LoginComponent implements OnInit {
-    model: any = {};
-    error = '';
-    action: string = 'login';
+    private model: any = {};
+    private action: string = 'login';
+    private error = '';
 
     constructor(private router: Router,
                 private route: ActivatedRoute,

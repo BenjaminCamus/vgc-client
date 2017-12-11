@@ -14,15 +14,14 @@
     <div class="row" style="padding-bottom: 15px">
         <div class="col-md-4">
             <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-                <input type="text" id="name"
+                <input type="text" id="search"
                        required
-                       [(ngModel)]="model.name" name="name"
+                       [(ngModel)]="search" name="search"
                        #name="ngModel"
                        autocomplete="off">
                 <span class="bar"></span>
                 <button type="submit"
-                        class="btn btn-success"
-                        [disabled]="slimLoadingBarService.progress > 0">
+                        class="btn btn-success">
                     <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
                     Rechercher via IGDB.com</button>
             </form>
@@ -49,7 +48,7 @@
 <div>
 </div>
 
-<modal #modal>
+<modal #modal (onDismiss)="initGame()">
     <modal-header [show-close]="true">
         <h4 class="modal-title">Nouveau Jeu - {{selectedGame.name}}</h4>
     </modal-header>

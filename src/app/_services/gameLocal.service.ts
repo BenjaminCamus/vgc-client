@@ -11,6 +11,7 @@ export class GameLocalService {
 
     private userGamesLocalId = 'userGames';
     private userContactsLocalId = 'userContacts';
+    private newGameSearchLocalId = 'newGameSearch';
 
     getUserGames() {
         if (localStorage.getItem(this.userGamesLocalId)) {
@@ -84,6 +85,18 @@ export class GameLocalService {
             this.setUserGames(userGames);
         }
         return userGames;
+    }
+
+    getNewGameSearch() {
+        if (localStorage.getItem(this.newGameSearchLocalId)) {
+            return localStorage.getItem(this.newGameSearchLocalId);
+        }
+
+        return '';
+    }
+
+    setNewGameSearch(search: string) {
+        return localStorage.setItem(this.newGameSearchLocalId, search);
     }
 
     getUserContacts() {

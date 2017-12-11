@@ -22,16 +22,13 @@ import {Place} from "../../_models/place";
 })
 export class GamesComponent implements OnInit {
 
-    state = "none";
-    private subscription;
-
-    @ViewChild('modal')
-    modal: ModalComponent;
-
     errorMessage: string;
-    userGames: UserGame[] = [];
-    userGameFilter: UserGameFilter = new UserGameFilter();
+
+    private subscription;
+    private userGames: UserGame[] = [];
+    private userGameFilter: UserGameFilter = new UserGameFilter();
     displayFilters: boolean = false;
+
     purchasePlaceTags: Place[] = [];
     salePlaceTags: Place[] = [];
     purchaseContactTags: Place[] = [];
@@ -39,6 +36,7 @@ export class GamesComponent implements OnInit {
     platformTags: Platform[] = [];
     developerTags: Company[] = [];
     publisherTags: Company[] = [];
+
     purchasePlaceCount: number[] = [];
     salePlaceCount: number[] = [];
     purchaseContactCount: number[] = [];
@@ -46,6 +44,9 @@ export class GamesComponent implements OnInit {
     platformCount: number[] = [];
     developerCount: number[] = [];
     publisherCount: number[] = [];
+
+    @ViewChild('modal')
+    modal: ModalComponent;
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,

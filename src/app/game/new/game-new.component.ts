@@ -7,6 +7,8 @@ import {routerTransition} from '../../_animations/router.animations';
 import {Game}    from '../../_models/game';
 import {GameService}       from '../../_services/game.service';
 import {orderByName} from "../../functions";
+import {Platform} from "../../_models/platform";
+import {GameLocalService} from "../../_services/gameLocal.service";
 
 @Component({
     moduleId: module.id,
@@ -21,25 +23,30 @@ export class GameNewComponent {
     @ViewChild('modal')
     modal: ModalComponent;
 
-    model = new Game('Super Metroid');
+    search: string = '';
     games: Game[];
     selectedGame: Game = new Game();
-    selectedPlatform: Object;
+    selectedPlatform: Platform = new Platform();
     errorMessage: string;
     private subscription;
 
     constructor(private gameService: GameService,
+                private gameLocalService: GameLocalService,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,) {
     }
 
     ngOnInit() {
         this.slimLoadingBarService.reset();
-
-        if (localStorage.getItem('newGameSearch')) {
-            this.model.name = localStorage.getItem('newGameSearch');
-        }
+        this.search = this.gameLocalService.getNewGameSearch();
         this.onSubmit();
+    }
+
+    initGame() {
+        if (this.slimLoadingBarService.progress == 0) {
+            this.selectedGame = new Game();
+            this.selectedPlatform = new Platform();
+        }
     }
 
     ngOnDestroy() {
@@ -57,18 +64,20 @@ export class GameNewComponent {
     }
 
     onSubmit() {
-        if (this.slimLoadingBarService.progress == 0) {
-            localStorage.setItem('newGameSearch', this.model.name);
+        if (this.search != '') {
+            this.ngOnDestroy();
+            this.slimLoadingBarService.reset();
+            this.gameLocalService.setNewGameSearch(this.search);
 
             this.slimLoadingBarService.start();
-            this. subscription = this.gameService.igdbSearch(this.model.name)
+            this.subscription = this.gameService.igdbSearch(this.search)
                 .subscribe(
                     games => {
                         games = games.filter(function (elem, index, self) {
                             return index == self.indexOf(elem);
                         });
 
-                        this.games = games.slice(0,this.gameService.searchLimit).sort(orderByName);
+                        this.games = games.slice(0, this.gameService.searchLimit).sort(orderByName);
                         this.slimLoadingBarService.complete();
                     },
                     error => {
@@ -78,7 +87,7 @@ export class GameNewComponent {
         }
     }
 
-    onSelect(game: Game, platform: Object): void {
+    onSelect(game: Game, platform: Platform): void {
 
         this.selectedGame = game;
         this.selectedPlatform = platform;

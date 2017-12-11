@@ -60,8 +60,14 @@ export class GameDetailComponent implements OnInit {
             // In a real app: dispatch action to load the details here.
         });
 
-        this.userGame = this.gameLocalService.getUserGame(this.userGame);
-        this.getGame();
+        this.initGame();
+    }
+
+    initGame() {
+        if (this.slimLoadingBarService.progress == 0) {
+            this.userGame = this.gameLocalService.getUserGame(this.userGame);
+            this.getGame();
+        }
     }
 
     ngOnDestroy() {

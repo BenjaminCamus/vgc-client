@@ -74,16 +74,18 @@ export class GameService {
             .catch(this.errorService.handleError.bind(this));
     }
 
-    getGame(userGame: UserGame, igdb: boolean = false): Observable<UserGame> {
+    getGame(userGame: UserGame): Observable<UserGame> {
+
         var url = this.url + 'user/games/' + userGame.platform.slug + '/' + userGame.game.slug;
         var headers = this.headers;
 
         return this.http
             .get(url, {headers: headers})
             .map(response => {
-                var res = response.json();
-                res = this.setDates(res);
-                return res as UserGame;
+                var returnUserGame = response.json();
+                returnUserGame = this.setDates(returnUserGame);
+
+                return returnUserGame as UserGame;
             })
             .catch(this.errorService.handleError.bind(this));
     }

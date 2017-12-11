@@ -12,6 +12,7 @@ import {Platform} from "../../_models/platform";
 import {Place} from "../../_models/place";
 import {orderByName} from "../../functions";
 import {Contact, NewContact} from "../../_models/contact";
+import {GameLocalService} from "../../_services/gameLocal.service";
 
 function validatePrice(fc) {
     let val = fc.value;
@@ -31,7 +32,7 @@ export class GameFormComponent implements OnInit {
 
     @Input() game: Game;
     @Input() platform: Platform;
-    @Input() userGame: UserGame;
+    @Input() userGame: UserGame = new UserGame();
     @Input() action: string;
     private userContacts: Contact[];
     private places: Place[];
@@ -76,6 +77,7 @@ export class GameFormComponent implements OnInit {
     errorMessage: string;
 
     constructor(private gameService: GameService,
+                private gameLocalService: GameLocalService,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
                 private router: Router,
@@ -93,23 +95,8 @@ export class GameFormComponent implements OnInit {
 
     ngOnInit(): void {
 
-        // if (localStorage.getItem('newUserGame')) {
-        //     this.userGame = JSON.parse(localStorage.getItem('newUserGame'));
-        // }
-        // else {
-        if (!this.userGame) {
-            this.userGame = new UserGame();
-        }
-
-        // }
-
-
-        if (localStorage.getItem('userContacts')) {
-            this.userContacts = JSON.parse(localStorage.getItem('userContacts'));
-        }
-        else {
-            this.getContacts();
-        }
+        this.userContacts = this.gameLocalService.getUserContacts();
+        this.getContacts();
 
         this.gameService.getPlaces()
             .subscribe(
@@ -164,8 +151,8 @@ export class GameFormComponent implements OnInit {
             .subscribe(
                 userGame => {
 
-                    // userGame local storage
-                    localStorage.setItem('game/' + userGame.platform.slug + '/' + userGame.game.slug, JSON.stringify(userGame));
+                    this.userGame = userGame;
+                    this.gameLocalService.setUserGame(userGame);
 
                     this.router.navigate(['/game', userGame.platform.slug, userGame.game.slug]);
                     this.state.emit('success');
@@ -188,8 +175,7 @@ export class GameFormComponent implements OnInit {
                 response => {
 
                     // userGame local storage
-                    localStorage.removeItem('game/' + this.userGame.platform.slug + '/' + this.userGame.game.slug);
-                    localStorage.removeItem('userGames');
+                    this.gameLocalService.removeUserGame(this.userGame);
 
                     this.router.navigate(['/games']);
                     this.state.emit('success');
@@ -208,7 +194,7 @@ export class GameFormComponent implements OnInit {
                     userContacts => {
                         // userContacts.sort(orderByName);
                         this.userContacts = userContacts;
-                        localStorage.setItem('userContacts', JSON.stringify(this.userContacts));
+                        this.gameLocalService.setUserContacts(this.userContacts);
                     },
                     error => {
                         this.errorMessage = <any>error;

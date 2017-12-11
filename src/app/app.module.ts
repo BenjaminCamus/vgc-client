@@ -24,6 +24,7 @@ import {GameNewComponent} from "./game/new/game-new.component";
 import {GameFormComponent} from "./game/form/game-form.component";
 import {FormatNamePipe} from "./_pipes/formatName.pipe";
 import {SharedModule, SliderModule, DataTableModule} from "primeng/primeng";
+import {GameLocalService} from "./_services/gameLocal.service";
 
 @NgModule({
     imports: [
@@ -63,6 +64,7 @@ import {SharedModule, SliderModule, DataTableModule} from "primeng/primeng";
         AuthenticationService,
 
         GameService,
+        GameLocalService,
     ],
     bootstrap: [AppComponent]
 })

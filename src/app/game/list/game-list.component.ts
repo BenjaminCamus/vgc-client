@@ -97,6 +97,22 @@ export class GamesComponent implements OnInit {
 
     private setFilters() {
 
+        this.purchasePlaceTags = [];
+        this.salePlaceTags = [];
+        this.purchaseContactTags = [];
+        this.saleContactTags = [];
+        this.platformTags = [];
+        this.developerTags = [];
+        this.publisherTags = [];
+
+        this.purchasePlaceCount = [];
+        this.salePlaceCount = [];
+        this.purchaseContactCount = [];
+        this.saleContactCount = [];
+        this.platformCount = [];
+        this.developerCount = [];
+        this.publisherCount = [];
+
         var minRating = 20;
         var maxRating = 0;
         var minPrice = 1000000000;
@@ -180,7 +196,6 @@ export class GamesComponent implements OnInit {
         this.userGameFilter.ratingRange = [minRating, maxRating];
         this.userGameFilter.minRating = minRating;
         this.userGameFilter.maxRating = maxRating;
-
 
         this.userGameFilter.priceAskedRange = [minPrice, maxPrice];
         this.userGameFilter.pricePaidRange = [minPrice, maxPrice];

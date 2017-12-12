@@ -24,8 +24,8 @@ export class GameNewComponent {
 
     private search: string = '';
     private games: Game[];
-    private selectedGame: Game = new Game();
-    private selectedPlatform: Platform = new Platform();
+    private selectedGame: Game;
+    private selectedPlatform: Object;
     private subscription;
 
     @ViewChild('modal')
@@ -45,8 +45,8 @@ export class GameNewComponent {
 
     initGame() {
         if (this.slimLoadingBarService.progress == 0) {
-            this.selectedGame = new Game();
-            this.selectedPlatform = new Platform();
+            this.selectedGame = null;
+            this.selectedPlatform = null;
         }
     }
 
@@ -80,7 +80,7 @@ export class GameNewComponent {
         }
     }
 
-    onSelect(game: Game, platform: Platform): void {
+    onSelect(game: Game, platform: Object): void {
 
         this.selectedGame = game;
         this.selectedPlatform = platform;

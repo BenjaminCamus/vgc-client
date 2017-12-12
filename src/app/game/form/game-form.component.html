@@ -1,6 +1,6 @@
 <form (ngSubmit)="submitForm()" #postUserGameForm="ngForm">
     <div id="gameBanner" *ngIf="game">
-        <div *ngIf="game.screenshots"
+        <div *ngIf="game.screenshots && game.screenshots.length > 0"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinarIid + '.jpg)' | safe: 'style'"></div>-->
     </div>

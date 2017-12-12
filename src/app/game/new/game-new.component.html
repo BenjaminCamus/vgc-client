@@ -50,7 +50,7 @@
 
 <modal #modal (onDismiss)="initGame()">
     <modal-header [show-close]="true">
-        <h4 class="modal-title">Nouveau Jeu - {{selectedGame.name}}</h4>
+        <h4 *ngIf="selectedGame" class="modal-title">Nouveau Jeu - {{selectedGame.name}}</h4>
     </modal-header>
     <modal-body>
         <game-form [game]="selectedGame" [platform]="selectedPlatform" [action]="'new'"></game-form>

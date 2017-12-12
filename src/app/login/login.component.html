@@ -28,7 +28,7 @@
                 <label>Mot de passe</label>
             </div>
         </div>
-        <div class="row">
+        <div class="row" style="margin-top: 15px;">
             <div class="col-md-12">
                 <button [disabled]="slimLoadingBarService.progress > 0" class="btn btn-primary">Start</button>
                 <div *ngIf="slimLoadingBarService.progress > 0" class="loader"></div>

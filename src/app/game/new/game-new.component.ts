@@ -7,8 +7,9 @@ import {routerTransition} from '../../_animations/router.animations';
 import {Game}    from '../../_models/game';
 import {GameService}       from '../../_services/game.service';
 import {orderByName} from "../../functions";
-import {Platform} from "../../_models/platform";
 import {GameLocalService} from "../../_services/gameLocal.service";
+import {UserGame} from "../../_models/userGame";
+import {Platform} from "../../_models/platform";
 
 @Component({
     moduleId: module.id,
@@ -71,6 +72,7 @@ export class GameNewComponent {
                         });
 
                         this.games = games.slice(0, this.gameService.searchLimit).sort(orderByName);
+
                         this.slimLoadingBarService.complete();
                     },
                     error => {
@@ -78,6 +80,20 @@ export class GameNewComponent {
                         this.errorMessage = <any>error;
                     });
         }
+    }
+
+    getPlatformButtonClass(game: Game, platform) {
+        let userGame = new UserGame();
+        userGame.game = game;
+        let newPlatform = new Platform();
+        newPlatform.id = platform.id;
+        userGame.platform = newPlatform;
+
+        if (this.gameLocalService.getUserGame(userGame, true).user) {
+            return 'btn-success';
+        }
+
+        return 'btn-primary';
     }
 
     onSelect(game: Game, platform: Object): void {

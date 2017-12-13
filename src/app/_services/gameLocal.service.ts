@@ -25,23 +25,25 @@ export class GameLocalService {
         return localStorage.setItem(this.userGamesLocalId, JSON.stringify(userGames));
     }
 
-    getUserGame(userGame: UserGame) {
+    getUserGame(userGame: UserGame, igdb: boolean = false) {
+
         let userGames = this.getUserGames();
+
         if (userGames.length == 0) {
-            console.log('local userGames empty');
             return userGame;
         }
         else {
             let index = userGames.findIndex(function (cur) {
-                console.log('local userGame search');
+                if (igdb) {
+                    return userGame.game.id === cur.game.igdbId && userGame.platform.id === cur.platform.igdbId;
+                }
+
                 return userGame.game.slug === cur.game.slug && userGame.platform.slug === cur.platform.slug;
             });
             if (index === -1) {
-                console.log('local userGame not found');
                 return userGame;
             }
             else {
-                console.log('local userGame found');
                 return userGames[index];
             }
         }

@@ -29,6 +29,7 @@ export class GameNewComponent {
     private selectedPlatform;
     private selectedUserGame: UserGame = new UserGame;
     private subscription;
+    private buttonClass: Array<string> = [];
 
     @ViewChild('modal')
     modal: ModalComponent;
@@ -73,6 +74,13 @@ export class GameNewComponent {
                         });
 
                         this.games = games.slice(0, this.gameService.searchLimit).sort(orderByName);
+
+                        for (let game of this.games) {
+                            for (let platform of game.platforms) {
+                                this.buttonClass[game.id+'_'+platform.id] = this.getPlatformButtonClass(game, platform);
+
+                            }
+                        }
 
                         this.slimLoadingBarService.complete();
                     },

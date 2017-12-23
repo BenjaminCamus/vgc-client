@@ -37,8 +37,6 @@ export class GameFormComponent implements OnInit {
     _userGame: UserGame = new UserGame();
     @Input() set userGame(userGame: UserGame) {
         this._userGame = userGame;
-        console.log(userGame);
-        console.log(this._userGame);
         this.updateSelects();
     }
     @Input() action: string;

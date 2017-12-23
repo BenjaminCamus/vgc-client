@@ -37,8 +37,8 @@
         </div>
 
         <section *ngIf="game.platforms">
-            <button *ngFor="let p of game.platforms" (click)="onSelect(game, p)" class="btn btn-sm" [ngClass]="getPlatformButtonClass(game, p)">
-                {{p.name}}
+            <button *ngFor="let platform of game.platforms" (click)="onSelect(game, platform)" class="btn btn-sm" [ngClass]="buttonClass[game.id+'_'+platform.id]">
+                {{platform.name}}
             </button>
         </section>
     </div>

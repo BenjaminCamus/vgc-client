@@ -34,7 +34,13 @@ export class GameFormComponent implements OnInit {
 
     @Input() game: Game;
     @Input() platform: Platform;
-    @Input() userGame: UserGame = new UserGame();
+    _userGame: UserGame = new UserGame();
+    @Input() set userGame(userGame: UserGame) {
+        this._userGame = userGame;
+        console.log(userGame);
+        console.log(this._userGame);
+        this.updateSelects();
+    }
     @Input() action: string;
     @Input() set update(update: number) {
         this.updateSelects();
@@ -97,26 +103,26 @@ export class GameFormComponent implements OnInit {
         this.slimLoadingBarService.start();
         this.state.emit('submitted');
 
-        if (!this.userGame.game.igdbId) {
-            this.userGame.game.igdbId = +this.game.id;
+        if (!this._userGame.game.igdbId) {
+            this._userGame.game.igdbId = +this.game.id;
         }
-        if (!this.userGame.platform.igdbId) {
-            this.userGame.platform.igdbId = +this.platform.id;
-        }
-
-        if (this.userGame.purchaseContact && this.userGame.purchaseContact.id == 0) {
-            this.userGame.purchaseContact = this.newContacts['purchase'];
+        if (!this._userGame.platform.igdbId) {
+            this._userGame.platform.igdbId = +this.platform.id;
         }
 
-        if (this.userGame.saleContact && this.userGame.saleContact.id == 0) {
-            this.userGame.saleContact = this.newContacts['sale'];
+        if (this._userGame.purchaseContact && this._userGame.purchaseContact.id == 0) {
+            this._userGame.purchaseContact = this.newContacts['purchase'];
         }
 
-        this.gameService.postUserGame(this.userGame)
+        if (this._userGame.saleContact && this._userGame.saleContact.id == 0) {
+            this._userGame.saleContact = this.newContacts['sale'];
+        }
+
+        this.gameService.postUserGame(this._userGame)
             .subscribe(
                 userGame => {
 
-                    this.userGame = userGame;
+                    this._userGame = userGame;
                     this.gameLocalService.setUserGame(userGame);
 
                     this.router.navigate(['/game', userGame.platform.slug, userGame.game.slug]);
@@ -135,12 +141,12 @@ export class GameFormComponent implements OnInit {
         this.slimLoadingBarService.start();
         this.state.emit('submitted');
 
-        this.gameService.deleteUserGame(this.userGame)
+        this.gameService.deleteUserGame(this._userGame)
             .subscribe(
                 response => {
 
                     // userGame local storage
-                    this.gameLocalService.removeUserGame(this.userGame);
+                    this.gameLocalService.removeUserGame(this._userGame);
 
                     this.router.navigate(['/games']);
                     this.state.emit('success');
@@ -170,30 +176,30 @@ export class GameFormComponent implements OnInit {
     updateSelects() {
 
         if (this.userContacts) {
-            if (this.userGame.purchaseContact) {
-                this.userGame.purchaseContact = this.userContacts.find(contact => contact.id === this.userGame.purchaseContact.id);
+            if (this._userGame.purchaseContact) {
+                this._userGame.purchaseContact = this.userContacts.find(contact => contact.id === this._userGame.purchaseContact.id);
             }
-            if (this.userGame.saleContact) {
-                this.userGame.saleContact = this.userContacts.find(contact => contact.id === this.userGame.saleContact.id);
+            if (this._userGame.saleContact) {
+                this._userGame.saleContact = this.userContacts.find(contact => contact.id === this._userGame.saleContact.id);
             }
         }
 
         if (this.places) {
-            if (this.userGame && this.userGame.purchasePlace) {
-                this.userGame.purchasePlace = this.places.find(place => place.id === this.userGame.purchasePlace.id);
+            if (this._userGame && this._userGame.purchasePlace) {
+                this._userGame.purchasePlace = this.places.find(place => place.id === this._userGame.purchasePlace.id);
             }
-            if (this.userGame && this.userGame.salePlace) {
-                this.userGame.salePlace = this.places.find(place => place.id === this.userGame.salePlace.id);
+            if (this._userGame && this._userGame.salePlace) {
+                this._userGame.salePlace = this.places.find(place => place.id === this._userGame.salePlace.id);
             }
         }
     }
 
     updateDate(e, sp) {
         if (!e) {
-            this.userGame[sp + 'Date'] = null;
+            this._userGame[sp + 'Date'] = null;
         }
         else {
-            this.userGame[sp + 'Date'] = new Date(e);
+            this._userGame[sp + 'Date'] = new Date(e);
         }
     }
 }

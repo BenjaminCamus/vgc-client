@@ -53,7 +53,7 @@
         <h4 *ngIf="selectedGame" class="modal-title">Nouveau Jeu - {{selectedGame.name}}</h4>
     </modal-header>
     <modal-body>
-        <game-form [game]="selectedGame" [platform]="selectedPlatform" [action]="'new'"></game-form>
+        <game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="selectedUserGame" [action]="'new'"></game-form>
     </modal-body>
     <modal-footer>
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Annuler</button>

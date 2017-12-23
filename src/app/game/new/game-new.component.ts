@@ -110,7 +110,6 @@ export class GameNewComponent {
 
         let userGame = this.getUserGameFromIgdb(game, platform);
         if (userGame.user) {
-            console.log(userGame);
             this.selectedUserGame = userGame;
         }
 

@@ -4,6 +4,7 @@ import {Theme} from "./theme";
 import {Genre} from "./genre";
 import {Series} from "./series";
 import {Image} from "./image";
+import {Platform} from "./platform";
 
 export class Game {
     id: string;
@@ -22,7 +23,7 @@ export class Game {
     screenshots: Array<Image>;
 
     // IGDB
-    platforms: Array<Object<any>>;
+    platforms: Array<Platform>;
 
     constructor(name: string = '') {
         this.name = name;

@@ -26,7 +26,8 @@ export class GameNewComponent {
     private search: string = '';
     private games: Game[];
     private selectedGame: Game;
-    private selectedPlatform: Object;
+    private selectedPlatform;
+    private selectedUserGame: UserGame = new UserGame;
     private subscription;
 
     @ViewChild('modal')
@@ -82,14 +83,20 @@ export class GameNewComponent {
         }
     }
 
-    getPlatformButtonClass(game: Game, platform) {
+    getUserGameFromIgdb(game: Game, platform) {
         let userGame = new UserGame();
         userGame.game = game;
         let newPlatform = new Platform();
         newPlatform.id = platform.id;
         userGame.platform = newPlatform;
 
-        if (this.gameLocalService.getUserGame(userGame, true).user) {
+        return this.gameLocalService.getUserGame(userGame, true);
+    }
+
+    getPlatformButtonClass(game: Game, platform) {
+        let userGame = this.getUserGameFromIgdb(game, platform);
+
+        if (userGame.user) {
             return 'btn-success';
         }
 
@@ -100,6 +107,13 @@ export class GameNewComponent {
 
         this.selectedGame = game;
         this.selectedPlatform = platform;
+
+        let userGame = this.getUserGameFromIgdb(game, platform);
+        if (userGame.user) {
+            console.log(userGame);
+            this.selectedUserGame = userGame;
+        }
+
         this.modal.open();
     }
 

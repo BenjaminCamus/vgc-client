@@ -77,7 +77,7 @@ export class GameNewComponent {
 
                         for (let game of this.games) {
                             for (let platform of game.platforms) {
-                                this.buttonClass[game.id+'_'+platform.id] = this.getPlatformButtonClass(game, platform);
+                                this.buttonClass[game.id + '_' + platform.id] = this.getPlatformButtonClass(game, platform);
 
                             }
                         }
@@ -117,9 +117,7 @@ export class GameNewComponent {
         this.selectedPlatform = platform;
 
         let userGame = this.getUserGameFromIgdb(game, platform);
-        if (userGame.user) {
-            this.selectedUserGame = userGame;
-        }
+        this.selectedUserGame = userGame;
 
         this.modal.open();
     }

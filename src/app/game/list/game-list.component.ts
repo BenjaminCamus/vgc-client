@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, Renderer, OnInit, OnDestroy, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {Router}            from '@angular/router';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
@@ -28,6 +28,8 @@ export class GamesComponent implements OnInit {
     private userGames: UserGame[] = [];
     private userGameFilter: UserGameFilter = new UserGameFilter();
     displayFilters: boolean = false;
+    displayMode: number = 0;
+    orderField: string = 'game.name';
 
     purchasePlaceTags: Place[] = [];
     salePlaceTags: Place[] = [];
@@ -79,7 +81,7 @@ export class GamesComponent implements OnInit {
             this.subscription = this.gameService.getUserGames().subscribe(
                     userGames => {
 
-                        userGames.sort(orderByName);
+                        //userGames.sort(orderByName);
                         this.userGames = userGames;
 
                         this.gameLocalService.setUserGames(this.userGames);

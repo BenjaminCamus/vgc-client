@@ -12,6 +12,7 @@ import {LoginComponent} from "./login/login.component";
 import {SlimLoadingBarModule} from "ng2-slim-loading-bar";
 import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
 import {FilterPipe} from "./_pipes/filter.pipe";
+import {OrderByPipe} from "./_pipes/orderBy.pipe";
 import {SafePipe} from "./_pipes/safe.pipe";
 import {TruncatePipe} from "./_pipes/truncate.pipe";
 import {InViewportModule} from "./_in-viewport/in-viewport.module";
@@ -43,6 +44,7 @@ import {GameLocalService} from "./_services/gameLocal.service";
     ],
     declarations: [
         FilterPipe,
+        OrderByPipe,
         SafePipe,
         TruncatePipe,
         FormatNamePipe,

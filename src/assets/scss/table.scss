@@ -1,0 +1,22 @@
+.table th {
+  font-weight: normal;
+  background: rgba(255, 255, 255, .1);
+  border: none;
+}
+
+.table td {
+  min-width: 50px;
+  border-top: none;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.table tr {
+  cursor: pointer;
+}
+
+.table tr:hover {
+  background: rgba(255, 255, 255, .05);
+}

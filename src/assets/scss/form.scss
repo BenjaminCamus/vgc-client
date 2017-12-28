@@ -7,9 +7,9 @@
 
 /* Change the white to any color ;) */
 input:-webkit-autofill {
-  background: none !important;
-  -webkit-box-shadow:0 0 0 50px black inset; /* Change the color to your own background color */
-  -webkit-text-fill-color: #fff;
+  background: transparent !important;
+  //-webkit-box-shadow:0 0 0 50px black inset; /* Change the color to your own background color */
+  //-webkit-text-fill-color: #fff;
 }
 /* form starting stylings ------------------------------- */
 input, textarea, select {
@@ -22,13 +22,17 @@ h1 input, h1 textarea, h1 select, game-new input {
 input[type=text], input[type=date], input[type=password], textarea, select {
   font-size: 14px;
   display:block;
-  background: rgba(0,0,0,.9);
+  //background: rgba(0,0,0,.9);
+  background: transparent !important;
   padding:10px 10px 10px 5px;
   width:100%;
   height: 46px;
   border:none;
   border-bottom:1px solid rgba(255, 255, 255, .1);
 
+}
+option {
+  background: rgba(0,0,0,.9);
 }
 textarea {
   height: 106px;

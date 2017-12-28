@@ -113,14 +113,16 @@
                 --><i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-bars"></i><!--
                 --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i><!--
                 -->
-                <div style="width: 400px; position: absolute; margin: 12px; display: inline-block;">
+                <div style="width: 400px; margin-right: 12px; display: inline-block; vertical-align: text-top;">
                     <input type="text" id="name" name="name"
                            [(ngModel)]="userGameFilter.game.name"
                            #name="ngModel"
-                           autocomplete="off">
+                           autocomplete="off"
+                           placeholder="Recherche">
                     <span class="bar"></span>
                 </div>
-                <div style="width: 200px; position: absolute; margin: 12px; display: inline-block;">
+                <label for="orderField" style="font-size: 14px;">Tri</label>
+                <div style="width: 200px; display: inline-block; vertical-align: text-top;">
                     <select id="orderField"
                             required
                             [(ngModel)]="orderField" name="orderField"
@@ -135,6 +137,7 @@
                         </option>
                     </select>
                 </div>
+                <i class="hovicon fa" (click)="orderOption = !orderOption"[ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
             </h1>
         </div>
     </div>

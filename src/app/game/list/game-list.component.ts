@@ -11,10 +11,12 @@ import {deepIndexOf, orderByName, orderByCount} from "../../functions";
 import {Platform} from "../../_models/platform";
 import {UserGameFilter} from "../../_models/userGameFilter";
 import {Place} from "../../_models/place";
+import {DatePipe} from "@angular/common";
+import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService],
+    providers: [GameService, DatePipe, FormatNamePipe],
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition()],
@@ -27,9 +29,27 @@ export class GamesComponent implements OnInit {
     private subscription;
     private userGames: UserGame[] = [];
     private userGameFilter: UserGameFilter = new UserGameFilter();
+
+    userGameFields = [
+        {name: 'platform.name', type: 'string', label: 'Plateforme'},
+        {name: 'game.name', type: 'string', label: 'Titre'},
+        {name: 'state', type: 'state', label: 'Etat'},
+        {name: 'pricePaid', type: 'price', label: 'Prix Payé'},
+        {name: 'priceAsked', type: 'price', label: 'Prix Demandé'},
+        {name: 'purchaseDate', type: 'date', label: 'Date Achat'},
+        {name: 'purchaseContact', type: 'contact', label: 'Contact Achat'},
+        {name: 'priceResale', type: 'price', label: 'Estimation Vente'},
+        {name: 'priceSold', type: 'price', label: 'Prix Vente', hiddenMD: true},
+        {name: 'saleDate', type: 'date', label: 'Date Vente', hiddenMD: true},
+        {name: 'saleContact', type: 'contact', label: 'Contact Vente', hiddenMD: true}
+    ];
+
+    userGameValues = [];
+
     displayFilters: boolean = false;
     displayMode: number = 0;
     orderField: string = 'game.name';
+    orderOption: boolean = true;
 
     purchasePlaceTags: Place[] = [];
     salePlaceTags: Place[] = [];
@@ -54,7 +74,9 @@ export class GamesComponent implements OnInit {
                 private gameLocalService: GameLocalService,
                 private router: Router,
                 private slimLoadingBarService: SlimLoadingBarService,
-                private renderer: Renderer,) {
+                private renderer: Renderer,
+                private datePipe: DatePipe,
+                private formatNamePipe: FormatNamePipe) {
     }
 
     ngOnInit() {
@@ -81,7 +103,7 @@ export class GamesComponent implements OnInit {
             this.subscription = this.gameService.getUserGames().subscribe(
                     userGames => {
 
-                        //userGames.sort(orderByName);
+                        userGames.sort(orderByName);
                         this.userGames = userGames;
 
                         this.gameLocalService.setUserGames(this.userGames);
@@ -121,6 +143,18 @@ export class GamesComponent implements OnInit {
         var maxPrice = 0;
 
         for (let userGame of this.userGames) {
+
+            // Formatted Values
+            if (!this.userGameValues[userGame.game.id]) {
+                this.userGameValues[userGame.game.id] = [];
+            }
+            if (!this.userGameValues[userGame.game.id][userGame.platform.id]) {
+                this.userGameValues[userGame.game.id][userGame.platform.id] = [];
+            }
+
+            for (let field of this.userGameFields) {
+                this.userGameValues[userGame.game.id][userGame.platform.id][field.name] = this.getFieldValue(userGame, field);
+            }
 
             // Rating
             if (userGame.rating < minRating) {
@@ -239,6 +273,63 @@ export class GamesComponent implements OnInit {
                 }
                 break;
         }
+    }
+
+    getFieldValue(userGame, field) {
+        if (field.name.indexOf('.') > -1) {
+            var fieldSplit = field.name.split('.');
+            var value = userGame[fieldSplit[0]][fieldSplit[1]];
+        }
+        else {
+            var value = userGame[field.name];
+        }
+        
+        if (!value && field.type != 'state') {
+            return '•';
+        }
+        
+        switch (field.type) {
+            case 'price':
+                value += ' €';
+                break;
+            case 'date':
+                value = this.datePipe.transform(value, 'yyyy-MM-dd');
+                break;
+            case 'contact':
+                value = this.formatNamePipe.transform(value);
+                break;
+            case 'state':
+                if (userGame.box) {
+                    if (userGame.manual) {
+                        value = 'Complet';
+                    }
+                    else {
+                        value = 'Boîte sans livret';
+                    }
+                }
+                else {
+                    if (userGame.manual) {
+                        value = 'Livret sans boîte';
+                    }
+                    else {
+                        value = 'Loose';
+                    }
+                }
+                break;
+        }
+
+        return value;
+    }
+
+    setOrderField(orderField: string) {
+        if (this.orderField == orderField) {
+            this.orderOption = !this.orderOption;
+        }
+        else {
+            this.orderField = orderField;
+            this.orderOption = true;
+        }
+
     }
 
     setItemClass(e) {

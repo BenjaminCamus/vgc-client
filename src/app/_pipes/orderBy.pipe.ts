@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 export class OrderByPipe implements PipeTransform {
 
-    transform(array: Array<Object>, args: string): Array<Object> {
+    transform(array: Array<Object>, orderField: string, orderOption: boolean): Array<Object> {
 
 
         if (array == null) {
@@ -15,23 +15,29 @@ export class OrderByPipe implements PipeTransform {
         }
 
         array.sort((a: any, b: any) => {
-            if (args.indexOf('.') > -1) {
-                var argsSplit = args.split('.');
-                var aVal = a[argsSplit[0]][argsSplit[1]];
-                var bVal = b[argsSplit[0]][argsSplit[1]];
+            if (orderField.indexOf('.') > -1) {
+                var orderFieldSplit = orderField.split('.');
+                var aVal = a[orderFieldSplit[0]][orderFieldSplit[1]];
+                var bVal = b[orderFieldSplit[0]][orderFieldSplit[1]];
             }
             else {
-                var aVal = a[args];
-                var bVal = b[args];
+                var aVal = a[orderField];
+                var bVal = b[orderField];
             }
 
+            let tmpReturn = 0;
 
             if ( aVal < bVal ){
-                return -1;
+                tmpReturn = -1;
             }else if( aVal > bVal ){
-                return 1;
-            }else{
-                return 0;
+                tmpReturn = 1;
+            }
+
+            if (orderOption) {
+                return tmpReturn;
+            }
+            else {
+                return -tmpReturn;
             }
         });
         return array;

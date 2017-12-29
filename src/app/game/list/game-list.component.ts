@@ -67,8 +67,7 @@ export class GamesComponent implements OnInit {
     developerCount: number[] = [];
     publisherCount: number[] = [];
 
-    @ViewChild('modal')
-    modal: ModalComponent;
+    @ViewChild('modal') modal: ModalComponent;
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -101,21 +100,21 @@ export class GamesComponent implements OnInit {
             this.slimLoadingBarService.start();
 
             this.subscription = this.gameService.getUserGames().subscribe(
-                    userGames => {
+                userGames => {
 
-                        userGames.sort(orderByName);
-                        this.userGames = userGames;
+                    userGames.sort(orderByName);
+                    this.userGames = userGames;
 
-                        this.gameLocalService.setUserGames(this.userGames);
+                    this.gameLocalService.setUserGames(this.userGames);
 
-                        this.setFilters();
+                    this.setFilters();
 
-                        this.slimLoadingBarService.complete();
-                    },
-                    error => {
-                        this.slimLoadingBarService.complete();
-                        this.errorMessage = <any>error;
-                    });
+                    this.slimLoadingBarService.complete();
+                },
+                error => {
+                    this.slimLoadingBarService.complete();
+                    this.errorMessage = <any>error;
+                });
         }
     }
 
@@ -283,11 +282,11 @@ export class GamesComponent implements OnInit {
         else {
             var value = userGame[field.name];
         }
-        
+
         if (!value && field.type != 'state') {
             return '•';
         }
-        
+
         switch (field.type) {
             case 'price':
                 value += ' €';

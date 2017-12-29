@@ -92,12 +92,30 @@
                  [tag]="developer.name"
                  [suffix]="developerCount[developer.id]"
                  (uploaded)="toggleTag('developer', $event, developer)"></tag>
-            <br><br>
+            <br>
             <label for="name">Éditeur</label><br>
             <tag *ngFor="let publisher of publisherTags;"
                  [tag]="publisher.name"
                  [suffix]="publisherCount[publisher.id]"
                  (uploaded)="toggleTag('publisher', $event, publisher)"></tag>
+            <br>
+            <label for="name">Mode</label><br>
+            <tag *ngFor="let mode of modeTags;"
+                 [tag]="mode.name"
+                 [suffix]="modeCount[mode.id]"
+                 (uploaded)="toggleTag('mode', $event, mode)"></tag>
+            <br>
+            <label for="name">Thème</label><br>
+            <tag *ngFor="let theme of themeTags;"
+                 [tag]="theme.name"
+                 [suffix]="themeCount[theme.id]"
+                 (uploaded)="toggleTag('theme', $event, theme)"></tag>
+            <br>
+            <label for="name">Genre</label><br>
+            <tag *ngFor="let genre of genreTags;"
+                 [tag]="genre.name"
+                 [suffix]="genreCount[genre.id]"
+                 (uploaded)="toggleTag('genre', $event, genre)"></tag>
         </div>
     </div>
 </div>

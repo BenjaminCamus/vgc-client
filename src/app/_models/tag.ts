@@ -1,4 +1,4 @@
-export class Company {
+export class Tag {
     id: number;
     name: string;
 }

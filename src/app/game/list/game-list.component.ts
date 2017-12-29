@@ -6,7 +6,7 @@ import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
 import {GameLocalService}       from '../../_services/gameLocal.service';
 import {UserGame} from "../../_models/userGame";
-import {Company} from "../../_models/company";
+import {Tag} from "../../_models/tag";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
 import {Platform} from "../../_models/platform";
 import {UserGameFilter} from "../../_models/userGameFilter";
@@ -56,8 +56,11 @@ export class GamesComponent implements OnInit {
     purchaseContactTags: Place[] = [];
     saleContactTags: Place[] = [];
     platformTags: Platform[] = [];
-    developerTags: Company[] = [];
-    publisherTags: Company[] = [];
+    developerTags: Tag[] = [];
+    publisherTags: Tag[] = [];
+    modeTags: Tag[] = [];
+    themeTags: Tag[] = [];
+    genreTags: Tag[] = [];
 
     purchasePlaceCount: number[] = [];
     salePlaceCount: number[] = [];
@@ -66,6 +69,9 @@ export class GamesComponent implements OnInit {
     platformCount: number[] = [];
     developerCount: number[] = [];
     publisherCount: number[] = [];
+    modeCount: number[] = [];
+    themeCount: number[] = [];
+    genreCount: number[] = [];
 
     @ViewChild('modal') modal: ModalComponent;
 
@@ -127,6 +133,9 @@ export class GamesComponent implements OnInit {
         this.platformTags = [];
         this.developerTags = [];
         this.publisherTags = [];
+        this.modeTags = [];
+        this.themeTags = [];
+        this.genreTags = [];
 
         this.purchasePlaceCount = [];
         this.salePlaceCount = [];
@@ -135,6 +144,9 @@ export class GamesComponent implements OnInit {
         this.platformCount = [];
         this.developerCount = [];
         this.publisherCount = [];
+        this.modeCount = [];
+        this.themeCount = [];
+        this.genreCount = [];
 
         var minRating = 20;
         var maxRating = 0;
@@ -188,34 +200,19 @@ export class GamesComponent implements OnInit {
                 }
             }
 
+            for (let tagType of ['developer', 'publisher', 'mode', 'theme', 'genre']) {
+                if (userGame.game[tagType+'s'] && userGame.game[tagType+'s'].length > 0) {
 
-            // Developers
-            if (userGame.game.developers && userGame.game.developers.length > 0) {
+                    for (let tag of userGame.game[tagType+'s']) {
 
-                for (let developer of userGame.game.developers) {
+                        if (deepIndexOf(this[tagType+'Tags'], tag) < 0) {
 
-                    if (deepIndexOf(this.developerTags, developer) < 0) {
+                            this[tagType+'Tags'].push(tag);
+                            this[tagType+'Count'][tag.id] = 0;
+                        }
 
-                        this.developerTags.push(developer);
-                        this.developerCount[developer.id] = 0;
+                        this[tagType+'Count'][tag.id]++;
                     }
-
-                    this.developerCount[developer.id]++;
-                }
-            }
-
-            // Publishers
-            if (userGame.game.publishers && userGame.game.publishers.length > 0) {
-
-                for (let publisher of userGame.game.publishers) {
-
-                    if (deepIndexOf(this.publisherTags, publisher) < 0) {
-
-                        this.publisherTags.push(publisher);
-                        this.publisherCount[publisher.id] = 0;
-                    }
-
-                    this.publisherCount[publisher.id]++;
                 }
             }
 
@@ -263,12 +260,15 @@ export class GamesComponent implements OnInit {
 
             case 'developer':
             case 'publisher':
+            case 'mode':
+            case 'theme':
+            case 'genre':
 
                 if (active) {
-                    this.userGameFilter.game.addCompany(type, tag);
+                    this.userGameFilter.game.addTag(type, tag);
                 }
                 else {
-                    this.userGameFilter.game.removeCompany(type, tag);
+                    this.userGameFilter.game.removeTag(type, tag);
                 }
                 break;
         }

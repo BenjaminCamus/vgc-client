@@ -10,6 +10,8 @@ import {UserGameFilter} from "../_models/userGameFilter";
 
 export class FilterPipe implements PipeTransform {
     transform(items: UserGame[], filter: UserGameFilter): Array<any> {
+
+
         return items.filter(item => {
             /**
              * Title
@@ -19,48 +21,20 @@ export class FilterPipe implements PipeTransform {
             }
         }).filter(item => {
             /**
-             * Object Tags : platform, dates, contacts
+             * Tags
              */
-
             return (this.filterTags('platform', filter, item)
             && this.filterTags('purchasePlace', filter, item)
             && this.filterTags('purchaseContact', filter, item)
             && this.filterTags('salePlace', filter, item)
             && this.filterTags('saleContact', filter, item)
             && this.filterTags('progress', filter, item)
-            && this.filterTags('version', filter, item));
-        }).filter(item => {
-            /**
-             * Developers
-             */
-            if (filter.game.developers && filter.game.developers.length > 0) {
-                for (let developer of filter.game.developers) {
-
-                    if (deepIndexOf(item.game.developers, developer) > -1) {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            return true;
-        }).filter(item => {
-            /**
-             * Publishers
-             */
-            if (filter.game.publishers && filter.game.publishers.length > 0) {
-                for (let publisher of filter.game.publishers) {
-
-                    if (deepIndexOf(item.game.publishers, publisher) > -1) {
-                        return true;
-                    }
-                }
-
-                return false;
-            }
-
-            return true;
+            && this.filterTags('version', filter, item)
+            && this.filterTags('developers', filter, item)
+            && this.filterTags('publishers', filter, item)
+            && this.filterTags('modes', filter, item)
+            && this.filterTags('themes', filter, item)
+            && this.filterTags('genres', filter, item));
         }).filter(item => {
             /**
              * Rating
@@ -87,25 +61,41 @@ export class FilterPipe implements PipeTransform {
     }
 
     private filterTags(tagType, filter, item) {
-        let filterKey = tagType == 'progress' ? tagType+'es' : tagType+'s';
-        if (item[tagType] !== undefined && item[tagType] !== null && filter[filterKey] && filter[filterKey].length > 0) {
 
-            if (typeof item[tagType] == "number" || typeof item[tagType] == "string") {
-                if (filter[filterKey].indexOf(item[tagType]) > -1) {
+        let gameTagTypes = ['developers', 'publishers', 'modes', 'themes', 'genres'];
+
+        if (gameTagTypes.indexOf(tagType) > -1 && filter.game[tagType] && filter.game[tagType].length > 0) {
+
+            if (item.game[tagType] && item.game[tagType].length > 0) {
+                for (let tag of filter.game[tagType]) {
+
+                    if (deepIndexOf(item.game[tagType], tag) > -1) {
+                        return true;
+                    }
+                }
+            }
+
+            return false;
+        }
+        else {
+            let filterKey = tagType == 'progress' ? tagType + 'es' : tagType + 's';
+            if (item[tagType] !== undefined && item[tagType] !== null && filter[filterKey] && filter[filterKey].length > 0) {
+
+                if (typeof item[tagType] == "number" || typeof item[tagType] == "string") {
+                    if (filter[filterKey].indexOf(item[tagType]) > -1) {
+                        return true;
+                    }
+                }
+
+                else if (deepIndexOf(filter[filterKey], item[tagType]) > -1) {
                     return true;
                 }
 
                 return false;
             }
 
-            if (deepIndexOf(filter[filterKey], item[tagType]) > -1) {
-                return true;
-            }
-
-            return false;
+            return true;
         }
-
-        return true;
     }
 
     private filterRange(range: number[], val: number) {

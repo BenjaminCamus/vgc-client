@@ -1,7 +1,4 @@
-import {Company} from "./company";
-import {Mode} from "./mode";
-import {Theme} from "./theme";
-import {Genre} from "./genre";
+import {Tag} from "./tag";
 import {Series} from "./series";
 import {Image} from "./image";
 import {Platform} from "./platform";
@@ -15,11 +12,11 @@ export class Game {
     igdbUrl: string;
     cover: Image;
     series: Series;
-    developers: Company[];
-    publishers: Company[];
-    modes: Mode[];
-    themes: Theme[];
-    genres: Genre[];
+    developers: Tag[];
+    publishers: Tag[];
+    modes: Tag[];
+    themes: Tag[];
+    genres: Tag[];
     screenshots: Array<Image>;
 
     // IGDB
@@ -29,12 +26,12 @@ export class Game {
         this.name = name;
     }
 
-    addCompany(type: string, company: Company) {
+    addTag(type: string, tag: Tag) {
         if (!this[type+'s']) {
             this[type+'s'] = [];
         }
 
-        this[type+'s'].push(company);
+        this[type+'s'].push(tag);
 
         this[type+'s'] = this[type+'s'].filter(function(elem, index, self) {
             return index == self.indexOf(elem);
@@ -43,11 +40,11 @@ export class Game {
         return this;
     }
 
-    removeCompany(type: string, company: Company) {
+    removeTag(type: string, tag: Tag) {
         if (!this[type+'s']) {
             return this;
         }
-        var index = this[type+'s'].indexOf(company, 0);
+        var index = this[type+'s'].indexOf(tag, 0);
         if (index > -1) {
             this[type+'s'].splice(index, 1);
         }

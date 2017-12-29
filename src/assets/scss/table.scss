@@ -1,13 +1,15 @@
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  border-top: none;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+}
+
 .table th {
   font-weight: normal;
-  background: rgba(255, 255, 255, .1);
   border: none;
 }
 
 .table td {
   min-width: 50px;
-  border-top: none;
-  border-bottom: 1px solid rgba(255, 255, 255, .1);
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;

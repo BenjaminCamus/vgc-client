@@ -8,8 +8,8 @@
 /* Change the white to any color ;) */
 input:-webkit-autofill {
   background: transparent !important;
-  //-webkit-box-shadow:0 0 0 50px black inset; /* Change the color to your own background color */
-  //-webkit-text-fill-color: #fff;
+  -webkit-box-shadow:0 0 0 50px black inset; /* Change the color to your own background color */
+  -webkit-text-fill-color: #fff;
 }
 /* form starting stylings ------------------------------- */
 input, textarea, select {

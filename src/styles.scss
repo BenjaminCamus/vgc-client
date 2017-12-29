@@ -160,6 +160,10 @@ hr {
   padding: 0;
   margin: 0;
   animation: FadeOut 1s ease-in-out;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
 }
 
 .filters.on {

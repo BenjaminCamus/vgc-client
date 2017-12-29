@@ -30,6 +30,7 @@ export class GameNewComponent {
     private selectedUserGame: UserGame = new UserGame;
     private subscription;
     private buttonClass: Array<string> = [];
+    private formLoading: boolean = false;
 
     @ViewChild('modal')
     modal: ModalComponent;
@@ -127,6 +128,18 @@ export class GameNewComponent {
             this.renderer.setElementProperty(e.target, 'className', 'gameBox visible_anim');
         } else {
             this.renderer.setElementProperty(e.target, 'className', 'gameBox');
+        }
+    }
+
+    formStateUpdate(event) {
+        this.modal.close();
+        switch (event) {
+            case 'submitted':
+                this.formLoading = true;
+                break;
+            case 'success':
+                this.formLoading = false;
+                break;
         }
     }
 

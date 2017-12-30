@@ -100,22 +100,22 @@ select:focus ~ .bar:before, select:focus ~ .bar:after {
 
 /* ng invalid */
 input.ng-invalid, textarea.ng-invalid, select.ng-invalid {
-  border-bottom:1px solid #632f2d;
+  border-bottom:1px solid $colorError0;
 
 }
 input.ng-invalid ~ .bar:before, input.ng-invalid ~ .bar:after,
 textarea.ng-invalid ~ .bar:before, textarea.ng-invalid ~ .bar:after,
 select.ng-invalid ~ .bar:before, select.ng-invalid ~ .bar:after {
-  background: #d9534f !important;
+  background: $colorError !important;
 }
 
 /* ng valid */
 input[required]:not(.ng-invalid), textarea[required]:not(.ng-invalid), select[required]:not(.ng-invalid) {
-  border-bottom:1px solid #026301;
+  border-bottom:1px solid $colorSuccess0;
 
 }
 input[required]:not(.ng-invalid) ~ .bar:before, input[required]:not(.ng-invalid) ~ .bar:after,
 textarea[required]:not(.ng-invalid) ~ .bar:before, textarea[required]:not(.ng-invalid) ~ .bar:after,
 select[required]:not(.ng-invalid) ~ .bar:before, select[required]:not(.ng-invalid) ~ .bar:after {
-  background: #029901 !important;
+  background: $colorSuccess !important;
 }

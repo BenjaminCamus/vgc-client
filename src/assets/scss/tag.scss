@@ -2,7 +2,7 @@
   cursor: pointer;
   display: inline-block;
   padding: 1px 5px 0 5px;
-  background: $color1;
+  background: $colorTag;
   transition: background-color 0.4s ease-in;
   border: 1px solid rgba(255, 255, 255, .3);
   margin-right: 5px;
@@ -20,7 +20,7 @@
 }
 
 .tag.on {
-  background: $color2;
+  background: $colorTagOn;
   transition: background-color 0.4s ease-in;
   border: 1px solid rgba(255, 255, 255, 1);
 }

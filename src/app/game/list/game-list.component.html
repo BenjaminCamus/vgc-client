@@ -192,7 +192,7 @@
         </tr>
     </table>
 </div>
-<div class="col-md-12" *ngIf="displayMode == 0">
+<div *ngIf="displayMode == 0">
 
     <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
              routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"

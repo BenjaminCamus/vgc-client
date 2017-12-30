@@ -50,35 +50,29 @@ body {
 @import "assets/scss/full";
 @import "assets/scss/table";
 
-//my-games {
-//  background: #151515;
-//
-//}
-
-//
-//game-new {
-//    background: #576e73;
-//}
-
 body {
   //font-family: 'Unica One', cursive;
   font-family: 'Share Tech Mono', monospace;
 }
 
-//h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-//  font-family: 'Press Start 2P', cursive;
-//}
-
-h1 {
-  margin: 0 -15px;
+.title {
+  font-size: 28px;
   line-height: 70px;
-  background: rgba(0, 0, 0, .5);
-  padding-left: 15px;
-  padding-right: 15px;
-  overflow: hidden;
+  background: rgba(0, 0, 0, .7);
+  padding: 0 15px;
+  cursor: default;
 }
 
-game-detail h1 {
+.title .input {
+  width: 300px;
+  max-width: 100%;
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.row .title {
   margin: 0 -15px 15px -15px;
 
 }

@@ -15,7 +15,11 @@ export class GameLocalService {
 
     getUserGames() {
         if (localStorage.getItem(this.userGamesLocalId)) {
-            return JSON.parse(localStorage.getItem(this.userGamesLocalId));
+            let userGames= JSON.parse(localStorage.getItem(this.userGamesLocalId));
+            for (let userGame of userGames) {
+                userGame = this.setDates(userGame);
+            }
+            return userGames;
         }
 
         return [];
@@ -111,5 +115,18 @@ export class GameLocalService {
 
     setUserContacts(contacts: Contact[]) {
         return localStorage.setItem(this.userContactsLocalId, JSON.stringify(contacts));
+    }
+
+    setDates(userGame) {
+
+        userGame.purchaseDate = new Date(userGame.purchaseDate);
+        if (userGame.saleDate) {
+            userGame.saleDate = new Date(userGame.saleDate);
+        }
+        if (userGame.releaseDate) {
+            userGame.releaseDate = new Date(userGame.releaseDate);
+        }
+
+        return userGame;
     }
 }

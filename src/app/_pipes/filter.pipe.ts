@@ -57,6 +57,15 @@ export class FilterPipe implements PipeTransform {
             && this.filterRange(filter.pricePaidRange, item.pricePaid)
             && this.filterRange(filter.priceResaleRange, item.priceResale)
             && this.filterRange(filter.priceSoldRange, item.priceSold));
+        }).filter(item => {
+            /**
+             * Release Year
+             */
+            if (item.releaseDate) {
+                return this.filterRange(filter.releaseYearRange, item.releaseDate.getFullYear());
+            }
+
+            return true;
         });
     }
 

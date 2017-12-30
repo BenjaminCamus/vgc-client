@@ -33,6 +33,11 @@
             </div>
         </div>
         <div class="col-md-3">
+            <label for="name">Année Sortie ({{userGameFilter.releaseYearRange[0] + ' - ' +
+                userGameFilter.releaseYearRange[1]}})</label><br>
+            <p-slider [(ngModel)]="userGameFilter.releaseYearRange" [range]="true" [min]="userGameFilter.minReleaseYear"
+                      [max]="userGameFilter.maxReleaseYear"></p-slider>
+
             <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' +
                 userGameFilter.ratingRange[1]}})</label><br>
             <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true" [min]="userGameFilter.minRating"

@@ -36,14 +36,16 @@ export class GamesComponent implements OnInit {
         {name: 'version', type: 'string', label: 'Verion'},
         {name: 'state', type: 'state', label: 'Etat'},
         {name: 'rating', type: 'string', label: 'Note'},
-        {name: 'pricePaid', type: 'price', label: 'Prix Payé'},
-        {name: 'priceAsked', type: 'price', label: 'Prix Demandé'},
+        {name: 'pricePaid', type: 'price', label: 'Payé'},
+        {name: 'priceAsked', type: 'price', label: 'Demandé'},
         {name: 'purchaseDate', type: 'date', label: 'Date Achat'},
-        {name: 'purchaseContact', type: 'contact', label: 'Contact Achat'},
-        {name: 'priceResale', type: 'price', label: 'Estimation Vente'},
-        {name: 'priceSold', type: 'price', label: 'Prix Vente', hiddenMD: true},
+        {name: 'purchasePlace', type: 'name', label: 'Lieu Achat'},
+        {name: 'purchaseContact', type: 'name', label: 'Vendeur'},
+        {name: 'priceResale', type: 'price', label: 'Estimation'},
+        {name: 'priceSold', type: 'price', label: 'Vendu', hiddenMD: true},
         {name: 'saleDate', type: 'date', label: 'Date Vente', hiddenMD: true},
-        {name: 'saleContact', type: 'contact', label: 'Contact Vente', hiddenMD: true}
+        {name: 'salePlace', type: 'name', label: 'Lieu Vente', hiddenMD: true},
+        {name: 'saleContact', type: 'name', label: 'Acheteur', hiddenMD: true}
     ];
 
     userGameValues = [];
@@ -296,7 +298,7 @@ export class GamesComponent implements OnInit {
             case 'date':
                 value = this.datePipe.transform(value, 'd MMM yy');
                 break;
-            case 'contact':
+            case 'name':
                 value = this.formatNamePipe.transform(value);
                 break;
             case 'state':

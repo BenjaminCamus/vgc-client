@@ -38,6 +38,11 @@
                             <tag [tag]="userGame.game.series.name"></tag>
                         </div>
 
+                        <div *ngIf="userGame.releaseDate">
+                            <label>Date de sortie</label>
+                            <tag [tag]="userGame.releaseDate | date: 'dd/MM/yyyy'"></tag>
+                        </div>
+
                         <div *ngIf="userGame.game.developers && userGame.game.developers.length > 0">
                             <label>Développé par</label>
                             <tag *ngFor="let developer of userGame.game.developers" [tag]="developer.name"></tag>

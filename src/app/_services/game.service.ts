@@ -56,6 +56,9 @@ export class GameService {
         if (userGame.saleDate) {
             userGame.saleDate = new Date(userGame.saleDate.timestamp * 1000);
         }
+        if (userGame.releaseDate) {
+            userGame.releaseDate = new Date(userGame.releaseDate.timestamp * 1000);
+        }
 
         return userGame;
     }

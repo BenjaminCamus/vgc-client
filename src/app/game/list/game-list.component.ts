@@ -33,7 +33,9 @@ export class GamesComponent implements OnInit {
     userGameFields = [
         {name: 'platform.name', type: 'string', label: 'Plateforme'},
         {name: 'game.name', type: 'string', label: 'Titre'},
+        {name: 'version', type: 'string', label: 'Verion'},
         {name: 'state', type: 'state', label: 'Etat'},
+        {name: 'rating', type: 'string', label: 'Note'},
         {name: 'pricePaid', type: 'price', label: 'Prix Payé'},
         {name: 'priceAsked', type: 'price', label: 'Prix Demandé'},
         {name: 'purchaseDate', type: 'date', label: 'Date Achat'},
@@ -292,7 +294,7 @@ export class GamesComponent implements OnInit {
                 value += ' €';
                 break;
             case 'date':
-                value = this.datePipe.transform(value, 'yyyy-MM-dd');
+                value = this.datePipe.transform(value, 'd MMM yy');
                 break;
             case 'contact':
                 value = this.formatNamePipe.transform(value);

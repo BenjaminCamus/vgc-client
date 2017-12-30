@@ -1,0 +1,22 @@
+.gameProgress {
+  width: 27px;
+  height: 9px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.gameProgress0 {
+  background: $colorError;
+}
+
+.gameProgress1 {
+  background: $colorWarning;
+}
+
+.gameProgress2 {
+  background: $colorSuccess;
+}
+
+.gameProgress3 {
+  background: $colorMain;
+}

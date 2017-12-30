@@ -164,6 +164,7 @@
     <table class="table">
         <tr>
             <th></th>
+            <th></th>
             <th *ngFor="let field of userGameFields"
                 (click)="setOrderField(field.name)"
                 [ngClass]="field.hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
@@ -178,6 +179,10 @@
             routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}">
 
             <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
+
+            <td>
+                <div class="gameProgress" [ngClass]="'gameProgress'+userGame.progress"></div>
+            </td>
 
             <td *ngFor="let field of userGameFields"
                 [ngClass]="field.hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">

@@ -6,6 +6,7 @@ import {Place} from "./place";
 export class UserGame {
     game: Game = new Game;
     platform: Platform = new Platform;
+    releaseDate: Date;
 
     rating: number;
     box: boolean = true;

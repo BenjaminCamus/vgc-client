@@ -1,3 +1,11 @@
+.mainPage {
+  min-height: 100%;
+  width: 100%;
+  padding-top: 70px !important;
+  padding-bottom: 5vw;
+  background: rgba(0, 0, 0, 0.5);
+}
+
 #topnav {
   position: fixed;
   z-index: 1000;
@@ -6,4 +14,93 @@
   height: 70px;
   line-height: 70px;
   padding: 5px;
+}
+
+#topnav div.appTitle {
+  position: absolute;
+  font-size: 50px;
+  opacity: 0.2;
+  text-align: right;
+  right: 15px;
+}
+
+.title {
+  font-size: 28px;
+  line-height: 70px;
+  background: rgba(0, 0, 0, .7);
+  padding: 0 15px;
+  cursor: default;
+}
+
+.title .input {
+  width: 300px;
+  max-width: 100%;
+  margin-right: 12px;
+  display: inline-block;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.row .title {
+  margin: 0 -15px 15px -15px;
+
+}
+.filters {
+  position: absolute;
+  overflow: hidden;
+  z-index: 10;
+  background-color: rgba(0, 0, 0, .8);
+  height: 0;
+  opacity: 0;
+  padding: 0;
+  margin: 0;
+  animation: FadeOut 1s ease-in-out;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+
+.filters.on {
+  height: initial;
+  opacity: 1;
+  padding: 15px;
+  margin: 70px 0;
+  animation: FadeIn 1s ease-in-out;
+}
+
+@keyframes FadeIn {
+  0% {
+    height: initial;
+    padding: 15px;
+    opacity: 0;
+    margin: 0;
+  }
+  100% {
+    height: initial;
+    padding: 15px;
+    opacity: 1;
+    margin: 70px 0;
+  }
+}
+
+@keyframes FadeOut {
+  0% {
+    height: initial;
+    padding: 15px;
+    opacity: 1;
+    margin: 70px 0;
+  }
+  99% {
+    height: initial;
+    padding: 15px;
+    opacity: 0;
+    margin: 0;
+  }
+  100% {
+    height: 0;
+    padding: 0;
+    opacity: 0;
+    margin: 0;
+  }
 }

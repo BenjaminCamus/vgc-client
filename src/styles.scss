@@ -1,15 +1,26 @@
-$color1: #18121e;
-$color2: #233237;
-$color3: #984843;
-$color4: #eac67a;
-$shade: rgba(25, 41, 48, 0.1);
+$colorMain: #337AB7;
+$colorMain0: #31414f;
+
+$colorTag: #18121e;
+$colorTagOn: #233237;
+
+$colorSuccess: #029901;
+$colorSuccess0: #026301;
+$colorWarning: #c16500;
+$colorWarning0: #814100;
+$colorError: #d9534f;
+$colorError0: #632f2d;
+
+$colorTagOn: $colorSuccess0;
 
 @import "../node_modules/compass-mixins/lib/_compass";
 @import "assets/scss/modal";
 @import "assets/scss/form";
 @import "assets/scss/loader";
 @import "assets/scss/hovicon";
+@import "assets/scss/gameBanner";
 @import "assets/scss/gameBox";
+@import "assets/scss/gameProgress";
 @import "assets/scss/nav";
 @import "assets/scss/tag";
 @import "assets/scss/rotation";

@@ -9,9 +9,9 @@ export class UserGameFilter extends UserGame{
     salePlaces: Place[] = [];
     purchaseContacts: Contact[] = [];
     saleContacts: Contact[] = [];
-    ratingRange = [0,1000000];
     versions = [];
     progresses = [];
+    ratingRange = [0,1000000];
     minRating = 0;
     maxRating = 1000000;
     priceAskedRange = [0,1000000];
@@ -20,6 +20,9 @@ export class UserGameFilter extends UserGame{
     priceSoldRange = [0,1000000];
     minPrice = 0;
     maxPrice = 1000000;
+    releaseYearRange = [0,1000000];
+    minReleaseYear = 0;
+    maxReleaseYear = 1000000;
 
     addElement(arrayName, element) {
         this[arrayName].push(element);

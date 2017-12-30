@@ -156,6 +156,8 @@ export class GamesComponent implements OnInit {
         var maxRating = 0;
         var minPrice = 1000000000;
         var maxPrice = 0;
+        var minReleaseYear = 1000000000;
+        var maxReleaseYear = 0;
 
         for (let userGame of this.userGames) {
 
@@ -180,6 +182,20 @@ export class GamesComponent implements OnInit {
                 maxRating = userGame.rating;
             }
 
+            // Release Year
+            if (userGame.releaseDate) {
+                console.log(userGame.releaseDate.getFullYear());
+            }
+
+            if (userGame.releaseDate && userGame.releaseDate.getFullYear() < minReleaseYear) {
+                minReleaseYear = userGame.releaseDate.getFullYear();
+            }
+
+            if (userGame.releaseDate && userGame.releaseDate.getFullYear() > maxReleaseYear) {
+                maxReleaseYear = userGame.releaseDate.getFullYear();
+            }
+
+            // Price
             var minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
             if (minP < minPrice) {
                 minPrice = minP;
@@ -232,6 +248,10 @@ export class GamesComponent implements OnInit {
         this.userGameFilter.ratingRange = [minRating, maxRating];
         this.userGameFilter.minRating = minRating;
         this.userGameFilter.maxRating = maxRating;
+
+        this.userGameFilter.releaseYearRange = [minReleaseYear, maxReleaseYear];
+        this.userGameFilter.minReleaseYear = minReleaseYear;
+        this.userGameFilter.maxReleaseYear = maxReleaseYear;
 
         this.userGameFilter.priceAskedRange = [minPrice, maxPrice];
         this.userGameFilter.pricePaidRange = [minPrice, maxPrice];

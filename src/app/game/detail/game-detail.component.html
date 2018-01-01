@@ -178,7 +178,7 @@
 
 <modal #modal (onDismiss)="initGame()">
     <modal-header [show-close]="true">
-        <h4 class="modal-title">Edit Game</h4>
+        <h4 *ngIf="selectedGame" class="modal-title">Modifier Jeu • {{selectedGame.name}}</h4>
     </modal-header>
     <modal-body>
         <game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update"

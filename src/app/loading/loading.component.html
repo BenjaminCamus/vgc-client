@@ -1,5 +1,6 @@
-<div class="full"
-     [style.background-image]="'url(http://twistedsifter.files.wordpress.com/2013/05/animated-gifs-of-fighting-game-backgrounds-23.gif?w=640&h=407)' | safe: 'style'">
+<div class="full" style="background-color:#002840"
+     [style.background-image]="'url(assets/img/pixel-bg/pixel-background-'+bgIndex+'.gif)' | safe: 'style'"
+     (click)="randomBgIndex()">
     <div>
         <div class="title">{{title}}</div>
         {{subtitle}}

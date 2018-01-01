@@ -108,6 +108,7 @@
                             <div class="col-md-3" *ngIf="sp == 'sale'">
                                 <input type="text" id="priceResale"
                                        [(ngModel)]="_userGame.priceResale"
+                                       required
                                        [formControl]="validateUserGameForm.get('priceResale')">
                                 <span class="bar"></span>
                                 <label for="priceResale">Estimation vente</label>

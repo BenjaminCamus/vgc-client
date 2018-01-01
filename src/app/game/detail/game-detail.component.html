@@ -24,10 +24,10 @@
             <div class="title">{{ userGame.game.name }}</div>
 
             <section>
-                <div style="float: right"><!--
+                <div style="float: right; width: 60px"><!--
+                    --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh" (click)="getGame()"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-pencil-square-o" (click)="openForm('edit')"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o" (click)="openForm('delete')"></i><!--
-                    --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh" (click)="getGame()"></i><!--
                 --></div>
 
                 <div class="row">

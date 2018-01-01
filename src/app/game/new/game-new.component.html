@@ -1,7 +1,7 @@
 <loading *ngIf="formLoading"></loading>
 
 <div id="gameBanner" class="gameBannerBig">
-    <div *ngIf="games && games[0].screenshots"
+    <div *ngIf="games && games[0] && games[0].screenshots"
          [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
 </div>
 

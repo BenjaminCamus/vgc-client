@@ -16,6 +16,11 @@ export function orderByName(a, b) {
         a = a.name;
         b = b.name;
     }
+    else if (a.firstName) {
+
+        a = a.firstName;
+        b = b.firstName;
+    }
     else if (a.game.name) {
 
         a = a.game.name;

@@ -10,6 +10,7 @@ export class LoadingComponent implements OnInit {
 
     @Input() status: string;
 
+    private bgIndex: string;
     private title: string;
     private subtitle: string;
 
@@ -17,6 +18,8 @@ export class LoadingComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.randomBgIndex();
+
         switch (this.status) {
             default:
                 this.title = 'Sauvegarde en cours';
@@ -24,5 +27,12 @@ export class LoadingComponent implements OnInit {
                 break;
 
         }
+    }
+
+    randomBgIndex() {
+        let rand = Math.floor(Math.random() * 187) + 1;
+        var str = "" + rand;
+        var pad = "000"
+        this.bgIndex = pad.substring(0, pad.length - str.length) + str
     }
 }

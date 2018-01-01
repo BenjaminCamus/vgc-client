@@ -161,7 +161,7 @@ export class GameFormComponent implements OnInit {
             this.gameService.getUserContacts()
                 .subscribe(
                     userContacts => {
-                        // userContacts.sort(orderByName);
+                        userContacts.sort(orderByName);
                         this.userContacts = userContacts;
                         this.gameLocalService.setUserContacts(this.userContacts);
                     },

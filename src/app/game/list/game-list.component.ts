@@ -244,6 +244,8 @@ export class GamesComponent implements OnInit {
         this.platformTags.sort(orderByCount(this.platformCount));
         this.developerTags.sort(orderByCount(this.developerCount));
         this.publisherTags.sort(orderByCount(this.publisherCount));
+        this.purchaseContactTags.sort(orderByCount(this.purchaseContactCount));
+        this.saleContactTags.sort(orderByCount(this.saleContactCount));
 
         this.userGameFilter.ratingRange = [minRating, maxRating];
         this.userGameFilter.minRating = minRating;

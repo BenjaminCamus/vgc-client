@@ -21,17 +21,17 @@
 
         <div class="col-md-8">
 
-            <div class="title">{{ userGame.game.name }}</div>
-
-            <section>
-                <div style="float: right; width: 60px"><!--
+            <div class="title">
+                <div style="float: right;"><!--
                     --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh" (click)="getGame()"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-pencil-square-o" (click)="openForm('edit')"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o" (click)="openForm('delete')"></i><!--
-                --></div>
+                --></div>{{ userGame.game.name }}</div>
+
+            <section>
 
                 <div class="row">
-                    <div class="col-md-4">
+                    <div class="col-md-5">
 
                         <div *ngIf="userGame.game.series">
                             <label>Série</label>
@@ -52,6 +52,8 @@
                             <label>Publié par</label>
                             <tag *ngFor="let publisher of userGame.game.publishers" [tag]="publisher.name"></tag>
                         </div>
+                    </div>
+                    <div class="col-md-5">
 
                         <div *ngIf="userGame.game.modes && userGame.game.modes.length > 0">
                             <label>Mode</label>
@@ -68,14 +70,12 @@
                             <tag *ngFor="let genre of userGame.game.genres" [tag]="genre.name"></tag>
                         </div>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-2">
 
                         <div *ngIf="userGame.game.rating">
                             <label>Note</label>
                             <tag [tag]="userGame.game.rating"></tag>
                         </div>
-                    </div>
-                    <div class="col-md-4">
 
                         <div *ngIf="userGame.game.igdbUrl">
                             <label>Liens</label>

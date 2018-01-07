@@ -178,15 +178,11 @@
     <table class="table">
         <tr>
             <th></th>
-            <th (click)="setOrderField('progress')">
-                <i class="fa" *ngIf="orderField == 'progress'"
-                   [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != 'progress'"></i></th>
             <th *ngFor="let field of userGameFields"
                 (click)="setOrderField(field.name)"
                 [ngClass]="field.hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
 
-                {{ field.label }}
+                <span *ngIf="field.name != 'progress'">{{ field.label }}</span>
                 <i class="fa" *ngIf="orderField == field.name"
                    [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
                 <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field.name"></i>
@@ -197,14 +193,11 @@
 
             <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
 
-            <td>
-                <div class="gameProgress" [ngClass]="'gameProgress'+userGame.progress"></div>
-            </td>
-
             <td *ngFor="let field of userGameFields"
                 [ngClass]="field.hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
 
-                {{ userGameValues[userGame.game.id][userGame.platform.id][field.name] }}
+                <span *ngIf="field.name != 'progress'">{{ userGameValues[userGame.game.id][userGame.platform.id][field.name] }}</span>
+                <div *ngIf="field.name == 'progress'" class="gameProgress" [ngClass]="'gameProgress'+userGame.progress"></div>
             </td>
         </tr>
     </table>

@@ -31,6 +31,7 @@ export class GamesComponent implements OnInit {
     private userGameFilter: UserGameFilter = new UserGameFilter();
 
     userGameFields = [
+        {name: 'progress', type: 'string', label: 'Progression'},
         {name: 'platform.name', type: 'string', label: 'Plateforme'},
         {name: 'game.name', type: 'string', label: 'Titre'},
         {name: 'version', type: 'string', label: 'Verion'},

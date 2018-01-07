@@ -1,3 +1,5 @@
+$colorTextMain: white;
+
 $colorMain: #337AB7;
 $colorMain0: rgba(51,122,183,.2);
 
@@ -26,6 +28,7 @@ $colorTagOn: $colorSuccess0;
 @import "assets/scss/rotation";
 @import "assets/scss/full";
 @import "assets/scss/table";
+@import "assets/scss/primeNG";
 
 html {
   overflow-y: scroll;
@@ -33,11 +36,10 @@ html {
 
 body {
   background: url("https://www.toptal.com/designers/subtlepatterns/patterns/footer_lodyas.png") center;
-  color: white;
+  color: $colorTextMain;
   font-family: 'Share Tech Mono', monospace;
 }
 
 hr {
   border: 1px rgba(255, 255, 255, .2) dashed;
 }
-

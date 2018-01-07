@@ -11,6 +11,7 @@ import {AuthenticationService} from "./_services/authentification.service";
 import {LoginComponent} from "./login/login.component";
 import {SlimLoadingBarModule} from "ng2-slim-loading-bar";
 import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
+import {SharedModule, SliderModule, TabViewModule} from "primeng/primeng";
 import {FilterPipe} from "./_pipes/filter.pipe";
 import {OrderByPipe} from "./_pipes/orderBy.pipe";
 import {SafePipe} from "./_pipes/safe.pipe";
@@ -24,7 +25,6 @@ import {GameDetailComponent} from "./game/detail/game-detail.component";
 import {GameNewComponent} from "./game/new/game-new.component";
 import {GameFormComponent} from "./game/form/game-form.component";
 import {FormatNamePipe} from "./_pipes/formatName.pipe";
-import {SharedModule, SliderModule, DataTableModule} from "primeng/primeng";
 import {GameLocalService} from "./_services/gameLocal.service";
 
 @NgModule({
@@ -39,7 +39,7 @@ import {GameLocalService} from "./_services/gameLocal.service";
         Ng2Bs3ModalModule,
         SharedModule,
         SliderModule,
-        DataTableModule,
+        TabViewModule,
         InViewportModule.forRoot(),
     ],
     declarations: [

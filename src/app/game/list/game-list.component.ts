@@ -183,10 +183,6 @@ export class GamesComponent implements OnInit {
             }
 
             // Release Year
-            if (userGame.releaseDate) {
-                console.log(userGame.releaseDate.getFullYear());
-            }
-
             if (userGame.releaseDate && userGame.releaseDate.getFullYear() < minReleaseYear) {
                 minReleaseYear = userGame.releaseDate.getFullYear();
             }

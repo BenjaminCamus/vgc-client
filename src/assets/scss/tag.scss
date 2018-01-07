@@ -9,9 +9,10 @@
   margin-bottom: 5px;
   border-top-left-radius: 7px;
   border-bottom-right-radius: 7px;
+  overflow: hidden;
 }
 
-.tag IMG {
+.tag img {
   vertical-align: middle;
 }
 
@@ -25,13 +26,12 @@
   border: 1px solid rgba(255, 255, 255, 1);
 }
 
-.tag DIV {
+.tag div {
   float: right;
   color: white;
   background: rgba(255, 255, 255, 0.3);
   margin-right: -5px;
   margin-left: 5px;
-  border-bottom-right-radius: 7px;
   padding: 1px 5px 0 5px;
   margin-top: -1px;
 }

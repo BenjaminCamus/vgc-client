@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild, ChangeDetectorRef} from "@angular/core";
+import {Component, Input, OnInit, OnDestroy, ViewChild, ChangeDetectorRef} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
 import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
@@ -8,26 +8,35 @@ import {GameService} from "../../_services/game.service";
 import {GameLocalService} from "../../_services/gameLocal.service";
 import {UserGame} from "../../_models/userGame";
 import {TagComponent} from "../../tag/tag.component";
-import {Platform} from "../../_models/platform";
 import {GameFormComponent} from "../form/game-form.component";
 import {LoadingComponent} from "../../loading/loading.component";
+import {UserGameValuePipe} from "../../_pipes/userGameValue.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, GameLocalService, TagComponent, LoadingComponent, GameFormComponent],
+    providers: [GameService, GameLocalService, TagComponent, LoadingComponent, GameFormComponent, UserGameValuePipe],
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': 'orientation', class: 'mainPage'}
+    host: {'[@routerTransition]': 'orientation', class: 'mainPage fakePage'}
 })
 export class GameDetailComponent implements OnInit {
 
     private errorMessage: string;
     public orientation: string;
 
-    private userGame: UserGame;
+    @Input() userGame: UserGame;
     private selectedGame: Game = new Game();
     private selectedPlatform: Object;
+
+    private userGameFields = [];
+    private userFields = ['platform.name', 'version', 'state', 'rating', 'progress', 'priceAsked', 'pricePaid'];
+
+    tableFields = ['version', 'state', 'rating', 'progress',
+        'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
+        'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
+
+    gameFields = ['releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private subscription;
     private update: number = 0;
@@ -46,20 +55,23 @@ export class GameDetailComponent implements OnInit {
     ) {
         this.changeDetectorRef = changeDetectorRef;
         this.orientation = "none";
+
+        var ug = new UserGame();
+        this.userGameFields = ug.fields;
     }
 
     ngOnInit(): void {
-        this.slimLoadingBarService.reset();
-
-        this.route.params.subscribe(params => {
-            this.userGame = new UserGame();
-            this.userGame.platform = new Platform();
-            this.userGame.platform.slug = params['platformSlug'];
-            this.userGame.game = new Game('Chargement...');
-            this.userGame.game.slug = params['gameSlug'];
-        });
-
-        this.initGame();
+        // this.slimLoadingBarService.reset();
+        //
+        // this.route.params.subscribe(params => {
+        //     this.userGame = new UserGame();
+        //     this.userGame.platform = new Platform();
+        //     this.userGame.platform.slug = params['platformSlug'];
+        //     this.userGame.game = new Game('Chargement...');
+        //     this.userGame.game.slug = params['gameSlug'];
+        // });
+        //
+        // this.initGame();
     }
 
     initGame() {

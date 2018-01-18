@@ -196,7 +196,7 @@
             <td *ngFor="let field of tableFields"
                 [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
 
-                <span *ngIf="field != 'progress'">{{ userGameValues[userGame.game.id][userGame.platform.id][field] }}</span>
+                <span *ngIf="field != 'progress'">{{ userGame | userGameValue: userGameFields[field] }}</span>
                 <div *ngIf="field == 'progress'" class="gameProgress"
                      [ngClass]="'gameProgress'+userGame.progress"></div>
             </td>

@@ -1,176 +1,89 @@
 <loading *ngIf="formLoading"></loading>
 
-<div id="gameBanner" class="gameBannerBig">
-    <div *ngIf="userGame.game.screenshots && userGame.game.screenshots.length > 0"
-         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-    <div *ngIf="!userGame.game.screenshots || userGame.game.screenshots.length == 0"></div>
-</div>
+<ng-content></ng-content>
+<div style="width: 100vw;
+    height: 100%;
+    overflow-y: auto;
+    position: fixed;">
 
-<div class="container-fluid">
-    <div *ngIf="userGame.game" class="row">
-        <div class="col-md-4" style="text-align: center;">
+    <div id="gameBanner" class="gameBannerBig">
+        <div *ngIf="userGame.game.screenshots && userGame.game.screenshots.length > 0"
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+        <div *ngIf="!userGame.game.screenshots || userGame.game.screenshots.length == 0"></div>
+    </div>
 
-            <img id="gameCover" *ngIf="userGame.game.cover"
-                 src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{userGame.game.cover.cloudinaryId}}.jpg"/>
-            <div>
-                <img width="50" height="50" *ngFor="let sc of userGame.game.screenshots;"
-                     src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
-                     style="margin: 5px;"/>
+    <div class="container-fluid">
+        <div *ngIf="userGame.game" class="row">
+            <div class="col-md-4" style="text-align: center;">
+
+                <img id="gameCover" *ngIf="userGame.game.cover"
+                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{userGame.game.cover.cloudinaryId}}.jpg"/>
+                <div>
+                    <img width="50" height="50" *ngFor="let sc of userGame.game.screenshots;"
+                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
+                         style="margin: 5px;"/>
+                </div>
             </div>
-        </div>
 
-        <div class="col-md-8">
+            <div class="col-md-8">
 
-            <div class="title">
-                <div style="float: right;"><!--
-                    --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh" (click)="getGame()"></i><!--
-                    --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-pencil-square-o" (click)="openForm('edit')"></i><!--
-                    --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o" (click)="openForm('delete')"></i><!--
-                --></div>{{ userGame.game.name }}</div>
-
-            <section>
-
-                <div class="row">
-                    <div class="col-md-5">
-
-                        <div *ngIf="userGame.game.series">
-                            <label>Série</label>
-                            <tag [tag]="userGame.game.series.name"></tag>
-                        </div>
-
-                        <div *ngIf="userGame.releaseDate">
-                            <label>Date de sortie</label>
-                            <tag [tag]="userGame.releaseDate | date: 'dd/MM/yyyy'"></tag>
-                        </div>
-
-                        <div *ngIf="userGame.game.developers && userGame.game.developers.length > 0">
-                            <label>Développé par</label>
-                            <tag *ngFor="let developer of userGame.game.developers" [tag]="developer.name"></tag>
-                        </div>
-
-                        <div *ngIf="userGame.game.publishers && userGame.game.publishers.length > 0">
-                            <label>Publié par</label>
-                            <tag *ngFor="let publisher of userGame.game.publishers" [tag]="publisher.name"></tag>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
-
-                        <div *ngIf="userGame.game.modes && userGame.game.modes.length > 0">
-                            <label>Mode</label>
-                            <tag *ngFor="let mode of userGame.game.modes" [tag]="mode.name"></tag>
-                        </div>
-
-                        <div *ngIf="userGame.game.themes && userGame.game.themes.length > 0">
-                            <label>Thème</label>
-                            <tag *ngFor="let theme of userGame.game.themes" [tag]="theme.name"></tag>
-                        </div>
-
-                        <div *ngIf="userGame.game.genres && userGame.game.genres.length > 0">
-                            <label>Genre</label>
-                            <tag *ngFor="let genre of userGame.game.genres" [tag]="genre.name"></tag>
-                        </div>
-                    </div>
-                    <div class="col-md-2">
-
-                        <div *ngIf="userGame.game.rating">
-                            <label>Note</label>
-                            <tag [tag]="userGame.game.rating"></tag>
-                        </div>
-
-                        <div *ngIf="userGame.game.igdbUrl">
-                            <label>Liens</label>
-                            <a href="{{ userGame.game.igdbUrl }}">Page IGDB</a>
-                        </div>
-                    </div>
+                <div class="title">
+                    <div style="float: right;"><!--
+                    --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh"
+                          (click)="getGame()"></i><!--
+                    --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-pencil-square-o"
+                          (click)="openForm('edit')"></i><!--
+                    --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o"
+                          (click)="openForm('delete')"></i><!--
+                --></div>
+                    {{ userGame.game.name }}
                 </div>
 
-                <hr/>
+                <section>
 
-                <div class="row">
-                    <div class="col-md-4">
-                        <div *ngIf="userGame.platform && userGame.platform.name">
-                            <label>Plateforme</label>
-                            <tag [tag]="userGame.platform.name"></tag>
-                        </div>
-                        <div *ngIf="userGame.version">
-                            <label>Version</label>
-                            <tag [tag]="userGame.version"></tag>
-                        </div>
-                        <div>
-                            <label>État</label>
-                            <tag *ngIf="userGame.box && userGame.manual" [tag]="'Complet'"></tag>
-                            <tag *ngIf="userGame.box && !userGame.manual" [tag]="'Boîte sans livret'"></tag>
-                            <tag *ngIf="!userGame.box && userGame.manual" [tag]="'Livret sans boîte'"></tag>
-                            <tag *ngIf="!userGame.box && !userGame.manual" [tag]="'Loose'"></tag>
-                        </div>
-                        <div *ngIf="userGame.rating">
-                            <label>Note</label>
-                            <tag [tag]="userGame.rating"></tag>
-                        </div>
-                        <div>
-                            <label>Progression</label>
-                            <tag *ngIf="userGame.progress == 0" [tag]="'Jamais joué'"></tag>
-                            <tag *ngIf="userGame.progress == 1" [tag]="'En cours'"></tag>
-                            <tag *ngIf="userGame.progress == 2" [tag]="'Terminé'"></tag>
-                            <tag *ngIf="userGame.progress == 3" [tag]="'Abandonné'"></tag>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div *ngIf="userGame.priceAsked">
-                            <label>Prix demandé</label>
-                            <tag [tag]="userGame.priceAsked + '€'"></tag>
-                        </div>
-                        <div *ngIf="userGame.pricePaid">
-                            <label>Prix payé</label>
-                            <tag [tag]="userGame.pricePaid + '€'"></tag>
-                        </div>
-                        <div *ngIf="userGame.purchaseDate">
-                            <label>Date achat</label>
-                            <tag [tag]="userGame.purchaseDate | date: 'dd/MM/y'"></tag>
-                        </div>
-                        <div>
-                            <label>Contact achat</label>
-                            <tag [tag]="userGame.purchaseContact | formatName"></tag>
-                        </div>
-                        <div>
-                            <label>Lieu achat</label>
-                            <tag [tag]="userGame.purchasePlace | formatName"></tag>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div *ngIf="userGame.priceAsked">
-                            <label>Estimation vente</label>
-                            <tag [tag]="userGame.priceAsked + '€'"></tag>
-                        </div>
-                        <div *ngIf="userGame.priceSold">
-                            <label>Prix vendu</label>
-                            <tag [tag]="userGame.priceSold + '€'"></tag>
-                        </div>
-                        <div *ngIf="userGame.saleDate">
-                            <label>Date vente</label>
-                            <tag [tag]="userGame.saleDate| date: 'dd/MM/y'"></tag>
-                        </div>
-                        <div *ngIf="userGame.saleContact">
-                            <label>Contact vente</label>
-                            <tag [tag]="userGame.saleContact | formatName"></tag>
-                        </div>
-                        <div *ngIf="userGame.salePlace">
-                            <label>Lieu vente</label>
-                            <tag [tag]="userGame.salePlace | formatName"></tag>
-                        </div>
-                    </div>
-                </div>
+                    <div class="row">
+                        <div class="col-md-6">
 
-                <hr>
-
-                <div class="row">
-                    <div class="col-md-12">
-                        <label>Notes</label>
-                        <br/>
-                        {{userGame.note}}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <table class="table static">
+                                        <tr *ngFor="let field of userFields">
+                                            <td><label>{{ userGameFields[field].label }}</label></td>
+                                            <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <table class="table static">
+                                        <tr *ngFor="let field of userFields">
+                                            <td><label>{{ userGameFields[field].label }}</label></td>
+                                            <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <table class="table static">
+                                <tr *ngFor="let field of gameFields">
+                                    <td><label>{{ userGameFields[field].label }}</label></td>
+                                    <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
-            </section>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Notes</label>
+                            <br/>
+                            {{userGame.note}}
+                        </div>
+                    </div>
+                </section>
+            </div>
         </div>
     </div>
 </div>

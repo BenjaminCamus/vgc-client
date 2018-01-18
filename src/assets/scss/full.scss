@@ -3,22 +3,22 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 2000;
-  overflow: hidden;
+  z-index: 40;
+  overflow-x: hidden;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
   position: fixed;
-  text-align: center;
 }
 
-.full > div {
+.full .fullTitle {
+  text-align: center;
   background: rgba(0, 0, 0, 0.5);
   margin: 10% auto;
   padding: 30px;
 }
 
-.full > div  > .title {
+.full .fullTitle .title {
   background: none;
   margin: 0;
 }
@@ -28,7 +28,7 @@ login .full {
   text-align: left;
 }
 
-login .full > div {
+login .full .fullTitle {
   background: black;
   text-align: left;
   width: 400px;

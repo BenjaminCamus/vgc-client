@@ -13,7 +13,7 @@
   background: rgba(255, 255, 255, .1);
 }
 
-.table th:hover {
+.table:not(.static) th:hover {
   background: rgba(255, 255, 255, .2);
 }
 
@@ -24,10 +24,15 @@
   background-repeat: no-repeat;
 }
 
-.table tr {
+.table:not(.static) tr {
   cursor: pointer;
 }
 
 .table tr:hover {
   background: rgba(255, 255, 255, .05);
+}
+
+.table label, .table .tag {
+  margin-top: 0;
+  margin-bottom: 0;
 }

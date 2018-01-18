@@ -34,9 +34,19 @@ export class UserGame {
 
     constructor() {
 
-        this.fields['progress'] = {type: 'string', label: 'Progression'};
-        this.fields['platform.name'] = {type: 'string', label: 'Plateforme'};
         this.fields['game.name'] = {type: 'string', label: 'Titre'};
+        this.fields['game.developers'] = {type: 'tags', label: 'Développeur'};
+        this.fields['game.publishers'] = {type: 'tags', label: 'Editeur'};
+        this.fields['game.modes'] = {type: 'tags', label: 'Mode'};
+        this.fields['game.themes'] = {type: 'tags', label: 'Thème'};
+        this.fields['game.genres'] = {type: 'tags', label: 'Genre'};
+        this.fields['game.rating'] = {type: 'string', label: 'Note IGDB'};
+        this.fields['game.igdbUrl'] = {type: 'url', label: 'Page IGDB'};
+
+        this.fields['platform.name'] = {type: 'string', label: 'Plateforme'};
+
+        this.fields['releaseDate'] = {type: 'date', label: 'Date de sortie'};
+        this.fields['progress'] = {type: 'string', label: 'Progression'};
         this.fields['version'] = {type: 'string', label: 'Verion'};
         this.fields['state'] = {type: 'state', label: 'Etat'};
         this.fields['rating'] = {type: 'string', label: 'Note'};

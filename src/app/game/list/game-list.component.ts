@@ -41,8 +41,6 @@ export class GamesComponent implements OnInit {
         'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
         'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
 
-    userGameValues = [];
-
     displayFilters: boolean = false;
     displayMode: number = 0;
     orderField: string = 'game.name';
@@ -77,9 +75,7 @@ export class GamesComponent implements OnInit {
                 private router: Router,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
-                private filterPipe: FilterPipe,
-                private datePipe: DatePipe,
-                private formatNamePipe: FormatNamePipe) {
+                private filterPipe: FilterPipe) {
 
         var ug = new UserGame();
         this.userGameFields = ug.fields;
@@ -189,18 +185,6 @@ export class GamesComponent implements OnInit {
         var maxReleaseYear = 0;
 
         for (let userGame of this.userGames) {
-
-            // Formatted Values
-            if (!this.userGameValues[userGame.game.id]) {
-                this.userGameValues[userGame.game.id] = [];
-            }
-            if (!this.userGameValues[userGame.game.id][userGame.platform.id]) {
-                this.userGameValues[userGame.game.id][userGame.platform.id] = [];
-            }
-
-            for (let field in this.userGameFields) {
-                this.userGameValues[userGame.game.id][userGame.platform.id][field] = this.getFieldValue(userGame, this.userGameFields[field]);
-            }
 
             // Rating
             if (userGame.rating < minRating) {
@@ -323,52 +307,6 @@ export class GamesComponent implements OnInit {
                 }
                 break;
         }
-    }
-
-    getFieldValue(userGame, field) {
-        if (field.name.indexOf('.') > -1) {
-            var fieldSplit = field.name.split('.');
-            var value = userGame[fieldSplit[0]][fieldSplit[1]];
-        }
-        else {
-            var value = userGame[field.name];
-        }
-
-        if (!value && field.type != 'state') {
-            return '•';
-        }
-
-        switch (field.type) {
-            case 'price':
-                value += ' €';
-                break;
-            case 'date':
-                value = this.datePipe.transform(value, 'd MMM yy');
-                break;
-            case 'name':
-                value = this.formatNamePipe.transform(value);
-                break;
-            case 'state':
-                if (userGame.box) {
-                    if (userGame.manual) {
-                        value = 'Complet';
-                    }
-                    else {
-                        value = 'Boîte sans livret';
-                    }
-                }
-                else {
-                    if (userGame.manual) {
-                        value = 'Livret sans boîte';
-                    }
-                    else {
-                        value = 'Loose';
-                    }
-                }
-                break;
-        }
-
-        return value;
     }
 
     setOrderField(orderField: string) {

@@ -13,7 +13,7 @@
   background: rgba(255, 255, 255, .1);
 }
 
-.table:not(.static) th:hover {
+.table th:hover {
   background: rgba(255, 255, 255, .2);
 }
 
@@ -28,7 +28,7 @@
   cursor: pointer;
 }
 
-.table tr:hover {
+.table:not(.static) tr:hover {
   background: rgba(255, 255, 255, .05);
 }
 

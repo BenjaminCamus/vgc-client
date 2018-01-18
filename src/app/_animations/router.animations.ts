@@ -1,13 +1,15 @@
 import {trigger, state, animate, style, transition} from '@angular/core';
 
-export function routerTransition() {
+export function routerTransition(
+    
+) {
   return slideToBottom();
 }
 function slideToBottom() {
   return trigger('routerTransition', [
-    state('none', style({position:'absolute'}) ),
-    state('void', style({position:'absolute'}) ),
-    state('*', style({position:'absolute'}) ),
+    // state('none', style({position:'absolute'}) ),
+    // state('void', style({position:'absolute'}) ),
+    // state('*', style({position:'absolute'}) ),
 
     // transition('void => *', [
     //   style({opacity: '0'}),
@@ -19,8 +21,8 @@ function slideToBottom() {
     ]),
 
     transition('void => *', [
-      style({position:'absolute', transform: 'translateY(-100%)', zIndex: 999}),
-      animate('0.5s ease-in-out', style({transform: 'scale(0.95)'})),
+      style({transform: 'translateY(-100%)'}),
+      animate('0.5s ease-in-out', style({transform: 'scale(0.5)'})),
       animate('0.5s ease-in-out', style({transform: 'translateY(0)'})),
       animate('0.5s ease-in-out', style({transform: 'scale(1)'})),
     ])

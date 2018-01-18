@@ -178,26 +178,27 @@
     <table class="table">
         <tr>
             <th></th>
-            <th *ngFor="let field of userGameFields"
-                (click)="setOrderField(field.name)"
-                [ngClass]="field.hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
+            <th *ngFor="let field of tableFields"
+                (click)="setOrderField(field)"
+                [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
 
-                <span *ngIf="field.name != 'progress'">{{ field.label }}</span>
-                <i class="fa" *ngIf="orderField == field.name"
+                <span *ngIf="field != 'progress'">{{ userGameFields[field].label }}</span>
+                <i class="fa" *ngIf="orderField == field"
                    [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field.name"></i>
+                <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field"></i>
             </th>
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-            routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}">
+            (click)="selectUserGame(userGame)">
 
             <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
 
-            <td *ngFor="let field of userGameFields"
-                [ngClass]="field.hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
+            <td *ngFor="let field of tableFields"
+                [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
 
-                <span *ngIf="field.name != 'progress'">{{ userGameValues[userGame.game.id][userGame.platform.id][field.name] }}</span>
-                <div *ngIf="field.name == 'progress'" class="gameProgress" [ngClass]="'gameProgress'+userGame.progress"></div>
+                <span *ngIf="field != 'progress'">{{ userGameValues[userGame.game.id][userGame.platform.id][field] }}</span>
+                <div *ngIf="field == 'progress'" class="gameProgress"
+                     [ngClass]="'gameProgress'+userGame.progress"></div>
             </td>
         </tr>
     </table>
@@ -205,9 +206,9 @@
 <div *ngIf="displayMode == 0">
 
     <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-             routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"
-             class="gameBox visible_anim"
-    >
+             (click)="selectUserGame(userGame)"
+             class="gameBox visible_anim">
+        <!--routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"-->
         <!--in-viewport (inViewport)="setItemClass($event)"-->
         <div class="gameCover" *ngIf="userGame.game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
@@ -248,3 +249,11 @@
         </div>
     </section>
 </div>
+
+    <game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame">
+        <div class="fakePageNav"><!--
+        --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
+        --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="selectUserGame(prevUserGame)"></i><!--
+        --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="selectUserGame(nextUserGame)"></i><!--
+    --> </div>
+    </game-detail>

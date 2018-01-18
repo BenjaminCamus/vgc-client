@@ -1,13 +1,14 @@
 .mainPage {
   width: 100%;
   min-height: 100%;
-  padding-top: 70px !important;
+  padding-top: 70px;
   padding-bottom: 5vw;
   background: rgba(0, 0, 0, 0.5);
   position: absolute;
 }
 
 .fakePage {
+  padding-top: 0;
   top: 0;
   left: 0;
   background: rgba(0,0,0,.9);
@@ -23,11 +24,6 @@
   height: 70px;
   line-height: 70px;
   padding: 5px;
-}
-
-.fakePageNav {
-  margin-top: -70px;
-  z-index: 50;
 }
 
 .fakePageNav .navRight {

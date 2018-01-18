@@ -1,15 +1,13 @@
 .tag {
-  cursor: pointer;
   display: inline-block;
+  cursor: pointer;
   padding: 1px 5px 0 5px;
   background: $colorTag;
   transition: background-color 0.4s ease-in;
   border: 1px solid rgba(255, 255, 255, .3);
-  margin-right: 5px;
-  margin-bottom: 5px;
+  margin: 0 5px 5px 0;
   border-top-left-radius: 7px;
   border-bottom-right-radius: 7px;
-  overflow: hidden;
 }
 
 .tag img {

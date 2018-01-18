@@ -30,13 +30,10 @@ export class GameDetailComponent implements OnInit {
     private selectedPlatform: Object;
 
     private userGameFields = [];
-    private userFields = ['platform.name', 'version', 'state', 'rating', 'progress', 'priceAsked', 'pricePaid'];
-
-    tableFields = ['version', 'state', 'rating', 'progress',
-        'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
-        'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
-
-    gameFields = ['releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
+    private userFields = [['version', 'state', 'rating', 'progress'],
+        ['pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact'],
+        ['priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact']];
+    private gameFields = ['releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private subscription;
     private update: number = 0;

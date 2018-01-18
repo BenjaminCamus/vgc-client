@@ -42,31 +42,23 @@
                 <section>
 
                     <div class="row">
-                        <div class="col-md-6">
-
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <table class="table static">
-                                        <tr *ngFor="let field of userFields">
-                                            <td><label>{{ userGameFields[field].label }}</label></td>
-                                            <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                                <div class="col-md-6">
-                                    <table class="table static">
-                                        <tr *ngFor="let field of userFields">
-                                            <td><label>{{ userGameFields[field].label }}</label></td>
-                                            <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
-                                        </tr>
-                                    </table>
-                                </div>
-                            </div>
+                        <div *ngFor="let colFields of userFields" class="col-md-4">
+                            <table class="table static">
+                                <tr *ngFor="let field of colFields">
+                                    <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
+                                    <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                                </tr>
+                            </table>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
                             <table class="table static">
                                 <tr *ngFor="let field of gameFields">
-                                    <td><label>{{ userGameFields[field].label }}</label></td>
+                                    <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
                                     <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
                                 </tr>
                             </table>

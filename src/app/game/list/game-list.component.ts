@@ -13,10 +13,11 @@ import {UserGameFilter} from "../../_models/userGameFilter";
 import {Place} from "../../_models/place";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
+import {FilterPipe} from "../../_pipes/filter.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, DatePipe, FormatNamePipe],
+    providers: [GameService, FilterPipe, DatePipe, FormatNamePipe],
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition()],
@@ -30,24 +31,15 @@ export class GamesComponent implements OnInit {
     private userGames: UserGame[] = [];
     private userGameFilter: UserGameFilter = new UserGameFilter();
 
-    userGameFields = [
-        {name: 'progress', type: 'string', label: 'Progression'},
-        {name: 'platform.name', type: 'string', label: 'Plateforme'},
-        {name: 'game.name', type: 'string', label: 'Titre'},
-        {name: 'version', type: 'string', label: 'Verion'},
-        {name: 'state', type: 'state', label: 'Etat'},
-        {name: 'rating', type: 'string', label: 'Note'},
-        {name: 'pricePaid', type: 'price', label: 'Payé'},
-        {name: 'priceAsked', type: 'price', label: 'Demandé'},
-        {name: 'purchaseDate', type: 'date', label: 'Date Achat'},
-        {name: 'purchasePlace', type: 'name', label: 'Lieu Achat'},
-        {name: 'purchaseContact', type: 'name', label: 'Vendeur'},
-        {name: 'priceResale', type: 'price', label: 'Estimation'},
-        {name: 'priceSold', type: 'price', label: 'Vendu', hiddenMD: true},
-        {name: 'saleDate', type: 'date', label: 'Date Vente', hiddenMD: true},
-        {name: 'salePlace', type: 'name', label: 'Lieu Vente', hiddenMD: true},
-        {name: 'saleContact', type: 'name', label: 'Acheteur', hiddenMD: true}
-    ];
+    selectedUserGame: UserGame;
+    prevUserGame: UserGame;
+    nextUserGame: UserGame;
+
+    userGameFields = [];
+
+    tableFields = ['progress', 'game.name', 'version', 'state', 'rating',
+        'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
+        'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
 
     userGameValues = [];
 
@@ -85,8 +77,12 @@ export class GamesComponent implements OnInit {
                 private router: Router,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
+                private filterPipe: FilterPipe,
                 private datePipe: DatePipe,
                 private formatNamePipe: FormatNamePipe) {
+
+        var ug = new UserGame();
+        this.userGameFields = ug.fields;
     }
 
     ngOnInit() {
@@ -126,6 +122,38 @@ export class GamesComponent implements OnInit {
                     this.slimLoadingBarService.complete();
                     this.errorMessage = <any>error;
                 });
+        }
+    }
+
+    selectUserGame(userGame) {
+
+        this.selectedUserGame = userGame;
+        var userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
+
+        if (userGame) {
+            var index = deepIndexOf(userGameList, userGame);
+
+            if (index > -1) {
+
+                var prevIndex;
+                var nextIndex;
+
+                if (index === 0) {
+                    prevIndex = userGameList.length - 1;
+                    nextIndex = 1;
+                }
+                else if (index === userGameList.length - 1) {
+                    prevIndex = userGameList.length - 2;
+                    nextIndex = 0;
+                }
+                else {
+                    prevIndex = index - 1;
+                    nextIndex = index + 1;
+                }
+
+                this.prevUserGame = userGameList[prevIndex];
+                this.nextUserGame = userGameList[nextIndex];
+            }
         }
     }
 
@@ -170,8 +198,8 @@ export class GamesComponent implements OnInit {
                 this.userGameValues[userGame.game.id][userGame.platform.id] = [];
             }
 
-            for (let field of this.userGameFields) {
-                this.userGameValues[userGame.game.id][userGame.platform.id][field.name] = this.getFieldValue(userGame, field);
+            for (let field in this.userGameFields) {
+                this.userGameValues[userGame.game.id][userGame.platform.id][field] = this.getFieldValue(userGame, this.userGameFields[field]);
             }
 
             // Rating
@@ -218,17 +246,17 @@ export class GamesComponent implements OnInit {
             }
 
             for (let tagType of ['developer', 'publisher', 'mode', 'theme', 'genre']) {
-                if (userGame.game[tagType+'s'] && userGame.game[tagType+'s'].length > 0) {
+                if (userGame.game[tagType + 's'] && userGame.game[tagType + 's'].length > 0) {
 
-                    for (let tag of userGame.game[tagType+'s']) {
+                    for (let tag of userGame.game[tagType + 's']) {
 
-                        if (deepIndexOf(this[tagType+'Tags'], tag) < 0) {
+                        if (deepIndexOf(this[tagType + 'Tags'], tag) < 0) {
 
-                            this[tagType+'Tags'].push(tag);
-                            this[tagType+'Count'][tag.id] = 0;
+                            this[tagType + 'Tags'].push(tag);
+                            this[tagType + 'Count'][tag.id] = 0;
                         }
 
-                        this[tagType+'Count'][tag.id]++;
+                        this[tagType + 'Count'][tag.id]++;
                     }
                 }
             }

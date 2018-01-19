@@ -1,6 +1,6 @@
 <form (ngSubmit)="submitForm()" #postUserGameForm="ngForm">
 
-    <div *ngIf="action == 'new' || action == 'edit'">
+    <div *ngIf="action == 'new' || action == 'edit'" class="container-fluid">
         <div class="row">
             <div class="col-md-3">
                 <input *ngIf="!game.platforms" disabled type="text" [value]="_userGame.platform.name"/>
@@ -226,7 +226,7 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="action == 'delete'">
+    <div class="row" *ngIf="action == 'delete'" class="container-fluid">
         <div class="col-md-12">
             <div style="margin: 50px 0;">Voulez vous vraiment supprimer ce jeu de votre collection ?</div>
             <button type="submit" class="btn btn-danger">

@@ -26,11 +26,6 @@
     </div>
 </form>
 
-<div class="container-fluid">
-
-    <div class="row" style="padding-bottom: 15px">
-    </div>
-</div>
 <section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
     <div class="gameCover" *ngIf="game.cover"
          [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
@@ -48,22 +43,43 @@
     </div>
 </section>
 
-
-<div>
-</div>
-
 <modal #modal (onDismiss)="initGame()">
-    <modal-header [show-close]="true">
-        <h4 *ngIf="selectedGame" class="modal-title">Nouveau Jeu • {{selectedGame.name}}</h4>
+    <modal-header [show-close]="true" *ngIf="selectedGame">
+        <h4 class="modal-title">Nouveau Jeu • {{selectedGame.name}}</h4>
     </modal-header>
-    <modal-body>
-        <game-form [game]="selectedGame"
-                   [platform]="selectedPlatform"
-                   [userGame]="selectedUserGame"
-                   (state)="formStateUpdate($event)"
-                   [action]="'new'"></game-form>
+    <modal-body *ngIf="selectedGame">
+        <div id="gameBanner">
+            <div *ngIf="selectedGame.screenshots && selectedGame.screenshots.length > 0"
+                 [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + selectedGame.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+            <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinarIid + '.jpg)' | safe: 'style'"></div>-->
+        </div>
+
+        <div class="container-fluid">
+            <div *ngIf="selectedGame" class="row">
+                <div class="col-md-4" style="text-align: center;">
+
+                    <img id="gameCover" *ngIf="selectedGame.cover"
+                         src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{selectedGame.cover.cloudinaryId}}.jpg"/>
+                    <div>
+                        <img width="50" height="50" *ngFor="let sc of selectedGame.screenshots;"
+                             src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
+                             style="margin: 5px;"/>
+                    </div>
+                </div>
+
+                <div class="col-md-8">
+
+                    <div class="title">{{ selectedGame.name }}</div>
+                    <game-form [game]="selectedGame"
+                               [platform]="selectedPlatform"
+                               [userGame]="selectedUserGame"
+                               (state)="formStateUpdate($event)"
+                               [action]="'new'"></game-form>
+                </div>
+            </div>
+        </div>
     </modal-body>
-    <modal-footer>
+    <modal-footer *ngIf="selectedGame">
         <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Annuler</button>
     </modal-footer>
 </modal>

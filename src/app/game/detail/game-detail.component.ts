@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, OnDestroy, ViewChild, ChangeDetectorRef} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
-import {ModalComponent} from "ng2-bs3-modal/ng2-bs3-modal";
 import {routerTransition} from "../../_animations/router.animations";
 import {Game} from "../../_models/game";
 import {GameService} from "../../_services/game.service";
@@ -39,9 +38,6 @@ export class GameDetailComponent implements OnInit {
     private update: number = 0;
     private formAction: string;
     private formLoading: boolean = false;
-
-    @ViewChild('modal')
-    private modal: ModalComponent;
 
     constructor (
         private gameService: GameService,
@@ -115,12 +111,9 @@ export class GameDetailComponent implements OnInit {
             this.selectedGame = this.userGame.game;
             this.selectedPlatform = this.userGame.platform;
         }
-
-        // this.modal.open();
     }
 
     formStateUpdate(event) {
-        this.modal.close();
         switch (event) {
             case 'submitted':
                 this.formLoading = true;

@@ -1,7 +1,6 @@
 import {Component, Renderer, OnInit, OnDestroy, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
 import {Router}            from '@angular/router';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
-import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
 import {GameLocalService}       from '../../_services/gameLocal.service';
@@ -67,8 +66,6 @@ export class GamesComponent implements OnInit {
     modeCount: number[] = [];
     themeCount: number[] = [];
     genreCount: number[] = [];
-
-    @ViewChild('modal') modal: ModalComponent;
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,

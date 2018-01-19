@@ -1,35 +1,31 @@
 <loading *ngIf="formLoading"></loading>
 
 <ng-content></ng-content>
-<div style="width: 100vw;
-    height: 100%;
-    overflow-y: auto;
-    position: fixed;">
 
-    <div id="gameBanner" class="gameBannerBig">
-        <div *ngIf="userGame.game.screenshots && userGame.game.screenshots.length > 0"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-        <div *ngIf="!userGame.game.screenshots || userGame.game.screenshots.length == 0"></div>
-    </div>
+<div id="gameBanner" class="gameBannerBig">
+    <div *ngIf="userGame.game.screenshots && userGame.game.screenshots.length > 0"
+         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+    <div *ngIf="!userGame.game.screenshots || userGame.game.screenshots.length == 0"></div>
+</div>
 
 
-    <div class="container-fluid">
-        <div *ngIf="userGame.game" class="row">
-            <div class="col-md-4" style="text-align: center;">
+<div class="container-fluid">
+    <div *ngIf="userGame.game" class="row">
+        <div class="col-md-4" style="text-align: center;">
 
-                <img id="gameCover" *ngIf="userGame.game.cover"
-                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{userGame.game.cover.cloudinaryId}}.jpg"/>
-                <div>
-                    <img width="50" height="50" *ngFor="let sc of userGame.game.screenshots;"
-                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
-                         style="margin: 5px;"/>
-                </div>
+            <img id="gameCover" *ngIf="userGame.game.cover"
+                 src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{userGame.game.cover.cloudinaryId}}.jpg"/>
+            <div>
+                <img width="50" height="50" *ngFor="let sc of userGame.game.screenshots;"
+                     src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
+                     style="margin: 5px;"/>
             </div>
+        </div>
 
-            <div class="col-md-8">
+        <div class="col-md-8">
 
-                <div class="title">
-                    <div style="float: right;"><!--
+            <div class="title">
+                <div style="float: right;"><!--
                     --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh"
                           (click)="getGame()"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-pencil-square-o"
@@ -37,64 +33,49 @@
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o"
                           (click)="openForm('delete')"></i><!--
                 --></div>
-                    {{ userGame.game.name }}
+                {{ userGame.game.name }}
+            </div>
+
+            <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
+                       [userGame]="userGame" [update]="update"
+                       (state)="formStateUpdate($event)" [action]="formAction"></game-form>
+
+            <section *ngIf="!selectedGame">
+
+                <div class="row">
+                    <div *ngFor="let colFields of userFields" class="col-md-4">
+                        <table class="table static">
+                            <tr *ngFor="let field of colFields">
+                                <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
+                                <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
 
-                <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
-                           [userGame]="userGame" [update]="update"
-                           (state)="formStateUpdate($event)" [action]="formAction"></game-form>
+                <hr>
 
-                <section *ngIf="!selectedGame">
-
-                    <div class="row">
-                        <div *ngFor="let colFields of userFields" class="col-md-4">
-                            <table class="table static">
-                                <tr *ngFor="let field of colFields">
-                                    <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
-                                    <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
-                                </tr>
-                            </table>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table static">
+                            <tr *ngFor="let field of gameFields">
+                                <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
+                                <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                            </tr>
+                        </table>
                     </div>
+                </div>
 
-                    <hr>
+                <hr>
 
-                    <div class="row">
-                        <div class="col-md-12">
-                            <table class="table static">
-                                <tr *ngFor="let field of gameFields">
-                                    <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
-                                    <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
-                                </tr>
-                            </table>
-                        </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <label>Notes</label>
+                        <br/>
+                        {{userGame.note}}
                     </div>
-
-                    <hr>
-
-                    <div class="row">
-                        <div class="col-md-12">
-                            <label>Notes</label>
-                            <br/>
-                            {{userGame.note}}
-                        </div>
-                    </div>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
     </div>
-
-
-    <!--<modal #modal (onDismiss)="initGame()">-->
-    <!--<modal-header [show-close]="true">-->
-    <!--<h4 *ngIf="selectedGame" class="modal-title">Modifier Jeu • {{selectedGame.name}}</h4>-->
-    <!--</modal-header>-->
-    <!--<modal-body>-->
-    <!--<game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update"-->
-    <!--(state)="formStateUpdate($event)" [action]="formAction"></game-form>-->
-    <!--</modal-body>-->
-    <!--<modal-footer>-->
-    <!--<button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>-->
-    <!--</modal-footer>-->
-    <!--</modal>-->
 </div>

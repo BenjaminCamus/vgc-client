@@ -10,10 +10,12 @@ import {TagComponent} from "../../tag/tag.component";
 import {GameFormComponent} from "../form/game-form.component";
 import {LoadingComponent} from "../../loading/loading.component";
 import {UserGameValuePipe} from "../../_pipes/userGameValue.pipe";
+import {DatePipe} from "@angular/common";
+import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, GameLocalService, TagComponent, LoadingComponent, GameFormComponent, UserGameValuePipe],
+    providers: [GameService, GameLocalService, TagComponent, LoadingComponent, GameFormComponent, UserGameValuePipe, DatePipe, FormatNamePipe],
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [routerTransition()],

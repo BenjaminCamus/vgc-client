@@ -26,7 +26,7 @@ export class GameDetailComponent implements OnInit {
     public orientation: string;
 
     @Input() userGame: UserGame;
-    private selectedGame: Game = new Game();
+    private selectedGame: Game = null;
     private selectedPlatform: Object;
 
     private userGameFields = [];
@@ -105,10 +105,18 @@ export class GameDetailComponent implements OnInit {
     };
 
     openForm(action: string): void {
-        this.formAction= action;
-        this.selectedGame = this.userGame.game;
-        this.selectedPlatform = this.userGame.platform;
-        this.modal.open();
+
+        if (this.formAction == action && this.selectedGame) {
+            this.selectedGame = null;
+            this.selectedPlatform = null;
+        }
+        else {
+            this.formAction = action;
+            this.selectedGame = this.userGame.game;
+            this.selectedPlatform = this.userGame.platform;
+        }
+
+        // this.modal.open();
     }
 
     formStateUpdate(event) {

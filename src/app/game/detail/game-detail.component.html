@@ -12,6 +12,7 @@
         <div *ngIf="!userGame.game.screenshots || userGame.game.screenshots.length == 0"></div>
     </div>
 
+
     <div class="container-fluid">
         <div *ngIf="userGame.game" class="row">
             <div class="col-md-4" style="text-align: center;">
@@ -39,7 +40,11 @@
                     {{ userGame.game.name }}
                 </div>
 
-                <section>
+                <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
+                           [userGame]="userGame" [update]="update"
+                           (state)="formStateUpdate($event)" [action]="formAction"></game-form>
+
+                <section *ngIf="!selectedGame">
 
                     <div class="row">
                         <div *ngFor="let colFields of userFields" class="col-md-4">
@@ -78,18 +83,18 @@
             </div>
         </div>
     </div>
+
+
+    <!--<modal #modal (onDismiss)="initGame()">-->
+    <!--<modal-header [show-close]="true">-->
+    <!--<h4 *ngIf="selectedGame" class="modal-title">Modifier Jeu • {{selectedGame.name}}</h4>-->
+    <!--</modal-header>-->
+    <!--<modal-body>-->
+    <!--<game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update"-->
+    <!--(state)="formStateUpdate($event)" [action]="formAction"></game-form>-->
+    <!--</modal-body>-->
+    <!--<modal-footer>-->
+    <!--<button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>-->
+    <!--</modal-footer>-->
+    <!--</modal>-->
 </div>
-
-
-<modal #modal (onDismiss)="initGame()">
-    <modal-header [show-close]="true">
-        <h4 *ngIf="selectedGame" class="modal-title">Modifier Jeu • {{selectedGame.name}}</h4>
-    </modal-header>
-    <modal-body>
-        <game-form [game]="selectedGame" [platform]="selectedPlatform" [userGame]="userGame" [update]="update"
-                   (state)="formStateUpdate($event)" [action]="formAction"></game-form>
-    </modal-body>
-    <modal-footer>
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Cancel</button>
-    </modal-footer>
-</modal>

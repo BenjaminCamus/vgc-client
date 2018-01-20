@@ -4,7 +4,7 @@ import {Pipe} from '@angular/core';
     name: 'formatName'
 })
 export class FormatNamePipe {
-    transform(obj): string {
+    transform(obj, long = false): string {
         if (!obj) {
             return 'Inconnu';
         }
@@ -17,12 +17,15 @@ export class FormatNamePipe {
 
         display = this.concatDisplay(display, obj.firstName);
         display = this.concatDisplay(display, obj.lastName);
-        display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.phone);
-        display = this.concatDisplay(display, obj.email);
-        display = obj.phone == 0 ? display : this.concatDisplay(display, obj.phone);
-        display = this.concatDisplay(display, obj.address);
-        display = obj.zipcode == 0 ? display : this.concatDisplay(display, obj.zipcode);
-        display = this.concatDisplay(display, obj.city);
+
+        if (long) {
+            display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.phone);
+            display = this.concatDisplay(display, obj.email);
+            display = obj.phone == 0 ? display : this.concatDisplay(display, obj.phone);
+            display = this.concatDisplay(display, obj.address);
+            display = obj.zipcode == 0 ? display : this.concatDisplay(display, obj.zipcode);
+            display = this.concatDisplay(display, obj.city);
+        }
 
         if (display.length == 0) {
             display = 'Sans Nom';

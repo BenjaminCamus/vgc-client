@@ -164,6 +164,7 @@ export class GameFormComponent implements OnInit {
                         userContacts.sort(orderByName);
                         this.userContacts = userContacts;
                         this.gameLocalService.setUserContacts(this.userContacts);
+                        this.updateSelects();
                     },
                     error => {
                         this.errorMessage = <any>error;

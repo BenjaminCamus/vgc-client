@@ -27,7 +27,7 @@ export class UserGameValuePipe {
             var value = userGame[field.name];
         }
 
-        if (!value && field.type != 'state') {
+        if (!value && field.type != 'state' && field.type != 'progress') {
             return '•';
         }
 
@@ -36,7 +36,7 @@ export class UserGameValuePipe {
                 value += ' €';
                 break;
             case 'date':
-                value = this.datePipe.transform(value, 'dd/mm/yy');
+                value = this.datePipe.transform(value, 'dd/MM/yy');
                 break;
             case 'name':
                 value = this.formatNamePipe.transform(value);
@@ -57,6 +57,20 @@ export class UserGameValuePipe {
                     else {
                         value = 'Loose';
                     }
+                }
+                break;
+            case 'progress':
+                if (value == 0) {
+                    value = 'Jamais joué';
+                }
+                else if (value == 1) {
+                    value = 'En cours';
+                }
+                else if (value == 2) {
+                    value = 'Terminé';
+                }
+                else if (value == 3) {
+                    value = 'Abandonné';
                 }
                 break;
             case 'tags':

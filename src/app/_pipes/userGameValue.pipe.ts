@@ -36,7 +36,7 @@ export class UserGameValuePipe {
                 value += ' €';
                 break;
             case 'date':
-                value = this.datePipe.transform(value, 'd MMM yy');
+                value = this.datePipe.transform(value, 'dd/mm/yy');
                 break;
             case 'name':
                 value = this.formatNamePipe.transform(value);

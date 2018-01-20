@@ -19,11 +19,11 @@ export class FormatNamePipe {
         display = this.concatDisplay(display, obj.lastName);
 
         if (long) {
-            display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.phone);
+            display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.nickname);
             display = this.concatDisplay(display, obj.email);
-            display = obj.phone == 0 ? display : this.concatDisplay(display, obj.phone);
+            display = !obj.phone || obj.phone == 0 ? display : this.concatDisplay(display, '0'+obj.phone);
             display = this.concatDisplay(display, obj.address);
-            display = obj.zipcode == 0 ? display : this.concatDisplay(display, obj.zipcode);
+            display = !obj.zipcode || obj.zipcode == 0 ? display : this.concatDisplay(display, obj.zipcode);
             display = this.concatDisplay(display, obj.city);
         }
 

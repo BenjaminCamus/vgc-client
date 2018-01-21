@@ -17,9 +17,9 @@ export class FormatNamePipe {
 
         display = this.concatDisplay(display, obj.firstName);
         display = this.concatDisplay(display, obj.lastName);
+        display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.nickname);
 
         if (long) {
-            display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.nickname);
             display = this.concatDisplay(display, obj.email);
             display = !obj.phone || obj.phone == 0 ? display : this.concatDisplay(display, '0'+obj.phone);
             display = this.concatDisplay(display, obj.address);

@@ -15,31 +15,35 @@
                 <div class="col-md-6">
                     <div>
                         <label for="name">Platforme</label><br>
-                        <tag *ngFor="let platform of platformTags;"
-                             [tag]="platform.name"
-                             [suffix]="platformCount[platform.id]"
+                        <tag *ngFor="let platform of platformsTags;"
+                             [tag]="platform"
+                             [filter]="userGameFilter.platforms"
+                             [suffix]="platformsCount[platform.id]"
                              (uploaded)="toggleTag('platforms', $event, platform)"></tag>
                     </div>
                     <div>
                         <label for="name">Mode</label><br>
-                        <tag *ngFor="let mode of modeTags;"
-                             [tag]="mode.name"
-                             [suffix]="modeCount[mode.id]"
-                             (uploaded)="toggleTag('mode', $event, mode)"></tag>
+                        <tag *ngFor="let mode of modesTags;"
+                             [tag]="mode"
+                             [filter]="userGameFilter.game.modes"
+                             [suffix]="modesCount[mode.id]"
+                             (uploaded)="toggleTag('modes', $event, mode)"></tag>
                     </div>
                     <div>
                         <label for="name">Thème</label><br>
-                        <tag *ngFor="let theme of themeTags;"
-                             [tag]="theme.name"
-                             [suffix]="themeCount[theme.id]"
-                             (uploaded)="toggleTag('theme', $event, theme)"></tag>
+                        <tag *ngFor="let theme of themesTags;"
+                             [tag]="theme"
+                             [filter]="userGameFilter.game.themes"
+                             [suffix]="themesCount[theme.id]"
+                             (uploaded)="toggleTag('themes', $event, theme)"></tag>
                     </div>
                     <div>
                         <label for="name">Genre</label><br>
-                        <tag *ngFor="let genre of genreTags;"
-                             [tag]="genre.name"
-                             [suffix]="genreCount[genre.id]"
-                             (uploaded)="toggleTag('genre', $event, genre)"></tag>
+                        <tag *ngFor="let genre of genresTags;"
+                             [tag]="genre"
+                             [filter]="userGameFilter.game.genres"
+                             [suffix]="genresCount[genre.id]"
+                             (uploaded)="toggleTag('genres', $event, genre)"></tag>
                     </div>
                 </div>
                 <div class="col-md-3">
@@ -79,28 +83,30 @@
                 <div class="col-md-3">
                     <div>
                         <label>Version</label><br>
-                        <tag [tag]="'FRA'" (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
-                        <tag [tag]="'EUR'" (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
-                        <tag [tag]="'FAH'" (uploaded)="toggleTag('versions', $event, 'FAH')"></tag>
+                        <tag [tag]="'FRA'" [filter]="userGameFilter.versions" (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
+                        <tag [tag]="'EUR'" [filter]="userGameFilter.versions" (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
+                        <tag [tag]="'FAH'" [filter]="userGameFilter.versions" (uploaded)="toggleTag('versions', $event, 'FAH')"></tag>
                     </div>
                     <div>
                         <label>Progression</label><br>
-                        <tag [tag]="'Jamais joué'" (uploaded)="toggleTag('progresses', $event, 0)"></tag>
-                        <tag [tag]="'En cours'" (uploaded)="toggleTag('progresses', $event, 1)"></tag>
-                        <tag [tag]="'Terminé'" (uploaded)="toggleTag('progresses', $event, 2)"></tag>
-                        <tag [tag]="'Abandonné'" (uploaded)="toggleTag('progresses', $event, 3)"></tag>
+                        <tag [tag]="'Jamais joué'"  [value]="0" [filter]="userGameFilter.progresses" (uploaded)="toggleTag('progresses', $event, 0)"></tag>
+                        <tag [tag]="'En cours'"     [value]="1" [filter]="userGameFilter.progresses" (uploaded)="toggleTag('progresses', $event, 1)"></tag>
+                        <tag [tag]="'Terminé'"      [value]="2" [filter]="userGameFilter.progresses" (uploaded)="toggleTag('progresses', $event, 2)"></tag>
+                        <tag [tag]="'Abandonné'"    [value]="3" [filter]="userGameFilter.progresses" (uploaded)="toggleTag('progresses', $event, 3)"></tag>
                     </div>
                     <div>
                         <label for="name">Lieu Achat</label><br>
                         <tag *ngFor="let place of purchasePlaceTags;"
-                             [tag]="place.name"
+                             [tag]="place"
+                             [filter]="userGameFilter.purchasePlaces"
                              [suffix]="purchasePlaceCount[place.id]"
                              (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
                     </div>
                     <div *ngIf="salePlaceTags.length > 0">
                         <label for="name">Lieu Vente</label><br>
                         <tag *ngFor="let place of salePlaceTags;"
-                             [tag]="place.name"
+                             [tag]="place"
+                             [filter]="userGameFilter.salePlaces"
                              [suffix]="salePlaceCount[place.id]"
                              (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
                     </div>
@@ -108,26 +114,30 @@
             </div>
         </p-tabPanel>
         <p-tabPanel header="Développeur">
-            <tag *ngFor="let developer of developerTags;"
-                 [tag]="developer.name"
-                 [suffix]="developerCount[developer.id]"
-                 (uploaded)="toggleTag('developer', $event, developer)"></tag>
+            <tag *ngFor="let developer of developersTags;"
+                 [tag]="developer"
+                 [filter]="userGameFilter.game.developers"
+                 [suffix]="developersCount[developer.id]"
+                 (uploaded)="toggleTag('developers', $event, developer)"></tag>
         </p-tabPanel>
         <p-tabPanel header="Éditeur">
-            <tag *ngFor="let publisher of publisherTags;"
-                 [tag]="publisher.name"
-                 [suffix]="publisherCount[publisher.id]"
-                 (uploaded)="toggleTag('publisher', $event, publisher)"></tag>
+            <tag *ngFor="let publisher of publishersTags;"
+                 [tag]="publisher"
+                 [filter]="userGameFilter.game.publishers"
+                 [suffix]="publishersCount[publisher.id]"
+                 (uploaded)="toggleTag('publishers', $event, publisher)"></tag>
         </p-tabPanel>
         <p-tabPanel header="Acheteur">
             <tag *ngFor="let contact of purchaseContactTags;"
                  [tag]="contact | formatName"
+                 [filter]="userGameFilter.purchaseContacts"
                  [suffix]="purchaseContactCount[contact.id]"
                  (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
         </p-tabPanel>
         <p-tabPanel header="Vendeur" *ngIf="saleContactTags.length > 0">
             <tag *ngFor="let contact of saleContactTags;"
                  [tag]="contact | formatName"
+                 [filter]="userGameFilter.saleContacts"
                  [suffix]="saleContactCount[contact.id]"
                  (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
         </p-tabPanel>

@@ -1,4 +1,4 @@
 <section *ngIf="tag" (click)="toggleActive()" class="tag" [ngClass]="active ? 'on' : 'off'">
-    {{ tag }}
+    {{ tagLabel }}
     <div *ngIf="suffix">{{suffix}}</div>
 </section>

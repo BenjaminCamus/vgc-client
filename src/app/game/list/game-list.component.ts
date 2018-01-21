@@ -49,23 +49,23 @@ export class GamesComponent implements OnInit {
     salePlaceTags: Place[] = [];
     purchaseContactTags: Place[] = [];
     saleContactTags: Place[] = [];
-    platformTags: Platform[] = [];
-    developerTags: Tag[] = [];
-    publisherTags: Tag[] = [];
-    modeTags: Tag[] = [];
-    themeTags: Tag[] = [];
-    genreTags: Tag[] = [];
+    platformsTags: Platform[] = [];
+    developersTags: Tag[] = [];
+    publishersTags: Tag[] = [];
+    modesTags: Tag[] = [];
+    themesTags: Tag[] = [];
+    genresTags: Tag[] = [];
 
     purchasePlaceCount: number[] = [];
     salePlaceCount: number[] = [];
     purchaseContactCount: number[] = [];
     saleContactCount: number[] = [];
-    platformCount: number[] = [];
-    developerCount: number[] = [];
-    publisherCount: number[] = [];
-    modeCount: number[] = [];
-    themeCount: number[] = [];
-    genreCount: number[] = [];
+    platformsCount: number[] = [];
+    developersCount: number[] = [];
+    publishersCount: number[] = [];
+    modesCount: number[] = [];
+    themesCount: number[] = [];
+    genresCount: number[] = [];
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -84,7 +84,7 @@ export class GamesComponent implements OnInit {
         this.userGames = this.gameLocalService.getUserGames();
         this.setFilters();
 
-        this.getGames();
+        //this.getGames();
     }
 
     ngOnDestroy() {
@@ -124,6 +124,7 @@ export class GamesComponent implements OnInit {
         var userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
 
         if (userGame) {
+
             var index = deepIndexOf(userGameList, userGame);
 
             if (index > -1) {
@@ -156,23 +157,23 @@ export class GamesComponent implements OnInit {
         this.salePlaceTags = [];
         this.purchaseContactTags = [];
         this.saleContactTags = [];
-        this.platformTags = [];
-        this.developerTags = [];
-        this.publisherTags = [];
-        this.modeTags = [];
-        this.themeTags = [];
-        this.genreTags = [];
+        this.platformsTags = [];
+        this.developersTags = [];
+        this.publishersTags = [];
+        this.modesTags = [];
+        this.themesTags = [];
+        this.genresTags = [];
 
         this.purchasePlaceCount = [];
         this.salePlaceCount = [];
         this.purchaseContactCount = [];
         this.saleContactCount = [];
-        this.platformCount = [];
-        this.developerCount = [];
-        this.publisherCount = [];
-        this.modeCount = [];
-        this.themeCount = [];
-        this.genreCount = [];
+        this.platformsCount = [];
+        this.developersCount = [];
+        this.publishersCount = [];
+        this.modesCount = [];
+        this.themesCount = [];
+        this.genresCount = [];
 
         var minRating = 20;
         var maxRating = 0;
@@ -213,23 +214,26 @@ export class GamesComponent implements OnInit {
             }
 
             // Tags
-            var tagTypes = ['platform', 'purchasePlace', 'salePlace', 'purchaseContact', 'saleContact'];
+            var tagTypes = ['platforms', 'purchasePlace', 'salePlace', 'purchaseContact', 'saleContact'];
             for (let type of tagTypes) {
-                if (userGame[type]) {
-                    if (deepIndexOf(this[type + 'Tags'], userGame[type]) < 0) {
 
-                        this[type + 'Tags'].push(userGame[type]);
-                        this[type + 'Count'][userGame[type].id] = 0;
+                let ugParam = type == 'platforms' ? 'platform' : type;
+
+                if (userGame[ugParam]) {
+                    if (deepIndexOf(this[type + 'Tags'], userGame[ugParam]) < 0) {
+
+                        this[type + 'Tags'].push(userGame[ugParam]);
+                        this[type + 'Count'][userGame[ugParam].id] = 0;
                     }
 
-                    this[type + 'Count'][userGame[type].id]++;
+                    this[type + 'Count'][userGame[ugParam].id]++;
                 }
             }
 
-            for (let tagType of ['developer', 'publisher', 'mode', 'theme', 'genre']) {
-                if (userGame.game[tagType + 's'] && userGame.game[tagType + 's'].length > 0) {
+            for (let tagType of ['developers', 'publishers', 'modes', 'themes', 'genres']) {
+                if (userGame.game[tagType] && userGame.game[tagType].length > 0) {
 
-                    for (let tag of userGame.game[tagType + 's']) {
+                    for (let tag of userGame.game[tagType]) {
 
                         if (deepIndexOf(this[tagType + 'Tags'], tag) < 0) {
 
@@ -247,9 +251,9 @@ export class GamesComponent implements OnInit {
         }
 
         // orderByCount
-        this.platformTags.sort(orderByCount(this.platformCount));
-        this.developerTags.sort(orderByCount(this.developerCount));
-        this.publisherTags.sort(orderByCount(this.publisherCount));
+        this.platformsTags.sort(orderByCount(this.platformsCount));
+        this.developersTags.sort(orderByCount(this.developersCount));
+        this.publishersTags.sort(orderByCount(this.publishersCount));
         this.purchaseContactTags.sort(orderByCount(this.purchaseContactCount));
         this.saleContactTags.sort(orderByCount(this.saleContactCount));
 
@@ -290,11 +294,11 @@ export class GamesComponent implements OnInit {
                 }
                 break;
 
-            case 'developer':
-            case 'publisher':
-            case 'mode':
-            case 'theme':
-            case 'genre':
+            case 'developers':
+            case 'publishers':
+            case 'modes':
+            case 'themes':
+            case 'genres':
 
                 if (active) {
                     this.userGameFilter.game.addTag(type, tag);

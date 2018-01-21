@@ -27,13 +27,13 @@ export class Game {
     }
 
     addTag(type: string, tag: Tag) {
-        if (!this[type+'s']) {
-            this[type+'s'] = [];
+        if (!this[type]) {
+            this[type] = [];
         }
 
-        this[type+'s'].push(tag);
+        this[type].push(tag);
 
-        this[type+'s'] = this[type+'s'].filter(function(elem, index, self) {
+        this[type] = this[type].filter(function(elem, index, self) {
             return index == self.indexOf(elem);
         });
 
@@ -41,12 +41,12 @@ export class Game {
     }
 
     removeTag(type: string, tag: Tag) {
-        if (!this[type+'s']) {
+        if (!this[type]) {
             return this;
         }
-        var index = this[type+'s'].indexOf(tag, 0);
+        var index = this[type].indexOf(tag, 0);
         if (index > -1) {
-            this[type+'s'].splice(index, 1);
+            this[type].splice(index, 1);
         }
 
         return this;

@@ -127,14 +127,14 @@
                  [suffix]="publishersCount[publisher.id]"
                  (uploaded)="toggleTag('publishers', $event, publisher)"></tag>
         </p-tabPanel>
-        <p-tabPanel header="Acheteur">
+        <p-tabPanel header="Vendeur">
             <tag *ngFor="let contact of purchaseContactTags;"
                  [tag]="contact | formatName"
                  [filter]="userGameFilter.purchaseContacts"
                  [suffix]="purchaseContactCount[contact.id]"
                  (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
         </p-tabPanel>
-        <p-tabPanel header="Vendeur" *ngIf="saleContactTags.length > 0">
+        <p-tabPanel header="Acheteur" *ngIf="saleContactTags.length > 0">
             <tag *ngFor="let contact of saleContactTags;"
                  [tag]="contact | formatName"
                  [filter]="userGameFilter.saleContacts"

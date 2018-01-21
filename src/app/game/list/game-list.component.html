@@ -152,19 +152,17 @@
         <span class="bar"></span>
     </div>
     <div class="input">
+
         <label for="orderField" style="font-size: 14px; margin: 0">Tri</label>
         <div style="width: 200px; display: inline-block; vertical-align: middle;">
             <select id="orderField"
                     required
                     [(ngModel)]="orderField" name="orderField"
                     #name="ngModel">
-                <option *ngFor="let field of userGameFields"
-                        [value]="field.name">
+                <option *ngFor="let field of tableFields"
+                        [value]="userGameFields[field].name">
 
-                    {{ field.label }}
-                    <i class="fa" *ngIf="orderField == field.name"
-                       [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                    <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field.name"></i>
+                    {{ userGameFields[field].label }}
                 </option>
             </select>
         </div>

@@ -1,4 +1,4 @@
-import {trigger, state, animate, style, transition} from '@angular/core';
+import {trigger, animate, style, transition} from '@angular/core';
 
 export function routerTransition(
     
@@ -7,28 +7,16 @@ export function routerTransition(
 }
 function slideToBottom() {
   return trigger('routerTransition', [
-    // state('none', style({position:'absolute'}) ),
-    // state('void', style({position:'absolute'}) ),
-    // state('*', style({position:'absolute'}) ),
-
-    // transition('void => *', [
-    //   style({opacity: '0'}),
-    //   animate('0.5s 0.5s ease-in-out', style({opacity: '1'})),
-    // ]),
     transition('* => void', [
-      style({opacity: '1'}),
-      animate('0.5s ease-in-out', style({opacity: '0'})),
+      style({transform: 'translateY(0) scale(1)'}),
+      animate('0.5s ease-in-out', style({transform: 'scale(0.5)'})),
+      animate('0.5s ease-in-out', style({transform: 'translateY(-100%) scale(0.5)'})),
     ]),
 
     transition('void => *', [
-      style({transform: 'translateY(-100%)'}),
-      animate('0.5s ease-in-out', style({transform: 'scale(0.5)'})),
-      animate('0.5s ease-in-out', style({transform: 'translateY(0)'})),
+      style({transform: 'translateY(-100%) scale(0.5)'}),
+      animate('0.5s ease-in-out', style({transform: 'translateY(0) scale(0.5)'})),
       animate('0.5s ease-in-out', style({transform: 'scale(1)'})),
-    ])
-    // transition('* => void', [
-    //   style({position:'absolute', transform: 'translateY(0)', zIndex:0}),
-    //   animate('2s ease-in-out', style({transform: 'scale(0)'})),
-    // ]),
+    ]),
   ]);
 }

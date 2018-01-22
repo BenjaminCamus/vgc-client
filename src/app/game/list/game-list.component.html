@@ -269,8 +269,7 @@
 
 <game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame">
     <div class="fakePageNav"><!--
-        -->
-        <div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
+    --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
         --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="selectUserGame(prevUserGame)"></i><!--
         --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="selectUserGame(nextUserGame)"></i><!--
     --> </div>

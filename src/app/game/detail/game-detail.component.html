@@ -24,17 +24,17 @@
 
         <div class="col-md-8">
 
-            <div class="title">
-                <div style="float: right;"><!--
+            <div class="title"><!--
+                --><div style="float: right;"><!--
                     --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh"
                           (click)="getGame()"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-pencil-square-o"
                           (click)="openForm('edit')"></i><!--
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o"
                           (click)="openForm('delete')"></i><!--
-                --></div>
-                {{ userGame.game.name }}
-            </div>
+                --></div><!--
+                -->{{ userGame.game.name }} <span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span><!--
+            --></div>
 
             <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
                        [userGame]="userGame" [update]="update"

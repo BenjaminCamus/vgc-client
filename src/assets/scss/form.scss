@@ -15,7 +15,8 @@ input, textarea, select {
   margin-top: 30px;
   resize: none;
 }
-.title input, .title select, .title .bar {
+.title input, .title select, .title .bar,
+.input input, .input select, .input .bar {
   margin: 0;
 }
 input[type=text], input[type=date], input[type=password], textarea, select {

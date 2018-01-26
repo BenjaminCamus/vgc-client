@@ -1,59 +1,61 @@
 .mainPage {
+  position: absolute;
   width: 100%;
   min-height: 100%;
   padding-top: 70px;
   padding-bottom: 5vw;
   background: rgba(0, 0, 0, 0.5);
-  position: absolute;
   overflow-x: hidden;
 }
 
 .fakePage {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
   padding-top: 0;
   top: 0;
   left: 0;
   background: rgba(0,0,0,.9);
   z-index: 40;
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
+  overflow-x: hidden;
   overflow-y: scroll;
 }
 
-#topnav, .fakePageNav {
-  position: fixed;
-  z-index: 10;
-  width: 100%;
-  background: rgba(0,0,0,0.5);
-  height: 70px;
-  line-height: 70px;
-  padding: 5px;
-}
-
-.fakePageNav .navRight {
-  position: absolute;
-  text-align: right;
-  right: 30px;
-}
-
-#topnav div.appTitle {
-  position: absolute;
-  font-size: 50px;
-  opacity: 0.2;
-  text-align: right;
-  right: 30px;
-}
-
-.title {
+.topnav, .title {
   font-size: 28px;
+  width: 100%;
+  background: rgba(0,0,0,.8);
   min-height: 70px;
   line-height: 70px;
-  background: rgba(0, 0, 0, .7);
   padding: 0 15px;
   cursor: default;
 }
 
-.title .input {
+.topnav {
+  top: 0;
+  left: 0;
+  position: fixed;
+  z-index: 10;
+}
+
+.topnav .navRight {
+  position: absolute;
+  text-align: right;
+  right: 15px;
+}
+
+.appTitle {
+  font-size: 40px;
+  opacity: 0.2;
+  text-align: right;
+  margin-right: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -3px;
+  position: absolute;
+}
+
+.input {
   width: 300px;
   max-width: 100%;
   margin-right: 12px;

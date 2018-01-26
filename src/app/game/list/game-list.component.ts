@@ -24,6 +24,8 @@ import {FilterPipe} from "../../_pipes/filter.pipe";
 })
 export class GamesComponent implements OnInit {
 
+    title = 'VGC';
+
     errorMessage: string;
 
     private subscription;

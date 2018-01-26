@@ -1,3 +1,42 @@
+<nav class="topnav">
+    <div style="float: right"><!--
+    --><i class="hovicon fa fa-refresh" (click)="getGames()"
+          [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
+    --><i routerLink="/game/new" routerLinkActive="active" class="hovicon fa fa-plus"></i><!--
+    --><i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i><!--
+    --><i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i><!--
+    --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
+
+        <div class="input">
+            <input type="text" id="name" name="name"
+                   [(ngModel)]="userGameFilter.game.name"
+                   #name="ngModel"
+                   autocomplete="off"
+                   placeholder="Recherche">
+            <span class="bar"></span>
+        </div>
+        <div class="input">
+
+            <label for="orderField" style="font-size: 14px; margin: 0">Tri</label>
+            <div style="width: 200px; display: inline-block; vertical-align: middle;">
+                <select id="orderField"
+                        [(ngModel)]="orderField" name="orderField"
+                        #name="ngModel">
+                    <option *ngFor="let field of tableFields"
+                            [value]="userGameFields[field].name">
+
+                        {{ userGameFields[field].label }}
+                    </option>
+                </select>
+            </div>
+            <i class="hovicon fa" (click)="orderOption = !orderOption"
+               [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
+        </div>
+    </div><!--
+    --><div class="appTitle">{{title}}</div><!--
+    --><i style="margin-left: 70px" routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i><!--
+--></nav>
+
 <div id="gameBanner" class="gameBannerBig">
     <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;
      let i = index;">
@@ -154,40 +193,6 @@
 
 <div class="title">
     Mes Jeux
-    <div style="float: right">
-        <i class="hovicon fa fa-refresh" (click)="getGames()"
-           [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
-    --><i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i><!--
-    --><i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i><!--
-    --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
-
-        <div class="input">
-            <input type="text" id="name" name="name"
-                   [(ngModel)]="userGameFilter.game.name"
-                   #name="ngModel"
-                   autocomplete="off"
-                   placeholder="Recherche">
-            <span class="bar"></span>
-        </div>
-        <div class="input">
-
-            <label for="orderField" style="font-size: 14px; margin: 0">Tri</label>
-            <div style="width: 200px; display: inline-block; vertical-align: middle;">
-                <select id="orderField"
-                        required
-                        [(ngModel)]="orderField" name="orderField"
-                        #name="ngModel">
-                    <option *ngFor="let field of tableFields"
-                            [value]="userGameFields[field].name">
-
-                        {{ userGameFields[field].label }}
-                    </option>
-                </select>
-            </div>
-            <i class="hovicon fa" (click)="orderOption = !orderOption"
-               [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
-        </div>
-    </div>
 </div>
 
 <div *ngIf="displayMode == 1">
@@ -268,8 +273,9 @@
 </div>
 
 <game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame">
-    <div class="fakePageNav"><!--
-    --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
+    <div class="topnav"><!--
+    -->
+        <div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
         --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="selectUserGame(prevUserGame)"></i><!--
         --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="selectUserGame(nextUserGame)"></i><!--
     --> </div>

@@ -3,6 +3,13 @@
   border-bottom: 1px solid rgba(255, 255, 255, .1);
 }
 
+.table>tbody>tr:last-child>td, .table>tbody>tr:last-child>th,
+.table>tfoot>tr>td, .table>tfoot>tr:last-child>th,
+.table>thead>tr:last-child>td, .table>thead>tr:last-child>th {
+   border-top: none;
+   border-bottom: none;
+ }
+
 .table th {
   font-weight: normal;
   border: none;

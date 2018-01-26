@@ -10,7 +10,12 @@ export class FormatNamePipe {
         }
 
         if (obj.name) {
-            return obj.name;
+            if (long) {
+                return obj.name.replace(':', ':<br />').replace('(', '<br />(');
+            }
+            else {
+                return obj.name;
+            }
         }
 
         var display = '';

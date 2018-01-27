@@ -13,10 +13,11 @@ import {Place} from "../../_models/place";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {FilterPipe} from "../../_pipes/filter.pipe";
+import {LengthPipe} from "../../_pipes/length.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, FilterPipe, DatePipe, FormatNamePipe],
+    providers: [GameService, FilterPipe, DatePipe, FormatNamePipe, LengthPipe],
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition()],

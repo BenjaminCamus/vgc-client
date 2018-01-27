@@ -27,6 +27,7 @@ import {GameFormComponent} from "./game/form/game-form.component";
 import {FormatNamePipe} from "./_pipes/formatName.pipe";
 import {GameLocalService} from "./_services/gameLocal.service";
 import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
+import {LengthPipe} from "./_pipes/length.pipe";
 
 @NgModule({
     imports: [
@@ -50,6 +51,7 @@ import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
         SafePipe,
         TruncatePipe,
         FormatNamePipe,
+        LengthPipe,
 
         AppComponent,
         LoginComponent,

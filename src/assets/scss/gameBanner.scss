@@ -1,10 +1,10 @@
-#gameBanner {
+.gameBanner {
   width: 100%;
   display: block;
   height: calc(25vh - 70px);
 }
 
-#gameBanner div {
+.gameBanner .gameBannerBg {
   width: 100%;
   display: block;
   height: 25vh;
@@ -15,18 +15,14 @@
   transition: height 1s, opacity 1s, filter 1s;
 }
 
-#gameBanner.gameBannerBig {
+.gameBanner.gameBannerBig {
   height: calc(50vh - 70px);
 }
 
-.modal-body #gameBanner div {
+.modal-body .gameBanner .gameBannerBg {
   margin-top: 0;
 }
 
-#gameBanner.gameBannerBig div {
+.gameBanner.gameBannerBig .gameBannerBg {
   height: 50vh;
 }
-
-//#gameBanner:hover div {
-//  height: 100vh;
-//}

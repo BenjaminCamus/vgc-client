@@ -6,9 +6,25 @@
 .table>tbody>tr:last-child>td, .table>tbody>tr:last-child>th,
 .table>tfoot>tr>td, .table>tfoot>tr:last-child>th,
 .table>thead>tr:last-child>td, .table>thead>tr:last-child>th {
-   border-top: none;
-   border-bottom: none;
- }
+  border-top: none;
+  border-bottom: none;
+}
+
+.title .table>tbody>tr>td, .title .table>tbody>tr>th, .title .table>tfoot>tr>td, .title .table>tfoot>tr>th, .title .table>thead>tr>td, .title .table>thead>tr>th {
+  font-size: 12px;
+  line-height: 22px;
+  width: auto;
+  padding: 0 10px;
+}
+
+.title .table {
+  display: inline;
+  margin-bottom: 0;
+  margin-left: 30px;
+  float: right;
+  width: auto;
+}
+
 
 .table th {
   font-weight: normal;
@@ -45,6 +61,7 @@
 }
 
 td.tdLabel {
+  color: rgba(255, 255, 255, .5);
   white-space: nowrap;
   width: 130px;
 }

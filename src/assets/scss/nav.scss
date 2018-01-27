@@ -45,14 +45,11 @@
 }
 
 .appTitle {
-  font-size: 40px;
+  font-size: 28px;
   opacity: 0.2;
   text-align: right;
-  margin-right: 5px;
   display: inline-block;
-  vertical-align: middle;
-  margin-top: -3px;
-  position: absolute;
+  margin-right: 10px;
 }
 
 .input {
@@ -60,12 +57,11 @@
   max-width: 100%;
   margin-right: 12px;
   display: inline-block;
-  vertical-align: middle;
   white-space: nowrap;
 }
 
 .row .title {
-  margin: 0 -15px 15px -15px;
+  margin: 0 0 15px 15px;
 
 }
 .filters {

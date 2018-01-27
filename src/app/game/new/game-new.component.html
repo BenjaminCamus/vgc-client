@@ -1,8 +1,9 @@
 <loading *ngIf="formLoading"></loading>
 
-<div id="gameBanner" class="gameBannerBig">
-    <div *ngIf="games && games[0] && games[0].screenshots"
+<div class="gameBanner gameBannerBig">
+    <div class="gameBannerBg" *ngIf="games && games[0] && games[0].screenshots"
          [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+    <div class="gameBannerBg" *ngIf="!games || !games[0] || !games[0].screenshots"></div>
 </div>
 
 <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
@@ -49,10 +50,11 @@
         <h4 class="modal-title">Nouveau Jeu • {{selectedGame.name}}</h4>
     </modal-header>
     <modal-body *ngIf="selectedGame">
-        <div id="gameBanner">
-            <div *ngIf="selectedGame.screenshots && selectedGame.screenshots.length > 0"
+        <div class="gameBanner">
+            <div class="gameBannerBg" *ngIf="selectedGame.screenshots && selectedGame.screenshots.length > 0"
                  [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + selectedGame.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
             <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinarIid + '.jpg)' | safe: 'style'"></div>-->
+            <div class="gameBannerBg" *ngIf="!selectedGame.screenshots || selectedGame.screenshots.length == 0"></div>
         </div>
 
         <div class="container-fluid">
@@ -70,7 +72,9 @@
 
                 <div class="col-md-8">
 
-                    <div class="title">{{ selectedGame.name }}</div>
+                    <div class="row">
+                        <div class="title">{{ selectedGame.name }}</div>
+                    </div>
                     <game-form [game]="selectedGame"
                                [platform]="selectedPlatform"
                                [userGame]="selectedUserGame"

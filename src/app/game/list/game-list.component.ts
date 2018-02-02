@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit, OnDestroy, OnChanges, SimpleChanges, ViewChild} from '@angular/core';
+import {Component, Renderer, OnInit, OnDestroy, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
 import {Router}            from '@angular/router';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import {routerTransition} from '../../_animations/router.animations';
@@ -14,6 +14,7 @@ import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {FilterPipe} from "../../_pipes/filter.pipe";
 import {LengthPipe} from "../../_pipes/length.pipe";
+import {HostListener} from "@angular/core/src/metadata/directives";
 
 @Component({
     moduleId: module.id,
@@ -79,6 +80,17 @@ export class GamesComponent implements OnInit {
 
         var ug = new UserGame();
         this.userGameFields = ug.fields;
+    }
+
+    bannerMarginLeft: number;
+    bannerWidth: number;
+    bannerHeight: number;
+    @ViewChild('gameBanner') gameBanner: ElementRef;
+    @HostListener('window:scroll', ['$event'])
+    onWindowScroll(event) {
+        this.bannerMarginLeft = -window.pageYOffset / 2;
+        this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
+        this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
     }
 
     ngOnInit() {

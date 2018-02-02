@@ -57,61 +57,46 @@
 
 }
 .filters {
-  position: absolute;
-  overflow: hidden;
   z-index: 10;
-  background-color: rgba(0, 0, 0, .8);
-  height: 0;
-  opacity: 0;
-  padding: 0;
-  margin: 0;
-  animation: FadeOut 1s ease-in-out;
+  background-color: rgba(0, 0, 0, .1);
+  padding: 15px;
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
+  margin: 0;
+
+
+  font-size: 12px;
+  line-height: 20px;
+  max-height: 80vh;
+  clear: both;
+  overflow-y: auto;
+
+
+  animation: FadeOut 1s ease-in-out;
+  height: 0;
 }
 
 .filters.on {
-  height: initial;
-  opacity: 1;
-  padding: 15px;
-  margin: 70px 0;
   animation: FadeIn 1s ease-in-out;
+  height: 80vh;
 }
 
 @keyframes FadeIn {
   0% {
-    height: initial;
-    padding: 15px;
-    opacity: 0;
-    margin: 0;
+    height: 0;
   }
   100% {
-    height: initial;
-    padding: 15px;
-    opacity: 1;
-    margin: 70px 0;
+    height: 80vh;
   }
 }
 
 @keyframes FadeOut {
   0% {
-    height: initial;
-    padding: 15px;
-    opacity: 1;
-    margin: 70px 0;
-  }
-  99% {
-    height: initial;
-    padding: 15px;
-    opacity: 0;
-    margin: 0;
+    height: 80vh;
   }
   100% {
     height: 0;
-    padding: 0;
-    opacity: 0;
-    margin: 0;
   }
 }

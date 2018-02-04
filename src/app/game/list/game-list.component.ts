@@ -88,9 +88,21 @@ export class GamesComponent implements OnInit {
     @ViewChild('gameBanner') gameBanner: ElementRef;
     @HostListener('window:scroll', ['$event'])
     onWindowScroll(event) {
-        this.bannerMarginLeft = -window.pageYOffset / 2;
-        this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
-        this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
+        var height = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
+        height = height < 0 ? 0 : height;
+
+        if (height <= 0) {
+            this.bannerMarginLeft = 0;
+            this.bannerWidth = 0;
+            this.bannerHeight = 0;
+
+        }
+        else {
+            this.bannerMarginLeft = -window.pageYOffset / 2;
+            this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
+            this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
+
+        }
     }
 
     ngOnInit() {

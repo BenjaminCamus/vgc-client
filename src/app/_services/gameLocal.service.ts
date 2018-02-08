@@ -10,19 +10,38 @@ export class GameLocalService {
     }
 
     private userGamesLocalId = 'userGames';
+    private userGamesDateLocalId = 'userGamesDate';
     private userContactsLocalId = 'userContacts';
     private newGameSearchLocalId = 'newGameSearch';
 
     getUserGames() {
         if (localStorage.getItem(this.userGamesLocalId)) {
-            let userGames= JSON.parse(localStorage.getItem(this.userGamesLocalId));
+
+            let userGames = JSON.parse(localStorage.getItem(this.userGamesLocalId));
             for (let userGame of userGames) {
                 userGame = this.setDates(userGame);
             }
+
             return userGames;
         }
 
         return [];
+    }
+
+    setUserGamesDate() {
+        var date = new Date();
+        localStorage.setItem(this.userGamesDateLocalId, date.getTime().toString());
+        return date;
+    }
+
+    getUserGamesDate() {
+        if (localStorage.getItem(this.userGamesDateLocalId)) {
+            var dateTime = localStorage.getItem(this.userGamesDateLocalId);
+            var date = new Date(parseInt(dateTime));
+            return date;
+        }
+
+        return null;
     }
 
     setUserGames(userGames: UserGame[]) {

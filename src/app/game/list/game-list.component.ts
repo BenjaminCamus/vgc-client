@@ -34,6 +34,7 @@ export class GamesComponent implements OnInit {
     private userGames: UserGame[] = [];
     private userGameFilter: UserGameFilter = new UserGameFilter();
 
+    userGamesDate;
     selectedUserGame: UserGame;
     prevUserGame: UserGame;
     nextUserGame: UserGame;
@@ -109,6 +110,8 @@ export class GamesComponent implements OnInit {
         this.slimLoadingBarService.reset();
 
         this.userGames = this.gameLocalService.getUserGames();
+        this.userGamesDate = this.gameLocalService.getUserGamesDate();
+        console.log(this.userGamesDate);
         this.setFilters();
 
         //this.getGames();
@@ -133,6 +136,7 @@ export class GamesComponent implements OnInit {
                     this.userGames = userGames;
 
                     this.gameLocalService.setUserGames(this.userGames);
+                    this.userGamesDate = this.gameLocalService.setUserGamesDate();
 
                     this.setFilters();
 

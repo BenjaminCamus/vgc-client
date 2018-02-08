@@ -38,6 +38,10 @@
   z-index: 10;
 }
 
+.topnav * {
+  vertical-align: middle;
+}
+
 .topnav .navRight {
   position: absolute;
   text-align: right;

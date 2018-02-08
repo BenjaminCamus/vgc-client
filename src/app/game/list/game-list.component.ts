@@ -15,10 +15,11 @@ import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {FilterPipe} from "../../_pipes/filter.pipe";
 import {LengthPipe} from "../../_pipes/length.pipe";
 import {HostListener} from "@angular/core/src/metadata/directives";
+import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, FilterPipe, DatePipe, FormatNamePipe, LengthPipe],
+    providers: [GameService, FilterPipe, OrderByPipe, DatePipe, FormatNamePipe, LengthPipe],
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition()],
@@ -77,7 +78,8 @@ export class GamesComponent implements OnInit {
                 private router: Router,
                 private slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
-                private filterPipe: FilterPipe) {
+                private filterPipe: FilterPipe,
+                private orderByPipe: OrderByPipe) {
 
         var ug = new UserGame();
         this.userGameFields = ug.fields;
@@ -111,7 +113,6 @@ export class GamesComponent implements OnInit {
 
         this.userGames = this.gameLocalService.getUserGames();
         this.userGamesDate = this.gameLocalService.getUserGamesDate();
-        console.log(this.userGamesDate);
         this.setFilters();
 
         //this.getGames();
@@ -153,6 +154,7 @@ export class GamesComponent implements OnInit {
 
         this.selectedUserGame = userGame;
         var userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
+        userGameList = this.orderByPipe.transform(userGameList, this.orderField, this.orderOption);
 
         if (userGame) {
 

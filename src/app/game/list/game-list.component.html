@@ -1,61 +1,58 @@
 <nav class="topnav"><!--
     -->
-    <div style="float: left;"><!--
-    -->
-        <svg style="float: left; margin-top: 10px;" version="1.0" xmlns="http://www.w3.org/2000/svg"
-             width="50px" height="50px" viewBox="0 0 20.000000 18.000000"
-             preserveAspectRatio="xMidYMid meet">
+    <div style="float: left;">
 
-            <g transform="translate(0.000000,18.000000) scale(0.100000,-0.100000)"
-               fill="rgba(255,255,255,.2)" stroke="none">
-                <path d="M22 157 c-12 -13 -22 -29 -22 -36 0 -7 11 1 24 16 13 15 28 25 32 21
-4 -5 0 -16 -9 -26 -22 -24 -22 -57 1 -79 9 -10 17 -24 17 -32 0 -8 6 -16 13
--19 7 -2 10 2 6 12 -4 12 0 16 16 16 16 0 20 -4 16 -16 -4 -10 -1 -14 6 -12 7
-3 13 11 13 19 0 8 8 22 18 31 22 23 22 56 0 80 -9 10 -13 21 -9 26 4 4 19 -6
-32 -21 14 -16 24 -22 24 -14 0 7 -12 24 -26 38 l-26 24 -18 -22 c-23 -28 -41
--29 -58 -3 -16 26 -24 25 -50 -3z m68 -72 c0 -39 -14 -46 -30 -14 -14 25 -6
-49 15 49 11 0 15 -10 15 -35z m56 21 c6 -17 -12 -56 -26 -56 -6 0 -10 16 -10
-35 0 25 4 35 15 35 9 0 18 -6 21 -14z"/>
-            </g>
-        </svg><!--
-    --><i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i>
-    </div><!--
-    -->
-    <div style="float: right; text-align: right;"><!--
+        <!--<svg style="float: left; margin-top: 10px;" version="1.0" xmlns="http://www.w3.org/2000/svg"-->
+        <!--width="50px" height="50px" viewBox="0 0 20.000000 18.000000"-->
+        <!--preserveAspectRatio="xMidYMid meet">-->
+
+        <!--<g transform="translate(0.000000,18.000000) scale(0.100000,-0.100000)"-->
+        <!--fill="rgba(255,255,255,.2)" stroke="none">-->
+        <!--<path d="M22 157 c-12 -13 -22 -29 -22 -36 0 -7 11 1 24 16 13 15 28 25 32 21-->
+        <!--4 -5 0 -16 -9 -26 -22 -24 -22 -57 1 -79 9 -10 17 -24 17 -32 0 -8 6 -16 13-->
+        <!-- -19 7 -2 10 2 6 12 -4 12 0 16 16 16 16 0 20 -4 16 -16 -4 -10 -1 -14 6 -12 7-->
+        <!--3 13 11 13 19 0 8 8 22 18 31 22 23 22 56 0 80 -9 10 -13 21 -9 26 4 4 19 -6-->
+        <!--32 -21 14 -16 24 -22 24 -14 0 7 -12 24 -26 38 l-26 24 -18 -22 c-23 -28 -41-->
+        <!-- -29 -58 -3 -16 26 -24 25 -50 -3z m68 -72 c0 -39 -14 -46 -30 -14 -14 25 -6-->
+        <!--49 15 49 11 0 15 -10 15 -35z m56 21 c6 -17 -12 -56 -26 -56 -6 0 -10 16 -10-->
+        <!--35 0 25 4 35 15 35 9 0 18 -6 21 -14z"/>-->
+        <!--</g>-->
+        <!--</svg>-->
+
+        <!--
+    --><i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i><!--
+        --><i routerLink="/game/new" routerLinkActive="active" class="hovicon fa fa-plus"></i><!--
     --><i class="hovicon fa fa-refresh" (click)="getGames()"
           [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
-    --><i routerLink="/game/new" routerLinkActive="active" class="hovicon fa fa-plus"></i><!--
-    --><i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i><!--
-    --><i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i><!--
-    --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i><!--
-    -->
-        <div class="input"><!--
-    --><input type="text" id="name" name="name"
-              [(ngModel)]="userGameFilter.game.name"
-              #name="ngModel"
-              autocomplete="off"
-              placeholder="Recherche">
-            <span class="bar"></span><!--
-    --></div><!--
-    -->
+    --><div *ngIf="userGamesDate" style="display:inline-block;font-size: 12px;line-height: normal;color: rgba(255,255,255,.5);">{{ userGamesDate | date:'dd/MM'}}<br />{{ userGamesDate | date:'HH:mm'}}</div>
+    </div>
+    <div style="float: right; text-align: right;">
         <div class="input">
-            <label for="orderField" style="font-size: 14px; margin: 0">Tri</label>
-            <div style="width: 200px; display: inline-block;">
-                <select id="orderField"
-                        [(ngModel)]="orderField" name="orderField"
-                        #name="ngModel">
-                    <option *ngFor="let field of tableFields"
-                            [value]="userGameFields[field].name">
+            <input type="text" id="name" name="name"
+                   [(ngModel)]="userGameFilter.game.name"
+                   #name="ngModel"
+                   autocomplete="off"
+                   placeholder="Recherche">
+            <span class="bar"></span>
+        </div><!--
+        --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
+        <div class="input">
+            <select id="orderField"
+                    [(ngModel)]="orderField" name="orderField"
+                    #name="ngModel">
+                <option *ngFor="let field of tableFields"
+                        [value]="userGameFields[field].name">
 
-                        {{ userGameFields[field].label }}
-                    </option>
-                </select>
-            </div><!--
-    --><i class="hovicon fa" (click)="orderOption = !orderOption"
-          [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i><!--
-    --></div><!--
-    --></div><!--
--->
+                    {{ userGameFields[field].label }}
+                </option>
+            </select>
+        </div>
+        <i class="hovicon fa" (click)="orderOption = !orderOption"
+           [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i><!--
+        --><i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i><!--
+    --><i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
+    </div>
+
     <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" style="padding-bottom: 15px">
         <p-tabView>
             <p-tabPanel header="Général">

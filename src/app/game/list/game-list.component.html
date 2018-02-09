@@ -210,11 +210,14 @@
              [style.margin-left]="bannerMarginLeft+'px'"
              [style.width]="bannerWidth+'px'"
              [style.height]="bannerHeight+'px'"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_original/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <div class="gameBannerBg"
              *ngIf="i == 0 && (!userGame.game.screenshots || userGame.game.screenshots.length == 0)"></div>
 
     </section>
+
+    <div class="gameBannerBg" *ngIf="userGames.length == 0"
+         [style.background-image]="'url(https://images.igdb.com/igdb/image/upload/t_original/gko0jchtb85kbsc1dg9l.jpg)' | safe: 'style'"></div>
 </div>
 
 

@@ -21,10 +21,14 @@
 
         <!--
     --><i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i><!--
-        --><i routerLink="/game/new" routerLinkActive="active" class="hovicon fa fa-plus"></i><!--
+        --><i class="hovicon fa fa-plus" (click)="newGame = true"></i><!--
     --><i class="hovicon fa fa-refresh" (click)="getGames()"
           [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
-    --><div *ngIf="userGamesDate" style="display:inline-block;font-size: 12px;line-height: normal;color: rgba(255,255,255,.5);">{{ userGamesDate | date:'dd/MM'}}<br />{{ userGamesDate | date:'HH:mm'}}</div>
+    -->
+        <div *ngIf="userGamesDate"
+             style="display:inline-block;font-size: 12px;line-height: normal;color: rgba(255,255,255,.5);">{{
+            userGamesDate | date:'dd/MM'}}<br/>{{ userGamesDate | date:'HH:mm'}}
+        </div>
     </div>
     <div style="float: right; text-align: right;">
         <div class="input">
@@ -328,9 +332,14 @@
 
 <game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame">
     <div class="topnav"><!--
-    -->
-        <div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
+        --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
         --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="selectUserGame(prevUserGame)"></i><!--
         --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="selectUserGame(nextUserGame)"></i><!--
     --> </div>
 </game-detail>
+
+<game-new *ngIf="newGame">
+    <div class="topnav">
+        <div class="navRight"><i class="hovicon fa fa-close" (click)="newGame = false"></i></div>
+    </div>
+</game-new>

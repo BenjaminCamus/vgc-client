@@ -39,6 +39,7 @@ export class GamesComponent implements OnInit {
     selectedUserGame: UserGame;
     prevUserGame: UserGame;
     nextUserGame: UserGame;
+    newGame: boolean = false;
 
     userGameFields = [];
 

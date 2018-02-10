@@ -30,6 +30,10 @@ $colorTagOn: $colorSuccess0;
 @import "assets/scss/table";
 @import "assets/scss/primeNG";
 
+html {
+  overflow-y: scroll;
+}
+
 body {
   background: url("https://www.toptal.com/designers/subtlepatterns/patterns/footer_lodyas.png") center;
   color: $colorTextMain;

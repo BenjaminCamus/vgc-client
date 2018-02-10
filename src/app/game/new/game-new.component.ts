@@ -17,7 +17,7 @@ import {Platform} from "../../_models/platform";
     selector: 'game-new',
     templateUrl: './game-new.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': 'state', class: 'mainPage'}
+    host: {'[@routerTransition]': 'state', class: 'mainPage fakePage'}
 })
 export class GameNewComponent {
 

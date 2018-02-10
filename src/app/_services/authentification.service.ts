@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 import {ErrorService} from "./error.service";
 import {environment} from "../../environments/environment";
+import {GameLocalService} from "./gameLocal.service";
 
 @Injectable()
 export class AuthenticationService {
@@ -47,6 +48,8 @@ export class AuthenticationService {
     }
 
     logout(): void {
+
+        GameLocalService.resetAll();
 
         // clear token remove user from local storage to log user out
         this.token = null;

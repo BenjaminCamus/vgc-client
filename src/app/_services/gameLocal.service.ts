@@ -14,6 +14,13 @@ export class GameLocalService {
     private userContactsLocalId = 'userContacts';
     private newGameSearchLocalId = 'newGameSearch';
 
+    static resetAll() {
+        var resetIds = ['userGames', 'userGamesDate', 'userContacts', 'newGameSearch'];
+        for (var i in resetIds) {
+            localStorage.removeItem(resetIds[i]);
+        }
+    }
+
     getUserGames() {
         if (localStorage.getItem(this.userGamesLocalId)) {
 

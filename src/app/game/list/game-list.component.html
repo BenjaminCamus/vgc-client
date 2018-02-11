@@ -250,7 +250,7 @@
             </td>
             <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }} €
                 ({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) | number:'2.0-0' }}%)</td>
-            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}
+            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }} €
                 ({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames | total:'priceResale')) | number:'2.0-0' }}%)</td>
         </tr>
         </tbody>

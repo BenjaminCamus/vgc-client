@@ -122,9 +122,7 @@ export class GameFormComponent implements OnInit {
 
                     this._userGame = userGame;
                     this.gameLocalService.setUserGame(userGame);
-
-                    this.router.navigate(['/game', userGame.platform.slug, userGame.game.slug]);
-                    this.state.emit('success');
+                    this.state.emit('add_'+JSON.stringify(this._userGame));
                     this.slimLoadingBarService.complete();
                 },
                 error => {
@@ -143,11 +141,8 @@ export class GameFormComponent implements OnInit {
             .subscribe(
                 response => {
 
-                    // userGame local storage
                     this.gameLocalService.removeUserGame(this._userGame);
-
-                    this.router.navigate(['/games']);
-                    this.state.emit('success');
+                    this.state.emit('delete_'+JSON.stringify(this._userGame));
                     this.slimLoadingBarService.complete();
                 },
                 error => {

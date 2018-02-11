@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit, OnDestroy, ViewChild} from '@angular/core';
+import {Component, Renderer, OnInit, OnDestroy, ViewChild, EventEmitter} from '@angular/core';
 import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
 import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 
@@ -10,6 +10,7 @@ import {orderByName} from "../../functions";
 import {GameLocalService} from "../../_services/gameLocal.service";
 import {UserGame} from "../../_models/userGame";
 import {Platform} from "../../_models/platform";
+import {Output} from "@angular/core/src/metadata/directives";
 
 @Component({
     moduleId: module.id,
@@ -34,6 +35,8 @@ export class GameNewComponent {
 
     @ViewChild('modal')
     modal: ModalComponent;
+
+    @Output() state: EventEmitter<string> = new EventEmitter();
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -132,17 +135,18 @@ export class GameNewComponent {
     }
 
     formStateUpdate(event) {
-        this.modal.close();
-        switch (event) {
-            case 'submitted':
-                this.formLoading = true;
-                break;
-            case 'success':
-                this.formLoading = false;
-                break;
-        }
-    }
 
+        this.modal.close();
+
+        if (event == 'submitted') {
+            this.formLoading = true;
+        }
+        else {
+            this.formLoading = false;
+        }
+
+        this.state.emit(event);
+    }
 }
 
 

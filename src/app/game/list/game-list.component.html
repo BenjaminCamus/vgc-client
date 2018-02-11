@@ -330,7 +330,7 @@
     </section>
 </div>
 
-<game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame">
+<game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame" (state)="detailStateUpdate($event)">
     <div class="topnav"><!--
         --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
         --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="selectUserGame(prevUserGame)"></i><!--
@@ -338,7 +338,7 @@
     --> </div>
 </game-detail>
 
-<game-new *ngIf="newGame">
+<game-new *ngIf="newGame" (state)="detailStateUpdate($event)">
     <div class="topnav">
         <div class="navRight"><i class="hovicon fa fa-close" (click)="newGame = false"></i></div>
     </div>

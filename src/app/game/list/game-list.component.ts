@@ -14,12 +14,13 @@ import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {FilterPipe} from "../../_pipes/filter.pipe";
 import {LengthPipe} from "../../_pipes/length.pipe";
+import {TotalPipe} from "../../_pipes/total.pipe";
 import {HostListener} from "@angular/core/src/metadata/directives";
 import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 
 @Component({
     moduleId: module.id,
-    providers: [GameService, FilterPipe, OrderByPipe, DatePipe, FormatNamePipe, LengthPipe],
+    providers: [GameService, FilterPipe, OrderByPipe, DatePipe, FormatNamePipe, LengthPipe, TotalPipe],
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition()],

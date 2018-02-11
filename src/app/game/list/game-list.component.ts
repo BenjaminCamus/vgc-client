@@ -364,8 +364,6 @@ export class GamesComponent implements OnInit {
     }
 
     detailStateUpdate(event) {
-        console.log('detailStateUpdate');
-        console.log(event);
 
         if (event.substr(0, 7) == 'delete_') {
             this.selectedUserGame = null;

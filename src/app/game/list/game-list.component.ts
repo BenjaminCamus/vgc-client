@@ -362,4 +362,31 @@ export class GamesComponent implements OnInit {
             this.renderer.setElementProperty(e.target, 'className', 'gameBox');
         }
     }
+
+    detailStateUpdate(event) {
+        console.log('detailStateUpdate');
+        console.log(event);
+
+        if (event.substr(0, 7) == 'delete_') {
+            this.selectedUserGame = null;
+            var deleteUserGame = JSON.parse(event.substr(7));
+            var deleteUserGameIndex = deepIndexOf(this.userGames, deleteUserGame);
+            this.userGames.splice(deleteUserGameIndex, 1);
+        }
+        else if (event.substr(0, 4) == 'add_') {
+            this.newGame = null;
+            var userGame = JSON.parse(event.substr(4));
+
+            userGame.purchaseDate = new Date(userGame.purchaseDate);
+            if (userGame.saleDate) {
+                userGame.saleDate = new Date(userGame.saleDate);
+            }
+            if (userGame.releaseDate) {
+                userGame.releaseDate = new Date(userGame.releaseDate);
+            }
+
+            console.log(userGame);
+            this.userGames.push(userGame);
+        }
+    }
 }

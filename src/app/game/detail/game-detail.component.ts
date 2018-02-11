@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, OnDestroy, ViewChild, ChangeDetectorRef} from "@angular/core";
+import {Component, Input, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, EventEmitter} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
 import {routerTransition} from "../../_animations/router.animations";
@@ -12,6 +12,7 @@ import {LoadingComponent} from "../../loading/loading.component";
 import {UserGameValuePipe} from "../../_pipes/userGameValue.pipe";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
+import {Output} from "@angular/core/src/metadata/directives";
 
 @Component({
     moduleId: module.id,
@@ -27,6 +28,7 @@ export class GameDetailComponent implements OnInit {
     public orientation: string;
 
     @Input() userGame: UserGame;
+    @Output() state: EventEmitter<string> = new EventEmitter();
     private selectedGame: Game = null;
     private selectedPlatform: Object;
 
@@ -116,13 +118,14 @@ export class GameDetailComponent implements OnInit {
     }
 
     formStateUpdate(event) {
-        switch (event) {
-            case 'submitted':
-                this.formLoading = true;
-                break;
-            case 'success':
-                this.formLoading = false;
-                break;
+
+        if (event == 'submitted') {
+            this.formLoading = true;
         }
+        else {
+            this.formLoading = false;
+        }
+
+        this.state.emit(event);
     }
 }

@@ -106,6 +106,9 @@ export class GameService {
     }
 
     postUserGame(userGame: UserGame): Observable<UserGame> {
+
+        delete userGame.fields;
+
         return this.http
             .post(this.url + 'user/games/add', JSON.stringify(userGame), {headers: this.headers})
             .map(response => {

@@ -28,6 +28,7 @@ import {FormatNamePipe} from "./_pipes/formatName.pipe";
 import {GameLocalService} from "./_services/gameLocal.service";
 import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
 import {LengthPipe} from "./_pipes/length.pipe";
+import {TotalPipe} from "./_pipes/total.pipe";
 
 @NgModule({
     imports: [
@@ -52,6 +53,7 @@ import {LengthPipe} from "./_pipes/length.pipe";
         TruncatePipe,
         FormatNamePipe,
         LengthPipe,
+        TotalPipe,
 
         AppComponent,
         LoginComponent,

@@ -93,6 +93,13 @@ export class GamesComponent implements OnInit {
     @ViewChild('gameBanner') gameBanner: ElementRef;
     @HostListener('window:scroll', ['$event'])
     onWindowScroll(event) {
+        this.resizeBanner();
+    }
+    @HostListener('window:resize', ['$event'])
+    onResize(event) {
+        this.resizeBanner();
+    }
+    resizeBanner() {
         var height = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
         height = height < 0 ? 0 : height;
 
@@ -117,7 +124,9 @@ export class GamesComponent implements OnInit {
         this.userGamesDate = this.gameLocalService.getUserGamesDate();
         this.setFilters();
 
-        //this.getGames();
+        if (this.userGames.length == 0) {
+            this.getGames();
+        }
     }
 
     ngOnDestroy() {
@@ -158,7 +167,7 @@ export class GamesComponent implements OnInit {
         var userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
         userGameList = this.orderByPipe.transform(userGameList, this.orderField, this.orderOption);
 
-        if (userGame) {
+        if (userGame && userGameList.length > 1) {
 
             var index = deepIndexOf(userGameList, userGame);
 
@@ -183,6 +192,11 @@ export class GamesComponent implements OnInit {
                 this.prevUserGame = userGameList[prevIndex];
                 this.nextUserGame = userGameList[nextIndex];
             }
+        }
+        else {
+
+            this.prevUserGame = null;
+            this.nextUserGame = null;
         }
     }
 
@@ -370,9 +384,9 @@ export class GamesComponent implements OnInit {
             this.selectedUserGame = null;
 
             var deleteUserGame = JSON.parse(event.substr(7));
-            var deleteUserGameIndex = deepIndexOf(this.userGames, deleteUserGame);
-
-            this.userGames.splice(deleteUserGameIndex, 1);
+            this.userGames = this.userGames.filter(function(el) {
+                return el.game.id !== deleteUserGame.game.id;
+            });
         }
         else if (event.substr(0, 4) == 'add_') {
             this.newGame = null;

@@ -1,7 +1,12 @@
+.gameBoxContainer {
+  font-size: 0;
+  background: #151515;
+}
+
 .gameBox {
+  font-size: 14px;
   background: #111;
   display: inline-block;
-  float: left;
   overflow: hidden;
   cursor: pointer;
   opacity: 0;
@@ -12,6 +17,14 @@
 .gameBox.visible_anim {
   opacity: 1;
   transform: translateY(0);
+}
+
+.gameBox .hovicon {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin-top: -25px;
+  margin-left: -25px;
 }
 
 #gameCover {

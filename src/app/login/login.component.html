@@ -1,15 +1,17 @@
 <div class="full">
     <div class="fullTitle">
+        <a *ngIf="action == 'login'" style="float: right" (click)="action = 'register'">Inscription</a>
+        <a *ngIf="action == 'register'" style="float: right" (click)="action = 'login'">Connexion</a>
         <h2 *ngIf="action == 'login'">Connexion</h2>
         <h2 *ngIf="action == 'register'">Inscription</h2>
             
-        <form name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+        <form name="form" (ngSubmit)="login()"  #loginForm="ngForm">
 
             <div class="row">
                 <div class="col-md-12">
                     <input type="text" id="username"
                            required
-                           [(ngModel)]="model.username" name="username"
+                           [(ngModel)]="user.username" name="username"
                            [disabled]="slimLoadingBarService.progress > 0"
                            #username="ngModel">
                     <span class="bar"></span>
@@ -17,20 +19,45 @@
                 </div>
             </div>
 
+            <div *ngIf="action == 'register'" class="row">
+                <div class="col-md-12">
+                    <input type="text" id="email"
+                           required
+                           [(ngModel)]="user.email" name="email"
+                           [disabled]="slimLoadingBarService.progress > 0"
+                           #email="ngModel">
+                    <span class="bar"></span>
+                    <label for="email">E-Mail</label>
+                </div>
+            </div>
+
             <div class="row">
                 <div class="col-md-12">
                     <input type="password" id="password"
                            required
-                           [(ngModel)]="model.password" name="password"
+                           [(ngModel)]="user.password" name="password"
                            [disabled]="slimLoadingBarService.progress > 0"
                            #password="ngModel">
                     <span class="bar"></span>
                     <label for="password">Mot de passe</label>
                 </div>
             </div>
+
+            <div *ngIf="action == 'register'" class="row">
+                <div class="col-md-12">
+                    <input type="text" id="confirmPassword"
+                           required
+                           [(ngModel)]="user.confirmPassword" name="confirmPassword"
+                           [disabled]="slimLoadingBarService.progress > 0"
+                           #email="ngModel">
+                    <span class="bar"></span>
+                    <label for="confirmPassword">Confirmation mot de passe</label>
+                </div>
+            </div>
+
             <div class="row" style="margin-top: 15px;">
                 <div class="col-md-12">
-                    <button [disabled]="slimLoadingBarService.progress > 0" class="btn btn-primary">Start</button>
+                    <button [disabled]="!loginForm.form.valid || slimLoadingBarService.progress > 0" class="btn btn-primary">Start</button>
                     <div *ngIf="slimLoadingBarService.progress > 0" class="loader"></div>
                 </div>
             </div>

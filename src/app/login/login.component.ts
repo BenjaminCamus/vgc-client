@@ -12,7 +12,7 @@ import {AuthenticationService} from "../_services/authentification.service";
     host: {'[@routerTransition]': 'state', class: 'mainPage'}
 })
 export class LoginComponent implements OnInit {
-    private model: any = {};
+    private user: any = {};
     private action: string = 'login';
     private error = '';
 
@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
     login() {
         this.slimLoadingBarService.start();
 
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.login(this.user)
             .subscribe(
                 result => {
                     if (result === true) {

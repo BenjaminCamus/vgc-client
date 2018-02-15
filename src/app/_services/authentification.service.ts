@@ -10,6 +10,7 @@ import {GameLocalService} from "./gameLocal.service";
 export class AuthenticationService {
     private headers = new Headers({'Content-type': 'application/json'});
     private loginUrl = environment.vgcApiUrl+'login_check';
+    private registerUrl = environment.vgcApiUrl+'api_register';
 
     public token: string;
 
@@ -20,11 +21,31 @@ export class AuthenticationService {
         this.token = currentUser && currentUser.token;
     }
 
-    login(username: string, password: string): Observable<boolean> {
+    login(user: any): Observable<boolean> {
 
         let options = new RequestOptions({ headers: this.headers });
 
-        return this.http.post(this.loginUrl, JSON.stringify({"_username": username, "_password": password }), {headers: this.headers})
+        if (user.email) {
+            var url = this.registerUrl;
+            var request: any = {
+                "email": user.email,
+                "username": user.username,
+                "plainPassword":
+                {
+                    "first": user.password,
+                    "second": user.confirmPassword
+                }
+            };
+        }
+        else {
+            var url = this.loginUrl;
+            var request: any = {
+                "_username": user.username,
+                "_password": user.password
+            };
+        }
+
+        return this.http.post(url, JSON.stringify(request), {headers: this.headers})
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
                 let token = response.json() && response.json().token;
@@ -35,7 +56,7 @@ export class AuthenticationService {
                     this.token = token;
 
                     // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: username, token: token }));
+                    localStorage.setItem('currentUser', JSON.stringify({ username: user.username, token: token }));
 
                     // return true to indicate successful login
                     return true;

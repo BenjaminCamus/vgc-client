@@ -12,7 +12,6 @@ export class ErrorService {
     handleError(error: Response | any) {
 
         console.error('handleError');
-        console.error(error);
 
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
@@ -23,24 +22,25 @@ export class ErrorService {
             if (error.status == 404) {
                 this.router.navigate(['/']);
             }
-            else if (error.status == 403 || error.status == 401) {
+            else if (error.status == 403) {
                 this.router.navigate(['/login']);
             }
 
-
             errMsg = error.status + ' - ' + error.statusText + (err.exception ? '\n' + err.exception[0].message : '');
-            console.error(errMsg);
+            console.error('instanceof Response');
 
         }
         else {
             errMsg = error.message ? error.message : error.toString();
-            console.error(errMsg);
-
+            console.error('handleError');
 
             alert('Oups...\n' + errMsg);
             this.router.navigate(['/']);
         }
 
-        return Observable.empty();
+        console.error(error);
+        console.error(errMsg);
+
+        return errMsg;
     }
 }

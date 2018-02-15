@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
                     } else {
                         // login failed
                         this.slimLoadingBarService.complete();
-                        this.error = 'Oops! Login failed.';
+                        this.error = 'GAME OVER, TRY AGAIN';
                     }
                 },
                 error => {

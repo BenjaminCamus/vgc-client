@@ -43,3 +43,13 @@ body {
 hr {
   border: 1px rgba(255, 255, 255, .2) dashed;
 }
+
+a {
+  color: $colorMain;
+  cursor: pointer;
+}
+
+a:focus, a:hover {
+  color: $colorMain;
+  text-decoration: underline;
+}

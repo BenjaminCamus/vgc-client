@@ -10,7 +10,7 @@ $colorSuccess: #029901;
 $colorSuccess0: #026301;
 $colorWarning: #c16500;
 $colorWarning0: #814100;
-$colorError: #d9534f;
+$colorError: #a90000;
 $colorError0: #632f2d;
 
 $colorTagOn: $colorSuccess0;
@@ -52,4 +52,8 @@ a {
 a:focus, a:hover {
   color: $colorMain;
   text-decoration: underline;
+}
+
+.error {
+  color: $colorError;
 }

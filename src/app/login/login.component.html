@@ -45,15 +45,20 @@
 
             <div *ngIf="action == 'register'" class="row">
                 <div class="col-md-12">
-                    <input type="text" id="confirmPassword"
+                    <input type="password" id="confirmPassword"
                            required
                            [(ngModel)]="user.confirmPassword" name="confirmPassword"
                            [disabled]="slimLoadingBarService.progress > 0"
-                           #email="ngModel">
+                           #confirmPassword="ngModel">
                     <span class="bar"></span>
                     <label for="confirmPassword">Confirmation mot de passe</label>
                 </div>
             </div>
+
+            <div class="row" *ngIf="error">
+                <div class="col-md-12 error">{{error}}</div>
+            </div>
+
 
             <div class="row" style="margin-top: 15px;">
                 <div class="col-md-12">
@@ -61,7 +66,6 @@
                     <div *ngIf="slimLoadingBarService.progress > 0" class="loader"></div>
                 </div>
             </div>
-            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
         </form>
     </div>
 </div>

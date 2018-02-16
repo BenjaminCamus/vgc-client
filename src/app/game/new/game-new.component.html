@@ -8,9 +8,9 @@
     <div class="gameBannerBg" *ngIf="!games || !games[0] || !games[0].screenshots"></div>
 </div>
 
-<form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-    <div class="title">
-        Nouveau Jeu
+<div class="title">
+    Nouveau Jeu
+    <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
         <div class="input">
             <input type="text" id="search"
                    required
@@ -26,8 +26,8 @@
                 Rechercher via IGDB.com
             </button>
         </div>
-    </div>
-</form>
+    </form>
+</div>
 
 
 <section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">

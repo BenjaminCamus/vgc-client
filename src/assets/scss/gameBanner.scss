@@ -8,7 +8,6 @@
   width: 100%;
   display: block;
   height: 25vh;
-  margin-top: -70px;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -17,10 +16,6 @@
 
 .gameBanner.gameBannerBig {
   height: calc(50vh - 70px);
-}
-
-.modal-body .gameBanner .gameBannerBg {
-  margin-top: 0;
 }
 
 .gameBanner.gameBannerBig .gameBannerBg {

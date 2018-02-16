@@ -27,7 +27,6 @@
   top: 0;
   left: 0;
   background: rgba(0,0,0,.9);
-  z-index: 40;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -46,7 +45,6 @@
   top: 0;
   left: 0;
   position: fixed;
-  z-index: 10;
 }
 
 .topnav * {
@@ -72,7 +70,6 @@
 
 }
 .filters {
-  z-index: 10;
   background-color: rgba(0, 0, 0, .1);
   padding: 15px;
   user-select: none;

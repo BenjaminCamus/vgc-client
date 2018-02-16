@@ -38,6 +38,8 @@ export class GamesComponent implements OnInit {
 
     userGamesDate;
     selectedUserGame: UserGame;
+    selectedUserGame2: UserGame;
+    transitionState = 'next';
     prevUserGame: UserGame;
     nextUserGame: UserGame;
     newGame: boolean = false;
@@ -163,7 +165,24 @@ export class GamesComponent implements OnInit {
 
     selectUserGame(userGame) {
 
-        this.selectedUserGame = userGame;
+        if (!userGame) {
+            this.selectedUserGame = null;
+            this.selectedUserGame2 = null;
+            this.prevUserGame = null;
+            this.nextUserGame = null;
+            return false;
+        }
+
+        if (this.selectedUserGame) {
+            this.selectedUserGame = null;
+            this.selectedUserGame2 = userGame;
+        }
+        else {
+            this.selectedUserGame2 = null;
+            this.selectedUserGame = userGame;
+
+        }
+
         var userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
         userGameList = this.orderByPipe.transform(userGameList, this.orderField, this.orderOption);
 

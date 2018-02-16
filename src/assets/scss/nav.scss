@@ -13,8 +13,7 @@
   position: absolute;
   width: 100%;
   min-height: 100%;
-  padding-top: 70px;
-  padding-bottom: 5vw;
+  padding-bottom: 70px;
   background: rgba(0, 0, 0, 0.5);
   overflow-x: hidden;
 }
@@ -47,8 +46,12 @@
   position: fixed;
 }
 
-.topnav * {
+.topnav *, .title * {
   vertical-align: middle;
+}
+
+.topnav form, .title form {
+  display: inline-block;
 }
 
 .topnav .navRight {

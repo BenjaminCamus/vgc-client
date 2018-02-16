@@ -340,13 +340,14 @@
     </section>
 </div>
 
-<game-detail [userGame]="selectedUserGame" *ngIf="selectedUserGame" (state)="detailStateUpdate($event)">
-    <div class="topnav"><!--
+<game-detail [userGame]="selectedUserGame" [transitionState]="transitionState" *ngIf="selectedUserGame" (state)="detailStateUpdate($event)"></game-detail>
+<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" *ngIf="selectedUserGame2" (state)="detailStateUpdate($event)"></game-detail>
+
+<div class="topnav" *ngIf="selectedUserGame || selectedUserGame2"><!--
         --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
-        --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="selectUserGame(prevUserGame)"></i><!--
-        --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="selectUserGame(nextUserGame)"></i><!--
+        --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="transitionState = 'prev'; selectUserGame(prevUserGame)"></i><!--
+        --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="transitionState = 'next'; selectUserGame(nextUserGame)"></i><!--
     --></div>
-</game-detail>
 
 <game-new *ngIf="newGame" (state)="detailStateUpdate($event)">
     <div class="topnav">

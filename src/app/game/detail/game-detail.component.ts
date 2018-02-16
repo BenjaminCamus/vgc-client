@@ -1,7 +1,6 @@
 import {Component, Input, OnInit, OnDestroy, ViewChild, ChangeDetectorRef, EventEmitter} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {SlimLoadingBarService} from "ng2-slim-loading-bar";
-import {routerTransition} from "../../_animations/router.animations";
 import {Game} from "../../_models/game";
 import {GameService} from "../../_services/game.service";
 import {GameLocalService} from "../../_services/gameLocal.service";
@@ -13,20 +12,21 @@ import {UserGameValuePipe} from "../../_pipes/userGameValue.pipe";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {Output} from "@angular/core/src/metadata/directives";
+import {carouselTransition} from "../../_animations/carousel.animations";
 
 @Component({
     moduleId: module.id,
     providers: [GameService, GameLocalService, TagComponent, LoadingComponent, GameFormComponent, UserGameValuePipe, DatePipe, FormatNamePipe],
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
-    animations: [routerTransition()],
-    host: {'[@routerTransition]': 'orientation', class: 'mainPage fakePage'}
+    animations: [carouselTransition()],
+    host: {'[@carouselTransition]': 'transitionState', class: 'mainPage fakePage'}
 })
 export class GameDetailComponent implements OnInit {
 
     private errorMessage: string;
-    public orientation: string;
 
+    @Input() transitionState: string;
     @Input() userGame: UserGame;
     @Output() state: EventEmitter<string> = new EventEmitter();
     private selectedGame: Game = null;
@@ -51,7 +51,6 @@ export class GameDetailComponent implements OnInit {
         private changeDetectorRef: ChangeDetectorRef
     ) {
         this.changeDetectorRef = changeDetectorRef;
-        this.orientation = "none";
 
         var ug = new UserGame();
         this.userGameFields = ug.fields;

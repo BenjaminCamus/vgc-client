@@ -35,6 +35,7 @@ export class UserGame {
     constructor() {
 
         this.fields['game.name'] = {type: 'string', label: 'Titre'};
+        this.fields['game.series'] = {type: 'tags', label: 'Série'};
         this.fields['game.developers'] = {type: 'tags', label: 'Développeur'};
         this.fields['game.publishers'] = {type: 'tags', label: 'Editeur'};
         this.fields['game.modes'] = {type: 'tags', label: 'Mode'};
@@ -45,7 +46,6 @@ export class UserGame {
 
         this.fields['platform.name'] = {type: 'string', label: 'Plateforme'};
 
-        this.fields['series'] = {type: 'tags', label: 'Série'};
         this.fields['releaseDate'] = {type: 'date', label: 'Date de sortie'};
         this.fields['progress'] = {type: 'progress', label: 'Progression'};
         this.fields['version'] = {type: 'string', label: 'Verion'};

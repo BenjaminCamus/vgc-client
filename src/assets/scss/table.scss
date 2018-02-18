@@ -52,7 +52,7 @@
   cursor: pointer;
 }
 
-.table:not(.static) tr:hover {
+.table:not(.static) tr:hover, .table:not(.static) tr[ng-reflect-is-focused='true'] {
   background: rgba(255, 255, 255, .05);
 }
 

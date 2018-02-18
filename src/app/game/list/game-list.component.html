@@ -68,6 +68,7 @@
             </th>
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
+            [focus]="selectedUserGame && selectedUserGame == userGame"
             (click)="openUserGame(userGame)">
 
             <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>

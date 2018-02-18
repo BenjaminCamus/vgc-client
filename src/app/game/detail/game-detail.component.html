@@ -24,6 +24,7 @@
 
         <div class="col-md-8">
 
+
             <div class="title"><!--
                 --><div style="float: right;"><!--
                     --><i [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''" class="hovicon fa fa-refresh"
@@ -33,8 +34,10 @@
                     --><i *ngIf="!slimLoadingBarService.progress > 0" class="hovicon fa fa-trash-o"
                           (click)="openForm('delete')"></i><!--
                 --></div><!--
-                -->{{ userGame.game.name }} <span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span><!--
-            --></div>
+                --><img src="/assets/img/platform/{{userGame.platform.slug}}.png" style=" width: 70px; margin-right: 15px;">{{ userGame.game.name }}
+                <!--<span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span>&lt;!&ndash;-->
+            </div>
+
 
             <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
                        [userGame]="userGame" [update]="update"

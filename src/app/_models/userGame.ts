@@ -45,6 +45,7 @@ export class UserGame {
 
         this.fields['platform.name'] = {type: 'string', label: 'Plateforme'};
 
+        this.fields['series'] = {type: 'tags', label: 'Série'};
         this.fields['releaseDate'] = {type: 'date', label: 'Date de sortie'};
         this.fields['progress'] = {type: 'progress', label: 'Progression'};
         this.fields['version'] = {type: 'string', label: 'Verion'};

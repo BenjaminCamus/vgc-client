@@ -1,5 +1,4 @@
 import {Tag} from "./tag";
-import {Series} from "./series";
 import {Image} from "./image";
 import {Platform} from "./platform";
 
@@ -11,7 +10,7 @@ export class Game {
     igdbId: number;
     igdbUrl: string;
     cover: Image;
-    series: Series;
+    series: Tag[];
     developers: Tag[];
     publishers: Tag[];
     modes: Tag[];

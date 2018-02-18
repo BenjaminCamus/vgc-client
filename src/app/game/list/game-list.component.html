@@ -1,10 +1,146 @@
+<div #gameBanner class="gameBanner gameBannerBig">
+    <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;
+     let i = index;">
+        <div class="gameBannerBg" *ngIf="i == 0 && userGame.game.screenshots && userGame.game.screenshots.length > 0"
+             [style.margin-left]="bannerMarginLeft+'px'"
+             [style.width]="bannerWidth+'px'"
+             [style.height]="bannerHeight+'px'"
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_original/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
+        <div class="gameBannerBg"
+             *ngIf="i == 0 && (!userGame.game.screenshots || userGame.game.screenshots.length == 0)"></div>
+
+    </section>
+
+    <div class="gameBannerBg" *ngIf="userGames.length == 0"
+         [style.background-image]="'url(https://images.igdb.com/igdb/image/upload/t_original/gko0jchtb85kbsc1dg9l.jpg)' | safe: 'style'"></div>
+</div>
+
+<div class="vgc">VGC</div>
+
+<div class="title">
+    Mes Jeux
+
+    <table class="table">
+        <tbody>
+        <tr>
+            <td></td>
+            <td class="tdLabel"></td>
+            <td class="tdLabel">prix payé</td>
+            <td class="tdLabel">prix de vente</td>
+        </tr>
+        <tr>
+            <td class="tdLabel">TOTAL</td>
+            <td>{{ userGames.length }} jeux</td>
+            <td>{{ userGames | total:'pricePaid' }} €</td>
+            <td>{{ userGames | total:'priceResale' }} €</td>
+        </tr>
+        <tr>
+            <td class="tdLabel">RECHERCHE</td>
+            <td>{{ userGames | filter: userGameFilter | length }} jeux
+                ({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)
+            </td>
+            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }} €
+                ({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
+                number:'2.0-0' }}%)
+            </td>
+            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }} €
+                ({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
+                total:'priceResale')) | number:'2.0-0' }}%)
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div *ngIf="displayMode == 1">
+
+    <table class="table" style="background: #111">
+        <tr>
+            <th></th>
+            <th *ngFor="let field of tableFields"
+                (click)="setOrderField(field)"
+                [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
+
+                <span *ngIf="field != 'progress'">{{ userGameFields[field].label }}</span>
+                <i class="fa" *ngIf="orderField == field"
+                   [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
+                <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field"></i>
+            </th>
+        </tr>
+        <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
+            (click)="openUserGame(userGame)">
+
+            <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
+
+            <td *ngFor="let field of tableFields"
+                [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
+
+                <span *ngIf="field != 'progress'">{{ userGame | userGameValue: userGameFields[field] }}</span>
+                <div *ngIf="field == 'progress'" class="gameProgress"
+                     [ngClass]="'gameProgress'+userGame.progress"></div>
+            </td>
+        </tr>
+    </table>
+    <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
+</div>
+<div *ngIf="displayMode == 0" class="gameBoxContainer">
+
+    <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
+             [focus]="selectedUserGame && selectedUserGame == userGame"
+             (click)="openUserGame(userGame)"
+             class="gameBox visible_anim">
+        <!--routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"-->
+        <!--in-viewport (inViewport)="setItemClass($event)"-->
+        <div class="gameCover" *ngIf="userGame.game.cover"
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
+        <div class=gameInfos>
+            <div class="gameTitle" [innerHTML]="userGame.game | formatName:true"></div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    {{ userGame.platform.name }}
+                    <br>
+                    <span *ngIf="userGame.game.developers[0]">{{ userGame.game.developers[0].name }}</span>
+                    <br>
+                    {{ userGame.version }}
+                    <span *ngIf="userGame.box && userGame.manual">Complet</span>
+                    <span *ngIf="userGame.box && !userGame.manual">Boîte sans livret</span>
+                    <span *ngIf="!userGame.box && userGame.manual">Livret sans boîte</span>
+                    <span *ngIf="!userGame.box && !userGame.manual">Loose</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Demandé {{ userGame.priceAsked }}€
+                </div>
+                <div class="col-md-6">
+                    Payé {{ userGame.pricePaid }}€
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    Revente {{ userGame.priceResale }}€
+                </div>
+                <div class="col-md-6">
+                    Vendu {{ userGame.priceSold }}€
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="gameBox visible_anim">
+        <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
+    </section>
+</div>
+
 <nav class="topnav"><!--
-    --><div style="float: left;"><!--
+    -->
+    <div style="float: left;"><!--
     --><i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i><!--
-        --><i class="hovicon fa fa-plus" (click)="newGame = true"></i><!--
+        --><i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i><!--
     --><i class="hovicon fa fa-refresh" (click)="getGames()"
           [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
-    --><div *ngIf="userGamesDate"
+    -->
+        <div *ngIf="userGamesDate"
              style="display:inline-block;font-size: 12px;line-height: normal;color: rgba(255,255,255,.5);">{{
             userGamesDate | date:'dd/MM'}}<br/>{{ userGamesDate | date:'HH:mm'}}
         </div>
@@ -183,151 +319,22 @@
     </div>
 </nav>
 
+<game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState" *ngIf="displayUserGame && selectedUserGame1"
+             (state)="detailStateUpdate($event)"></game-detail>
+<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" *ngIf="displayUserGame && selectedUserGame2"
+             (state)="detailStateUpdate($event)"></game-detail>
 
-<div #gameBanner class="gameBanner gameBannerBig">
-    <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;
-     let i = index;">
-        <div class="gameBannerBg" *ngIf="i == 0 && userGame.game.screenshots && userGame.game.screenshots.length > 0"
-             [style.margin-left]="bannerMarginLeft+'px'"
-             [style.width]="bannerWidth+'px'"
-             [style.height]="bannerHeight+'px'"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_original/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-        <div class="gameBannerBg"
-             *ngIf="i == 0 && (!userGame.game.screenshots || userGame.game.screenshots.length == 0)"></div>
-
-    </section>
-
-    <div class="gameBannerBg" *ngIf="userGames.length == 0"
-         [style.background-image]="'url(https://images.igdb.com/igdb/image/upload/t_original/gko0jchtb85kbsc1dg9l.jpg)' | safe: 'style'"></div>
-</div>
-
-<div class="vgc">VGC</div>
-
-<div class="title">
-    Mes Jeux
-
-    <table class="table">
-        <tbody>
-        <tr>
-            <td></td>
-            <td class="tdLabel"></td>
-            <td class="tdLabel">prix payé</td>
-            <td class="tdLabel">prix de vente</td>
-        </tr>
-        <tr>
-            <td class="tdLabel">TOTAL</td>
-            <td>{{ userGames.length }} jeux</td>
-            <td>{{ userGames | total:'pricePaid' }} €</td>
-            <td>{{ userGames | total:'priceResale' }} €</td>
-        </tr>
-        <tr>
-            <td class="tdLabel">RECHERCHE</td>
-            <td>{{ userGames | filter: userGameFilter | length }} jeux
-                ({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)
-            </td>
-            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }} €
-                ({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
-                number:'2.0-0' }}%)
-            </td>
-            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }} €
-                ({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
-                total:'priceResale')) | number:'2.0-0' }}%)
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
-<div *ngIf="displayMode == 1">
-
-    <table class="table" style="background: #111">
-        <tr>
-            <th></th>
-            <th *ngFor="let field of tableFields"
-                (click)="setOrderField(field)"
-                [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
-
-                <span *ngIf="field != 'progress'">{{ userGameFields[field].label }}</span>
-                <i class="fa" *ngIf="orderField == field"
-                   [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field"></i>
-            </th>
-        </tr>
-        <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-            (click)="selectUserGame(userGame)">
-
-            <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
-
-            <td *ngFor="let field of tableFields"
-                [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
-
-                <span *ngIf="field != 'progress'">{{ userGame | userGameValue: userGameFields[field] }}</span>
-                <div *ngIf="field == 'progress'" class="gameProgress"
-                     [ngClass]="'gameProgress'+userGame.progress"></div>
-            </td>
-        </tr>
-    </table>
-    <i class="hovicon fa fa-plus" (click)="newGame = true"></i>
-</div>
-<div *ngIf="displayMode == 0" class="gameBoxContainer">
-
-    <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-             (click)="selectUserGame(userGame)"
-             class="gameBox visible_anim">
-        <!--routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"-->
-        <!--in-viewport (inViewport)="setItemClass($event)"-->
-        <div class="gameCover" *ngIf="userGame.game.cover"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
-        <div class=gameInfos>
-            <div class="gameTitle" [innerHTML]="userGame.game | formatName:true"></div>
-
-            <div class="row">
-                <div class="col-md-12">
-                    {{ userGame.platform.name }}
-                    <br>
-                    <span *ngIf="userGame.game.developers[0]">{{ userGame.game.developers[0].name }}</span>
-                    <br>
-                    {{ userGame.version }}
-                    <span *ngIf="userGame.box && userGame.manual">Complet</span>
-                    <span *ngIf="userGame.box && !userGame.manual">Boîte sans livret</span>
-                    <span *ngIf="!userGame.box && userGame.manual">Livret sans boîte</span>
-                    <span *ngIf="!userGame.box && !userGame.manual">Loose</span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    Demandé {{ userGame.priceAsked }}€
-                </div>
-                <div class="col-md-6">
-                    Payé {{ userGame.pricePaid }}€
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    Revente {{ userGame.priceResale }}€
-                </div>
-                <div class="col-md-6">
-                    Vendu {{ userGame.priceSold }}€
-                </div>
-            </div>
-        </div>
-    </section>
-    <section class="gameBox visible_anim">
-        <i class="hovicon fa fa-plus" (click)="newGame = true"></i>
-    </section>
-</div>
-
-<game-detail [userGame]="selectedUserGame" [transitionState]="transitionState" *ngIf="selectedUserGame" (state)="detailStateUpdate($event)"></game-detail>
-<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" *ngIf="selectedUserGame2" (state)="detailStateUpdate($event)"></game-detail>
-
-<div class="topnav" *ngIf="selectedUserGame || selectedUserGame2"><!--
-        --><div class="navRight"><i class="hovicon fa fa-close" (click)="selectUserGame(null)"></i></div><!--
-        --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward" (click)="transitionState = 'prev'; selectUserGame(prevUserGame)"></i><!--
-        --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward" (click)="transitionState = 'next'; selectUserGame(nextUserGame)"></i><!--
+<div class="topnav" *ngIf="displayUserGame && selectedUserGame"><!--
+        -->
+    <div class="navRight"><i class="hovicon fa fa-close" (click)="closeUserGame()"></i></div><!--
+        --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward"
+              (click)="navUserGame(true)"></i><!--
+        --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward"
+              (click)="navUserGame()"></i><!--
     --></div>
 
-<game-new *ngIf="newGame" (state)="detailStateUpdate($event)">
+<game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)">
     <div class="topnav">
-        <div class="navRight"><i class="hovicon fa fa-close" (click)="newGame = false"></i></div>
+        <div class="navRight"><i class="hovicon fa fa-close" (click)="closeNewUserGame()"></i></div>
     </div>
 </game-new>

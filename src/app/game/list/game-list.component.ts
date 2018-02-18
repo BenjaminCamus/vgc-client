@@ -38,11 +38,14 @@ export class GamesComponent implements OnInit {
 
     userGamesDate;
     selectedUserGame: UserGame;
+    selectedUserGame1: UserGame;
     selectedUserGame2: UserGame;
     transitionState = 'next';
     prevUserGame: UserGame;
     nextUserGame: UserGame;
-    newGame: boolean = false;
+
+    displayUserGame: boolean = false;
+    displayNewUserGame: boolean = false;
 
     userGameFields = [];
 
@@ -93,8 +96,7 @@ export class GamesComponent implements OnInit {
     bannerWidth: number;
     bannerHeight: number;
     @ViewChild('gameBanner') gameBanner: ElementRef;
-    @HostListener('window:scroll', ['$event'])
-    onWindowScroll(event) {
+    @HostListener('window:scroll', ['$event']) onWindowScroll(event) {
         this.resizeBanner();
     }
     @HostListener('window:resize', ['$event'])
@@ -116,6 +118,30 @@ export class GamesComponent implements OnInit {
             this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
             this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
 
+        }
+    }
+
+    @HostListener('document:keyup', ['$event'])
+    handleKeyboardEvent(event: KeyboardEvent) {
+        switch (event.key) {
+            case 'ArrowLeft':
+                this.navUserGame(true);
+                break;
+            case 'ArrowRight':
+                this.navUserGame();
+                break;
+            case '+':
+                this.openNewUserGame();
+                break;
+            case 'Escape':
+                this.closeUserGame();
+                this.closeNewUserGame();
+                break;
+            case 'Enter':
+                if (!this.displayUserGame && this.selectedUserGame) {
+                    this.openUserGame(this.selectedUserGame);
+                }
+                break;
         }
     }
 
@@ -163,23 +189,39 @@ export class GamesComponent implements OnInit {
         }
     }
 
+    openNewUserGame() {
+        this.closeUserGame();
+        this.displayNewUserGame = true;
+    }
+
+    closeNewUserGame() {
+        this.displayNewUserGame = false;
+    }
+
+    openUserGame(userGame) {
+        this.closeNewUserGame();
+        this.selectUserGame(userGame);
+        this.displayUserGame = true;
+    }
+
     selectUserGame(userGame) {
 
+        this.selectedUserGame = userGame;
+
         if (!userGame) {
-            this.selectedUserGame = null;
+            this.selectedUserGame1 = null;
             this.selectedUserGame2 = null;
-            this.prevUserGame = null;
-            this.nextUserGame = null;
+            this.closeUserGame();
             return false;
         }
 
-        if (this.selectedUserGame) {
-            this.selectedUserGame = null;
+        if (this.selectedUserGame1) {
+            this.selectedUserGame1 = null;
             this.selectedUserGame2 = userGame;
         }
         else {
             this.selectedUserGame2 = null;
-            this.selectedUserGame = userGame;
+            this.selectedUserGame1 = userGame;
 
         }
 
@@ -217,6 +259,19 @@ export class GamesComponent implements OnInit {
             this.prevUserGame = null;
             this.nextUserGame = null;
         }
+    }
+
+    navUserGame(prev = false) {
+        var state = prev ? 'prev' : 'next';
+
+        if (this[state+'UserGame']) {
+            this.transitionState = state;
+            this.selectUserGame(this[state+'UserGame']);
+        }
+    }
+
+    closeUserGame() {
+        this.displayUserGame = false;
     }
 
     private setFilters() {
@@ -400,7 +455,8 @@ export class GamesComponent implements OnInit {
     detailStateUpdate(event) {
 
         if (event.substr(0, 7) == 'delete_') {
-            this.selectedUserGame = null;
+            this.closeUserGame();
+            this.selectUserGame(null);
 
             var deleteUserGame = JSON.parse(event.substr(7));
             this.userGames = this.userGames.filter(function(el) {
@@ -408,7 +464,7 @@ export class GamesComponent implements OnInit {
             });
         }
         else if (event.substr(0, 4) == 'add_') {
-            this.newGame = null;
+            this.closeNewUserGame();
 
             var userGame = JSON.parse(event.substr(4));
 

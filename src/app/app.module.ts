@@ -29,6 +29,7 @@ import {GameLocalService} from "./_services/gameLocal.service";
 import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
 import {LengthPipe} from "./_pipes/length.pipe";
 import {TotalPipe} from "./_pipes/total.pipe";
+import {FocusDirective} from "./_directives/focus.directive";
 
 @NgModule({
     imports: [
@@ -46,6 +47,8 @@ import {TotalPipe} from "./_pipes/total.pipe";
         InViewportModule.forRoot(),
     ],
     declarations: [
+        FocusDirective,
+
         FilterPipe,
         UserGameValuePipe,
         OrderByPipe,

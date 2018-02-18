@@ -52,7 +52,7 @@
   text-align: center;
 }
 
-.gameBox:hover {
+.gameBox:hover, .gameBox:focus, .gameBox[ng-reflect-is-focused='true'] {
   .gameCover {
     height: 40%;
     opacity: 0.1;

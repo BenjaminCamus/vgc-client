@@ -23,6 +23,9 @@ export class UserGameFilter extends UserGame{
     releaseYearRange = [0,1000000];
     minReleaseYear = 0;
     maxReleaseYear = 1000000;
+    purchaseYearRange = [0,1000000];
+    minPurchaseYear = 0;
+    maxPurchaseYear = 1000000;
 
     addElement(arrayName, element) {
         this[arrayName].push(element);

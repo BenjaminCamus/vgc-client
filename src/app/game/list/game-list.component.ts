@@ -63,6 +63,7 @@ export class GamesComponent implements OnInit {
     purchaseContactTags: Place[] = [];
     saleContactTags: Place[] = [];
     platformsTags: Platform[] = [];
+    seriesTags: Tag[] = [];
     developersTags: Tag[] = [];
     publishersTags: Tag[] = [];
     modesTags: Tag[] = [];
@@ -74,10 +75,14 @@ export class GamesComponent implements OnInit {
     purchaseContactCount: number[] = [];
     saleContactCount: number[] = [];
     platformsCount: number[] = [];
+    seriesCount: number[] = [];
     developersCount: number[] = [];
     publishersCount: number[] = [];
     modesCount: number[] = [];
     themesCount: number[] = [];
+    genresCount: number[] = [];
+
+    versionCount: number[] = [];
     genresCount: number[] = [];
 
     constructor(private gameService: GameService,
@@ -281,6 +286,7 @@ export class GamesComponent implements OnInit {
         this.purchaseContactTags = [];
         this.saleContactTags = [];
         this.platformsTags = [];
+        this.seriesTags = [];
         this.developersTags = [];
         this.publishersTags = [];
         this.modesTags = [];
@@ -292,6 +298,7 @@ export class GamesComponent implements OnInit {
         this.purchaseContactCount = [];
         this.saleContactCount = [];
         this.platformsCount = [];
+        this.seriesCount = [];
         this.developersCount = [];
         this.publishersCount = [];
         this.modesCount = [];
@@ -353,7 +360,7 @@ export class GamesComponent implements OnInit {
                 }
             }
 
-            for (let tagType of ['developers', 'publishers', 'modes', 'themes', 'genres']) {
+            for (let tagType of ['series', 'developers', 'publishers', 'modes', 'themes', 'genres']) {
                 if (userGame.game[tagType] && userGame.game[tagType].length > 0) {
 
                     for (let tag of userGame.game[tagType]) {
@@ -375,6 +382,7 @@ export class GamesComponent implements OnInit {
 
         // orderByCount
         this.platformsTags.sort(orderByCount(this.platformsCount));
+        this.seriesTags.sort(orderByCount(this.seriesCount));
         this.developersTags.sort(orderByCount(this.developersCount));
         this.publishersTags.sort(orderByCount(this.publishersCount));
         this.purchaseContactTags.sort(orderByCount(this.purchaseContactCount));
@@ -417,6 +425,7 @@ export class GamesComponent implements OnInit {
                 }
                 break;
 
+            case 'series':
             case 'developers':
             case 'publishers':
             case 'modes':

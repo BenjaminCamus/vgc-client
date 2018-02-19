@@ -30,6 +30,7 @@ export class FilterPipe implements PipeTransform {
             && this.filterTags('saleContact', filter, item)
             && this.filterTags('progress', filter, item)
             && this.filterTags('version', filter, item)
+            && this.filterTags('series', filter, item)
             && this.filterTags('developers', filter, item)
             && this.filterTags('publishers', filter, item)
             && this.filterTags('modes', filter, item)
@@ -71,7 +72,7 @@ export class FilterPipe implements PipeTransform {
 
     private filterTags(tagType, filter, item) {
 
-        let gameTagTypes = ['developers', 'publishers', 'modes', 'themes', 'genres'];
+        let gameTagTypes = ['series', 'developers', 'publishers', 'modes', 'themes', 'genres'];
 
         if (gameTagTypes.indexOf(tagType) > -1 && filter.game[tagType] && filter.game[tagType].length > 0) {
 

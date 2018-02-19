@@ -101,7 +101,9 @@
                 <div class="col-md-12">
                     {{ userGame.platform.name }}
                     <br>
-                    <span *ngIf="userGame.game.developers[0]">{{ userGame.game.developers[0].name }}</span>
+                    <span *ngIf="userGame.game.series[0]">Série {{ userGame.game.series[0].name }}</span>
+                    <br>
+                    <span *ngIf="userGame.game.developers[0]">Développeur {{ userGame.game.developers[0].name }}</span>
                     <br>
                     {{ userGame.version }}
                     <span *ngIf="userGame.box && userGame.manual">Complet</span>
@@ -185,6 +187,14 @@
                                  [filter]="userGameFilter.platforms"
                                  [suffix]="platformsCount[platform.id]"
                                  (uploaded)="toggleTag('platforms', $event, platform)"></tag>
+                        </div>
+                        <div>
+                            <label for="name">Série</label><br>
+                            <tag *ngFor="let series of seriesTags;"
+                                 [tag]="series"
+                                 [filter]="userGameFilter.game.series"
+                                 [suffix]="seriesCount[series.id]"
+                                 (uploaded)="toggleTag('series', $event, series)"></tag>
                         </div>
                         <div>
                             <label for="name">Mode</label><br>

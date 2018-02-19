@@ -67,6 +67,32 @@ export class FilterPipe implements PipeTransform {
             }
 
             return true;
+        }).filter(item => {
+            /**
+             * Purchase Year
+             */
+            if (item.purchaseDate) {
+                return this.filterRange(filter.purchaseYearRange, item.purchaseDate.getFullYear());
+            }
+
+            return true;
+        }).filter(item => {
+            /**
+             * Box / Manual
+             */
+            if (filter.box || filter.manual) {
+                if (filter.box && filter.manual) {
+                    return item.box && item.box;
+                }
+                else if (filter.box) {
+                    return item.box;
+                }
+                else if (filter.manual) {
+                    return item.manual;
+                }
+            }
+
+            return true;
         });
     }
 

@@ -228,6 +228,12 @@
                                   [min]="userGameFilter.minReleaseYear"
                                   [max]="userGameFilter.maxReleaseYear"></p-slider>
 
+                        <label for="name">Année Achat ({{userGameFilter.purchaseYearRange[0] + ' - ' +
+                            userGameFilter.purchaseYearRange[1]}})</label><br>
+                        <p-slider [(ngModel)]="userGameFilter.purchaseYearRange" [range]="true"
+                                  [min]="userGameFilter.minPurchaseYear"
+                                  [max]="userGameFilter.maxPurchaseYear"></p-slider>
+
                         <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' +
                             userGameFilter.ratingRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true"
@@ -260,23 +266,49 @@
                     </div>
                     <div class="col-md-3">
                         <div>
+                            <tag [tag]="'Boîte'"
+                                 [filter]="userGameFilter.box"
+                                 [suffix]="boxCount"
+                                 (uploaded)="toggleTag('box', $event)"></tag>
+                            <tag [tag]="'Livret'"
+                                 [filter]="userGameFilter.manual"
+                                 [suffix]="manualCount"
+                                 (uploaded)="toggleTag('manual', $event)"></tag>
+                        </div>
+                        <div>
                             <label>Version</label><br>
-                            <tag [tag]="'FRA'" [filter]="userGameFilter.versions"
+                            <tag [tag]="'FRA'"
+                                 [filter]="userGameFilter.versions"
+                                 [suffix]="versionCount['FRA']"
                                  (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
-                            <tag [tag]="'EUR'" [filter]="userGameFilter.versions"
-                                 (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
-                            <tag [tag]="'FAH'" [filter]="userGameFilter.versions"
+                            <tag [tag]="'FAH'"
+                                 [filter]="userGameFilter.versions"
+                                 [suffix]="versionCount['FAH']"
                                  (uploaded)="toggleTag('versions', $event, 'FAH')"></tag>
+                            <tag [tag]="'EUR'"
+                                 [filter]="userGameFilter.versions"
+                                 [suffix]="versionCount['EUR']"
+                                 (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
                         </div>
                         <div>
                             <label>Progression</label><br>
-                            <tag [tag]="'Jamais joué'" [value]="0" [filter]="userGameFilter.progresses"
+                            <tag [tag]="'Jamais joué'"
+                                 [value]="0"
+                                 [filter]="userGameFilter.progresses"
+                                 [suffix]="progressCount[0]"
                                  (uploaded)="toggleTag('progresses', $event, 0)"></tag>
-                            <tag [tag]="'En cours'" [value]="1" [filter]="userGameFilter.progresses"
+                            <tag [tag]="'En cours'"
+                                 [value]="1"
+                                 [filter]="userGameFilter.progresses"
+                                 [suffix]="progressCount[1]"
                                  (uploaded)="toggleTag('progresses', $event, 1)"></tag>
-                            <tag [tag]="'Terminé'" [value]="2" [filter]="userGameFilter.progresses"
+                            <tag [tag]="'Terminé'"
+                                 [value]="2"
+                                 [filter]="userGameFilter.progresses"
+                                 [suffix]="progressCount[2]"
                                  (uploaded)="toggleTag('progresses', $event, 2)"></tag>
                             <tag [tag]="'Abandonné'" [value]="3" [filter]="userGameFilter.progresses"
+                                 [suffix]="progressCount[3]"
                                  (uploaded)="toggleTag('progresses', $event, 3)"></tag>
                         </div>
                         <div>

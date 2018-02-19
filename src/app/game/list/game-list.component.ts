@@ -83,7 +83,9 @@ export class GamesComponent implements OnInit {
     genresCount: number[] = [];
 
     versionCount: number[] = [];
-    genresCount: number[] = [];
+    progressCount: number[] = [];
+    boxCount: number = 0;
+    manualCount: number = 0;
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -305,12 +307,19 @@ export class GamesComponent implements OnInit {
         this.themesCount = [];
         this.genresCount = [];
 
+        this.versionCount = [];
+        this.progressCount = [];
+        this.boxCount = 0;
+        this.manualCount = 0;
+
         var minRating = 20;
         var maxRating = 0;
         var minPrice = 1000000000;
         var maxPrice = 0;
         var minReleaseYear = 1000000000;
         var maxReleaseYear = 0;
+        var minPurchaseYear = 1000000000;
+        var maxPurchaseYear = 0;
 
         for (let userGame of this.userGames) {
 
@@ -332,6 +341,15 @@ export class GamesComponent implements OnInit {
                 maxReleaseYear = userGame.releaseDate.getFullYear();
             }
 
+            // Purchase Year
+            if (userGame.purchaseDate && userGame.purchaseDate.getFullYear() < minPurchaseYear) {
+                minPurchaseYear = userGame.purchaseDate.getFullYear();
+            }
+
+            if (userGame.purchaseDate && userGame.purchaseDate.getFullYear() > maxPurchaseYear) {
+                maxPurchaseYear = userGame.purchaseDate.getFullYear();
+            }
+
             // Price
             var minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
             if (minP < minPrice) {
@@ -343,7 +361,7 @@ export class GamesComponent implements OnInit {
                 maxPrice = maxP;
             }
 
-            // Tags
+            // UserGame Tags
             var tagTypes = ['platforms', 'purchasePlace', 'salePlace', 'purchaseContact', 'saleContact'];
             for (let type of tagTypes) {
 
@@ -360,6 +378,7 @@ export class GamesComponent implements OnInit {
                 }
             }
 
+            // Game Tags
             for (let tagType of ['series', 'developers', 'publishers', 'modes', 'themes', 'genres']) {
                 if (userGame.game[tagType] && userGame.game[tagType].length > 0) {
 
@@ -376,9 +395,32 @@ export class GamesComponent implements OnInit {
                 }
             }
 
+            if (userGame.box) {
+                this.boxCount++;
+            }
+
+            if (userGame.manual) {
+                this.manualCount++;
+            }
+
+            if (!this.versionCount[userGame.version]) {
+                this.versionCount[userGame.version] = 0;
+            }
+            this.versionCount[userGame.version]++;
+
+            if (!this.progressCount[userGame.progress]) {
+                this.progressCount[userGame.progress] = 0;
+            }
+            this.progressCount[userGame.progress]++;
+
             // UserGame Local Storage
             this.gameLocalService.setUserGame(userGame);
         }
+
+        console.log(this.boxCount);
+        console.log(this.manualCount);
+        console.log(this.versionCount);
+        console.log(this.progressCount);
 
         // orderByCount
         this.platformsTags.sort(orderByCount(this.platformsCount));
@@ -396,6 +438,10 @@ export class GamesComponent implements OnInit {
         this.userGameFilter.minReleaseYear = minReleaseYear;
         this.userGameFilter.maxReleaseYear = maxReleaseYear;
 
+        this.userGameFilter.purchaseYearRange = [minPurchaseYear, maxPurchaseYear];
+        this.userGameFilter.minPurchaseYear = minPurchaseYear;
+        this.userGameFilter.maxPurchaseYear = maxPurchaseYear;
+
         this.userGameFilter.priceAskedRange = [minPrice, maxPrice];
         this.userGameFilter.pricePaidRange = [minPrice, maxPrice];
         this.userGameFilter.priceResaleRange = [minPrice, maxPrice];
@@ -405,7 +451,7 @@ export class GamesComponent implements OnInit {
     }
 
 
-    toggleTag(type, active, tag) {
+    toggleTag(type, active, tag = null) {
 
         switch (type) {
 
@@ -438,6 +484,12 @@ export class GamesComponent implements OnInit {
                 else {
                     this.userGameFilter.game.removeTag(type, tag);
                 }
+                break;
+
+            case 'box':
+            case 'manual':
+
+                this.userGameFilter[type] = active;
                 break;
         }
     }

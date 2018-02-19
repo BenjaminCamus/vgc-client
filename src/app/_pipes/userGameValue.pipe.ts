@@ -27,7 +27,7 @@ export class UserGameValuePipe {
             var value = userGame[field.name];
         }
 
-        if (!value && field.type != 'state' && field.type != 'progress') {
+        if ((!value || value.length == 0) && field.type != 'state' && field.type != 'progress') {
             return '•';
         }
 

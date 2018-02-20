@@ -30,6 +30,7 @@ import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
 import {LengthPipe} from "./_pipes/length.pipe";
 import {TotalPipe} from "./_pipes/total.pipe";
 import {FocusDirective} from "./_directives/focus.directive";
+import {BannerComponent} from "./banner/banner.component";
 
 @NgModule({
     imports: [
@@ -60,6 +61,7 @@ import {FocusDirective} from "./_directives/focus.directive";
 
         AppComponent,
         LoginComponent,
+        BannerComponent,
         TagComponent,
         LoadingComponent,
 

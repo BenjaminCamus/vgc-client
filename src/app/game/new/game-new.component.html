@@ -2,11 +2,7 @@
 
 <ng-content></ng-content>
 
-<div class="gameBanner gameBannerBig">
-    <div class="gameBannerBg" *ngIf="games && games[0] && games[0].screenshots"
-         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + games[0].screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-    <div class="gameBannerBg" *ngIf="!games || !games[0] || !games[0].screenshots"></div>
-</div>
+<banner [userGames]="games"></banner>
 
 <div class="title">
     Nouveau Jeu

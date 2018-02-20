@@ -210,42 +210,49 @@
                         <label for="name">Année Sortie ({{userGameFilter.releaseYearRange[0] + ' - ' +
                             userGameFilter.releaseYearRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.releaseYearRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minReleaseYear"
                                   [max]="userGameFilter.maxReleaseYear"></p-slider>
 
                         <label for="name">Année Achat ({{userGameFilter.purchaseYearRange[0] + ' - ' +
                             userGameFilter.purchaseYearRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.purchaseYearRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPurchaseYear"
                                   [max]="userGameFilter.maxPurchaseYear"></p-slider>
 
                         <label for="name">Note ({{userGameFilter.ratingRange[0] + ' - ' +
                             userGameFilter.ratingRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minRating"
                                   [max]="userGameFilter.maxRating"></p-slider>
 
                         <label for="name">Prix Payé ({{userGameFilter.pricePaidRange[0] + ' - ' +
                             userGameFilter.pricePaidRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
 
                         <label for="name">Prix Revente ({{userGameFilter.priceResaleRange[0] + ' - ' +
                             userGameFilter.priceResaleRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
 
                         <label for="name">Prix Vendu ({{userGameFilter.priceSoldRange[0] + ' - ' +
                             userGameFilter.priceSoldRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
 
                         <label for="name">Prix Demandé ({{userGameFilter.priceAskedRange[0] + ' - ' +
                             userGameFilter.priceAskedRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true"
+                                  (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
                     </div>

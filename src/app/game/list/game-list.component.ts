@@ -239,6 +239,15 @@ export class GamesComponent implements OnInit {
         }
     }
 
+    resetSelectedUserGame() {
+        var userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
+        userGameList = this.orderByPipe.transform(userGameList, this.orderField, this.orderOption);
+
+        if (userGameList.length > 0 && (!this.selectedUserGame || deepIndexOf(userGameList, this.selectedUserGame) == -1)) {
+            this.selectUserGame(userGameList[0]);
+        }
+    }
+
     navUserGame(prev = false) {
         var state = prev ? 'prev' : 'next';
 
@@ -388,11 +397,6 @@ export class GamesComponent implements OnInit {
             this.gameLocalService.setUserGame(userGame);
         }
 
-        console.log(this.boxCount);
-        console.log(this.manualCount);
-        console.log(this.versionCount);
-        console.log(this.progressCount);
-
         // orderByCount
         this.platformsTags.sort(orderByCount(this.platformsCount));
         this.seriesTags.sort(orderByCount(this.seriesCount));
@@ -419,6 +423,8 @@ export class GamesComponent implements OnInit {
         this.userGameFilter.priceSoldRange = [minPrice, maxPrice];
         this.userGameFilter.minPrice = minPrice;
         this.userGameFilter.maxPrice = maxPrice;
+
+        this.resetSelectedUserGame();
     }
 
 
@@ -463,9 +469,12 @@ export class GamesComponent implements OnInit {
                 this.userGameFilter[type] = active;
                 break;
         }
+
+        this.resetSelectedUserGame();
     }
 
     setOrderField(orderField: string) {
+
         if (this.orderField == orderField) {
             this.orderOption = !this.orderOption;
         }
@@ -473,7 +482,6 @@ export class GamesComponent implements OnInit {
             this.orderField = orderField;
             this.orderOption = true;
         }
-
     }
 
     setItemClass(e) {

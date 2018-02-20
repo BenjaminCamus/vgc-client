@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit, OnDestroy, OnChanges, SimpleChanges, ViewChild, ElementRef} from '@angular/core';
+import {Component, Renderer, OnInit} from '@angular/core';
 import {Router}            from '@angular/router';
 import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import {routerTransition} from '../../_animations/router.animations';
@@ -97,35 +97,6 @@ export class GamesComponent implements OnInit {
 
         var ug = new UserGame();
         this.userGameFields = ug.fields;
-    }
-
-    bannerMarginLeft: number;
-    bannerWidth: number;
-    bannerHeight: number;
-    @ViewChild('gameBanner') gameBanner: ElementRef;
-    @HostListener('window:scroll', ['$event']) onWindowScroll(event) {
-        this.resizeBanner();
-    }
-    @HostListener('window:resize', ['$event'])
-    onResize(event) {
-        this.resizeBanner();
-    }
-    resizeBanner() {
-        var height = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
-        height = height < 0 ? 0 : height;
-
-        if (height <= 0) {
-            this.bannerMarginLeft = 0;
-            this.bannerWidth = 0;
-            this.bannerHeight = 0;
-
-        }
-        else {
-            this.bannerMarginLeft = -window.pageYOffset / 2;
-            this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
-            this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
-
-        }
     }
 
     @HostListener('document:keyup', ['$event'])

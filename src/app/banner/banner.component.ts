@@ -13,27 +13,28 @@ export class BannerComponent {
     image: string;
     defaultImage: string = 'gko0jchtb85kbsc1dg9l';
 
-    _userGames: any;
-    @Input() set userGames(userGames: any) {
-        this._userGames = userGames;
+    _data: any;
+    @Input() set data(data: any) {
+        this._data = data;
         this.setImage();
     }
 
     setImage() {
-        if (this._userGames
-            && this._userGames[0]
-            && this._userGames[0].game
-            && this._userGames[0].game.screenshots
-            && this._userGames[0].game.screenshots[0]
-            && this._userGames[0].game.screenshots[0].cloudinaryId) {
-            this.image = this._userGames[0].game.screenshots[0].cloudinaryId;
+        // If UserGame
+        if (this._data
+            && this._data.game
+            && this._data.game.screenshots
+            && this._data.game.screenshots[0]
+            && this._data.game.screenshots[0].cloudinaryId) {
+            this.image = this._data.game.screenshots[0].cloudinaryId;
         }
-        else if (this._userGames
-            && this._userGames[0]
-            && this._userGames[0].screenshots
-            && this._userGames[0].screenshots[0]
-            && this._userGames[0].screenshots[0].cloudinaryId) {
-            this.image = this._userGames[0].screenshots[0].cloudinaryId;
+        // If Game[]
+        else if (this._data
+            && this._data[0]
+            && this._data[0].screenshots
+            && this._data[0].screenshots[0]
+            && this._data[0].screenshots[0].cloudinaryId) {
+            this.image = this._data[0].screenshots[0].cloudinaryId;
         }
         else {
             this.image = this.defaultImage;
@@ -54,10 +55,8 @@ export class BannerComponent {
         this.resizeBanner();
     }
     resizeBanner() {
-        var height = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
-        height = height < 0 ? 0 : height;
 
-        if (height <= 0) {
+        if (window.pageYOffset > this.gameBanner.nativeElement.offsetHeight) {
             this.bannerMarginLeft = 0;
             this.bannerWidth = 0;
             this.bannerHeight = 0;

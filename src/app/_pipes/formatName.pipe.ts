@@ -9,6 +9,7 @@ export class FormatNamePipe {
             return 'Inconnu';
         }
 
+        // Ex: Game title (name)
         if (obj.name) {
             if (long) {
                 return obj.name.replace(':', ':<br />').replace('(', '<br />(');
@@ -18,6 +19,7 @@ export class FormatNamePipe {
             }
         }
 
+        // Contact
         var display = '';
 
         display = this.concatDisplay(display, obj.firstName);

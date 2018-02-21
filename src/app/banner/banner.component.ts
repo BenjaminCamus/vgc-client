@@ -44,6 +44,7 @@ export class BannerComponent {
     }
 
 
+    // Banner Resize
     bannerMarginLeft: number;
     bannerWidth: number;
     bannerHeight: number;

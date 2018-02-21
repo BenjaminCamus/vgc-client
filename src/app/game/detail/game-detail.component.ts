@@ -33,10 +33,10 @@ export class GameDetailComponent implements OnInit {
     private selectedPlatform: Object;
 
     private userGameFields = [];
-    private userFields = [['version', 'state', 'rating', 'progress'],
+    userFields = [['version', 'state', 'rating', 'progress'],
         ['pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact'],
         ['priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact']];
-    private gameFields = ['game.series', 'releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
+    gameFields = ['game.series', 'releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private subscription;
     private update: number = 0;
@@ -56,20 +56,18 @@ export class GameDetailComponent implements OnInit {
         this.userGameFields = ug.fields;
     }
 
+    /**
+     * On component init: init UserGame
+     */
     ngOnInit(): void {
-        // this.slimLoadingBarService.reset();
-        //
-        // this.route.params.subscribe(params => {
-        //     this.userGame = new UserGame();
-        //     this.userGame.platform = new Platform();
-        //     this.userGame.platform.slug = params['platformSlug'];
-        //     this.userGame.game = new Game('Chargement...');
-        //     this.userGame.game.slug = params['gameSlug'];
-        // });
-        //
-        // this.initGame();
+        this.slimLoadingBarService.reset();
+
+        this.initGame();
     }
 
+    /**
+     * Initialize UserGame
+     */
     initGame() {
         if (this.slimLoadingBarService.progress == 0) {
             this.userGame = this.gameLocalService.getUserGame(this.userGame);
@@ -77,13 +75,18 @@ export class GameDetailComponent implements OnInit {
         }
     }
 
+    /**
+     * On component destroy: unsubscribe
+     */
     ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
         }
     }
 
-
+    /**
+     * get UserGame
+     */
     getGame() {
         if (this.slimLoadingBarService.progress == 0) {
             this.slimLoadingBarService.start();
@@ -91,18 +94,26 @@ export class GameDetailComponent implements OnInit {
             this.subscription = this.gameService.getGame(this.userGame)
                 .subscribe(
                     userGame => {
+                        console.log('subscribe userGame');
+                        console.log(userGame);
                         this.userGame = userGame;
                         this.gameLocalService.setUserGame(this.userGame);
                         this.update++;
                         this.slimLoadingBarService.complete();
                     },
                     error => {
+                        console.log('subscribe error');
+                        console.log(error);
                         this.slimLoadingBarService.complete();
                         this.errorMessage = <any>error;
                     });
         }
     };
 
+    /**
+     * Open edit or delete form
+     * @param action
+     */
     openForm(action: string): void {
 
         if (this.formAction == action && this.selectedGame) {
@@ -116,6 +127,9 @@ export class GameDetailComponent implements OnInit {
         }
     }
 
+    /**
+     * On form state update: emit event
+     */
     formStateUpdate(event) {
 
         if (event == 'submitted') {

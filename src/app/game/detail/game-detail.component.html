@@ -1,13 +1,6 @@
 <loading *ngIf="formLoading"></loading>
 
-<ng-content></ng-content>
-
-<div class="gameBanner gameBannerBig">
-    <div class="gameBannerBg" *ngIf="userGame.game.screenshots && userGame.game.screenshots.length > 0"
-         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + userGame.game.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-    <div class="gameBannerBg" *ngIf="!userGame.game.screenshots || userGame.game.screenshots.length == 0"></div>
-</div>
-
+<banner [data]="userGame"></banner>
 
 <div class="container-fluid">
     <div *ngIf="userGame.game" class="row">

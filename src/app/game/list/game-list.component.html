@@ -76,7 +76,6 @@
              (click)="openUserGame(userGame)"
              (mouseenter)="selectUserGame(userGame)"
              class="gameBox visible_anim">
-        <!--routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"-->
         <!--in-viewport (inViewport)="setItemClass($event)"-->
         <div class="gameCover" *ngIf="userGame.game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>

@@ -22,7 +22,7 @@ export class ErrorService {
             if (error.status == 404) {
                 this.router.navigate(['/']);
             }
-            else if (error.status == 403) {
+            else if (error.status == 403 || (error.status == 401 && this.router.url !== '/login')) {
                 this.router.navigate(['/login']);
             }
 

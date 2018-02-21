@@ -74,6 +74,7 @@
     <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
              [focus]="selectedUserGame && selectedUserGame == userGame"
              (click)="openUserGame(userGame)"
+             (mouseenter)="selectUserGame(userGame)"
              class="gameBox visible_anim">
         <!--routerLink="/game/{{userGame.platform.slug}}/{{userGame.game.slug}}"-->
         <!--in-viewport (inViewport)="setItemClass($event)"-->
@@ -84,12 +85,9 @@
 
             <div class="row">
                 <div class="col-md-12">
-                    {{ userGame.platform.name }}
-                    <br>
-                    <span *ngIf="userGame.game.series[0]">Série {{ userGame.game.series[0].name }}</span>
-                    <br>
-                    <span *ngIf="userGame.game.developers[0]">Développeur {{ userGame.game.developers[0].name }}</span>
-                    <br>
+                    {{ userGame.platform.name }}<br>
+                    <div *ngIf="userGame.game.series[0]">Série {{ userGame.game.series[0].name }}</div>
+                    <div *ngIf="userGame.game.developers[0]">Développeur {{ userGame.game.developers[0].name }}</div>
                     {{ userGame.version }}
                     <span *ngIf="userGame.box && userGame.manual">Complet</span>
                     <span *ngIf="userGame.box && !userGame.manual">Boîte sans livret</span>

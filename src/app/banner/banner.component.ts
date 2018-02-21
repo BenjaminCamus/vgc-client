@@ -24,9 +24,10 @@ export class BannerComponent {
         if (this._data
             && this._data.game
             && this._data.game.screenshots
-            && this._data.game.screenshots[0]
-            && this._data.game.screenshots[0].cloudinaryId) {
-            this.image = this._data.game.screenshots[0].cloudinaryId;
+            && this._data.game.screenshots.length > 0) {
+
+            let rand = Math.floor(Math.random() * this._data.game.screenshots.length);
+            this.image = this._data.game.screenshots[rand].cloudinaryId;
         }
         // If Game[]
         else if (this._data

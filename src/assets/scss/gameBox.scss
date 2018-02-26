@@ -30,6 +30,7 @@
 #gameCover {
   margin: 0 auto;
   max-width: 100%;
+  margin-top: -100px;
 }
 
 .gameCover {
@@ -52,7 +53,7 @@
   text-align: center;
 }
 
-.gameBox[ng-reflect-is-focused='true'] {
+.gameBox:hover, .gameBox[ng-reflect-is-focused='true'] {
   .gameCover {
     height: 40%;
     opacity: 0.1;

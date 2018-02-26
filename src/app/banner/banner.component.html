@@ -1,7 +1,29 @@
-<div #gameBanner class="gameBanner gameBannerBig">
-        <div class="gameBannerBg"
+<div *ngIf="resize" #gameBanner class="gameBanner gameBannerBig">
+
+        <div *ngIf="image" class="gameBannerBg"
+             [@transition]
              [style.margin-left]="bannerMarginLeft+'px'"
              [style.width]="bannerWidth+'px'"
              [style.height]="bannerHeight+'px'"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_original/' + image + '.jpg)' | safe: 'style'"></div>
+             [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
+
+        <div *ngIf="image2" class="gameBannerBg"
+             [@transition]
+             [style.margin-left]="bannerMarginLeft+'px'"
+             [style.width]="bannerWidth+'px'"
+             [style.height]="bannerHeight+'px'"
+             [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
+
+<div *ngIf="!resize" #gameBanner class="gameBanner gameBannerBig">
+
+        <div *ngIf="image" class="gameBannerBg"
+             [@transition]
+             [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
+
+        <div *ngIf="image2" class="gameBannerBg"
+             [@transition]
+             [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
+</div>
+
+<div *ngIf="!game" style="position:absolute;top: 160px; width: 100vw; text-align:  center; font-size: 30px; padding: 15px; background: rgba(0,0,0,.3); color: black">AUCUNE IMAGE POUR CE JEU</div>

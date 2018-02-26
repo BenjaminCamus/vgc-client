@@ -1,50 +1,83 @@
-import {Component, ElementRef} from "@angular/core";
+import {Component, ElementRef, trigger, style, animate, transition} from "@angular/core";
 import {Input, HostListener} from "@angular/core/src/metadata/directives";
-import {UserGame} from "../_models/userGame";
 import {ViewChild} from "@angular/core/src/metadata/di";
+import {Game} from "../_models/game";
 
 @Component({
     moduleId: module.id,
     selector: 'banner',
     templateUrl: './banner.component.html',
+    animations: [
+        trigger('transition', [
+            transition('void => *', [
+                style({opacity: 0}),
+                animate(1000, style({opacity: 1}))
+            ]),
+            transition('* => void', [
+                style({opacity: 1}),
+                animate(1000, style({opacity: 0}))
+            ])
+        ])
+    ]
 })
 export class BannerComponent {
 
+    game: Game;
     image: string;
-    defaultImage: string = 'gko0jchtb85kbsc1dg9l';
+    image2: string;
 
-    _data: any;
     @Input() set data(data: any) {
-        this._data = data;
-        this.setImage();
-    }
 
-    setImage() {
         // If UserGame
-        if (this._data
-            && this._data.game
-            && this._data.game.screenshots
-            && this._data.game.screenshots.length > 0) {
+        if (data
+            && data.game
+            && data.game.screenshots
+            && data.game.screenshots.length > 0) {
 
-            let rand = Math.floor(Math.random() * this._data.game.screenshots.length);
-            this.image = this._data.game.screenshots[rand].cloudinaryId;
+            this.game = data.game;
         }
-        // If Game[]
-        else if (this._data
-            && this._data[0]
-            && this._data[0].screenshots
-            && this._data[0].screenshots[0]
-            && this._data[0].screenshots[0].cloudinaryId) {
-            this.image = this._data[0].screenshots[0].cloudinaryId;
+
+        // ElseIf Games (for IGDB search)
+        else if (data
+            && data[0]
+            && data[0].screenshots
+            && data[0].screenshots.length > 0) {
+
+            this.game = data[0];
         }
         else {
-            this.image = this.defaultImage;
+            this.game = null;
         }
 
+        if (this.game) {
+            let rand = Math.floor(Math.random() * this.game.screenshots.length);
+            let imageId = this.game.screenshots[rand].cloudinaryId;
+
+            let image = 'http://images.igdb.com/igdb/image/upload/t_original/' + imageId + '.jpg';
+
+            if (this.image) {
+                this.image = null;
+                this.image2 = image;
+            }
+            else {
+                this.image = image;
+                this.image2 = null;
+            }
+        }
+        else {
+            let rand = Math.floor(Math.random() * 187) + 1;
+            let str = "" + rand;
+            let pad = "000";
+            let imageId = pad.substring(0, pad.length - str.length) + str;
+
+            this.image = 'assets/img/pixel-bg/pixel-background-'+imageId+'.gif';
+        }
     }
 
 
     // Banner Resize
+    @Input() resize: boolean = false;
+
     bannerMarginLeft: number;
     bannerWidth: number;
     bannerHeight: number;
@@ -58,17 +91,19 @@ export class BannerComponent {
     }
     resizeBanner() {
 
-        if (window.pageYOffset > this.gameBanner.nativeElement.offsetHeight) {
-            this.bannerMarginLeft = 0;
-            this.bannerWidth = 0;
-            this.bannerHeight = 0;
+        if (this.resize) {
+            if (window.pageYOffset > this.gameBanner.nativeElement.offsetHeight) {
+                this.bannerMarginLeft = 0;
+                this.bannerWidth = 0;
+                this.bannerHeight = 0;
 
-        }
-        else {
-            this.bannerMarginLeft = -window.pageYOffset / 2;
-            this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
-            this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
+            }
+            else {
+                this.bannerMarginLeft = -window.pageYOffset / 2;
+                this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
+                this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
 
+            }
         }
     }
 

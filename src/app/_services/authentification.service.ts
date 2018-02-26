@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
+import { Http, Headers, Response } from '@angular/http';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map'
 import {ErrorService} from "./error.service";
@@ -22,8 +22,6 @@ export class AuthenticationService {
     }
 
     login(user: any): Observable<boolean> {
-
-        let options = new RequestOptions({ headers: this.headers });
 
         if (user.email) {
             var url = this.registerUrl;

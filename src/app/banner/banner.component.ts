@@ -26,6 +26,8 @@ export class BannerComponent {
     image: string;
     image2: string;
 
+    @Input() message: string;
+
     @Input() set data(data: any) {
 
         // If UserGame

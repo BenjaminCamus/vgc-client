@@ -26,4 +26,4 @@
              [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
 
-<div *ngIf="!game" style="position:absolute;top: 160px; width: 100vw; text-align:  center; font-size: 30px; padding: 15px; background: rgba(0,0,0,.3); color: black">AUCUNE IMAGE POUR CE JEU</div>
+<div *ngIf="!game && message" class="gameBannerMessage">{{ message }}</div>

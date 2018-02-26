@@ -47,6 +47,8 @@ export class GamesComponent implements OnInit {
     displayUserGame: boolean = false;
     displayNewUserGame: boolean = false;
 
+    bannerMessage: string;
+
     userGameFields = [];
 
     tableFields = ['progress', 'game.name', 'version', 'state', 'rating',
@@ -146,12 +148,20 @@ export class GamesComponent implements OnInit {
         if (this.slimLoadingBarService.progress == 0) {
 
             this.slimLoadingBarService.start();
+            this.bannerMessage = 'SYNCHRONISATION EN COURS';
 
             this.subscription = this.gameService.getUserGames().subscribe(
                 userGames => {
 
                     userGames.sort(orderByName);
                     this.userGames = userGames;
+
+                    if (userGames.length == 0) {
+                        this.bannerMessage = 'AUCUN JEU';
+                    }
+                    else {
+                        this.bannerMessage = 'AUCUNE IMAGE DISPONIBLE';
+                    }
 
                     this.gameLocalService.setUserGames(this.userGames);
                     this.userGamesDate = this.gameLocalService.setUserGamesDate();
@@ -183,6 +193,8 @@ export class GamesComponent implements OnInit {
     }
 
     selectUserGame(userGame) {
+
+        this.bannerMessage = 'AUCUNE IMAGE DISPONIBLE';
 
         this.selectedUserGame = userGame;
 

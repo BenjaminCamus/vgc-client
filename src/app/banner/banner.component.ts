@@ -51,20 +51,13 @@ export class BannerComponent {
             this.game = null;
         }
 
+        let image = null;
+
         if (this.game) {
             let rand = Math.floor(Math.random() * this.game.screenshots.length);
             let imageId = this.game.screenshots[rand].cloudinaryId;
 
-            let image = 'http://images.igdb.com/igdb/image/upload/t_original/' + imageId + '.jpg';
-
-            if (this.image) {
-                this.image = null;
-                this.image2 = image;
-            }
-            else {
-                this.image = image;
-                this.image2 = null;
-            }
+            image = 'http://images.igdb.com/igdb/image/upload/t_original/' + imageId + '.jpg';
         }
         else {
             let rand = Math.floor(Math.random() * 187) + 1;
@@ -72,7 +65,16 @@ export class BannerComponent {
             let pad = "000";
             let imageId = pad.substring(0, pad.length - str.length) + str;
 
-            this.image = 'assets/img/pixel-bg/pixel-background-'+imageId+'.gif';
+            image = 'assets/img/pixel-bg/pixel-background-'+imageId+'.gif';
+        }
+
+        if (this.image) {
+            this.image = null;
+            this.image2 = image;
+        }
+        else {
+            this.image = image;
+            this.image2 = null;
         }
     }
 

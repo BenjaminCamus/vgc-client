@@ -31,8 +31,8 @@ export class LoadingComponent implements OnInit {
 
     randomBgIndex() {
         let rand = Math.floor(Math.random() * 187) + 1;
-        var str = "" + rand;
-        var pad = "000"
-        this.bgIndex = pad.substring(0, pad.length - str.length) + str
+        let str = "" + rand;
+        let pad = "000";
+        this.bgIndex = pad.substring(0, pad.length - str.length) + str;
     }
 }

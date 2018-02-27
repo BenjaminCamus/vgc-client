@@ -1,11 +1,9 @@
 <div class="full" style="background-color:#002840"
-     [style.background-image]="'url(' + bgIndex + ')' | safe: 'style'"
+     [style.background-image]="'url(' + image + ')' | safe: 'style'"
      (click)="randomBgIndex()">
-    <div class="fullTitle">
-        <div class="title">{{title}}</div>
-        {{subtitle}}
-        <br>
-        <br>
-        [ Cliquez pour patienter... ]
+    <div class="gameBannerMessage">
+        {{title}}
+        <div style="font-size: 14px; margin-top: 15px;">{{subtitle}}</div>
+        <div style="font-size: 14px; margin-top: 15px;">PRESS ANY KEY FOR FUN</div>
     </div>
 </div>

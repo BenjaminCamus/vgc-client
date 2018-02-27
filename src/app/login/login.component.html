@@ -1,3 +1,5 @@
+
+
 <div class="full">
     <div class="fullTitle">
         <a *ngIf="action == 'login'" style="float: right" (click)="action = 'register'">Inscription</a>
@@ -63,9 +65,10 @@
             <div class="row" style="margin-top: 15px;">
                 <div class="col-md-12">
                     <button [disabled]="!loginForm.form.valid || slimLoadingBarService.progress > 0" class="btn btn-primary">Start</button>
-                    <div *ngIf="slimLoadingBarService.progress > 0" class="loader"></div>
                 </div>
             </div>
         </form>
     </div>
 </div>
+
+<loading *ngIf="slimLoadingBarService.progress > 0" [action]="action"></loading>

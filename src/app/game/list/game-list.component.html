@@ -49,7 +49,7 @@
                 <span *ngIf="field != 'progress'">{{ userGameFields[field].label }}</span>
                 <i class="fa" *ngIf="orderField == field"
                    [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                <i class="fa fa-sort-asc" style="visibility: hidden" *ngIf="orderField != field"></i>
+                <i class="fa fa-sort-asc" class="invisible" *ngIf="orderField != field"></i>
             </th>
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
@@ -117,20 +117,17 @@
     </section>
 </div>
 
-<nav class="topnav"><!--
-    -->
-    <div style="float: left;"><!--
-    --><i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i><!--
-        --><i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i><!--
-    --><i class="hovicon fa fa-refresh" (click)="getGames()"
-          [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i><!--
-    -->
-        <div *ngIf="userGamesDate"
-             style="display:inline-block;font-size: 12px;line-height: normal;color: rgba(255,255,255,.5);">{{
+<nav class="topnav">
+    <div class="navLeft">
+        <i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i>
+        <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
+        <i class="hovicon fa fa-refresh" (click)="getGames()"
+           [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
+        <div *ngIf="userGamesDate" class="syncDate">{{
             userGamesDate | date:'dd/MM'}}<br/>{{ userGamesDate | date:'HH:mm'}}
         </div>
     </div>
-    <div style="float: right; text-align: right;">
+    <div class="navRight">
         <div class="input">
             <input type="text" id="name" name="name"
                    [(ngModel)]="userGameFilter.game.name"
@@ -138,8 +135,8 @@
                    autocomplete="off"
                    placeholder="Recherche">
             <span class="bar"></span>
-        </div><!--
-        --><i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
+        </div>
+        <i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
         <div class="input">
             <select id="orderField"
                     [(ngModel)]="orderField" name="orderField"
@@ -152,12 +149,12 @@
             </select>
         </div>
         <i class="hovicon fa" (click)="orderOption = !orderOption"
-           [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i><!--
-        --><i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i><!--
-    --><i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
+           [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
+        <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i>
+    <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
     </div>
 
-    <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" style="padding-bottom: 15px">
+    <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''">
         <p-tabView>
             <p-tabPanel header="Général">
                 <div class="row">
@@ -356,17 +353,16 @@
 <game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" *ngIf="displayUserGame && selectedUserGame2"
              (state)="detailStateUpdate($event)"></game-detail>
 
-<div class="topnav" *ngIf="displayUserGame && selectedUserGame"><!--
-        -->
-    <div class="navRight"><i class="hovicon fa fa-close" (click)="closeUserGame()"></i></div><!--
-        --><i *ngIf="prevUserGame" class="hovicon fa fa-step-backward"
-              (click)="navUserGame(true)"></i><!--
-        --><i *ngIf="nextUserGame" class="hovicon fa fa-step-forward"
-              (click)="navUserGame()"></i><!--
-    --></div>
+<div class="topnav" *ngIf="displayUserGame && selectedUserGame">
 
-<game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)">
-    <div class="topnav">
-        <div class="navRight"><i class="hovicon fa fa-close" (click)="closeNewUserGame()"></i></div>
+    <div class="navRight"><i class="hovicon fa fa-close" (click)="closeUserGame()"></i></div>
+        <i *ngIf="prevUserGame" class="hovicon fa fa-step-backward"
+              (click)="navUserGame(true)"></i>
+        <i *ngIf="nextUserGame" class="hovicon fa fa-step-forward"
+              (click)="navUserGame()"></i>
     </div>
-</game-new>
+
+<game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)"></game-new>
+<div class="topnav" *ngIf="displayNewUserGame">
+    <div class="navRight"><i class="hovicon fa fa-close" (click)="closeNewUserGame()"></i></div>
+</div>

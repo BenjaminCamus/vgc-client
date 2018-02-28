@@ -2,6 +2,8 @@
   width: 100%;
   display: block;
   height: calc(25vh - 70px);
+  position: relative;
+  overflow: hidden;
 }
 
 .gameBanner .gameBannerBg {

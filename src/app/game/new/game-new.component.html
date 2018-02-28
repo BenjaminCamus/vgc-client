@@ -1,7 +1,5 @@
 <loading *ngIf="formLoading"></loading>
 
-<ng-content></ng-content>
-
 <banner [data]="games" [message]="'AUCUNE IMAGE DISPONIBLE'"></banner>
 
 <div class="title">
@@ -57,14 +55,13 @@
 
         <div class="container-fluid">
             <div *ngIf="selectedGame" class="row">
-                <div class="col-md-4" style="text-align: center;">
+                <div class="col-md-4 text-center">
 
                     <img id="gameCover" *ngIf="selectedGame.cover"
                          src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{selectedGame.cover.cloudinaryId}}.jpg"/>
                     <div>
-                        <img width="50" height="50" *ngFor="let sc of selectedGame.screenshots;"
-                             src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
-                             style="margin: 5px;"/>
+                        <img class="thumbSmall" *ngFor="let sc of selectedGame.screenshots;"
+                             src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg" />
                     </div>
                 </div>
 

@@ -2,8 +2,8 @@
 
 <div class="full">
     <div class="fullTitle">
-        <a *ngIf="action == 'login'" style="float: right" (click)="action = 'register'">Inscription</a>
-        <a *ngIf="action == 'register'" style="float: right" (click)="action = 'login'">Connexion</a>
+        <a *ngIf="action == 'login'" class="navRight" (click)="action = 'register'">Inscription</a>
+        <a *ngIf="action == 'register'" class="navRight" (click)="action = 'login'">Connexion</a>
         <h2 *ngIf="action == 'login'">Connexion</h2>
         <h2 *ngIf="action == 'register'">Inscription</h2>
             

@@ -4,7 +4,7 @@
   right: 15px;
   top: 60px;
   font-size: 80px;
-  color: rgba(255,255,255,.5);
+  color: rgba(255, 255, 255, .5);
   letter-spacing: -5px;
   margin: 0 auto;
 }
@@ -25,7 +25,7 @@
   padding-top: 0;
   top: 0;
   left: 0;
-  background: rgba(0,0,0,.9);
+  background: rgba(0, 0, 0, .9);
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -33,7 +33,7 @@
 .topnav, .title {
   font-size: 28px;
   width: 100%;
-  background: rgba(0,0,0,.8);
+  background: rgba(0, 0, 0, .8);
   min-height: 70px;
   line-height: 70px;
   padding: 0 15px;
@@ -45,10 +45,16 @@
   margin-top: -70px;
 }
 
+.platformLogo {
+  width: 70px;
+  margin-right: 15px;
+}
+
 .topnav {
   top: 0;
   left: 0;
   position: fixed;
+  font-size: 0;
 }
 
 .topnav *, .title * {
@@ -59,10 +65,20 @@
   display: inline-block;
 }
 
-.topnav .navRight {
-  position: absolute;
+.navLeft {
+  float: left;
+}
+
+.navRight {
+  float: right;
   text-align: right;
-  right: 15px;
+}
+
+.syncDate {
+  display: inline-block;
+  font-size: 12px;
+  line-height: normal;
+  color: rgba(255, 255, 255, .5);
 }
 
 .input {
@@ -77,19 +93,18 @@
   margin-bottom: 15px;
 
 }
+
 .filters {
   background-color: rgba(0, 0, 0, .1);
   padding: 15px;
   user-select: none;
   margin: 0;
 
-
   font-size: 12px;
   line-height: 20px;
   max-height: 80vh;
   clear: both;
   overflow-y: auto;
-
 
   animation: FadeOut 1s ease-in-out;
   height: 0;

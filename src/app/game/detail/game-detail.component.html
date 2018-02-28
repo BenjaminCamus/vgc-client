@@ -4,30 +4,29 @@
 
 <div class="container-fluid">
     <div *ngIf="userGame.game" class="row">
-        <div class="col-md-4" style="text-align: center;">
+        <div class="col-md-4 text-center">
 
             <img id="gameCover" *ngIf="userGame.game.cover"
                  src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{userGame.game.cover.cloudinaryId}}.jpg"/>
             <div>
-                <img width="50" height="50" *ngFor="let sc of userGame.game.screenshots;"
-                     src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"
-                     style="margin: 5px;"/>
+                <img class="thumbSmall" *ngFor="let sc of userGame.game.screenshots;"
+                     src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg" />
             </div>
         </div>
 
         <div class="col-md-8">
 
 
-            <div class="title"><!--
-                --><div style="float: right;"><!--
-                    --><i *ngIf="!selectedGame" class="hovicon fa fa-pencil-square-o"
-                          (click)="openForm('edit')"></i><!--
-                    --><i *ngIf="!selectedGame" class="hovicon fa fa-trash-o"
-                          (click)="openForm('delete')"></i><!--
-                    --><i *ngIf="selectedGame" class="hovicon fa fa-close"
-                          (click)="openForm()"></i><!--
-                --></div><!--
-                --><img src="/assets/img/platform/{{userGame.platform.slug}}.png" style=" width: 70px; margin-right: 15px;">{{ userGame.game.name }}
+            <div class="title">
+                <div class="navRight">
+                    <i *ngIf="!selectedGame" class="hovicon fa fa-pencil-square-o"
+                          (click)="openForm('edit')"></i>
+                    <i *ngIf="!selectedGame" class="hovicon fa fa-trash-o"
+                          (click)="openForm('delete')"></i>
+                    <i *ngIf="selectedGame" class="hovicon fa fa-close"
+                          (click)="openForm()"></i>
+                </div>
+                <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">{{ userGame.game.name }}
                 <!--<span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span>&lt;!&ndash;-->
             </div>
 

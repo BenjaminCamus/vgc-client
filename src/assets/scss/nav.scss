@@ -40,9 +40,35 @@
   cursor: default;
 }
 
-.title {
-  position: absolute;
-  margin-top: -70px;
+@media (min-width: 992px) {
+  .title {
+    position: absolute;
+    margin-top: -70px;
+  }
+}
+
+.searchToolsBig {
+  display: none;
+}
+.searchToolsSmall {
+  display: none;
+}
+@media (min-width: 1110px) {
+  .searchToolsBig {
+    display: inline-block;
+  }
+}
+@media (max-width: 1109px) {
+  .title .table>tbody>tr>td, .title .table>tbody>tr>th, .title .table>tfoot>tr>td, .title .table>tfoot>tr>th, .title .table>thead>tr>td, .title .table>thead>tr>th {
+    padding: 0 3px;
+  }
+
+  .topnav {
+    padding: 0;
+  }
+  .searchToolsSmall {
+    display: block;
+  }
 }
 
 .platformLogo {

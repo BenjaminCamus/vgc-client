@@ -15,21 +15,20 @@
         </tr>
         <tr>
             <td class="tdLabel">TOTAL</td>
-            <td>{{ userGames.length }} jeux</td>
-            <td>{{ userGames | total:'pricePaid' }} €</td>
-            <td>{{ userGames | total:'priceResale' }} €</td>
+            <td>{{ userGames.length }}&nbsp;jeux</td>
+            <td>{{ userGames | total:'pricePaid' }}&nbsp;€</td>
+            <td>{{ userGames | total:'priceResale' }}&nbsp;€</td>
         </tr>
         <tr>
             <td class="tdLabel">RECHERCHE</td>
-            <td>{{ userGames | filter: userGameFilter | length }} jeux
-                <span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)</span>
+            <td>{{ userGames | filter: userGameFilter | length }}&nbsp;jeux&nbsp;<span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)</span>
             </td>
-            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }} €
-                <span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
+            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€&nbsp;<span
+                    *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
                 number:'2.0-0' }}%)</span>
             </td>
-            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }} €
-                <span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
+            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€&nbsp;<span
+                    *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
                 total:'priceResale')) | number:'2.0-0' }}%)</span>
             </td>
         </tr>
@@ -49,7 +48,7 @@
                 <span *ngIf="field != 'progress'">{{ userGameFields[field].label }}</span>
                 <i class="fa" *ngIf="orderField == field"
                    [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                <i class="fa fa-sort-asc" class="invisible" *ngIf="orderField != field"></i>
+                <i class="fa fa-sort-asc invisible" *ngIf="orderField != field"></i>
             </th>
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
@@ -128,33 +127,65 @@
         </div>
     </div>
     <div class="navRight">
-        <div class="input">
-            <input type="text" id="name" name="name"
-                   [(ngModel)]="userGameFilter.game.name"
-                   #name="ngModel"
-                   autocomplete="off"
-                   placeholder="Recherche">
-            <span class="bar"></span>
+        <div class="searchToolsBig">
+            <div class="input">
+                <input type="text" id="name" name="name"
+                       [(ngModel)]="userGameFilter.game.name"
+                       #name="ngModel"
+                       autocomplete="off"
+                       placeholder="Recherche">
+                <span class="bar"></span>
+            </div>
+            <div class="input">
+                <select id="orderField"
+                        [(ngModel)]="orderField" name="orderField"
+                        #name="ngModel">
+                    <option *ngFor="let field of tableFields"
+                            [value]="userGameFields[field].name">
+
+                        {{ userGameFields[field].label }}
+                    </option>
+                </select>
+            </div>
+            <i class="hovicon fa" (click)="orderOption = !orderOption"
+               [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
         </div>
         <i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
-        <div class="input">
-            <select id="orderField"
-                    [(ngModel)]="orderField" name="orderField"
-                    #name="ngModel">
-                <option *ngFor="let field of tableFields"
-                        [value]="userGameFields[field].name">
-
-                    {{ userGameFields[field].label }}
-                </option>
-            </select>
-        </div>
-        <i class="hovicon fa" (click)="orderOption = !orderOption"
-           [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
         <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i>
-    <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
+        <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
     </div>
 
     <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''">
+
+        <div class="container-fluid searchToolsSmall">
+            <div class="row">
+                <div class="col-md-4">
+                    <input type="text" id="nameSmall" name="name"
+                           [(ngModel)]="userGameFilter.game.name"
+                           #name="ngModel"
+                           autocomplete="off"
+                           placeholder="Recherche">
+                    <span class="bar"></span>
+                    <label for="nameSmall">Recherche</label>
+                </div>
+                <div class="col-md-4">
+                    <select id="orderFieldSmall"
+                            [(ngModel)]="orderField" name="orderField"
+                            #name="ngModel">
+                        <option *ngFor="let field of tableFields"
+                                [value]="userGameFields[field].name">
+
+                            {{ userGameFields[field].label }}
+                        </option>
+                    </select>
+                    <label for="orderFieldSmall">Tri</label>
+                </div>
+                <div class="col-md-4">
+                    <i class="hovicon fa" (click)="orderOption = !orderOption"
+                       [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
+                </div>
+            </div>
+        </div>
         <p-tabView>
             <p-tabPanel header="Général">
                 <div class="row">
@@ -348,19 +379,21 @@
     </div>
 </nav>
 
-<game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState" *ngIf="displayUserGame && selectedUserGame1"
+<game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState"
+             *ngIf="displayUserGame && selectedUserGame1"
              (state)="detailStateUpdate($event)"></game-detail>
-<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" *ngIf="displayUserGame && selectedUserGame2"
+<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState"
+             *ngIf="displayUserGame && selectedUserGame2"
              (state)="detailStateUpdate($event)"></game-detail>
 
 <div class="topnav" *ngIf="displayUserGame && selectedUserGame">
 
     <div class="navRight"><i class="hovicon fa fa-close" (click)="closeUserGame()"></i></div>
-        <i *ngIf="prevUserGame" class="hovicon fa fa-step-backward"
-              (click)="navUserGame(true)"></i>
-        <i *ngIf="nextUserGame" class="hovicon fa fa-step-forward"
-              (click)="navUserGame()"></i>
-    </div>
+    <i *ngIf="prevUserGame" class="hovicon fa fa-step-backward"
+       (click)="navUserGame(true)"></i>
+    <i *ngIf="nextUserGame" class="hovicon fa fa-step-forward"
+       (click)="navUserGame()"></i>
+</div>
 
 <game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)"></game-new>
 <div class="topnav" *ngIf="displayNewUserGame">

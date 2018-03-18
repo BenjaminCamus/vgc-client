@@ -4,6 +4,8 @@ import {Place} from "./place";
 import {Contact} from "./contact";
 
 export class UserGameFilter extends UserGame{
+    box: boolean = false;
+    manual: boolean = false;
     platforms: Platform[] = [];
     purchasePlaces: Place[] = [];
     salePlaces: Place[] = [];

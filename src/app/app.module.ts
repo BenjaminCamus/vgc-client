@@ -29,7 +29,6 @@ import {GameLocalService} from "./_services/gameLocal.service";
 import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
 import {LengthPipe} from "./_pipes/length.pipe";
 import {TotalPipe} from "./_pipes/total.pipe";
-import {FocusDirective} from "./_directives/focus.directive";
 import {BannerComponent} from "./banner/banner.component";
 
 @NgModule({
@@ -48,8 +47,6 @@ import {BannerComponent} from "./banner/banner.component";
         InViewportModule.forRoot(),
     ],
     declarations: [
-        FocusDirective,
-
         FilterPipe,
         UserGameValuePipe,
         OrderByPipe,

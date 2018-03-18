@@ -53,7 +53,7 @@
             </th>
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-            [focus]="selectedUserGame && selectedUserGame == userGame"
+            [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''"
             (click)="openUserGame(userGame)">
 
             <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
@@ -72,10 +72,10 @@
 <div *ngIf="displayMode == 0" class="gameBoxContainer">
 
     <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-             [focus]="selectedUserGame && selectedUserGame == userGame"
              (click)="openUserGame(userGame)"
              (mouseenter)="selectUserGame(userGame)"
-             class="gameBox visible_anim">
+             class="gameBox visible_anim"
+             [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
         <!--in-viewport (inViewport)="setItemClass($event)"-->
         <div class="gameCover" *ngIf="userGame.game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>

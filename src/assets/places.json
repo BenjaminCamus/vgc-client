@@ -1,13 +1,18 @@
 [
   {
-    "id": "27101056-b064-11e7-be9d-782bcba7af22",
-    "name": "Leboncoin",
-    "slug": "leboncoin"
+    "id": "a89062ef-b064-11e7-be9d-782bcba7af22",
+    "name": "Cadeau",
+    "slug": "cadeau"
   },
   {
     "id": "37341231-b064-11e7-be9d-782bcba7af22",
     "name": "E-bay",
     "slug": "e-bay"
+  },
+  {
+    "id": "27101056-b064-11e7-be9d-782bcba7af22",
+    "name": "Leboncoin",
+    "slug": "leboncoin"
   },
   {
     "id": "495ea9bb-b064-11e7-be9d-782bcba7af22",
@@ -30,8 +35,8 @@
     "slug": "marche-de-la-mode-vintage"
   },
   {
-    "id": "a89062ef-b064-11e7-be9d-782bcba7af22",
-    "name": "Cadeau",
-    "slug": "cadeau"
+    "id": "295a5356-2b98-11e8-a3dd-0007cb036023",
+    "name": "Steam",
+    "slug": "steam"
   }
 ]

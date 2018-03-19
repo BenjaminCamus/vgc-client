@@ -118,7 +118,7 @@ export class GamesComponent implements OnInit {
                 this.closeNewUserGame();
                 break;
             case 'Enter':
-                if (!this.displayUserGame && this.selectedUserGame) {
+                if (!this.displayUserGame && this.selectedUserGame && !this.displayNewUserGame && !this.displayFilters) {
                     this.openUserGame(this.selectedUserGame);
                 }
                 break;

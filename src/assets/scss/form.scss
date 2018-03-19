@@ -1,3 +1,7 @@
+input {
+  box-shadow: none; // bug fix red border when input invalid in firefox
+}
+
 .btn {
   border: none;
   border-radius: 0;

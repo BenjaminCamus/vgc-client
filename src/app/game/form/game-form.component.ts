@@ -1,7 +1,6 @@
 import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
-import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
 
 import {Game}    from '../../_models/game';
 import {GameService}       from '../../_services/game.service';
@@ -30,6 +29,7 @@ function validatePrice(fc) {
 })
 export class GameFormComponent implements OnInit {
 
+    loading: boolean = false;
     errorMessage: string;
 
     @Input() game: Game;
@@ -57,7 +57,6 @@ export class GameFormComponent implements OnInit {
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
-                private slimLoadingBarService: SlimLoadingBarService,
                 private router: Router,
                 private fb: FormBuilder,) {
         this.validateUserGameForm = fb.group({
@@ -98,7 +97,7 @@ export class GameFormComponent implements OnInit {
     }
 
     postUserGame() {
-        this.slimLoadingBarService.start();
+        this.loading = true;
         this.state.emit('submitted');
 
         if (!this._userGame.game.igdbId) {
@@ -123,36 +122,33 @@ export class GameFormComponent implements OnInit {
                     this._userGame = userGame;
                     this.gameLocalService.setUserGame(userGame);
                     this.state.emit('add_'+JSON.stringify(this._userGame));
-                    this.slimLoadingBarService.complete();
                 },
                 error => {
                     this.slimLoadingBarService.complete();
                     this.errorMessage = <any>error;
+                    this.loading = false;
                 });
 
 
     }
 
     deleteUserGame() {
-        this.slimLoadingBarService.start();
+        this.loading = true;
         this.state.emit('submitted');
 
         this.gameService.deleteUserGame(this._userGame)
             .subscribe(
                 response => {
-
                     this.gameLocalService.removeUserGame(this._userGame);
                     this.state.emit('delete_'+JSON.stringify(this._userGame));
-                    this.slimLoadingBarService.complete();
                 },
                 error => {
-                    this.slimLoadingBarService.complete();
                     this.errorMessage = <any>error;
                 });
     }
 
     getContacts() {
-        if (this.slimLoadingBarService.progress == 0) {
+        if (!this.loading) {
             this.gameService.getUserContacts()
                 .subscribe(
                     userContacts => {

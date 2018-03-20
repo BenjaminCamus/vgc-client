@@ -1,84 +1,78 @@
 <loading *ngIf="formLoading"></loading>
 
-<banner [data]="games" [message]="'AUCUNE IMAGE DISPONIBLE'"></banner>
 
-<div class="title">
-    Nouveau Jeu
-    <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-        <div class="input">
-            <input type="text" id="search"
-                   required
-                   [(ngModel)]="search" name="search"
-                   #name="ngModel"
-                   autocomplete="off">
-            <span class="bar"></span>
+<div *ngIf="!selectedGame">
+    <banner [data]="games" [message]="'AUCUNE IMAGE DISPONIBLE'"></banner>
+    <div class="title" *ngIf="!selectedGame">
+        Nouveau Jeu
+        <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+            <div class="input">
+                <input type="text" id="search"
+                       required
+                       [(ngModel)]="search" name="search"
+                       #name="ngModel"
+                       autocomplete="off">
+                <span class="bar"></span>
+            </div>
+            <div class="input">
+                <button type="submit"
+                        class="btn btn-success">
+                    <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
+                    Rechercher via IGDB.com
+                </button>
+            </div>
+        </form>
+    </div>
+    <section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
+        <div class="gameCover" *ngIf="game.cover"
+             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
+        <div class=gameInfos>
+            <div class="gameTitle">
+                {{ game.name }}
+            </div>
+
+            <section *ngIf="game.platforms">
+                <button *ngFor="let platform of game.platforms" (click)="onSelect(game, platform)" class="btn btn-sm"
+                        [ngClass]="buttonClass[game.id+'_'+platform.id]">
+                    {{platform.name}}
+                </button>
+            </section>
         </div>
-        <div class="input">
-            <button type="submit"
-                    class="btn btn-success">
-                <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
-                Rechercher via IGDB.com
-            </button>
-        </div>
-    </form>
+    </section>
 </div>
 
+<div *ngIf="selectedGame">
+    <banner [data]="selectedGame" [message]="'AUCUNE IMAGE DISPONIBLE'"></banner>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-4 text-center">
 
-<section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
-    <div class="gameCover" *ngIf="game.cover"
-         [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
-    <div class=gameInfos>
-        <div class="gameTitle">
-            {{ game.name }}
-        </div>
+                <img id="gameCover" *ngIf="selectedGame.cover"
+                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{selectedGame.cover.cloudinaryId}}.jpg"/>
+                <div>
+                    <img class="thumbSmall" *ngFor="let sc of selectedGame.screenshots;"
+                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"/>
+                </div>
+            </div>
 
-        <section *ngIf="game.platforms">
-            <button *ngFor="let platform of game.platforms" (click)="onSelect(game, platform)" class="btn btn-sm"
-                    [ngClass]="buttonClass[game.id+'_'+platform.id]">
-                {{platform.name}}
-            </button>
-        </section>
-    </div>
-</section>
+            <div class="col-md-8">
 
-<modal #modal (onDismiss)="initGame()">
-    <modal-header [show-close]="true" *ngIf="selectedGame">
-        <h4 class="modal-title">Nouveau Jeu • {{selectedGame.name}}</h4>
-    </modal-header>
-    <modal-body *ngIf="selectedGame">
-        <div class="gameBanner">
-            <div class="gameBannerBg" *ngIf="selectedGame.screenshots && selectedGame.screenshots.length > 0"
-                 [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_screenshot_huge/' + selectedGame.screenshots[0].cloudinaryId + '.jpg)' | safe: 'style'"></div>
-            <!--<div *ngIf="game.screenshots.length == 0" [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinarIid + '.jpg)' | safe: 'style'"></div>-->
-            <div class="gameBannerBg" *ngIf="!selectedGame.screenshots || selectedGame.screenshots.length == 0"></div>
-        </div>
+                <div class="title">
+                    {{ selectedGame.name }}
 
-        <div class="container-fluid">
-            <div *ngIf="selectedGame" class="row">
-                <div class="col-md-4 text-center">
-
-                    <img id="gameCover" *ngIf="selectedGame.cover"
-                         src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{selectedGame.cover.cloudinaryId}}.jpg"/>
-                    <div>
-                        <img class="thumbSmall" *ngFor="let sc of selectedGame.screenshots;"
-                             src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg" />
+                    <div class="navRight">
+                        <i *ngIf="selectedGame" class="hovicon fa fa-close"
+                           (click)="selectedGame = false;"></i>
                     </div>
                 </div>
 
-                <div class="col-md-8">
-
-                    <div class="title">{{ selectedGame.name }}</div>
-
-                    <game-form [game]="selectedGame"
-                               [platform]="selectedPlatform"
-                               [userGame]="selectedUserGame"
-                               (state)="formStateUpdate($event)"
-                               [action]="'new'"></game-form>
-                </div>
+                <game-form [game]="selectedGame"
+                           [platform]="selectedPlatform"
+                           [userGame]="selectedUserGame"
+                           (state)="formStateUpdate($event)"
+                           [action]="'new'"></game-form>
             </div>
         </div>
-    </modal-body>
-    <modal-footer *ngIf="selectedGame">
-        <button type="button" class="btn btn-default" data-dismiss="modal" (click)="modal.dismiss()">Annuler</button>
-    </modal-footer>
-</modal>
+    </div>
+
+</div>

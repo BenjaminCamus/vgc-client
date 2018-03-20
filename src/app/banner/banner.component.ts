@@ -39,6 +39,14 @@ export class BannerComponent {
             this.game = data.game;
         }
 
+        // ElseIf Game
+        else if (data
+            && data.screenshots
+            && data.screenshots.length > 0) {
+
+            this.game = data;
+        }
+
         // ElseIf Games (for IGDB search)
         else if (data
             && data[0]
@@ -65,7 +73,7 @@ export class BannerComponent {
             let pad = "000";
             let imageId = pad.substring(0, pad.length - str.length) + str;
 
-            image = 'assets/img/pixel-bg/pixel-background-'+imageId+'.gif';
+            image = 'assets/img/pixel-bg/pixel-background-' + imageId + '.gif';
         }
 
         if (this.image) {
@@ -87,12 +95,15 @@ export class BannerComponent {
     bannerHeight: number;
 
     @ViewChild('gameBanner') gameBanner: ElementRef;
+
     @HostListener('window:scroll', ['$event']) onWindowScroll(event) {
         this.resizeBanner();
     }
+
     @HostListener('window:resize', ['$event']) onResize(event) {
         this.resizeBanner();
     }
+
     resizeBanner() {
 
         if (this.resize) {

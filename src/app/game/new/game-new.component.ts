@@ -1,6 +1,5 @@
 import {Component, Renderer, OnInit, OnDestroy, ViewChild, EventEmitter} from '@angular/core';
 import {SlimLoadingBarService}    from 'ng2-slim-loading-bar';
-import {ModalComponent} from 'ng2-bs3-modal/ng2-bs3-modal';
 
 import {routerTransition} from '../../_animations/router.animations';
 
@@ -33,9 +32,6 @@ export class GameNewComponent {
     private buttonClass: Array<string> = [];
     private formLoading: boolean = false;
 
-    @ViewChild('modal')
-    modal: ModalComponent;
-
     @Output() state: EventEmitter<string> = new EventEmitter();
 
     constructor(private gameService: GameService,
@@ -48,13 +44,6 @@ export class GameNewComponent {
         this.slimLoadingBarService.reset();
         this.search = this.gameLocalService.getNewGameSearch();
         this.onSubmit();
-    }
-
-    initGame() {
-        if (this.slimLoadingBarService.progress == 0) {
-            this.selectedGame = null;
-            this.selectedPlatform = null;
-        }
     }
 
     ngOnDestroy() {
@@ -122,8 +111,6 @@ export class GameNewComponent {
 
         let userGame = this.getUserGameFromIgdb(game, platform);
         this.selectedUserGame = userGame;
-
-        this.modal.open();
     }
 
     setItemClass(e) {
@@ -136,8 +123,6 @@ export class GameNewComponent {
 
     formStateUpdate(event) {
 
-        this.modal.close();
-
         if (event == 'submitted') {
             this.formLoading = true;
         }
@@ -148,10 +133,3 @@ export class GameNewComponent {
         this.state.emit(event);
     }
 }
-
-
-/*
- Copyright 2016 Google Inc. All Rights Reserved.
- Use of this source code is governed by an MIT-style license that
- can be found in the LICENSE file at http://angular.io/license
- */

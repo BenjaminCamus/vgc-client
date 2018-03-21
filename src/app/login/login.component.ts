@@ -9,16 +9,16 @@ import {AuthenticationService} from "../_services/authentification.service";
     selector: 'login',
     templateUrl: './login.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': 'state', class: 'mainPage'}
+    host: {'[@routerTransition]': '', class: 'mainPage'}
 })
 export class LoginComponent implements OnInit {
-    private user: any = {};
-    private action: string = 'login';
+    user: any = {};
+    action: string = 'login';
     private error = '';
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
-                private slimLoadingBarService: SlimLoadingBarService,
+                slimLoadingBarService: SlimLoadingBarService,
                 private authenticationService: AuthenticationService) {
     }
 

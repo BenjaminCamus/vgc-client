@@ -24,7 +24,7 @@ import {OrderByPipe} from "../../_pipes/orderBy.pipe";
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': 'state', class: 'mainPage'}
+    host: {'[@routerTransition]': '', class: 'mainPage'}
 })
 export class GamesComponent implements OnInit {
 
@@ -33,8 +33,8 @@ export class GamesComponent implements OnInit {
     errorMessage: string;
 
     private subscription;
-    private userGames: UserGame[] = [];
-    private userGameFilter: UserGameFilter = new UserGameFilter();
+    userGames: UserGame[] = [];
+    userGameFilter: UserGameFilter = new UserGameFilter();
 
     userGamesDate;
     selectedUserGame: UserGame;
@@ -92,7 +92,7 @@ export class GamesComponent implements OnInit {
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private router: Router,
-                private slimLoadingBarService: SlimLoadingBarService,
+                slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
                 private filterPipe: FilterPipe,
                 private orderByPipe: OrderByPipe) {

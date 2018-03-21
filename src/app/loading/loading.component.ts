@@ -10,9 +10,9 @@ export class LoadingComponent implements OnInit {
 
     @Input() action: string;
 
-    private image: string;
-    private title: string;
-    private subtitle: string;
+    image: string;
+    title: string;
+    subtitle: string;
 
     constructor() {
     }

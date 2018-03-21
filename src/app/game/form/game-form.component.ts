@@ -124,7 +124,6 @@ export class GameFormComponent implements OnInit {
                     this.state.emit('add_'+JSON.stringify(this._userGame));
                 },
                 error => {
-                    this.slimLoadingBarService.complete();
                     this.errorMessage = <any>error;
                     this.loading = false;
                 });

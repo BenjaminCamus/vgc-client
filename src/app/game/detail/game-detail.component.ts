@@ -26,7 +26,7 @@ export class GameDetailComponent {
     @Input() userGame: UserGame;
     @Output() state: EventEmitter<string> = new EventEmitter();
 
-    private selectedGame: Game = null;
+    selectedGame: Game = null;
     private selectedPlatform: Object;
 
     private userGameFields = [];
@@ -36,7 +36,7 @@ export class GameDetailComponent {
     gameFields = ['game.series', 'releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private formAction: string;
-    private formLoading: boolean = false;
+    formLoading: boolean = false;
 
     constructor (
         private changeDetectorRef: ChangeDetectorRef

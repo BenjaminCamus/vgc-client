@@ -17,7 +17,7 @@ import {Output} from "@angular/core/src/metadata/directives";
     selector: 'game-new',
     templateUrl: './game-new.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': 'state', class: 'mainPage fakePage'}
+    host: {'[@routerTransition]': '', class: 'mainPage fakePage'}
 })
 export class GameNewComponent {
 
@@ -25,18 +25,18 @@ export class GameNewComponent {
 
     private search: string = '';
     private games: Game[];
-    private selectedGame: Game;
+    selectedGame: Game;
     private selectedPlatform;
     private selectedUserGame: UserGame = new UserGame;
     private subscription;
     private buttonClass: Array<string> = [];
-    private formLoading: boolean = false;
+    formLoading: boolean = false;
 
     @Output() state: EventEmitter<string> = new EventEmitter();
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
-                private slimLoadingBarService: SlimLoadingBarService,
+                slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,) {
     }
 

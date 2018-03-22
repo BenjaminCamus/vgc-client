@@ -92,7 +92,7 @@ export class GamesComponent implements OnInit {
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private router: Router,
-                slimLoadingBarService: SlimLoadingBarService,
+                public slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
                 private filterPipe: FilterPipe,
                 private orderByPipe: OrderByPipe) {

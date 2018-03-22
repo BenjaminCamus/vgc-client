@@ -36,7 +36,7 @@ export class GameNewComponent {
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
-                slimLoadingBarService: SlimLoadingBarService,
+                public slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,) {
     }
 

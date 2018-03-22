@@ -14,11 +14,11 @@ import {AuthenticationService} from "../_services/authentification.service";
 export class LoginComponent implements OnInit {
     user: any = {};
     action: string = 'login';
-    private error = '';
+    error = '';
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
-                slimLoadingBarService: SlimLoadingBarService,
+                public slimLoadingBarService: SlimLoadingBarService,
                 private authenticationService: AuthenticationService) {
     }
 

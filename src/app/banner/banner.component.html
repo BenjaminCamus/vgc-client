@@ -1,4 +1,4 @@
-<div *ngIf="resize" #gameBanner class="gameBanner gameBannerBig">
+<div *ngIf="resize != ''" #gameBanner class="gameBanner gameBannerBig">
 
         <div *ngIf="image != ''" class="gameBannerBg"
              [@transition]
@@ -26,4 +26,4 @@
              [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
 
-<div *ngIf="!game && message" class="gameBannerMessage">{{ message }}</div>
+<div *ngIf="!game && message != ''" class="gameBannerMessage">{{ message }}</div>

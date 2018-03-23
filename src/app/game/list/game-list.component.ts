@@ -194,6 +194,19 @@ export class GamesComponent implements OnInit {
 
     selectUserGame(userGame) {
 
+        delete userGame.fields;
+        let copy = JSON.stringify(userGame);
+        copy = copy.replace('"purchaseDate":"' + userGame.purchaseDate.toString() + '"', '"purchaseDate":"' + userGame.purchaseDate.toString().substring(0,10) + '"');
+        if (userGame.saleDate) {
+            copy = copy.replace('"saleDate":"' + userGame.saleDate.toString() + '"', '"saleDate":"' + userGame.saleDate.toString().substring(0,10) + '"');
+        }
+        console.log(copy);
+        // copy = JSON.parse(copy);
+        //
+        // copy.purchaseDate = new Date(copy.purchaseDate.timestamp * 1000);
+        //
+        // copy.purchaseDate = copy.purchaseDate.toString();
+
         this.bannerMessage = 'AUCUNE IMAGE DISPONIBLE';
 
         this.selectedUserGame = userGame;
@@ -263,9 +276,9 @@ export class GamesComponent implements OnInit {
     navUserGame(prev = false) {
         var state = prev ? 'prev' : 'next';
 
-        if (this[state+'UserGame']) {
+        if (this[state + 'UserGame']) {
             this.transitionState = state;
-            this.selectUserGame(this[state+'UserGame']);
+            this.selectUserGame(this[state + 'UserGame']);
         }
     }
 
@@ -511,7 +524,7 @@ export class GamesComponent implements OnInit {
             this.selectUserGame(null);
 
             var deleteUserGame = JSON.parse(event.substr(7));
-            this.userGames = this.userGames.filter(function(el) {
+            this.userGames = this.userGames.filter(function (el) {
                 return el.game.id !== deleteUserGame.game.id;
             });
         }

@@ -59,7 +59,7 @@ export class BannerComponent {
             this.game = null;
         }
 
-        let image = null;
+        let image = '';
 
         if (this.game) {
             let rand = Math.floor(Math.random() * this.game.screenshots.length);
@@ -76,13 +76,13 @@ export class BannerComponent {
             image = 'assets/img/pixel-bg/pixel-background-' + imageId + '.gif';
         }
 
-        if (this.image) {
-            this.image = null;
+        if (this.image != '') {
+            this.image = '';
             this.image2 = image;
         }
         else {
             this.image = image;
-            this.image2 = null;
+            this.image2 = '';
         }
     }
 

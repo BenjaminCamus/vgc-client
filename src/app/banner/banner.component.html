@@ -1,13 +1,13 @@
 <div *ngIf="resize" #gameBanner class="gameBanner gameBannerBig">
 
-        <div *ngIf="image" class="gameBannerBg"
+        <div *ngIf="image != ''" class="gameBannerBg"
              [@transition]
              [style.margin-left]="bannerMarginLeft+'px'"
              [style.width]="bannerWidth+'px'"
              [style.height]="bannerHeight+'px'"
              [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
 
-        <div *ngIf="image2" class="gameBannerBg"
+        <div *ngIf="image2 != ''" class="gameBannerBg"
              [@transition]
              [style.margin-left]="bannerMarginLeft+'px'"
              [style.width]="bannerWidth+'px'"
@@ -17,11 +17,11 @@
 
 <div *ngIf="!resize" #gameBanner class="gameBanner gameBannerBig">
 
-        <div *ngIf="image" class="gameBannerBg"
+        <div *ngIf="image != ''" class="gameBannerBg"
              [@transition]
              [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
 
-        <div *ngIf="image2" class="gameBannerBg"
+        <div *ngIf="image2 != ''" class="gameBannerBg"
              [@transition]
              [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>

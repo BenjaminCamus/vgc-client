@@ -108,9 +108,14 @@ export class GameService {
     postUserGame(userGame: UserGame): Observable<UserGame> {
 
         delete userGame.fields;
+        let userGameJson = JSON.stringify(userGame);
+        userGameJson = userGameJson.replace('"purchaseDate":' + JSON.stringify(userGame.purchaseDate), '"purchaseDate":"' + userGame.purchaseDate.toISOString().substring(0,10) + '"');
+        if (userGame.saleDate) {
+            userGameJson = userGameJson.replace('"saleDate":' + JSON.stringify(userGame.saleDate), '"saleDate":"' + userGame.saleDate.toISOString().substring(0,10) + '"');
+        }
 
         return this.http
-            .post(this.url + 'user/games/add', JSON.stringify(userGame), {headers: this.headers})
+            .post(this.url + 'user/games/add', userGameJson, {headers: this.headers})
             .map(response => {
                 var res = response.json();
                 res = this.setDates(res);

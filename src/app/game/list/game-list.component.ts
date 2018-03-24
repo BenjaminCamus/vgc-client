@@ -194,19 +194,6 @@ export class GamesComponent implements OnInit {
 
     selectUserGame(userGame) {
 
-        delete userGame.fields;
-        let copy = JSON.stringify(userGame);
-        copy = copy.replace('"purchaseDate":"' + userGame.purchaseDate.toString() + '"', '"purchaseDate":"' + userGame.purchaseDate.toString().substring(0,10) + '"');
-        if (userGame.saleDate) {
-            copy = copy.replace('"saleDate":"' + userGame.saleDate.toString() + '"', '"saleDate":"' + userGame.saleDate.toString().substring(0,10) + '"');
-        }
-        console.log(copy);
-        // copy = JSON.parse(copy);
-        //
-        // copy.purchaseDate = new Date(copy.purchaseDate.timestamp * 1000);
-        //
-        // copy.purchaseDate = copy.purchaseDate.toString();
-
         this.bannerMessage = 'AUCUNE IMAGE DISPONIBLE';
 
         this.selectedUserGame = userGame;

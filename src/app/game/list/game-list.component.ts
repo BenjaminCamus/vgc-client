@@ -360,7 +360,7 @@ export class GamesComponent implements OnInit {
                 let ugParam = type == 'platforms' ? 'platform' : type;
 
                 if (userGame[ugParam]) {
-                    if (deepIndexOf(this[type + 'Tags'], userGame[ugParam]) < 0) {
+                    if (!this[type + 'Count'][userGame[ugParam].id]) {
 
                         this[type + 'Tags'].push(userGame[ugParam]);
                         this[type + 'Count'][userGame[ugParam].id] = 0;
@@ -376,7 +376,7 @@ export class GamesComponent implements OnInit {
 
                     for (let tag of userGame.game[tagType]) {
 
-                        if (deepIndexOf(this[tagType + 'Tags'], tag) < 0) {
+                        if (!this[tagType + 'Count'][tag.id]) {
 
                             this[tagType + 'Tags'].push(tag);
                             this[tagType + 'Count'][tag.id] = 0;

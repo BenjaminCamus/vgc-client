@@ -16,7 +16,6 @@ import {FilterPipe} from "./_pipes/filter.pipe";
 import {OrderByPipe} from "./_pipes/orderBy.pipe";
 import {SafePipe} from "./_pipes/safe.pipe";
 import {TruncatePipe} from "./_pipes/truncate.pipe";
-import {InViewportModule} from "./_in-viewport/in-viewport.module";
 import {GameService} from "./_services/game.service";
 import {TagComponent} from "./tag/tag.component";
 import {LoadingComponent} from "./loading/loading.component";
@@ -44,7 +43,7 @@ import {BannerComponent} from "./banner/banner.component";
         SharedModule,
         SliderModule,
         TabViewModule,
-        InViewportModule.forRoot(),
+        //InViewportModule.forRoot(),
     ],
     declarations: [
         FilterPipe,

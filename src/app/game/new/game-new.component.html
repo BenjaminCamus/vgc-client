@@ -23,7 +23,7 @@
             </div>
         </form>
     </div>
-    <section *ngFor="let game of games" class="gameBox visible_anim" in-viewport (inViewport)="setItemClass($event)">
+    <section *ngFor="let game of games" class="gameBox visible_anim">
         <div class="gameCover" *ngIf="game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <div class=gameInfos>

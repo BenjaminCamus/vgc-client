@@ -42,7 +42,6 @@
             <div class="col-md-2">
                 <input type="text" id="rating"
                        [(ngModel)]="_userGame.rating"
-                       required
                        [formControl]="validateUserGameForm.get('rating')">
                 <span class="bar"></span>
                 <label for="rating">Note</label>
@@ -53,8 +52,8 @@
                         [(ngModel)]="_userGame.progress" name="progress"
                         #name="ngModel">
                     <option value="2">Terminé</option>
-                    <option value="1" selected>En cours</option>
-                    <option value="0">Jamais joué</option>
+                    <option value="1">En cours</option>
+                    <option value="0" selected>Jamais joué</option>
                     <option value="3">Abandonné</option>
                 </select>
                 <span class="bar"></span>
@@ -70,7 +69,6 @@
                 <div class="col-md-3" *ngIf="sp == 'purchase'">
                     <input type="text" id="priceAsked"
                            [(ngModel)]="_userGame.priceAsked"
-                           required
                            [formControl]="validateUserGameForm.get('priceAsked')">
                     <span class="bar"></span>
                     <label for="priceAsked">Prix demandé</label>
@@ -78,7 +76,6 @@
                 <div class="col-md-3" *ngIf="sp == 'purchase'">
                     <input type="text" id="pricePaid"
                            [(ngModel)]="_userGame.pricePaid"
-                           required
                            [formControl]="validateUserGameForm.get('pricePaid')">
                     <span class="bar"></span>
                     <label for="pricePaid">Prix payé</label>
@@ -86,7 +83,6 @@
                 <div class="col-md-3" *ngIf="sp == 'sale'">
                     <input type="text" id="priceResale"
                            [(ngModel)]="_userGame.priceResale"
-                           required
                            [formControl]="validateUserGameForm.get('priceResale')">
                     <span class="bar"></span>
                     <label for="priceResale">Estimation vente</label>
@@ -100,7 +96,6 @@
                 </div>
                 <div class="col-md-6">
                     <input id="{{ sp }}Date"
-                           [required]="sp == 'purchase'"
                            [formControl]="validateUserGameForm.get(sp+'Date')"
                            type="date"
                            [ngModel]="_userGame[sp+'Date'] | date:'yyyy-MM-dd'"
@@ -113,7 +108,6 @@
             <div class="row">
                 <div class="col-md-6">
                     <select id="{{ sp }}Place"
-                            [required]="sp == 'purchase'"
                             [(ngModel)]="_userGame[sp+'Place']" name="{{ sp }}Place"
                             #name="ngModel">
                         <option *ngFor="let p of places" [ngValue]="p">{{p.name}}</option>
@@ -123,7 +117,6 @@
                 </div>
                 <div class="col-md-6">
                     <select id="newContacts{{sp}}"
-                            [required]="sp == 'purchase'"
                             [(ngModel)]="_userGame[sp+'Contact']" name="newContacts{{sp}}"
                             #name="ngModel">
                         <option [ngValue]="newContact">{{newContact | formatName}}</option>

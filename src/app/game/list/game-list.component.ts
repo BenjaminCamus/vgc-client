@@ -528,7 +528,17 @@ export class GamesComponent implements OnInit {
                 userGame.releaseDate = new Date(userGame.releaseDate);
             }
 
-            this.userGames.push(userGame);
+            let index = this.userGames.findIndex(function (cur) {
+                return userGame.game.id === cur.game.id && userGame.platform.id === cur.platform.id;
+            });
+            if (index === -1) {
+                this.userGames.push(userGame);
+            }
+            else {
+                this.userGames[index] = userGame;
+            }
+
+            this.openUserGame(userGame);
         }
 
         this.setFilters();

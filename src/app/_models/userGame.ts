@@ -32,6 +32,9 @@ export class UserGame {
 
     fields = [];
 
+    createdAt: any;
+    updatedAt: any;
+
     constructor() {
 
         this.fields['game.name'] = {type: 'string', label: 'Titre'};

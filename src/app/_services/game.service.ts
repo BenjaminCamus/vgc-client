@@ -111,7 +111,9 @@ export class GameService {
         delete userGame.createdAt;
         delete userGame.updatedAt;
         let userGameJson = JSON.stringify(userGame);
-        userGameJson = userGameJson.replace('"purchaseDate":' + JSON.stringify(userGame.purchaseDate), '"purchaseDate":"' + userGame.purchaseDate.toISOString().substring(0,10) + '"');
+        if (userGame.purchaseDate) {
+            userGameJson = userGameJson.replace('"purchaseDate":' + JSON.stringify(userGame.purchaseDate), '"purchaseDate":"' + userGame.purchaseDate.toISOString().substring(0,10) + '"');
+        }
         if (userGame.saleDate) {
             userGameJson = userGameJson.replace('"saleDate":' + JSON.stringify(userGame.saleDate), '"saleDate":"' + userGame.saleDate.toISOString().substring(0,10) + '"');
         }

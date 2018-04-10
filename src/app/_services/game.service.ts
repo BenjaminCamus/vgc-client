@@ -108,6 +108,8 @@ export class GameService {
     postUserGame(userGame: UserGame): Observable<UserGame> {
 
         delete userGame.fields;
+        delete userGame.createdAt;
+        delete userGame.updatedAt;
         let userGameJson = JSON.stringify(userGame);
         userGameJson = userGameJson.replace('"purchaseDate":' + JSON.stringify(userGame.purchaseDate), '"purchaseDate":"' + userGame.purchaseDate.toISOString().substring(0,10) + '"');
         if (userGame.saleDate) {

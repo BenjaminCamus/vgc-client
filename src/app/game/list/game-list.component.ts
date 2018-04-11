@@ -28,6 +28,8 @@ import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 })
 export class GamesComponent implements OnInit {
 
+    loading: boolean = false;
+
     title = 'VGC';
 
     errorMessage: string;
@@ -506,7 +508,10 @@ export class GamesComponent implements OnInit {
 
     detailStateUpdate(event) {
 
-        if (event.substr(0, 7) == 'delete_') {
+        if (event == 'submitted') {
+            this.loading = true;
+        }
+        else if (event.substr(0, 7) == 'delete_') {
             this.closeUserGame();
             this.selectUserGame(null);
 
@@ -514,6 +519,10 @@ export class GamesComponent implements OnInit {
             this.userGames = this.userGames.filter(function (el) {
                 return el.game.id !== deleteUserGame.game.id;
             });
+
+            this.setFilters();
+
+            this.loading = false;
         }
         else if (event.substr(0, 4) == 'add_') {
             this.closeNewUserGame();
@@ -539,8 +548,10 @@ export class GamesComponent implements OnInit {
             }
 
             this.openUserGame(userGame);
-        }
 
-        this.setFilters();
+            this.setFilters();
+
+            this.loading = false;
+        }
     }
 }

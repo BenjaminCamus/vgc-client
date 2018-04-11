@@ -36,7 +36,6 @@ export class GameDetailComponent {
     gameFields = ['game.series', 'releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private formAction: string;
-    formLoading: boolean = false;
 
     constructor (
         private changeDetectorRef: ChangeDetectorRef
@@ -69,13 +68,6 @@ export class GameDetailComponent {
      * On form state update: emit event
      */
     formStateUpdate(event) {
-
-        if (event == 'submitted') {
-            this.formLoading = true;
-        }
-        else {
-            this.formLoading = false;
-        }
 
         this.state.emit(event);
     }

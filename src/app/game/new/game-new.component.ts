@@ -30,7 +30,6 @@ export class GameNewComponent {
     private selectedUserGame: UserGame = new UserGame;
     private subscription;
     private buttonClass: Array<string> = [];
-    formLoading: boolean = false;
 
     @Output() state: EventEmitter<string> = new EventEmitter();
 
@@ -122,13 +121,6 @@ export class GameNewComponent {
     }
 
     formStateUpdate(event) {
-
-        if (event == 'submitted') {
-            this.formLoading = true;
-        }
-        else {
-            this.formLoading = false;
-        }
 
         this.state.emit(event);
     }

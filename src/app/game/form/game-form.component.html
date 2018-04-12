@@ -2,7 +2,7 @@
 
     <div *ngIf="action == 'new' || action == 'edit'" class="container-fluid">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <input *ngIf="!game.platforms" disabled type="text" [value]="_userGame.platform.name"/>
                 <select *ngIf="game.platforms" id="selectedPlatform"
                         required
@@ -13,7 +13,30 @@
                 <span class="bar"></span>
                 <label for="selectedPlatform">Plateforme</label>
             </div>
-            <div class="col-md-2">
+            <div class="col-md-4">
+                <select id="state"
+                        required
+                        [(ngModel)]="_userGame.version" name="version"
+                        #name="ngModel">
+                    <option value="FRA" selected>Complet</option>
+                    <option value="EUR">Sans Notice</option>
+                    <option value="JAP">Sans boîte</option>
+                    <option value="USA">Loose</option>
+                    <option value="USA">Dématérialisé</option>
+                </select>
+                <span class="bar"></span>
+                <label for="state">Jeu</label>
+            </div>
+            <div class="col-md-4">
+                <input type="text" id="rating"
+                       [(ngModel)]="_userGame.rating"
+                       [formControl]="validateUserGameForm.get('rating')">
+                <span class="bar"></span>
+                <label for="rating">Note</label>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
                 <select id="version"
                         required
                         [(ngModel)]="_userGame.version" name="version"
@@ -26,28 +49,21 @@
                 <span class="bar"></span>
                 <label for="version">Version</label>
             </div>
-            <div class="col-md-2">
-                <div>
-                    <input type="checkbox" checked id="box"
-                           [(ngModel)]="_userGame.box" name="box"
-                           #name="ngModel">
-                    <label for="box">Boîte</label>
-                </div>
-                <div>
-                    <input type="checkbox" checked id="manual"
-                           [(ngModel)]="_userGame.manual" name="manual"
-                           #name="ngModel">
-                    <label for="manual">Livret</label>
-                </div>
-            </div>
-            <div class="col-md-2">
-                <input type="text" id="rating"
-                       [(ngModel)]="_userGame.rating"
-                       [formControl]="validateUserGameForm.get('rating')">
+            <div class="col-md-4">
+                <select id="condition"
+                        required
+                        [(ngModel)]="_userGame.version" name="version"
+                        #name="ngModel">
+                    <option value="FRA" selected>Très Bon État</option>
+                    <option value="EUR">Bon État</option>
+                    <option value="JAP">Bof bof</option>
+                    <option value="USA">Near Mint</option>
+                    <option value="USA">Mint !!</option>
+                </select>
                 <span class="bar"></span>
-                <label for="rating">Note</label>
+                <label for="condition">État</label>
             </div>
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <select id="progress"
                         required
                         [(ngModel)]="_userGame.progress" name="progress"

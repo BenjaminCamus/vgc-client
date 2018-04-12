@@ -13,14 +13,6 @@ import {orderByName} from "../../functions";
 import {Contact, NewContact} from "../../_models/contact";
 import {GameLocalService} from "../../_services/gameLocal.service";
 
-function validatePrice(fc) {
-    let val = fc.value;
-    if (!val || val == '' || CustomValidators.digits(fc) === null) {
-        return null;
-    }
-    return {invalidPrice: true};
-}
-
 @Component({
     moduleId: module.id,
     providers: [GameService],
@@ -60,11 +52,11 @@ export class GameFormComponent implements OnInit {
                 private router: Router,
                 private fb: FormBuilder,) {
         this.validateUserGameForm = fb.group({
-            'rating': ['', [CustomValidators.range([0, 20])]],
-            'priceAsked': ['', [validatePrice]],
-            'pricePaid': ['', [validatePrice]],
-            'priceResale': ['', [validatePrice]],
-            'priceSold': ['', [validatePrice]],
+            'rating': ['', [CustomValidators.digits, CustomValidators.range([0, 20])]],
+            'priceAsked': ['', [CustomValidators.number]],
+            'pricePaid': ['', [CustomValidators.number]],
+            'priceResale': ['', [CustomValidators.number]],
+            'priceSold': ['', [CustomValidators.number]],
             'purchaseDate': ['', [CustomValidators.date]],
             'saleDate': ['', [CustomValidators.date]]
         });

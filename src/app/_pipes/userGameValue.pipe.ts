@@ -27,7 +27,7 @@ export class UserGameValuePipe {
             var value = userGame[field.name];
         }
 
-        if ((!value || value.length == 0) && field.type != 'state' && field.type != 'progress') {
+        if ((!value || value.length == 0) && field.type != 'state' && field.type != 'progress' && field.type != 'cond') {
             return '•';
         }
 
@@ -42,21 +42,20 @@ export class UserGameValuePipe {
                 value = this.formatNamePipe.transform(value);
                 break;
             case 'state':
-                if (userGame.box) {
-                    if (userGame.manual) {
-                        value = 'Complet';
-                    }
-                    else {
-                        value = 'Boîte sans livret';
-                    }
+                if (value == 0) {
+                    value = 'Loose';
                 }
-                else {
-                    if (userGame.manual) {
-                        value = 'Livret sans boîte';
-                    }
-                    else {
-                        value = 'Loose';
-                    }
+                else if (value == 1) {
+                    value = 'Sans Notice';
+                }
+                else if (value == 2) {
+                    value = 'Sans Boîte';
+                }
+                else if (value == 3) {
+                    value = 'Complet';
+                }
+                else if (value == 4) {
+                    value = 'Dématérialisé';
                 }
                 break;
             case 'progress':
@@ -71,6 +70,23 @@ export class UserGameValuePipe {
                 }
                 else if (value == 3) {
                     value = 'Abandonné';
+                }
+                break;
+            case 'cond':
+                if (value == 0) {
+                    value = 'Bof Bof';
+                }
+                else if (value == 1) {
+                    value = 'Bon État';
+                }
+                else if (value == 2) {
+                    value = 'Très Bon État';
+                }
+                else if (value == 3) {
+                    value = 'Near Mint';
+                }
+                else if (value == 4) {
+                    value = 'Mint !!';
                 }
                 break;
             case 'tags':

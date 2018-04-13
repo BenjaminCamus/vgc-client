@@ -29,6 +29,8 @@ export class FilterPipe implements PipeTransform {
             && this.filterTags('salePlace', filter, item)
             && this.filterTags('saleContact', filter, item)
             && this.filterTags('progress', filter, item)
+            && this.filterTags('cond', filter, item)
+            && this.filterTags('state', filter, item)
             && this.filterTags('version', filter, item)
             && this.filterTags('series', filter, item)
             && this.filterTags('developers', filter, item)
@@ -73,23 +75,6 @@ export class FilterPipe implements PipeTransform {
              */
             if (item.purchaseDate) {
                 return this.filterRange(filter.purchaseYearRange, item.purchaseDate.getFullYear());
-            }
-
-            return true;
-        }).filter(item => {
-            /**
-             * Box / Manual
-             */
-            if (filter.box || filter.manual) {
-                if (filter.box && filter.manual) {
-                    return item.box && item.box;
-                }
-                else if (filter.box) {
-                    return item.box;
-                }
-                else if (filter.manual) {
-                    return item.manual;
-                }
             }
 
             return true;

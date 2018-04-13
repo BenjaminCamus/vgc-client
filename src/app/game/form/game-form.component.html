@@ -16,13 +16,13 @@
             <div class="col-md-4">
                 <select id="state"
                         required
-                        [(ngModel)]="_userGame.version" name="version"
+                        [(ngModel)]="_userGame.state" name="state"
                         #name="ngModel">
-                    <option value="FRA" selected>Complet</option>
-                    <option value="EUR">Sans Notice</option>
-                    <option value="JAP">Sans boîte</option>
-                    <option value="USA">Loose</option>
-                    <option value="USA">Dématérialisé</option>
+                    <option value="0">Loose</option>
+                    <option value="1">Sans Notice</option>
+                    <option value="2">Sans Boîte</option>
+                    <option value="3" selected>Complet</option>
+                    <option value="4">Dématérialisé</option>
                 </select>
                 <span class="bar"></span>
                 <label for="state">Jeu</label>
@@ -50,18 +50,18 @@
                 <label for="version">Version</label>
             </div>
             <div class="col-md-4">
-                <select id="condition"
+                <select id="cond"
                         required
-                        [(ngModel)]="_userGame.version" name="version"
+                        [(ngModel)]="_userGame.cond" name="cond"
                         #name="ngModel">
-                    <option value="FRA" selected>Très Bon État</option>
-                    <option value="EUR">Bon État</option>
-                    <option value="JAP">Bof bof</option>
-                    <option value="USA">Near Mint</option>
-                    <option value="USA">Mint !!</option>
+                    <option value="0">Bof Bof</option>
+                    <option value="1">Bon État</option>
+                    <option value="2" selected>Très Bon État</option>
+                    <option value="3">Near Mint</option>
+                    <option value="4">Mint !!</option>
                 </select>
                 <span class="bar"></span>
-                <label for="condition">État</label>
+                <label for="cond">État</label>
             </div>
             <div class="col-md-4">
                 <select id="progress"

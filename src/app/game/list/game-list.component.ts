@@ -53,7 +53,7 @@ export class GamesComponent implements OnInit {
 
     userGameFields = [];
 
-    tableFields = ['progress', 'game.name', 'version', 'state', 'rating',
+    tableFields = ['progress', 'cond', 'game.name', 'version', 'state', 'rating',
         'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
         'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
 
@@ -88,8 +88,8 @@ export class GamesComponent implements OnInit {
 
     versionCount: number[] = [];
     progressCount: number[] = [];
-    boxCount: number = 0;
-    manualCount: number = 0;
+    condCount: number[] = [];
+    stateCount: number[] = [];
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -303,8 +303,8 @@ export class GamesComponent implements OnInit {
 
         this.versionCount = [];
         this.progressCount = [];
-        this.boxCount = 0;
-        this.manualCount = 0;
+        this.condCount = [];
+        this.stateCount = [];
 
         var minRating = 20;
         var maxRating = 0;
@@ -389,14 +389,6 @@ export class GamesComponent implements OnInit {
                 }
             }
 
-            if (userGame.box) {
-                this.boxCount++;
-            }
-
-            if (userGame.manual) {
-                this.manualCount++;
-            }
-
             if (!this.versionCount[userGame.version]) {
                 this.versionCount[userGame.version] = 0;
             }
@@ -406,6 +398,16 @@ export class GamesComponent implements OnInit {
                 this.progressCount[userGame.progress] = 0;
             }
             this.progressCount[userGame.progress]++;
+
+            if (!this.condCount[userGame.cond]) {
+                this.condCount[userGame.cond] = 0;
+            }
+            this.condCount[userGame.cond]++;
+
+            if (!this.stateCount[userGame.state]) {
+                this.stateCount[userGame.state] = 0;
+            }
+            this.stateCount[userGame.state]++;
 
             // UserGame Local Storage
             this.gameLocalService.setUserGame(userGame);
@@ -452,7 +454,9 @@ export class GamesComponent implements OnInit {
             case 'purchaseContacts':
             case 'saleContacts':
             case 'progresses':
+            case 'conds':
             case 'versions':
+            case 'states':
 
                 if (active) {
                     this.userGameFilter.addElement(type, tag);
@@ -475,12 +479,6 @@ export class GamesComponent implements OnInit {
                 else {
                     this.userGameFilter.game.removeTag(type, tag);
                 }
-                break;
-
-            case 'box':
-            case 'manual':
-
-                this.userGameFilter[type] = active;
                 break;
         }
 
@@ -529,7 +527,9 @@ export class GamesComponent implements OnInit {
 
             var userGame = JSON.parse(event.substr(4));
 
-            userGame.purchaseDate = new Date(userGame.purchaseDate);
+            if (userGame.purchaseDate) {
+                userGame.purchaseDate = new Date(userGame.purchaseDate);
+            }
             if (userGame.saleDate) {
                 userGame.saleDate = new Date(userGame.saleDate);
             }

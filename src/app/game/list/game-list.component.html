@@ -88,10 +88,7 @@
                     <div *ngIf="userGame.game.series[0]">Série {{ userGame.game.series[0].name }}</div>
                     <div *ngIf="userGame.game.developers[0]">Développeur {{ userGame.game.developers[0].name }}</div>
                     {{ userGame.version }}
-                    <span *ngIf="userGame.box && userGame.manual">Complet</span>
-                    <span *ngIf="userGame.box && !userGame.manual">Boîte sans livret</span>
-                    <span *ngIf="!userGame.box && userGame.manual">Livret sans boîte</span>
-                    <span *ngIf="!userGame.box && !userGame.manual">Loose</span>
+                    {{ userGame | userGameValue: userGameFields['state'] }}
                 </div>
             </div>
             <div class="row">
@@ -284,16 +281,6 @@
                     </div>
                     <div class="col-md-3">
                         <div>
-                            <tag [tag]="'Boîte'"
-                                 [filter]="userGameFilter.box"
-                                 [suffix]="boxCount"
-                                 (uploaded)="toggleTag('box', $event)"></tag>
-                            <tag [tag]="'Livret'"
-                                 [filter]="userGameFilter.manual"
-                                 [suffix]="manualCount"
-                                 (uploaded)="toggleTag('manual', $event)"></tag>
-                        </div>
-                        <div>
                             <label>Version</label><br>
                             <tag [tag]="'FRA'"
                                  [filter]="userGameFilter.versions"
@@ -311,6 +298,34 @@
                                  [filter]="userGameFilter.versions"
                                  [suffix]="versionCount['USA']"
                                  (uploaded)="toggleTag('versions', $event, 'USA')"></tag>
+                        </div>
+                        <div>
+                            <label>Jeu</label><br>
+                            <tag [tag]="'Loose'"
+                                 [value]="0"
+                                 [filter]="userGameFilter.states"
+                                 [suffix]="stateCount[0]"
+                                 (uploaded)="toggleTag('states', $event, 0)"></tag>
+                            <tag [tag]="'Sans Notice'"
+                                 [value]="1"
+                                 [filter]="userGameFilter.states"
+                                 [suffix]="stateCount[1]"
+                                 (uploaded)="toggleTag('states', $event, 1)"></tag>
+                            <tag [tag]="'Sans Boîte'"
+                                 [value]="2"
+                                 [filter]="userGameFilter.states"
+                                 [suffix]="stateCount[2]"
+                                 (uploaded)="toggleTag('states', $event, 2)"></tag>
+                            <tag [tag]="'Complet'"
+                                 [value]="3"
+                                 [filter]="userGameFilter.states"
+                                 [suffix]="stateCount[3]"
+                                 (uploaded)="toggleTag('states', $event, 3)"></tag>
+                            <tag [tag]="'Dématérialisé'"
+                                 [value]="4"
+                                 [filter]="userGameFilter.states"
+                                 [suffix]="stateCount[4]"
+                                 (uploaded)="toggleTag('states', $event, 4)"></tag>
                         </div>
                         <div>
                             <label>Progression</label><br>
@@ -332,6 +347,34 @@
                             <tag [tag]="'Abandonné'" [value]="3" [filter]="userGameFilter.progresses"
                                  [suffix]="progressCount[3]"
                                  (uploaded)="toggleTag('progresses', $event, 3)"></tag>
+                        </div>
+                        <div>
+                            <label>État</label><br>
+                            <tag [tag]="'Très Bon État'"
+                                 [value]="2"
+                                 [filter]="userGameFilter.conds"
+                                 [suffix]="condCount[2]"
+                                 (uploaded)="toggleTag('conds', $event, 2)"></tag>
+                            <tag [tag]="'Bon État'"
+                                 [value]="1"
+                                 [filter]="userGameFilter.conds"
+                                 [suffix]="condCount[1]"
+                                 (uploaded)="toggleTag('conds', $event, 1)"></tag>
+                            <tag [tag]="'Bof Bof'"
+                                 [value]="0"
+                                 [filter]="userGameFilter.conds"
+                                 [suffix]="condCount[0]"
+                                 (uploaded)="toggleTag('conds', $event, 0)"></tag>
+                            <tag [tag]="'Near Mint'"
+                                 [value]="3"
+                                 [filter]="userGameFilter.conds"
+                                 [suffix]="condCount[3]"
+                                 (uploaded)="toggleTag('conds', $event, 3)"></tag>
+                            <tag [tag]="'Mint !!'"
+                                 [value]="4"
+                                 [filter]="userGameFilter.conds"
+                                 [suffix]="condCount[4]"
+                                 (uploaded)="toggleTag('conds', $event, 4)"></tag>
                         </div>
                         <div>
                             <label for="name">Lieu Achat</label><br>

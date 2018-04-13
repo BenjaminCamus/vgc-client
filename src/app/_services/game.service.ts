@@ -52,7 +52,9 @@ export class GameService {
 
     setDates(userGame) {
 
-        userGame.purchaseDate = new Date(userGame.purchaseDate.timestamp * 1000);
+        if (userGame.purchaseDate) {
+            userGame.purchaseDate = new Date(userGame.purchaseDate.timestamp * 1000);
+        }
         if (userGame.saleDate) {
             userGame.saleDate = new Date(userGame.saleDate.timestamp * 1000);
         }

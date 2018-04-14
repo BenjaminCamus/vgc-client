@@ -12,7 +12,7 @@ export class UserGame {
     version: string = 'FRA';
     progress: number = 0;
     cond: number = 2;
-    state: number = 3;
+    completeness: number = 3;
 
     priceAsked: number;
     pricePaid: number;
@@ -53,7 +53,7 @@ export class UserGame {
         this.fields['progress'] = {type: 'progress', label: 'Progression'};
         this.fields['cond'] = {type: 'cond', label: 'État'};
         this.fields['version'] = {type: 'string', label: 'Version'};
-        this.fields['state'] = {type: 'state', label: 'Jeu'};
+        this.fields['completeness'] = {type: 'completeness', label: 'Jeu'};
         this.fields['rating'] = {type: 'string', label: 'Note'};
         this.fields['pricePaid'] = {type: 'price', label: 'Payé'};
         this.fields['priceAsked'] = {type: 'price', label: 'Demandé'};

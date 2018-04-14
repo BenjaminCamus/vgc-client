@@ -27,7 +27,7 @@ export class UserGameValuePipe {
             var value = userGame[field.name];
         }
 
-        if ((!value || value.length == 0) && field.type != 'state' && field.type != 'progress' && field.type != 'cond') {
+        if ((!value || value.length == 0) && field.type != 'completeness' && field.type != 'progress' && field.type != 'cond') {
             return '•';
         }
 
@@ -41,7 +41,7 @@ export class UserGameValuePipe {
             case 'name':
                 value = this.formatNamePipe.transform(value);
                 break;
-            case 'state':
+            case 'completeness':
                 if (value == 0) {
                     value = 'Loose';
                 }

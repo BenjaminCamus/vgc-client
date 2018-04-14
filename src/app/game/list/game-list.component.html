@@ -73,7 +73,7 @@
 
     <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
              (click)="openUserGame(userGame)"
-             (mouseenter)="selectUserGame(userGame)"
+             (mouseenter)="userGameHover(userGame)"
              class="gameBox visible_anim"
              [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
         <!--in-viewport (inViewport)="setItemClass($event)"-->
@@ -88,7 +88,7 @@
                     <div *ngIf="userGame.game.series[0]">Série {{ userGame.game.series[0].name }}</div>
                     <div *ngIf="userGame.game.developers[0]">Développeur {{ userGame.game.developers[0].name }}</div>
                     {{ userGame.version }}
-                    {{ userGame | userGameValue: userGameFields['state'] }}
+                    {{ userGame | userGameValue: userGameFields['completeness'] }}
                 </div>
             </div>
             <div class="row">
@@ -303,29 +303,29 @@
                             <label>Jeu</label><br>
                             <tag [tag]="'Loose'"
                                  [value]="0"
-                                 [filter]="userGameFilter.states"
-                                 [suffix]="stateCount[0]"
-                                 (uploaded)="toggleTag('states', $event, 0)"></tag>
+                                 [filter]="userGameFilter.completenesss"
+                                 [suffix]="completenessCount[0]"
+                                 (uploaded)="toggleTag('completenesss', $event, 0)"></tag>
                             <tag [tag]="'Sans Notice'"
                                  [value]="1"
-                                 [filter]="userGameFilter.states"
-                                 [suffix]="stateCount[1]"
-                                 (uploaded)="toggleTag('states', $event, 1)"></tag>
+                                 [filter]="userGameFilter.completenesss"
+                                 [suffix]="completenessCount[1]"
+                                 (uploaded)="toggleTag('completenesss', $event, 1)"></tag>
                             <tag [tag]="'Sans Boîte'"
                                  [value]="2"
-                                 [filter]="userGameFilter.states"
-                                 [suffix]="stateCount[2]"
-                                 (uploaded)="toggleTag('states', $event, 2)"></tag>
+                                 [filter]="userGameFilter.completenesss"
+                                 [suffix]="completenessCount[2]"
+                                 (uploaded)="toggleTag('completenesss', $event, 2)"></tag>
                             <tag [tag]="'Complet'"
                                  [value]="3"
-                                 [filter]="userGameFilter.states"
-                                 [suffix]="stateCount[3]"
-                                 (uploaded)="toggleTag('states', $event, 3)"></tag>
+                                 [filter]="userGameFilter.completenesss"
+                                 [suffix]="completenessCount[3]"
+                                 (uploaded)="toggleTag('completenesss', $event, 3)"></tag>
                             <tag [tag]="'Dématérialisé'"
                                  [value]="4"
-                                 [filter]="userGameFilter.states"
-                                 [suffix]="stateCount[4]"
-                                 (uploaded)="toggleTag('states', $event, 4)"></tag>
+                                 [filter]="userGameFilter.completenesss"
+                                 [suffix]="completenessCount[4]"
+                                 (uploaded)="toggleTag('completenesss', $event, 4)"></tag>
                         </div>
                         <div>
                             <label>Progression</label><br>

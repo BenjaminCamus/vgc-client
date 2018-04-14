@@ -30,7 +30,7 @@ export class GameDetailComponent {
     private selectedPlatform: Object;
 
     private userGameFields = [];
-    userFields = [['version', 'state', 'rating', 'progress', 'cond'],
+    userFields = [['version', 'completeness', 'rating', 'progress', 'cond'],
         ['pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact'],
         ['priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact']];
     gameFields = ['game.series', 'releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];

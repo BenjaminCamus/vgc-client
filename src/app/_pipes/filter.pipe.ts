@@ -30,7 +30,7 @@ export class FilterPipe implements PipeTransform {
             && this.filterTags('saleContact', filter, item)
             && this.filterTags('progress', filter, item)
             && this.filterTags('cond', filter, item)
-            && this.filterTags('state', filter, item)
+            && this.filterTags('completeness', filter, item)
             && this.filterTags('version', filter, item)
             && this.filterTags('series', filter, item)
             && this.filterTags('developers', filter, item)

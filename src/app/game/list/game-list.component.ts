@@ -414,9 +414,6 @@ export class GamesComponent implements OnInit {
                 this.completenessCount[userGame.completeness] = 0;
             }
             this.completenessCount[userGame.completeness]++;
-
-            // UserGame Local Storage
-            this.gameLocalService.setUserGame(userGame);
         }
 
         // orderByCount

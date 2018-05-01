@@ -55,7 +55,8 @@ export class GameLocalService {
         return localStorage.setItem(this.userGamesLocalId, JSON.stringify(userGames));
     }
 
-    getUserGame(userGame: UserGame, igdb: boolean = false) {
+    getUserGame(userGame: UserGame) {
+
 
         let userGames = this.getUserGames();
 
@@ -64,12 +65,9 @@ export class GameLocalService {
         }
         else {
             let index = userGames.findIndex(function (cur) {
-                if (igdb) {
-                    return userGame.game.id === cur.game.igdbId && userGame.platform.id === cur.platform.igdbId;
-                }
-
                 return userGame.game.slug === cur.game.slug && userGame.platform.slug === cur.platform.slug;
             });
+
             if (index === -1) {
                 return userGame;
             }

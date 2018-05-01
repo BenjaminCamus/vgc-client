@@ -90,7 +90,7 @@ export class GameNewComponent {
         newPlatform.id = platform.id;
         userGame.platform = newPlatform;
 
-        return this.gameLocalService.getUserGame(userGame, true);
+        return this.gameLocalService.getUserGame(userGame);
     }
 
     getPlatformButtonClass(game: Game, platform) {

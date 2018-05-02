@@ -38,5 +38,10 @@
     "id": "295a5356-2b98-11e8-a3dd-0007cb036023",
     "name": "Steam",
     "slug": "steam"
+  },
+  {
+    "id": "626b556c-4deb-11e8-9296-0007cb036023",
+    "name": "RushOnGame",
+    "slug": "rushongame"
   }
 ]

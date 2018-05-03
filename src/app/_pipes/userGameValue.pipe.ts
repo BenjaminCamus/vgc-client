@@ -57,6 +57,9 @@ export class UserGameValuePipe {
                 else if (value == 4) {
                     value = 'Dématérialisé';
                 }
+                else if (value == 5) {
+                    value = 'Neuf';
+                }
                 break;
             case 'progress':
                 if (value == 0) {

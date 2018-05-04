@@ -546,12 +546,12 @@ export class GamesComponent implements OnInit {
             });
             if (index === -1) {
                 this.userGames.push(userGame);
-                this.selectUserGame(userGame);
             }
             else {
                 this.userGames[index] = userGame;
-                this.openUserGame(userGame);
             }
+
+            this.selectUserGame(userGame);
 
             this.setFilters();
 

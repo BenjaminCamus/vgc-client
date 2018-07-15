@@ -1,6 +1,5 @@
 import {Component, Renderer, OnInit} from '@angular/core';
 import {Router}            from '@angular/router';
-import {SlimLoadingBarService} from 'ng2-slim-loading-bar';
 import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
 import {GameLocalService}       from '../../_services/gameLocal.service';
@@ -35,6 +34,8 @@ export class GamesComponent implements OnInit {
     errorMessage: string;
 
     private subscription;
+    private numCall = 0;
+    private totalCalls = 0;
     userGames: UserGame[] = [];
     userGameFilter: UserGameFilter = new UserGameFilter();
 
@@ -48,8 +49,6 @@ export class GamesComponent implements OnInit {
 
     displayUserGame: boolean = false;
     displayNewUserGame: boolean = false;
-
-    bannerMessage: string;
 
     userGameFields = [];
 
@@ -94,7 +93,6 @@ export class GamesComponent implements OnInit {
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private router: Router,
-                public slimLoadingBarService: SlimLoadingBarService,
                 private renderer: Renderer,
                 private filterPipe: FilterPipe,
                 private orderByPipe: OrderByPipe) {
@@ -128,7 +126,7 @@ export class GamesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.slimLoadingBarService.reset();
+        this.loading = false;
 
         this.userGames = this.gameLocalService.getUserGames();
         this.userGamesDate = this.gameLocalService.getUserGamesDate();
@@ -147,36 +145,56 @@ export class GamesComponent implements OnInit {
 
     getGames() {
 
-        if (this.slimLoadingBarService.progress == 0) {
+        if (!this.loading) {
 
-            this.slimLoadingBarService.start();
-            this.bannerMessage = 'SYNCHRONISATION EN COURS';
+            this.loading = true;
 
-            this.subscription = this.gameService.getUserGames().subscribe(
-                userGames => {
+            this.subscription = this.gameService.countUserGames().subscribe(
+                count => {
 
-                    userGames.sort(orderByName);
-                    this.userGames = userGames;
+                    this.userGames = [];
+                    this.totalCalls = Math.floor(count / 10);
+                    this.numCall = 0;
+                    console.log(count);
+                    console.log(this.totalCalls);
+                    this.getGamesPack();
 
-                    if (userGames.length == 0) {
-                        this.bannerMessage = 'AUCUN JEU';
-                    }
-                    else {
-                        this.bannerMessage = 'AUCUNE IMAGE DISPONIBLE';
-                    }
+                },
+                error => {
+                    this.loading = false;
+                    this.errorMessage = <any>error;
+                });
+        }
+    }
+
+    private getGamesPack() {
+
+        this.subscription = this.gameService.getUserGames(this.numCall * 10, 10).subscribe(
+            userGames => {
+
+                this.userGames.push.apply(this.userGames, userGames);
+
+                if (this.numCall < this.totalCalls) {
+                    this.numCall++;
+                    this.getGamesPack();
+                }
+                else {
+
+                    this.userGames.sort(orderByName);
 
                     this.gameLocalService.setUserGames(this.userGames);
                     this.userGamesDate = this.gameLocalService.setUserGamesDate();
 
                     this.setFilters();
 
-                    this.slimLoadingBarService.complete();
-                },
-                error => {
-                    this.slimLoadingBarService.complete();
-                    this.errorMessage = <any>error;
-                });
-        }
+                    this.loading = false;
+                }
+            },
+            error => {
+                this.loading = false;
+                this.errorMessage = <any>error;
+            });
+
     }
 
     openNewUserGame() {
@@ -195,8 +213,6 @@ export class GamesComponent implements OnInit {
     }
 
     selectUserGame(userGame) {
-
-        this.bannerMessage = 'AUCUNE IMAGE DISPONIBLE';
 
         this.selectedUserGame = userGame;
 

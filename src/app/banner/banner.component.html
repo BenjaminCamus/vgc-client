@@ -26,4 +26,4 @@
              [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
 
-<div *ngIf="!game && message != ''" class="gameBannerMessage">{{ message }}</div>
+<div *ngIf="game" class="gameBannerMessage">{{ game.name }}</div>

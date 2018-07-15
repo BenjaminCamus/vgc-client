@@ -1,0 +1,105 @@
+
+.progressLoading {
+  position: relative;
+  overflow: hidden;
+  border-radius: 50%;
+  width: 240px;
+  height: 240px;
+  border: 5px solid transparent;
+  text-align: center;
+  transition: all 2s ease;
+  color: transparent;
+  left: 50%;
+  margin-left: -135px;
+  margin-top: 20px;
+  background: rgba(0, 0, 0, 0.6);
+}
+
+.water {
+  position: absolute;
+  z-index: 1;
+  width: 200%;
+  height: 200%;
+  left: -50%;
+  border-radius: 40%;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+  animation-name: spin;
+  top: 100%;
+  transition: background 2s ease;
+  animation-duration: 10s;
+}
+
+.percent {
+  font-weight: bold;
+  line-height: 100px;
+  margin-top: 50px;
+  font-size: 0;
+}
+
+.sub {
+  font-size: 20px;
+}
+
+.green {
+  border-color: rgba(83,252,83,0.5);
+  color: #03c603;
+}
+.green .water {
+  background: rgba(83,252,83,0.5);
+}
+.green .percent {
+}
+
+.orange {
+  border-color: rgba(240,124,62,0.5);
+  color: #a8430d;
+}
+.orange .water {
+  background: rgba(240,124,62,0.5);
+}
+.orange .percent {
+}
+
+.red {
+  border-color: rgba(237,59,59,0.5);
+  color: #a30f0f;
+}
+.red .water {
+  background: rgba(237,59,59,0.5);
+}
+.red .percent {
+}
+
+@-moz-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

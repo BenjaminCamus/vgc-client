@@ -4,5 +4,12 @@
     <div class="gameBannerMessage">
         {{title}}
         <div style="font-size: 14px; margin-top: 15px;">{{subtitle}}</div>
+
+
+        <div class="progressLoading" *ngIf="action == 'sync'" [ngClass]="color">
+            <div class="percent" [style.font-size]="(30 + (currentProgress * 100 / total) * 40 / 100) + 'px'">{{ (currentProgress * 100 / total) | number:'1.0-0' }}%</div>
+            <div class="sub" *ngIf="total > 0">{{ currentProgress + ' / ' + total }} jeux</div>
+            <div class="water" [style.top]="(100 - (currentProgress * 100 / total)) + '%'"></div>
+        </div>
     </div>
 </div>

@@ -1,35 +1,49 @@
 .tag {
   display: inline-block;
   cursor: pointer;
-  padding: 1px 5px 0 5px;
-  background: $colorTag;
-  transition: background-color 0.4s ease-in;
-  border: 1px solid rgba(255, 255, 255, .3);
+  padding: 1px 5px 0;
+  background: #18121e;
+  -webkit-transition: background-color .4s ease-in;
+  transition: background-color .4s ease-in;
+  border: 1px solid rgba(255,255,255,.3);
   margin: 0 5px 5px 0;
   border-top-left-radius: 7px;
   border-bottom-right-radius: 7px;
-}
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
 
-.tag img {
-  vertical-align: middle;
+  div {
+    color: #fff;
+    background: #18121e;
+    border-left: 1px solid rgba(255,255,255,.3);
+    right: 0;
+    margin-left: 5px;
+    padding: 1px 5px 0;
+    position: absolute;
+  }
+
+  img {
+    vertical-align: middle;
+  }
 }
 
 .tag.off:hover {
   border: 1px solid rgba(255, 255, 255, 1);
+
+  div {
+    border-left: 1px solid rgba(255, 255, 255, 1);
+  }
 }
 
 .tag.on {
   background: $colorTagOn;
   transition: background-color 0.4s ease-in;
   border: 1px solid rgba(255, 255, 255, 1);
-}
 
-.tag div {
-  float: right;
-  color: white;
-  background: rgba(255, 255, 255, 0.3);
-  margin-right: -5px;
-  margin-left: 5px;
-  padding: 1px 5px 0 5px;
-  margin-top: -1px;
+  div {
+    border-left: 1px solid rgba(255, 255, 255, 1);
+    background: $colorTagOn;
+  }
 }

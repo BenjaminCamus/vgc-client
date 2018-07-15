@@ -1,5 +1,5 @@
 <div *ngIf="!selectedGame">
-    <banner [data]="games" [message]="'AUCUNE IMAGE DISPONIBLE'"></banner>
+    <banner [data]="games"></banner>
     <div class="title" *ngIf="!selectedGame">
         Nouveau Jeu
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
@@ -39,7 +39,7 @@
 </div>
 
 <div *ngIf="selectedGame">
-    <banner [data]="selectedGame" [message]="'AUCUNE IMAGE DISPONIBLE'"></banner>
+    <banner [data]="selectedGame"></banner>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-4 text-center">

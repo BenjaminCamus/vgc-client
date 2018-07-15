@@ -26,23 +26,18 @@ export class BannerComponent {
     image: string;
     image2: string;
 
-    @Input() message: string;
-
     @Input() set data(data: any) {
 
         // If UserGame
         if (data
-            && data.game
-            && data.game.screenshots
-            && data.game.screenshots.length > 0) {
+            && data.game) {
 
             this.game = data.game;
         }
 
         // ElseIf Game
         else if (data
-            && data.screenshots
-            && data.screenshots.length > 0) {
+            && data.name) {
 
             this.game = data;
         }
@@ -50,8 +45,7 @@ export class BannerComponent {
         // ElseIf Games (for IGDB search)
         else if (data
             && data[0]
-            && data[0].screenshots
-            && data[0].screenshots.length > 0) {
+            && data[0].name) {
 
             this.game = data[0];
         }
@@ -61,7 +55,7 @@ export class BannerComponent {
 
         let image = '';
 
-        if (this.game) {
+        if (this.game && this.game.screenshots && this.game.screenshots.length > 0) {
             let rand = Math.floor(Math.random() * this.game.screenshots.length);
             let imageId = this.game.screenshots[rand].cloudinaryId;
 

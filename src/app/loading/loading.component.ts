@@ -9,6 +9,17 @@ import {Input, HostListener} from "@angular/core/src/metadata/directives";
 export class LoadingComponent implements OnInit {
 
     @Input() action: string;
+    @Input() set progress(progress: number) {
+        this.progressTo = progress;
+        this.progressToggle();
+    }
+    currentProgress: number = 0;
+    progressTo: number = 0;
+    colorInc = 100 / 3;
+    timer;
+    increment: number = 1;
+    color: string = 'red';
+    @Input() total: number = 0;
 
     image: string;
     title: string;
@@ -32,6 +43,9 @@ export class LoadingComponent implements OnInit {
             case 'register':
                 this.title = 'Inscription en cours';
                 break;
+            case 'sync':
+                this.title = 'Synchronisation en cours';
+                break;
             default:
                 this.title = 'Sauvegarde en cours';
                 break;
@@ -39,6 +53,8 @@ export class LoadingComponent implements OnInit {
         }
 
         this.subtitle = 'Veuillez ne pas éteindre la console ni retirer la cartouche';
+
+
     }
 
     randomBgIndex() {
@@ -48,5 +64,46 @@ export class LoadingComponent implements OnInit {
         let imageId = pad.substring(0, pad.length - str.length) + str;
 
         this.image = 'assets/img/pixel-bg/pixel-background-'+imageId+'.gif';
+    }
+
+    progressToggle() {
+
+        if (this.timer) {
+            clearInterval(this.timer);
+        }
+
+        var range = this.progressTo - this.currentProgress;
+
+        console.log(this.progressTo);
+        console.log(this.currentProgress);
+        console.log(range);
+
+        if (range == 0) {
+            return false;
+        }
+
+        this.increment = this.progressTo > this.currentProgress ? 1 : -1;
+        var stepTime = Math.abs(Math.floor(1000 / range));
+        console.log(this.progressTo);
+        console.log(this.total);
+
+        this.timer = setInterval(() => {
+
+            this.currentProgress += this.increment;
+
+            if((this.currentProgress * 100 / this.total) < this.colorInc * 1)
+                this.color = 'red';
+            else if((this.currentProgress * 100 / this.total) < this.colorInc * 2)
+                this.color = 'orange';
+            else
+                this.color = 'green';
+            console.log(this.color);
+
+            if (this.currentProgress == this.progressTo) {
+                clearInterval(this.timer);
+            }
+        }, stepTime);
+
+
     }
 }

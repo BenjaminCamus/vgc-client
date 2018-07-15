@@ -36,6 +36,8 @@ export class GamesComponent implements OnInit {
     private subscription;
     private numCall = 0;
     private totalCalls = 0;
+    private packNumber = 20;
+    total = 0;
     userGames: UserGame[] = [];
     userGameFilter: UserGameFilter = new UserGameFilter();
 
@@ -147,14 +149,16 @@ export class GamesComponent implements OnInit {
 
         if (!this.loading) {
 
+            this.userGames = [];
+            this.numCall = 0;
+            this.total = 0;
             this.loading = true;
 
             this.subscription = this.gameService.countUserGames().subscribe(
                 count => {
 
-                    this.userGames = [];
-                    this.totalCalls = Math.floor(count / 10);
-                    this.numCall = 0;
+                    this.totalCalls = Math.floor(count / this.packNumber);
+                    this.total = count;
                     this.getGamesPack();
 
                 },
@@ -167,7 +171,7 @@ export class GamesComponent implements OnInit {
 
     private getGamesPack() {
 
-        this.subscription = this.gameService.getUserGames(this.numCall * 10, 10).subscribe(
+        this.subscription = this.gameService.getUserGames(this.numCall * this.packNumber, this.packNumber).subscribe(
             userGames => {
 
                 this.userGames.push.apply(this.userGames, userGames);

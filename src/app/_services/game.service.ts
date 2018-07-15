@@ -36,10 +36,11 @@ export class GameService {
                 private errorService: ErrorService) {
     }
 
-    getUserGames(): Observable<UserGame[]> {
+    getUserGames(offset: number, limit: number): Observable<UserGame[]> {
 
-        return this.http.get(this.url + 'user/games', {headers: this.headers})
+        return this.http.get(this.url + 'user/games?offset=' + offset + '&limit=' + limit, {headers: this.headers})
             .map(response => {
+                console.log(response);
                 var res = response.json();
                 for (let key in res) {
                     res[key] = this.setDates(res[key]);
@@ -47,6 +48,16 @@ export class GameService {
                 return res as UserGame[];
             })
             //.map(response => response.json() as UserGame[])
+            .catch(this.errorService.handleError.bind(this));
+    }
+
+    countUserGames(): Observable<number> {
+
+        return this.http.get(this.url + 'user/games/count', {headers: this.headers})
+            .map(response => {
+
+                return response.json();
+            })
             .catch(this.errorService.handleError.bind(this));
     }
 

@@ -1,4 +1,4 @@
-<banner [data]="selectedUserGame" [resize]="true" [message]="bannerMessage"></banner>
+<banner [data]="selectedUserGame" [resize]="true"></banner>
 
 <div class="vgc">VGC</div>
 
@@ -119,7 +119,7 @@
         <i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i>
         <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
         <i class="hovicon fa fa-refresh" (click)="getGames()"
-           [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
+           [ngClass]="loading ? 'fa-spin' : ''"></i>
         <div *ngIf="userGamesDate" class="syncDate">{{
             userGamesDate | date:'dd/MM'}}<br/>{{ userGamesDate | date:'HH:mm'}}
         </div>

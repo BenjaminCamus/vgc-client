@@ -40,7 +40,6 @@ export class GameService {
 
         return this.http.get(this.url + 'user/games?offset=' + offset + '&limit=' + limit, {headers: this.headers})
             .map(response => {
-                console.log(response);
                 var res = response.json();
                 for (let key in res) {
                     res[key] = this.setDates(res[key]);

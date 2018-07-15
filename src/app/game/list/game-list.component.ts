@@ -155,8 +155,6 @@ export class GamesComponent implements OnInit {
                     this.userGames = [];
                     this.totalCalls = Math.floor(count / 10);
                     this.numCall = 0;
-                    console.log(count);
-                    console.log(this.totalCalls);
                     this.getGamesPack();
 
                 },

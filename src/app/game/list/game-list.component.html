@@ -453,4 +453,4 @@
     <div class="navRight"><i class="hovicon fa fa-close" (click)="closeNewUserGame()"></i></div>
 </div>
 
-<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="'sync'"></loading>
+<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction"></loading>

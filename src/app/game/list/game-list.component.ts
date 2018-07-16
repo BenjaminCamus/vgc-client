@@ -28,6 +28,7 @@ import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 export class GamesComponent implements OnInit {
 
     loading: boolean = false;
+    loadingAction: string;
 
     title = 'VGC';
 
@@ -152,6 +153,7 @@ export class GamesComponent implements OnInit {
             this.userGames = [];
             this.numCall = 0;
             this.total = 0;
+            this.loadingAction = 'sync';
             this.loading = true;
 
             this.subscription = this.gameService.countUserGames().subscribe(
@@ -528,6 +530,7 @@ export class GamesComponent implements OnInit {
     detailStateUpdate(event) {
 
         if (event == 'submitted') {
+            this.loadingAction = 'save';
             this.loading = true;
         }
         else if (event.substr(0, 7) == 'delete_') {

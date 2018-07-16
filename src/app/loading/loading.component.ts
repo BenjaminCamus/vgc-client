@@ -74,18 +74,12 @@ export class LoadingComponent implements OnInit {
 
         var range = this.progressTo - this.currentProgress;
 
-        console.log(this.progressTo);
-        console.log(this.currentProgress);
-        console.log(range);
-
         if (range == 0) {
             return false;
         }
 
         this.increment = this.progressTo > this.currentProgress ? 1 : -1;
         var stepTime = Math.abs(Math.floor(1000 / range));
-        console.log(this.progressTo);
-        console.log(this.total);
 
         this.timer = setInterval(() => {
 
@@ -97,7 +91,6 @@ export class LoadingComponent implements OnInit {
                 this.color = 'orange';
             else
                 this.color = 'green';
-            console.log(this.color);
 
             if (this.currentProgress == this.progressTo) {
                 clearInterval(this.timer);

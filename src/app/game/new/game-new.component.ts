@@ -84,7 +84,8 @@ export class GameNewComponent {
     }
 
     getUserGameFromIgdb(game: Game, platform) {
-        let userGame = new UserGame();
+
+        let userGame = this.gameLocalService.getNewUserGame();
         userGame.game = game;
         let newPlatform = new Platform();
         newPlatform.id = platform.id;

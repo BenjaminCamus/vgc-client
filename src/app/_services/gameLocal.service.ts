@@ -13,6 +13,7 @@ export class GameLocalService {
     private userGamesDateLocalId = 'userGamesDate';
     private userContactsLocalId = 'userContacts';
     private newGameSearchLocalId = 'newGameSearch';
+    private newUserGameLocalId = 'newUserGame';
 
     static resetAll() {
         var resetIds = ['userGames', 'userGamesDate', 'userContacts', 'newGameSearch'];
@@ -88,6 +89,16 @@ export class GameLocalService {
             });
             if (index === -1) {
                 userGames.push(userGame);
+
+                var newUserGame = new UserGame();
+                newUserGame.purchaseDate = userGame.purchaseDate;
+                newUserGame.purchasePlace = userGame.purchasePlace;
+                newUserGame.purchaseContact = userGame.purchaseContact;
+                newUserGame.saleDate = userGame.saleDate;
+                newUserGame.salePlace = userGame.salePlace;
+                newUserGame.saleContact = userGame.saleContact;
+
+                this.setNewUserGame(newUserGame);
             }
             else {
                 userGames[index] = userGame;
@@ -152,5 +163,21 @@ export class GameLocalService {
         }
 
         return userGame;
+    }
+
+    setNewUserGame(userGame: UserGame) {
+        return localStorage.setItem(this.newUserGameLocalId, JSON.stringify(userGame));
+    }
+
+    getNewUserGame() {
+        if (localStorage.getItem(this.newUserGameLocalId)) {
+
+            let userGame = JSON.parse(localStorage.getItem(this.newUserGameLocalId));
+            userGame = this.setDates(userGame);
+
+            return userGame;
+        }
+
+        return new UserGame();
     }
 }

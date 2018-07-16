@@ -42,7 +42,6 @@ export class GameNewComponent {
     ngOnInit() {
         this.slimLoadingBarService.reset();
         this.search = this.gameLocalService.getNewGameSearch();
-        this.onSubmit();
     }
 
     ngOnDestroy() {

@@ -91,7 +91,7 @@ export class GameService {
 
     getGame(userGame: UserGame): Observable<UserGame> {
 
-        var url = this.url + 'user/games/' + userGame.platform.slug + '/' + userGame.game.slug;
+        var url = this.url + 'user/games/' + userGame.id;
         var headers = this.headers;
 
         return this.http
@@ -105,8 +105,8 @@ export class GameService {
             .catch(this.errorService.handleError.bind(this));
     }
 
-    deleteUserGame(userGame: UserGame, igdb: boolean = false): Observable<UserGame> {
-        var url = this.url + 'user/games/' + userGame.platform.slug + '/' + userGame.game.slug;
+    deleteUserGame(userGame: UserGame): Observable<UserGame> {
+        var url = this.url + 'user/games/' + userGame.id;
         var headers = this.headers;
 
         return this.http

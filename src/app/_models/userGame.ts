@@ -4,6 +4,7 @@ import {Contact} from "./contact";
 import {Place} from "./place";
 
 export class UserGame {
+    id: string = '';
     game: Game = new Game;
     platform: Platform = new Platform;
     releaseDate: Date;

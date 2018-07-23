@@ -7,7 +7,6 @@ import {Game}    from '../../_models/game';
 import {GameService}       from '../../_services/game.service';
 import {orderByName} from "../../functions";
 import {GameLocalService} from "../../_services/gameLocal.service";
-import {UserGame} from "../../_models/userGame";
 import {Platform} from "../../_models/platform";
 import {Output} from "@angular/core/src/metadata/directives";
 
@@ -27,7 +26,6 @@ export class GameNewComponent {
     private games: Game[];
     selectedGame: Game;
     private selectedPlatform;
-    private selectedUserGame: UserGame = new UserGame;
     private subscription;
     private buttonClass: Array<string> = [];
 
@@ -82,19 +80,13 @@ export class GameNewComponent {
         }
     }
 
-    getUserGameFromIgdb(game: Game, platform) {
+    getPlatformButtonClass(game: Game, platform) {
 
         let userGame = this.gameLocalService.getNewUserGame();
         userGame.game = game;
-        let newPlatform = new Platform();
-        newPlatform.id = platform.id;
-        userGame.platform = newPlatform;
+        userGame.platform = platform;
 
-        return this.gameLocalService.getUserGame(userGame);
-    }
-
-    getPlatformButtonClass(game: Game, platform) {
-        let userGame = this.getUserGameFromIgdb(game, platform);
+        userGame = this.gameLocalService.getUserGameByPlatform(userGame);
 
         if (userGame.user) {
             return 'btn-success';
@@ -107,9 +99,6 @@ export class GameNewComponent {
 
         this.selectedGame = game;
         this.selectedPlatform = platform;
-
-        let userGame = this.getUserGameFromIgdb(game, platform);
-        this.selectedUserGame = userGame;
     }
 
     setItemClass(e) {

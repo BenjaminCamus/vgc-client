@@ -564,7 +564,7 @@ export class GamesComponent implements OnInit {
             }
 
             let index = this.userGames.findIndex(function (cur) {
-                return userGame.game.id === cur.game.id && userGame.platform.id === cur.platform.id;
+                return userGame.id === cur.id;
             });
             if (index === -1) {
                 this.userGames.push(userGame);

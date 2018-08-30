@@ -132,9 +132,15 @@
                 <div class="col-md-6">
                     <select id="{{ sp }}Place"
                             [(ngModel)]="_userGame[sp+'Place']" name="{{ sp }}Place"
-                            #name="ngModel">
-                        <option *ngFor="let p of places" [ngValue]="p">{{p.name}}</option>
+                            #name="ngModel"
+                            *ngIf="this[sp+'PlaceSelect']"
+                            (change)="onSelectPlace($event.target.value, sp)">
+                        <option *ngFor="let p of places" [ngValue]="p">{{p}}</option>
+                        <option value="__new__">Nouveau Lieu</option>
                     </select>
+                    <input type="text" id="{{ sp }}Place"
+                           [(ngModel)]="_userGame[sp+'Place']" name="{{ sp }}Place"
+                           *ngIf="!this[sp+'PlaceSelect']">
                     <span class="bar"></span>
                     <label for="{{ sp }}Place">Lieu {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
                 </div>

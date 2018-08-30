@@ -1,12 +1,11 @@
 import {Platform} from "./platform";
 import {UserGame} from "./userGame";
-import {Place} from "./place";
 import {Contact} from "./contact";
 
 export class UserGameFilter extends UserGame{
     platforms: Platform[] = [];
-    purchasePlaces: Place[] = [];
-    salePlaces: Place[] = [];
+    purchasePlaces: string[] = [];
+    salePlaces: string[] = [];
     purchaseContacts: Contact[] = [];
     saleContacts: Contact[] = [];
     versions = [];

@@ -124,10 +124,14 @@ export class GameService {
         delete userGame.updatedAt;
         let userGameJson = JSON.stringify(userGame);
         if (userGame.purchaseDate) {
-            userGameJson = userGameJson.replace('"purchaseDate":' + JSON.stringify(userGame.purchaseDate), '"purchaseDate":"' + userGame.purchaseDate.toISOString().substring(0,10) + '"');
+            userGameJson = userGameJson.replace(
+                '"purchaseDate":' + JSON.stringify(userGame.purchaseDate),
+                '"purchaseDate":"' + this.dateToSQL(userGame.purchaseDate) + '"');
         }
         if (userGame.saleDate) {
-            userGameJson = userGameJson.replace('"saleDate":' + JSON.stringify(userGame.saleDate), '"saleDate":"' + userGame.saleDate.toISOString().substring(0,10) + '"');
+            userGameJson = userGameJson.replace(
+                '"saleDate":' + JSON.stringify(userGame.saleDate),
+                '"saleDate":"' + this.dateToSQL(userGame.saleDate) + '"');
         }
 
         return this.http
@@ -138,6 +142,12 @@ export class GameService {
                 return res as UserGame;
             })
             .catch(this.errorService.handleError.bind(this));
+    }
+
+    dateToSQL(date: Date) {
+        return date.getFullYear() + '-' +
+            ('00' + (date.getMonth() + 1)).slice(-2) + '-' +
+            ('00' + date.getDate()).slice(-2)
     }
 
     igdbSearch(search: string): Observable<Game[]> {

@@ -8,7 +8,6 @@ import {Tag} from "../../_models/tag";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
 import {Platform} from "../../_models/platform";
 import {UserGameFilter} from "../../_models/userGameFilter";
-import {Place} from "../../_models/place";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {FilterPipe} from "../../_pipes/filter.pipe";
@@ -16,6 +15,7 @@ import {LengthPipe} from "../../_pipes/length.pipe";
 import {TotalPipe} from "../../_pipes/total.pipe";
 import {HostListener} from "@angular/core/src/metadata/directives";
 import {OrderByPipe} from "../../_pipes/orderBy.pipe";
+import {Contact} from "../../_models/contact";
 
 @Component({
     moduleId: module.id,
@@ -64,10 +64,10 @@ export class GamesComponent implements OnInit {
     orderField: string = 'game.name';
     orderOption: boolean = true;
 
-    purchasePlaceTags: Place[] = [];
-    salePlaceTags: Place[] = [];
-    purchaseContactTags: Place[] = [];
-    saleContactTags: Place[] = [];
+    purchasePlaceTags: string[] = [];
+    salePlaceTags: string[] = [];
+    purchaseContactTags: Contact[] = [];
+    saleContactTags: Contact[] = [];
     platformsTags: Platform[] = [];
     seriesTags: Tag[] = [];
     developersTags: Tag[] = [];
@@ -382,7 +382,7 @@ export class GamesComponent implements OnInit {
             }
 
             // UserGame Tags
-            var tagTypes = ['platforms', 'purchasePlace', 'salePlace', 'purchaseContact', 'saleContact'];
+            var tagTypes = ['platforms', 'purchaseContact', 'saleContact'];
             for (let type of tagTypes) {
 
                 let ugParam = type == 'platforms' ? 'platform' : type;
@@ -395,6 +395,21 @@ export class GamesComponent implements OnInit {
                     }
 
                     this[type + 'Count'][userGame[ugParam].id]++;
+                }
+            }
+
+            // UserGame Places
+            var tagTypes = ['purchasePlace', 'salePlace'];
+            for (let type of tagTypes) {
+
+                if (userGame[type]) {
+                    if (!this[type + 'Count'][userGame[type]]) {
+
+                        this[type + 'Tags'].push(userGame[type]);
+                        this[type + 'Count'][userGame[type]] = 0;
+                    }
+
+                    this[type + 'Count'][userGame[type]]++;
                 }
             }
 
@@ -443,6 +458,8 @@ export class GamesComponent implements OnInit {
         this.publishersTags.sort(orderByCount(this.publishersCount));
         this.purchaseContactTags.sort(orderByCount(this.purchaseContactCount));
         this.saleContactTags.sort(orderByCount(this.saleContactCount));
+        this.purchasePlaceTags.sort();
+        this.salePlaceTags.sort();
 
         this.userGameFilter.ratingRange = [minRating, maxRating];
         this.userGameFilter.minRating = minRating;

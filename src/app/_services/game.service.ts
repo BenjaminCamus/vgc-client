@@ -14,7 +14,6 @@ import {Router} from "@angular/router";
 import {Game} from '../_models/game';
 import {UserGame} from "../_models/userGame";
 import {ErrorService} from "./error.service";
-import {Place} from "../_models/place";
 import {Contact} from "../_models/contact";
 import {environment} from "../../environments/environment";
 
@@ -79,13 +78,6 @@ export class GameService {
 
         return this.http.get(this.url + 'user/contacts', {headers: this.headers})
             .map(response => response.json() as Contact[])
-            .catch(this.errorService.handleError.bind(this));
-    }
-
-    getPlaces(): Observable<Place[]> {
-
-        return this.http.get('/assets/places.json')
-            .map(response => response.json() as Place[])
             .catch(this.errorService.handleError.bind(this));
     }
 

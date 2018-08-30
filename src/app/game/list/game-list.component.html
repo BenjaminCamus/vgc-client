@@ -386,7 +386,7 @@
                             <tag *ngFor="let place of purchasePlaceTags;"
                                  [tag]="place"
                                  [filter]="userGameFilter.purchasePlaces"
-                                 [suffix]="purchasePlaceCount[place.id]"
+                                 [suffix]="purchasePlaceCount[place]"
                                  (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
                         </div>
                         <div *ngIf="salePlaceTags.length > 0">
@@ -394,7 +394,7 @@
                             <tag *ngFor="let place of salePlaceTags;"
                                  [tag]="place"
                                  [filter]="userGameFilter.salePlaces"
-                                 [suffix]="salePlaceCount[place.id]"
+                                 [suffix]="salePlaceCount[place]"
                                  (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
                         </div>
                     </div>

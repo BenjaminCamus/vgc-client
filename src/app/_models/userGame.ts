@@ -1,7 +1,6 @@
 import {Game} from "./game";
 import {Platform} from "./platform";
 import {Contact} from "./contact";
-import {Place} from "./place";
 
 export class UserGame {
     id: string = '';
@@ -23,8 +22,8 @@ export class UserGame {
     purchaseDate: Date;
     saleDate: Date;
 
-    purchasePlace: Place;
-    salePlace: Place;
+    purchasePlace: string;
+    salePlace: string;
 
     purchaseContact: Contact;
     saleContact: Contact;
@@ -59,12 +58,12 @@ export class UserGame {
         this.fields['pricePaid'] = {type: 'price', label: 'Payé'};
         this.fields['priceAsked'] = {type: 'price', label: 'Demandé'};
         this.fields['purchaseDate'] = {type: 'date', label: 'Date Achat'};
-        this.fields['purchasePlace'] = {type: 'name', label: 'Lieu Achat'};
+        this.fields['purchasePlace'] = {type: 'string', label: 'Lieu Achat'};
         this.fields['purchaseContact'] = {type: 'name', label: 'Vendeur'};
         this.fields['priceResale'] = {type: 'price', label: 'Estimation'};
         this.fields['priceSold'] = {type: 'price', label: 'Vendu', hiddenMD: true};
         this.fields['saleDate'] = {type: 'date', label: 'Date Vente', hiddenMD: true};
-        this.fields['salePlace'] = {type: 'name', label: 'Lieu Vente', hiddenMD: true};
+        this.fields['salePlace'] = {type: 'string', label: 'Lieu Vente', hiddenMD: true};
         this.fields['saleContact'] = {type: 'name', label: 'Acheteur', hiddenMD: true};
 
         for (let field in this.fields) {

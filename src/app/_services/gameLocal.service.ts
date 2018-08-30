@@ -180,4 +180,21 @@ export class GameLocalService {
 
         return new UserGame();
     }
+
+    getPlaces(): string[] {
+        let userGames = this.getUserGames();
+        var places = [];
+        if (userGames.length > 0) {
+            for (let userGame of userGames) {
+                if (userGame.purchasePlace && userGame.purchasePlace != '' && places.indexOf(userGame.purchasePlace) < 0) {
+                    places.push(userGame.purchasePlace);
+                }
+                if (userGame.salePlace && userGame.salePlace != '' && places.indexOf(userGame.salePlace) < 0) {
+                    places.push(userGame.salePlace);
+                }
+            }
+        }
+        places.sort();
+        return places;
+    }
 }

@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, ElementRef} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 
@@ -8,7 +8,6 @@ import {UserGame} from "../../_models/userGame";
 import {Router} from "@angular/router";
 import {Platform} from "../../_models/platform";
 
-import {Place} from "../../_models/place";
 import {orderByName} from "../../functions";
 import {Contact, NewContact} from "../../_models/contact";
 import {GameLocalService} from "../../_services/gameLocal.service";
@@ -38,7 +37,10 @@ export class GameFormComponent implements OnInit {
     @Output() state: EventEmitter<string> = new EventEmitter();
 
     private userContacts: Contact[];
-    private places: Place[];
+    private places: string[];
+    private purchasePlaceSelect: boolean = true;
+    private salePlaceSelect: boolean = true;
+
     private validateUserGameForm: FormGroup;
 
     newContact = NewContact;
@@ -65,18 +67,9 @@ export class GameFormComponent implements OnInit {
     ngOnInit(): void {
 
         this.userContacts = this.gameLocalService.getUserContacts();
+        this.places = this.gameLocalService.getPlaces();
+        this.updateSelects();
         this.getContacts();
-
-        this.gameService.getPlaces()
-            .subscribe(
-                places => {
-                    places.sort(orderByName);
-                    this.places = places;
-                    this.updateSelects();
-                },
-                error => {
-                    this.errorMessage = <any>error;
-                });
     }
 
     submitForm() {
@@ -167,11 +160,18 @@ export class GameFormComponent implements OnInit {
 
         if (this.places) {
             if (this._userGame && this._userGame.purchasePlace) {
-                this._userGame.purchasePlace = this.places.find(place => place.id === this._userGame.purchasePlace.id);
+                this._userGame.purchasePlace = this.places.find(place => place === this._userGame.purchasePlace);
             }
             if (this._userGame && this._userGame.salePlace) {
-                this._userGame.salePlace = this.places.find(place => place.id === this._userGame.salePlace.id);
+                this._userGame.salePlace = this.places.find(place => place === this._userGame.salePlace);
             }
+        }
+    }
+
+    onSelectPlace(place: string, sp: string) {
+        if (place == '__new__') {
+            this[sp + 'PlaceSelect'] = false;
+            this._userGame[sp + 'Place'] = '';
         }
     }
 }

@@ -174,13 +174,4 @@ export class GameFormComponent implements OnInit {
             }
         }
     }
-
-    updateDate(e, sp) {
-        if (!e) {
-            this._userGame[sp + 'Date'] = null;
-        }
-        else {
-            this._userGame[sp + 'Date'] = new Date(e);
-        }
-    }
 }

@@ -113,13 +113,18 @@
                     <label for="priceSold">Prix vendu</label>
                 </div>
                 <div class="col-md-6">
-                    <input id="{{ sp }}Date"
-                           [formControl]="validateUserGameForm.get(sp+'Date')"
-                           type="date"
-                           [ngModel]="_userGame[sp+'Date'] | date:'yyyy-MM-dd'"
-                           (ngModelChange)="updateDate($event,sp)"/>
+
+                    <p-calendar id="{{ sp }}Date"
+                                [(ngModel)]="_userGame[sp+'Date']"
+                                [formControl]="validateUserGameForm.get(sp+'Date')"
+                                [dateFormat]="'dd/mm/yy'"
+                                [monthNavigator]="true"
+                                [yearNavigator]="true"
+                                yearRange="1950:2050"
+                    ></p-calendar>
+
                     <span class="bar"></span>
-                    <label for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                    <label class="primeng" for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
                 </div>
             </div>
 

@@ -56,13 +56,16 @@ export function formatDate(date: Date, format = 'y-m-d') {
     var y = date.getFullYear();
     var m = ('00' + (date.getMonth() + 1)).slice(-2);
     var d = ('00' + date.getDate()).slice(-2);
+    var formattedDate =  + '-' + m + '-' + d;
 
     switch (format) {
         case '':
-            return y + '-' + m + '-' + d;
+            formattedDate = y + '-' + m + '-' + d;
             break;
         case 'd/m/y':
-            return d + '/' + m + '/' + y;
+            formattedDate = d + '/' + m + '/' + y;
             break;
     }
+
+    return formattedDate;
 }

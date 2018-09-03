@@ -16,6 +16,7 @@ import {UserGame} from "../_models/userGame";
 import {ErrorService} from "./error.service";
 import {Contact} from "../_models/contact";
 import {environment} from "../../environments/environment";
+import {formatDate} from "../functions";
 
 @Injectable()
 export class GameService {
@@ -118,12 +119,12 @@ export class GameService {
         if (userGame.purchaseDate) {
             userGameJson = userGameJson.replace(
                 '"purchaseDate":' + JSON.stringify(userGame.purchaseDate),
-                '"purchaseDate":"' + this.dateToSQL(userGame.purchaseDate) + '"');
+                '"purchaseDate":"' + formatDate(userGame.purchaseDate) + '"');
         }
         if (userGame.saleDate) {
             userGameJson = userGameJson.replace(
                 '"saleDate":' + JSON.stringify(userGame.saleDate),
-                '"saleDate":"' + this.dateToSQL(userGame.saleDate) + '"');
+                '"saleDate":"' + formatDate(userGame.saleDate) + '"');
         }
 
         return this.http
@@ -134,12 +135,6 @@ export class GameService {
                 return res as UserGame;
             })
             .catch(this.errorService.handleError.bind(this));
-    }
-
-    dateToSQL(date: Date) {
-        return date.getFullYear() + '-' +
-            ('00' + (date.getMonth() + 1)).slice(-2) + '-' +
-            ('00' + date.getDate()).slice(-2)
     }
 
     igdbSearch(search: string): Observable<Game[]> {

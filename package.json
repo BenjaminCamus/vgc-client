@@ -26,6 +26,7 @@
     "ng2-bs3-modal": "^0.10.4",
     "ng2-slim-loading-bar": "^2.3.0",
     "ng2-validation": "^4.2.0",
+    "ngx-prevent-parent-scroll": "0.0.5",
     "ngx-rating": "0.0.9",
     "npm": "^5.8.0",
     "primeng": "^2.0.2",

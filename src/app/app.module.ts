@@ -29,6 +29,7 @@ import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
 import {LengthPipe} from "./_pipes/length.pipe";
 import {TotalPipe} from "./_pipes/total.pipe";
 import {BannerComponent} from "./banner/banner.component";
+import {PreventParentScrollModule} from "ngx-prevent-parent-scroll";
 
 @NgModule({
     imports: [
@@ -44,6 +45,7 @@ import {BannerComponent} from "./banner/banner.component";
         SliderModule,
         TabViewModule,
         CalendarModule,
+        PreventParentScrollModule,
         //InViewportModule.forRoot(),
     ],
     declarations: [

@@ -153,7 +153,7 @@
         <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
     </div>
 
-    <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''">
+    <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" preventParentScroll>
 
         <div class="container-fluid searchToolsSmall">
             <div class="row">
@@ -432,10 +432,10 @@
     </div>
 </nav>
 
-<game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState"
+<game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState" preventParentScroll
              *ngIf="displayUserGame && selectedUserGame1"
              (state)="detailStateUpdate($event)"></game-detail>
-<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState"
+<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" preventParentScroll
              *ngIf="displayUserGame && selectedUserGame2"
              (state)="detailStateUpdate($event)"></game-detail>
 
@@ -448,9 +448,9 @@
        (click)="navUserGame()"></i>
 </div>
 
-<game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)"></game-new>
+<game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)" preventParentScroll></game-new>
 <div class="topnav" *ngIf="displayNewUserGame">
     <div class="navRight"><i class="hovicon fa fa-close" (click)="closeNewUserGame()"></i></div>
 </div>
 
-<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction"></loading>
+<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction" preventParentScroll></loading>

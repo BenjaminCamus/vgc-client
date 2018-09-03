@@ -5,9 +5,8 @@ import {routerTransition} from '../../_animations/router.animations';
 
 import {Game}    from '../../_models/game';
 import {GameService}       from '../../_services/game.service';
-import {orderByName} from "../../functions";
+import {orderByName, formatDate} from "../../functions";
 import {GameLocalService} from "../../_services/gameLocal.service";
-import {Platform} from "../../_models/platform";
 import {Output} from "@angular/core/src/metadata/directives";
 
 @Component({
@@ -23,8 +22,8 @@ export class GameNewComponent {
     errorMessage: string;
 
     private search: string = '';
-    private games: Game[];
-    selectedGame: Game;
+    private games: Array<any>;
+    selectedGame: any;
     private selectedPlatform;
     private subscription;
     private buttonClass: Array<string> = [];
@@ -95,10 +94,14 @@ export class GameNewComponent {
         return 'btn-primary';
     }
 
-    onSelect(game: Game, platform: Object): void {
+    onSelect(game, platform: Object): void {
 
         this.selectedGame = game;
         this.selectedPlatform = platform;
+        if (this.selectedGame.first_release_date) {
+            var date = new Date(this.selectedGame.first_release_date);
+            this.selectedGame.release_date = formatDate(date, 'd/m/y');
+        }
     }
 
     setItemClass(e) {

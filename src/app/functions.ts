@@ -50,3 +50,19 @@ export function orderByCount(countArray: Array<number>) {
         return orderByName(a, b);
     }
 }
+
+export function formatDate(date: Date, format = 'y-m-d') {
+
+    var y = date.getFullYear();
+    var m = ('00' + (date.getMonth() + 1)).slice(-2);
+    var d = ('00' + date.getDate()).slice(-2);
+
+    switch (format) {
+        case '':
+            return y + '-' + m + '-' + d;
+            break;
+        case 'd/m/y':
+            return d + '/' + m + '/' + y;
+            break;
+    }
+}

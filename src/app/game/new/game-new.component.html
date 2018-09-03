@@ -50,6 +50,9 @@
                     <img class="thumbSmall" *ngFor="let sc of selectedGame.screenshots;"
                          src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"/>
                 </div>
+
+                <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.release_date"><label>Date de sortie</label> {{selectedGame.release_date}}</div>
+                <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.summary">{{selectedGame.summary}}</div>
             </div>
 
             <div class="col-md-8">

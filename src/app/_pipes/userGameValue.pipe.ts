@@ -33,7 +33,32 @@ export class UserGameValuePipe {
 
         switch (field.type) {
             case 'price':
-                value += ' €';
+                value = parseFloat(value);
+                value = value.toString().replace('.', ',');
+                value = value + ' €';
+
+                var field1 = field.name;
+                var field2 = field.name;
+
+                if (field.name == 'pricePaid') {
+                    field1 = 'priceAsked';
+                }
+                else if (field.name == 'priceResale' || field.name == 'priceSold') {
+                    field2 = 'pricePaid';
+                }
+
+                if (parseFloat(userGame[field1]) > parseFloat(userGame[field2])) {
+                    value = '<span class="text-success">' + value;
+                    value += ' (';
+                    if (field1 == field.name) {
+                        value += '+';
+                    }
+                    else {
+                        value += '-';
+                    }
+                    value += (parseFloat(userGame[field1]) - parseFloat(userGame[field2])) + ')';
+                    value = value + '</span>';
+                }
                 break;
             case 'date':
                 value = this.datePipe.transform(value, 'dd/MM/yy');

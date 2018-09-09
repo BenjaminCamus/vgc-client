@@ -61,7 +61,7 @@
             <td *ngFor="let field of tableFields"
                 [ngClass]="userGameFields[field].hiddenMD ? 'hidden-md hidden-sm hidden-xs' : ''">
 
-                <span *ngIf="field != 'progress'">{{ userGame | userGameValue: userGameFields[field] }}</span>
+                <span *ngIf="field != 'progress'" [innerHTML]="userGame | userGameValue: userGameFields[field]"></span>
                 <div *ngIf="field == 'progress'" class="gameProgress"
                      [ngClass]="'gameProgress'+userGame.progress"></div>
             </td>
@@ -93,18 +93,18 @@
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    Demandé {{ userGame.priceAsked }}€
+                    Demandé <span [innerHTML]="userGame | userGameValue: userGameFields['priceAsked']: false"></span>
                 </div>
                 <div class="col-md-6">
-                    Payé {{ userGame.pricePaid }}€
+                    Payé <span [innerHTML]="userGame | userGameValue: userGameFields['pricePaid']: false"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    Revente {{ userGame.priceResale }}€
+                    Revente <span [innerHTML]="userGame | userGameValue: userGameFields['priceResale']: false"></span>
                 </div>
                 <div class="col-md-6">
-                    Vendu {{ userGame.priceSold }}€
+                    Vendu <span [innerHTML]="userGame | userGameValue: userGameFields['priceSold']: false"></span>
                 </div>
             </div>
         </div>

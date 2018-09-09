@@ -14,7 +14,7 @@
             <div class="input">
                 <button type="submit"
                         class="btn btn-success">
-                    <i class="fa fa-refresh" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
+                    <i class="fas fa-sync" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
                     Rechercher via IGDB.com
                 </button>
             </div>
@@ -61,7 +61,7 @@
                     {{ selectedGame.name }}
 
                     <div class="navRight">
-                        <i *ngIf="selectedGame" class="hovicon fa fa-close"
+                        <i *ngIf="selectedGame" class="hovicon fas fa-times"
                            (click)="selectedGame = false;"></i>
                     </div>
                 </div>

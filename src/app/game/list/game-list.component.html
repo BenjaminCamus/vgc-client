@@ -47,8 +47,8 @@
 
                 <span *ngIf="field != 'progress'">{{ userGameFields[field].label }}</span>
                 <i class="fa" *ngIf="orderField == field"
-                   [ngClass]="orderOption ? 'fa-sort-asc' : 'fa-sort-desc'"></i>
-                <i class="fa fa-sort-asc invisible" *ngIf="orderField != field"></i>
+                   [ngClass]="orderOption ? 'fa-sort-down' : 'fa-sort-up'"></i>
+                <i class="fas fa-sort-down invisible" *ngIf="orderField != field"></i>
             </th>
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
@@ -67,7 +67,7 @@
             </td>
         </tr>
     </table>
-    <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
+    <i class="hovicon fas fa-plus" (click)="openNewUserGame()"></i>
 </div>
 <div *ngIf="displayMode == 0" class="gameBoxContainer">
 
@@ -110,15 +110,15 @@
         </div>
     </section>
     <section class="gameBox visible_anim">
-        <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
+        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"></i>
     </section>
 </div>
 
 <nav class="topnav">
     <div class="navLeft">
-        <i routerLink="/login" routerLinkActive="active" class="hovicon fa fa-user"></i>
-        <i class="hovicon fa fa-plus" (click)="openNewUserGame()"></i>
-        <i class="hovicon fa fa-refresh" (click)="getGames()"
+        <i routerLink="/login" routerLinkActive="active" class="hovicon fas fa-user"></i>
+        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"></i>
+        <i class="hovicon fas fa-sync" (click)="getGames()"
            [ngClass]="loading ? 'fa-spin' : ''"></i>
         <div *ngIf="userGamesDate" class="syncDate">{{
             userGamesDate | date:'dd/MM'}}<br/>{{ userGamesDate | date:'HH:mm'}}
@@ -146,11 +146,11 @@
                 </select>
             </div>
             <i class="hovicon fa" (click)="orderOption = !orderOption"
-               [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
+               [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"></i>
         </div>
-        <i class="hovicon fa fa-search" (click)="displayFilters = !displayFilters"></i>
-        <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fa fa-th"></i>
-        <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fa fa-list"></i>
+        <i class="hovicon fas fa-search" (click)="displayFilters = !displayFilters"></i>
+        <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fas fa-th"></i>
+        <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fas fa-list"></i>
     </div>
 
     <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" preventParentScroll>
@@ -180,7 +180,7 @@
                 </div>
                 <div class="col-md-4">
                     <i class="hovicon fa" (click)="orderOption = !orderOption"
-                       [ngClass]="orderOption ? 'fa-sort-amount-asc' : 'fa-sort-amount-desc'"></i>
+                       [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"></i>
                 </div>
             </div>
         </div>
@@ -441,16 +441,16 @@
 
 <div class="topnav" *ngIf="displayUserGame && selectedUserGame">
 
-    <div class="navRight"><i class="hovicon fa fa-close" (click)="closeUserGame()"></i></div>
-    <i *ngIf="prevUserGame" class="hovicon fa fa-step-backward"
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeUserGame()"></i></div>
+    <i *ngIf="prevUserGame" class="hovicon fas fa-chevron-left"
        (click)="navUserGame(true)"></i>
-    <i *ngIf="nextUserGame" class="hovicon fa fa-step-forward"
+    <i *ngIf="nextUserGame" class="hovicon fas fa-chevron-right"
        (click)="navUserGame()"></i>
 </div>
 
 <game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)" preventParentScroll></game-new>
 <div class="topnav" *ngIf="displayNewUserGame">
-    <div class="navRight"><i class="hovicon fa fa-close" (click)="closeNewUserGame()"></i></div>
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"></i></div>
 </div>
 
 <loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction" preventParentScroll></loading>

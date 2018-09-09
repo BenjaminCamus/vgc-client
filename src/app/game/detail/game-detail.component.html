@@ -17,11 +17,11 @@
 
             <div class="title">
                 <div class="navRight">
-                    <i *ngIf="!selectedGame" class="hovicon fa fa-pencil-square-o"
+                    <i *ngIf="!selectedGame" class="hovicon far fa-edit"
                           (click)="openForm('edit')"></i>
-                    <i *ngIf="!selectedGame" class="hovicon fa fa-trash-o"
+                    <i *ngIf="!selectedGame" class="hovicon far fa-trash-alt"
                           (click)="openForm('delete')"></i>
-                    <i *ngIf="selectedGame" class="hovicon fa fa-close"
+                    <i *ngIf="selectedGame" class="hovicon fas fa-times"
                           (click)="openForm()"></i>
                 </div>
                 <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">{{ userGame.game.name }}

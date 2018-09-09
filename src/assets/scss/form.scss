@@ -26,7 +26,7 @@ input, textarea, select {
 input[type=text], input[type=date], input[type=password], textarea, select {
   font-size: 14px;
   display:block;
-  //background: rgba(0,0,0,.9);
+  color: $colorTextMain;
   background: transparent !important;
   padding:10px 10px 10px 5px;
   width:100%;

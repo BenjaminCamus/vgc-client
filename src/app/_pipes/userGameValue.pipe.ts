@@ -72,53 +72,53 @@ export class UserGameValuePipe {
                 break;
             case 'completeness':
                 if (value == 0) {
-                    value = 'Loose';
+                    value = '<span class="text-warning">Loose</span>';
                 }
                 else if (value == 1) {
-                    value = 'Sans Notice';
+                    value = '<span class="text-warning">Sans Notice</span>';
                 }
                 else if (value == 2) {
-                    value = 'Sans Boîte';
+                    value = '<span class="text-warning">Sans Boîte</span>';
                 }
                 else if (value == 3) {
-                    value = 'Complet';
+                    value = '<span class="text-success">Complet</span>';
                 }
                 else if (value == 4) {
-                    value = 'Dématérialisé';
+                    value = '<span class="text-info">Dématérialisé</span>';
                 }
                 else if (value == 5) {
-                    value = 'Neuf';
+                    value = '<span class="text-success">Neuf</span>';
                 }
                 break;
             case 'progress':
                 if (value == 0) {
-                    value = 'Jamais joué';
+                    value = '<span class="text-danger"><i class="fas fa-battery-empty"></i> Jamais joué</span>';
                 }
                 else if (value == 1) {
-                    value = 'En cours';
+                    value = '<span class="text-warning"><i class="fas fa-battery-half"></i> En cours</span>';
                 }
                 else if (value == 2) {
-                    value = 'Terminé';
+                    value = '<span class="text-success"><i class="fas fa-battery-full"></i> Terminé</span>';
                 }
                 else if (value == 3) {
-                    value = 'Abandonné';
+                    value = '<span class="text-info"><i class="fas fa-battery-empty"></i> Abandonné</span>';
                 }
                 break;
             case 'cond':
                 if (value == 0) {
-                    value = 'Bof Bof';
+                    value = '<span class="text-danger">Bof Bof</span>';
                 }
                 else if (value == 1) {
-                    value = 'Bon État';
+                    value = '<span class="text-warning">Bon État</span>';
                 }
                 else if (value == 2) {
-                    value = 'Très Bon État';
+                    value = '<span class="text-success">Très Bon État</span>';
                 }
                 else if (value == 3) {
-                    value = 'Near Mint';
+                    value = '<span class="text-success">Near Mint</span>';
                 }
                 else if (value == 4) {
-                    value = 'Mint !!';
+                    value = '<span class="text-success">Mint !!</span>';
                 }
                 break;
             case 'tags':
@@ -136,6 +136,18 @@ export class UserGameValuePipe {
 
             case 'url':
                 value = '<a href="' + value + '" target="_blank">' + value + '</a>'
+                break;
+
+            case 'rating':
+                if (value <= 5) {
+                    value = '<span class="text-danger">' + value + '</span>';
+                }
+                else if (value > 5 && value < 15) {
+                    value = '<span class="text-warning">' + value + '</span>';
+                }
+                else {
+                    value = '<span class="text-success">' + value + '</span>';
+                }
                 break;
         }
 

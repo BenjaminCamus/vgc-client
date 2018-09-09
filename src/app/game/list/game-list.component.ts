@@ -61,8 +61,8 @@ export class GamesComponent implements OnInit {
 
     displayFilters: boolean = false;
     displayMode: number = 0;
-    orderField: string = 'game.name';
-    orderOption: boolean = true;
+    orderField: string = 'purchaseDate';
+    orderOption: boolean = false;
 
     purchasePlaceTags: string[] = [];
     salePlaceTags: string[] = [];

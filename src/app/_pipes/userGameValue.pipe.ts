@@ -17,7 +17,7 @@ export class UserGameValuePipe {
         this.userGameFields = ug.fields;
     }
 
-    transform(userGame: UserGame, field: any): string {
+    transform(userGame: UserGame, field: any, detail: boolean = true): string {
 
         if (field.name.indexOf('.') > -1) {
             var fieldSplit = field.name.split('.');
@@ -49,14 +49,18 @@ export class UserGameValuePipe {
 
                 if (parseFloat(userGame[field1]) > parseFloat(userGame[field2])) {
                     value = '<span class="text-success">' + value;
-                    value += ' (';
-                    if (field1 == field.name) {
-                        value += '+';
+
+                    if (detail) {
+                        value += ' (';
+                        if (field1 == field.name) {
+                            value += '+';
+                        }
+                        else {
+                            value += '-';
+                        }
+                        value += (parseFloat(userGame[field1]) - parseFloat(userGame[field2])) + ')';
                     }
-                    else {
-                        value += '-';
-                    }
-                    value += (parseFloat(userGame[field1]) - parseFloat(userGame[field2])) + ')';
+
                     value = value + '</span>';
                 }
                 break;

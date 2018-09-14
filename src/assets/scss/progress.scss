@@ -15,7 +15,6 @@
 
 .water {
   position: absolute;
-  z-index: 1;
   width: 200%;
   height: 200%;
   left: -50%;
@@ -33,10 +32,15 @@
   line-height: 100px;
   margin-top: 50px;
   font-size: 0;
+  position: absolute;
+  width: 100%;
 }
 
 .sub {
   font-size: 20px;
+  position: absolute;
+  width: 100%;
+  margin-top: 150px;
 }
 
 .green {

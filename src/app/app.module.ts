@@ -1,16 +1,15 @@
 import {NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CustomFormsModule} from 'ng2-validation';
-import {HttpModule} from "@angular/http";
+import {HttpClientModule} from '@angular/common/http';
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {ErrorService} from "./_services/error.service";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AuthenticationService} from "./_services/authentification.service";
 import {LoginComponent} from "./login/login.component";
-import {SlimLoadingBarModule} from "ng2-slim-loading-bar";
-import {Ng2Bs3ModalModule} from "ng2-bs3-modal/ng2-bs3-modal";
 import {SharedModule, SliderModule, TabViewModule, CalendarModule} from "primeng/primeng";
 import {FilterPipe} from "./_pipes/filter.pipe";
 import {OrderByPipe} from "./_pipes/orderBy.pipe";
@@ -34,19 +33,17 @@ import {PreventParentScrollModule} from "ngx-prevent-parent-scroll";
 @NgModule({
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         CustomFormsModule,
-        HttpModule,
+        HttpClientModule,
         AppRoutingModule,
-        SlimLoadingBarModule.forRoot(),
-        Ng2Bs3ModalModule,
         SharedModule,
         SliderModule,
         TabViewModule,
         CalendarModule,
         PreventParentScrollModule,
-        //InViewportModule.forRoot(),
     ],
     declarations: [
         FilterPipe,

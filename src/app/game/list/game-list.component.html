@@ -81,7 +81,6 @@
              (mouseenter)="userGameHover(userGame)"
              class="gameBox visible_anim"
              [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
-        <!--in-viewport (inViewport)="setItemClass($event)"-->
         <div class="gameCover" *ngIf="userGame.game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <div class=gameInfos>
@@ -197,42 +196,42 @@
                     <div class="col-md-6">
                         <div>
                             <label for="name">Platforme</label><br>
-                            <tag *ngFor="let platform of platformsTags;"
+                            <tag *ngFor="let platform of filters.tags.platforms;"
                                  [tag]="platform"
                                  [filter]="userGameFilter.platforms"
-                                 [suffix]="platformsCount[platform.id]"
+                                 [suffix]="filters.count.platforms[platform.id]"
                                  (uploaded)="toggleTag('platforms', $event, platform)"></tag>
                         </div>
                         <div>
                             <label for="name">Série</label><br>
-                            <tag *ngFor="let series of seriesTags;"
+                            <tag *ngFor="let series of filters.tags.series;"
                                  [tag]="series"
                                  [filter]="userGameFilter.game.series"
-                                 [suffix]="seriesCount[series.id]"
+                                 [suffix]="filters.count.series[series.id]"
                                  (uploaded)="toggleTag('series', $event, series)"></tag>
                         </div>
                         <div>
                             <label for="name">Mode</label><br>
-                            <tag *ngFor="let mode of modesTags;"
+                            <tag *ngFor="let mode of filters.tags.modes;"
                                  [tag]="mode"
                                  [filter]="userGameFilter.game.modes"
-                                 [suffix]="modesCount[mode.id]"
+                                 [suffix]="filters.count.modes[mode.id]"
                                  (uploaded)="toggleTag('modes', $event, mode)"></tag>
                         </div>
                         <div>
                             <label for="name">Thème</label><br>
-                            <tag *ngFor="let theme of themesTags;"
+                            <tag *ngFor="let theme of filters.tags.themes;"
                                  [tag]="theme"
                                  [filter]="userGameFilter.game.themes"
-                                 [suffix]="themesCount[theme.id]"
+                                 [suffix]="filters.count.themes[theme.id]"
                                  (uploaded)="toggleTag('themes', $event, theme)"></tag>
                         </div>
                         <div>
                             <label for="name">Genre</label><br>
-                            <tag *ngFor="let genre of genresTags;"
+                            <tag *ngFor="let genre of filters.tags.genres;"
                                  [tag]="genre"
                                  [filter]="userGameFilter.game.genres"
-                                 [suffix]="genresCount[genre.id]"
+                                 [suffix]="filters.count.genres[genre.id]"
                                  (uploaded)="toggleTag('genres', $event, genre)"></tag>
                         </div>
                     </div>
@@ -291,19 +290,19 @@
                             <label>Version</label><br>
                             <tag [tag]="'FRA'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="versionCount['FRA']"
+                                 [suffix]="filters.count.version['FRA']"
                                  (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
                             <tag [tag]="'EUR'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="versionCount['EUR']"
+                                 [suffix]="filters.count.version['EUR']"
                                  (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
                             <tag [tag]="'JAP'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="versionCount['JAP']"
+                                 [suffix]="filters.count.version['JAP']"
                                  (uploaded)="toggleTag('versions', $event, 'JAP')"></tag>
                             <tag [tag]="'USA'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="versionCount['USA']"
+                                 [suffix]="filters.count.version['USA']"
                                  (uploaded)="toggleTag('versions', $event, 'USA')"></tag>
                         </div>
                         <div>
@@ -311,32 +310,32 @@
                             <tag [tag]="'Loose'"
                                  [value]="0"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="completenessCount[0]"
+                                 [suffix]="filters.count.completeness[0]"
                                  (uploaded)="toggleTag('completenesss', $event, 0)"></tag>
                             <tag [tag]="'Sans Notice'"
                                  [value]="1"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="completenessCount[1]"
+                                 [suffix]="filters.count.completeness[1]"
                                  (uploaded)="toggleTag('completenesss', $event, 1)"></tag>
                             <tag [tag]="'Sans Boîte'"
                                  [value]="2"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="completenessCount[2]"
+                                 [suffix]="filters.count.completeness[2]"
                                  (uploaded)="toggleTag('completenesss', $event, 2)"></tag>
                             <tag [tag]="'Complet'"
                                  [value]="3"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="completenessCount[3]"
+                                 [suffix]="filters.count.completeness[3]"
                                  (uploaded)="toggleTag('completenesss', $event, 3)"></tag>
                             <tag [tag]="'Dématérialisé'"
                                  [value]="4"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="completenessCount[4]"
+                                 [suffix]="filters.count.completeness[4]"
                                  (uploaded)="toggleTag('completenesss', $event, 4)"></tag>
                             <tag [tag]="'Neuf'"
                                  [value]="5"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="completenessCount[5]"
+                                 [suffix]="filters.count.completeness[5]"
                                  (uploaded)="toggleTag('completenesss', $event, 5)"></tag>
                         </div>
                         <div>
@@ -344,20 +343,20 @@
                             <tag [tag]="'Jamais joué'"
                                  [value]="0"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="progressCount[0]"
+                                 [suffix]="filters.count.progress[0]"
                                  (uploaded)="toggleTag('progresses', $event, 0)"></tag>
                             <tag [tag]="'En cours'"
                                  [value]="1"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="progressCount[1]"
+                                 [suffix]="filters.count.progress[1]"
                                  (uploaded)="toggleTag('progresses', $event, 1)"></tag>
                             <tag [tag]="'Terminé'"
                                  [value]="2"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="progressCount[2]"
+                                 [suffix]="filters.count.progress[2]"
                                  (uploaded)="toggleTag('progresses', $event, 2)"></tag>
                             <tag [tag]="'Abandonné'" [value]="3" [filter]="userGameFilter.progresses"
-                                 [suffix]="progressCount[3]"
+                                 [suffix]="filters.count.progress[3]"
                                  (uploaded)="toggleTag('progresses', $event, 3)"></tag>
                         </div>
                         <div>
@@ -365,74 +364,74 @@
                             <tag [tag]="'Très Bon État'"
                                  [value]="2"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="condCount[2]"
+                                 [suffix]="filters.count.cond[2]"
                                  (uploaded)="toggleTag('conds', $event, 2)"></tag>
                             <tag [tag]="'Bon État'"
                                  [value]="1"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="condCount[1]"
+                                 [suffix]="filters.count.cond[1]"
                                  (uploaded)="toggleTag('conds', $event, 1)"></tag>
                             <tag [tag]="'Bof Bof'"
                                  [value]="0"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="condCount[0]"
+                                 [suffix]="filters.count.cond[0]"
                                  (uploaded)="toggleTag('conds', $event, 0)"></tag>
                             <tag [tag]="'Near Mint'"
                                  [value]="3"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="condCount[3]"
+                                 [suffix]="filters.count.cond[3]"
                                  (uploaded)="toggleTag('conds', $event, 3)"></tag>
                             <tag [tag]="'Mint !!'"
                                  [value]="4"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="condCount[4]"
+                                 [suffix]="filters.count.cond[4]"
                                  (uploaded)="toggleTag('conds', $event, 4)"></tag>
                         </div>
                         <div>
                             <label for="name">Lieu Achat</label><br>
-                            <tag *ngFor="let place of purchasePlaceTags;"
+                            <tag *ngFor="let place of filters.tags.purchasePlace;"
                                  [tag]="place"
                                  [filter]="userGameFilter.purchasePlaces"
-                                 [suffix]="purchasePlaceCount[place]"
+                                 [suffix]="filters.count.purchasePlace[place]"
                                  (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
                         </div>
-                        <div *ngIf="salePlaceTags.length > 0">
+                        <div *ngIf="filters.tags.salePlace.length > 0">
                             <label for="name">Lieu Vente</label><br>
-                            <tag *ngFor="let place of salePlaceTags;"
+                            <tag *ngFor="let place of filters.tags.salePlace;"
                                  [tag]="place"
                                  [filter]="userGameFilter.salePlaces"
-                                 [suffix]="salePlaceCount[place]"
+                                 [suffix]="filters.count.salePlace[place]"
                                  (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
                         </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="Développeur">
-                <tag *ngFor="let developer of developersTags;"
+                <tag *ngFor="let developer of filters.tags.developers;"
                      [tag]="developer"
                      [filter]="userGameFilter.game.developers"
-                     [suffix]="developersCount[developer.id]"
+                     [suffix]="filters.count.developers[developer.id]"
                      (uploaded)="toggleTag('developers', $event, developer)"></tag>
             </p-tabPanel>
             <p-tabPanel header="Éditeur">
-                <tag *ngFor="let publisher of publishersTags;"
+                <tag *ngFor="let publisher of filters.tags.publishers;"
                      [tag]="publisher"
                      [filter]="userGameFilter.game.publishers"
-                     [suffix]="publishersCount[publisher.id]"
+                     [suffix]="filters.count.publishers[publisher.id]"
                      (uploaded)="toggleTag('publishers', $event, publisher)"></tag>
             </p-tabPanel>
             <p-tabPanel header="Vendeur">
-                <tag *ngFor="let contact of purchaseContactTags;"
+                <tag *ngFor="let contact of filters.tags.purchaseContact;"
                      [tag]="contact | formatName"
                      [filter]="userGameFilter.purchaseContacts"
-                     [suffix]="purchaseContactCount[contact.id]"
+                     [suffix]="filters.count.purchaseContact[contact.id]"
                      (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
             </p-tabPanel>
-            <p-tabPanel header="Acheteur" *ngIf="saleContactTags.length > 0">
-                <tag *ngFor="let contact of saleContactTags;"
+            <p-tabPanel header="Acheteur" *ngIf="filters.tags.saleContact.length > 0">
+                <tag *ngFor="let contact of filters.tags.saleContact;"
                      [tag]="contact | formatName"
                      [filter]="userGameFilter.saleContacts"
-                     [suffix]="saleContactCount[contact.id]"
+                     [suffix]="filters.count.saleContact[contact.id]"
                      (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
             </p-tabPanel>
         </p-tabView>
@@ -459,6 +458,12 @@
 <div class="topnav" *ngIf="displayNewUserGame">
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"></i></div>
 </div>
+
+<game-chart *ngIf="displayChart" [filters]="filters"></game-chart>
+<div class="topnav" *ngIf="displayChart">
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeChart()"></i></div>
+</div>
+
 
 <loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction"
          preventParentScroll></loading>

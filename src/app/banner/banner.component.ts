@@ -1,6 +1,5 @@
-import {Component, ElementRef, trigger, style, animate, transition} from "@angular/core";
-import {Input, HostListener} from "@angular/core/src/metadata/directives";
-import {ViewChild} from "@angular/core/src/metadata/di";
+import {Component, ElementRef, Input, HostListener, ViewChild} from "@angular/core";
+import {trigger, animate, style, transition} from '@angular/animations';
 import {Game} from "../_models/game";
 
 @Component({

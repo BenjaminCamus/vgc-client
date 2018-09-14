@@ -14,7 +14,7 @@
             <div class="input">
                 <button type="submit"
                         class="btn btn-success">
-                    <i class="fas fa-sync" [ngClass]="slimLoadingBarService.progress > 0 ? 'fa-spin' : ''"></i>
+                    <i class="fas fa-sync" [ngClass]="loading ? 'fa-spin' : ''"></i>
                     Rechercher via IGDB.com
                 </button>
             </div>

@@ -46,6 +46,10 @@
   background: #111;
 }
 
+.ui-tabview-panel, .ui-tabview {
+  background: none !important;
+}
+
 label.primeng {
   margin-top: -76px;
   position: absolute;
@@ -95,5 +99,9 @@ label.primeng {
 }
 
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: .125em;
+  width: 1.8em;
+  height: 1.8em;
   top: 7px;
 }

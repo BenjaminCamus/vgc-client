@@ -1,12 +1,13 @@
 import {Injectable}              from '@angular/core';
-import {Http, Headers, Response}          from '@angular/http';
+import {HttpClient, HttpHeaders,}          from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
 
-import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/observable/forkJoin';
-import 'rxjs/add/observable/of';
+import {Observable} from 'rxjs';
+
+
+
+
+
 
 import {AuthenticationService} from '../_services/authentification.service';
 
@@ -24,13 +25,13 @@ export class GameService {
     searchLimit = 10;
 
     private url = environment.vgcApiUrl;
-    private headers = new Headers({
+    private headers = new HttpHeaders({
         'Authorization': 'Bearer ' + this.authenticationService.token,
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
                 private authenticationService: AuthenticationService,
                 private router: Router,
                 private errorService: ErrorService) {
@@ -38,26 +39,26 @@ export class GameService {
 
     getUserGames(offset: number, limit: number): Observable<UserGame[]> {
 
-        return this.http.get(this.url + 'user/games?offset=' + offset + '&limit=' + limit, {headers: this.headers})
-            .map(response => {
-                var res = response.json();
-                for (let key in res) {
-                    res[key] = this.setDates(res[key]);
-                }
-                return res as UserGame[];
-            })
-            //.map(response => response.json() as UserGame[])
-            .catch(this.errorService.handleError.bind(this));
+        return this.http
+            .get<UserGame[]>(this.url + 'user/games?offset=' + offset + '&limit=' + limit, {headers: this.headers})
+            .pipe(
+                map(response => {
+                    for (let key in response) {
+                        response[key] = this.setDates(response[key]);
+                    }
+                    return response as UserGame[];
+                }),
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     countUserGames(): Observable<number> {
 
-        return this.http.get(this.url + 'user/games/count', {headers: this.headers})
-            .map(response => {
+        return this.http.get<number>(this.url + 'user/games/count', {headers: this.headers})
 
-                return response.json();
-            })
-            .catch(this.errorService.handleError.bind(this));
+            .pipe(
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     setDates(userGame) {
@@ -77,9 +78,10 @@ export class GameService {
 
     getUserContacts(): Observable<Contact[]> {
 
-        return this.http.get(this.url + 'user/contacts', {headers: this.headers})
-            .map(response => response.json() as Contact[])
-            .catch(this.errorService.handleError.bind(this));
+        return this.http.get<Contact[]>(this.url + 'user/contacts', {headers: this.headers})
+            .pipe(
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     getGame(userGame: UserGame): Observable<UserGame> {
@@ -88,14 +90,13 @@ export class GameService {
         var headers = this.headers;
 
         return this.http
-            .get(url, {headers: headers})
-            .map(response => {
-                var returnUserGame = response.json();
-                returnUserGame = this.setDates(returnUserGame);
-
-                return returnUserGame as UserGame;
-            })
-            .catch(this.errorService.handleError.bind(this));
+            .get<UserGame>(url, {headers: headers})
+            .pipe(
+                map(response => {
+                    return this.setDates(response) as UserGame;
+                }),
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     deleteUserGame(userGame: UserGame): Observable<UserGame> {
@@ -103,11 +104,10 @@ export class GameService {
         var headers = this.headers;
 
         return this.http
-            .delete(url, {headers: headers})
-            .map(response => {
-                return response;
-            })
-            .catch(this.errorService.handleError.bind(this));
+            .delete<UserGame>(url, {headers: headers})
+            .pipe(
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     postUserGame(userGame: UserGame): Observable<UserGame> {
@@ -128,22 +128,20 @@ export class GameService {
         }
 
         return this.http
-            .post(this.url + 'user/games/add', userGameJson, {headers: this.headers})
-            .map(response => {
-                var res = response.json();
-                res = this.setDates(res);
-                return res as UserGame;
-            })
-            .catch(this.errorService.handleError.bind(this));
+            .post<UserGame>(this.url + 'user/games/add', userGameJson, {headers: this.headers})
+            .pipe(
+                map(response => {
+                    return this.setDates(response) as UserGame;
+                }),
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     igdbSearch(search: string): Observable<Game[]> {
         return this.http
-            .get(this.url + 'igdb/search/' + encodeURIComponent(search), {headers: this.headers})
-            .map(response => {
-                var games = response.json();
-                return games as Game[];
-            })
-            .catch(this.errorService.handleError.bind(this));
+            .get<Game[]>(this.url + 'igdb/search/' + encodeURIComponent(search), {headers: this.headers})
+            .pipe(
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 }

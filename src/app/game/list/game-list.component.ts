@@ -4,9 +4,7 @@ import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
 import {GameLocalService}       from '../../_services/gameLocal.service';
 import {UserGame} from "../../_models/userGame";
-import {Tag} from "../../_models/tag";
 import {deepIndexOf, orderByName, orderByCount} from "../../functions";
-import {Platform} from "../../_models/platform";
 import {UserGameFilter} from "../../_models/userGameFilter";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
@@ -14,7 +12,6 @@ import {FilterPipe} from "../../_pipes/filter.pipe";
 import {LengthPipe} from "../../_pipes/length.pipe";
 import {TotalPipe} from "../../_pipes/total.pipe";
 import {OrderByPipe} from "../../_pipes/orderBy.pipe";
-import {Contact} from "../../_models/contact";
 
 @Component({
     moduleId: module.id,
@@ -51,6 +48,7 @@ export class GamesComponent implements OnInit {
 
     displayUserGame: boolean = false;
     displayNewUserGame: boolean = false;
+    displayChart: boolean = false;
 
     userGameFields = [];
 
@@ -63,34 +61,41 @@ export class GamesComponent implements OnInit {
     orderField: string = 'purchaseDate';
     orderOption: boolean = false;
 
-    purchasePlaceTags: string[] = [];
-    salePlaceTags: string[] = [];
-    purchaseContactTags: Contact[] = [];
-    saleContactTags: Contact[] = [];
-    platformsTags: Platform[] = [];
-    seriesTags: Tag[] = [];
-    developersTags: Tag[] = [];
-    publishersTags: Tag[] = [];
-    modesTags: Tag[] = [];
-    themesTags: Tag[] = [];
-    genresTags: Tag[] = [];
+    filters = {
+        tags: {
+            purchasePlace: [],
+            salePlace: [],
+            purchaseContact: [],
+            saleContact: [],
+            platforms: [],
+            series: [],
+            developers: [],
+            publishers: [],
+            modes: [],
+            themes: [],
+            genres: []
 
-    purchasePlaceCount: number[] = [];
-    salePlaceCount: number[] = [];
-    purchaseContactCount: number[] = [];
-    saleContactCount: number[] = [];
-    platformsCount: number[] = [];
-    seriesCount: number[] = [];
-    developersCount: number[] = [];
-    publishersCount: number[] = [];
-    modesCount: number[] = [];
-    themesCount: number[] = [];
-    genresCount: number[] = [];
+        },
+        count: {
+            purchasePlace: [],
+            salePlace: [],
+            purchaseContact: [],
+            saleContact: [],
+            platforms: [],
+            series: [],
+            developers: [],
+            publishers: [],
+            modes: [],
+            themes: [],
+            genres: [],
 
-    versionCount: number[] = [];
-    progressCount: number[] = [];
-    condCount: number[] = [];
-    completenessCount: number[] = [];
+            version: [],
+            progress: [],
+            cond: [],
+            completeness: []
+
+        }
+    }
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
@@ -302,34 +307,34 @@ export class GamesComponent implements OnInit {
 
     private setFilters() {
 
-        this.purchasePlaceTags = [];
-        this.salePlaceTags = [];
-        this.purchaseContactTags = [];
-        this.saleContactTags = [];
-        this.platformsTags = [];
-        this.seriesTags = [];
-        this.developersTags = [];
-        this.publishersTags = [];
-        this.modesTags = [];
-        this.themesTags = [];
-        this.genresTags = [];
+        this.filters.tags.purchasePlace = [];
+        this.filters.tags.salePlace = [];
+        this.filters.tags.purchaseContact = [];
+        this.filters.tags.saleContact = [];
+        this.filters.tags.platforms = [];
+        this.filters.tags.series = [];
+        this.filters.tags.developers = [];
+        this.filters.tags.publishers = [];
+        this.filters.tags.modes = [];
+        this.filters.tags.themes = [];
+        this.filters.tags.genres = [];
 
-        this.purchasePlaceCount = [];
-        this.salePlaceCount = [];
-        this.purchaseContactCount = [];
-        this.saleContactCount = [];
-        this.platformsCount = [];
-        this.seriesCount = [];
-        this.developersCount = [];
-        this.publishersCount = [];
-        this.modesCount = [];
-        this.themesCount = [];
-        this.genresCount = [];
+        this.filters.count.purchasePlace = [];
+        this.filters.count.salePlace = [];
+        this.filters.count.purchaseContact = [];
+        this.filters.count.saleContact = [];
+        this.filters.count.platforms = [];
+        this.filters.count.series = [];
+        this.filters.count.developers = [];
+        this.filters.count.publishers = [];
+        this.filters.count.modes = [];
+        this.filters.count.themes = [];
+        this.filters.count.genres = [];
 
-        this.versionCount = [];
-        this.progressCount = [];
-        this.condCount = [];
-        this.completenessCount = [];
+        this.filters.count.version = [];
+        this.filters.count.progress = [];
+        this.filters.count.cond = [];
+        this.filters.count.completeness = [];
 
         var minRating = 20;
         var maxRating = 0;
@@ -387,13 +392,13 @@ export class GamesComponent implements OnInit {
                 let ugParam = type == 'platforms' ? 'platform' : type;
 
                 if (userGame[ugParam]) {
-                    if (!this[type + 'Count'][userGame[ugParam].id]) {
+                    if (!this.filters.count[type][userGame[ugParam].id]) {
 
-                        this[type + 'Tags'].push(userGame[ugParam]);
-                        this[type + 'Count'][userGame[ugParam].id] = 0;
+                        this.filters.tags[type].push(userGame[ugParam]);
+                        this.filters.count[type][userGame[ugParam].id] = 0;
                     }
 
-                    this[type + 'Count'][userGame[ugParam].id]++;
+                    this.filters.count[type][userGame[ugParam].id]++;
                 }
             }
 
@@ -402,13 +407,13 @@ export class GamesComponent implements OnInit {
             for (let type of tagTypes) {
 
                 if (userGame[type]) {
-                    if (!this[type + 'Count'][userGame[type]]) {
+                    if (!this.filters.count[type][userGame[type]]) {
 
-                        this[type + 'Tags'].push(userGame[type]);
-                        this[type + 'Count'][userGame[type]] = 0;
+                        this.filters.tags[type].push(userGame[type]);
+                        this.filters.count[type][userGame[type]] = 0;
                     }
 
-                    this[type + 'Count'][userGame[type]]++;
+                    this.filters.count[type][userGame[type]]++;
                 }
             }
 
@@ -418,47 +423,47 @@ export class GamesComponent implements OnInit {
 
                     for (let tag of userGame.game[tagType]) {
 
-                        if (!this[tagType + 'Count'][tag.id]) {
+                        if (!this.filters.count[tagType][tag.id]) {
 
-                            this[tagType + 'Tags'].push(tag);
-                            this[tagType + 'Count'][tag.id] = 0;
+                            this.filters.tags[tagType].push(tag);
+                            this.filters.count[tagType][tag.id] = 0;
                         }
 
-                        this[tagType + 'Count'][tag.id]++;
+                        this.filters.count[tagType][tag.id]++;
                     }
                 }
             }
 
-            if (!this.versionCount[userGame.version]) {
-                this.versionCount[userGame.version] = 0;
+            if (!this.filters.count.version[userGame.version]) {
+                this.filters.count.version[userGame.version] = 0;
             }
-            this.versionCount[userGame.version]++;
+            this.filters.count.version[userGame.version]++;
 
-            if (!this.progressCount[userGame.progress]) {
-                this.progressCount[userGame.progress] = 0;
+            if (!this.filters.count.progress[userGame.progress]) {
+                this.filters.count.progress[userGame.progress] = 0;
             }
-            this.progressCount[userGame.progress]++;
+            this.filters.count.progress[userGame.progress]++;
 
-            if (!this.condCount[userGame.cond]) {
-                this.condCount[userGame.cond] = 0;
+            if (!this.filters.count.cond[userGame.cond]) {
+                this.filters.count.cond[userGame.cond] = 0;
             }
-            this.condCount[userGame.cond]++;
+            this.filters.count.cond[userGame.cond]++;
 
-            if (!this.completenessCount[userGame.completeness]) {
-                this.completenessCount[userGame.completeness] = 0;
+            if (!this.filters.count.completeness[userGame.completeness]) {
+                this.filters.count.completeness[userGame.completeness] = 0;
             }
-            this.completenessCount[userGame.completeness]++;
+            this.filters.count.completeness[userGame.completeness]++;
         }
 
         // orderByCount
-        this.platformsTags.sort(orderByCount(this.platformsCount));
-        this.seriesTags.sort(orderByCount(this.seriesCount));
-        this.developersTags.sort(orderByCount(this.developersCount));
-        this.publishersTags.sort(orderByCount(this.publishersCount));
-        this.purchaseContactTags.sort(orderByCount(this.purchaseContactCount));
-        this.saleContactTags.sort(orderByCount(this.saleContactCount));
-        this.purchasePlaceTags.sort();
-        this.salePlaceTags.sort();
+        this.filters.tags.platforms.sort(orderByCount(this.filters.count.platforms));
+        this.filters.tags.series.sort(orderByCount(this.filters.count.series));
+        this.filters.tags.developers.sort(orderByCount(this.filters.count.developers));
+        this.filters.tags.publishers.sort(orderByCount(this.filters.count.publishers));
+        this.filters.tags.purchaseContact.sort(orderByCount(this.filters.count.purchaseContact));
+        this.filters.tags.saleContact.sort(orderByCount(this.filters.count.saleContact));
+        this.filters.tags.purchasePlace.sort();
+        this.filters.tags.salePlace.sort();
 
         this.userGameFilter.ratingRange = [minRating, maxRating];
         this.userGameFilter.minRating = minRating;

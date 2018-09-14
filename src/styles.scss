@@ -1,21 +1,5 @@
-$colorTextMain: white;
-
-$colorMain: #337AB7;
-$colorMain0: rgba(51,122,183,.2);
-
-$colorTag: #18121e;
-$colorTagOn: #233237;
-
-$colorSuccess: #029901;
-$colorSuccess0: #026301;
-$colorWarning: #c16500;
-$colorWarning0: #814100;
-$colorError: #a90000;
-$colorError0: #632f2d;
-
-$colorTagOn: $colorSuccess0;
-
 @import "../node_modules/compass-mixins/lib/_compass";
+@import "assets/scss/colors";
 @import "assets/scss/form";
 @import "assets/scss/loader";
 @import "assets/scss/hovicon";
@@ -36,25 +20,14 @@ html {
 
 body {
   background: url("https://www.toptal.com/designers/subtlepatterns/patterns/footer_lodyas.png") center;
-  color: $colorTextMain;
   font-family: 'Share Tech Mono', monospace;
   font-size: 14px;
 }
 
-hr {
-  border: 1px rgba(255, 255, 255, .2) dashed;
-}
-
 a {
-  color: $colorMain;
   cursor: pointer;
 }
 
 a:focus, a:hover {
-  color: $colorMain;
   text-decoration: underline;
-}
-
-.error {
-  color: $colorError;
 }

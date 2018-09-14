@@ -1,4 +1,4 @@
-import {Component, Input, ChangeDetectorRef, EventEmitter} from "@angular/core";
+import {Component, Input, Output, ChangeDetectorRef, EventEmitter} from "@angular/core";
 import {Game} from "../../_models/game";
 import {GameService} from "../../_services/game.service";
 import {GameLocalService} from "../../_services/gameLocal.service";
@@ -9,7 +9,6 @@ import {LoadingComponent} from "../../loading/loading.component";
 import {UserGameValuePipe} from "../../_pipes/userGameValue.pipe";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
-import {Output} from "@angular/core/src/metadata/directives";
 import {carouselTransition} from "../../_animations/carousel.animations";
 
 @Component({

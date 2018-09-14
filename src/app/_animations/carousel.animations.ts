@@ -1,4 +1,4 @@
-import {trigger, animate, style, transition} from '@angular/core';
+import {trigger, animate, style, transition} from '@angular/animations';
 
 export function carouselTransition() {
     return trigger('carouselTransition', [

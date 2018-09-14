@@ -1,5 +1,4 @@
-import {Component, OnInit} from "@angular/core";
-import {Input, HostListener} from "@angular/core/src/metadata/directives";
+import {Component, OnInit, Input, HostListener} from "@angular/core";
 
 @Component({
     moduleId: module.id,

@@ -1,20 +1,21 @@
-import { Injectable } from '@angular/core';
-import { Http, Headers, Response } from '@angular/http';
-import { Observable } from 'rxjs';
-import 'rxjs/add/operator/map'
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {catchError, map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+
 import {ErrorService} from "./error.service";
 import {environment} from "../../environments/environment";
 import {GameLocalService} from "./gameLocal.service";
 
 @Injectable()
 export class AuthenticationService {
-    private headers = new Headers({'Content-type': 'application/json'});
-    private loginUrl = environment.vgcApiUrl+'login_check';
-    private registerUrl = environment.vgcApiUrl+'api_register';
+    private headers = new HttpHeaders({'Content-type': 'application/json'});
+    private loginUrl = environment.vgcApiUrl + 'login_check';
+    private registerUrl = environment.vgcApiUrl + 'api_register';
 
     public token: string;
 
-    constructor(private http: Http,
+    constructor(private http: HttpClient,
                 private errorService: ErrorService) {
         // set token if saved in local storage
         var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -28,8 +29,7 @@ export class AuthenticationService {
             var request: any = {
                 "email": user.email,
                 "username": user.username,
-                "plainPassword":
-                {
+                "plainPassword": {
                     "first": user.password,
                     "second": user.confirmPassword
                 }
@@ -43,27 +43,30 @@ export class AuthenticationService {
             };
         }
 
-        return this.http.post(url, JSON.stringify(request), {headers: this.headers})
-            .map((response: Response) => {
-                // login successful if there's a jwt token in the response
-                let token = response.json() && response.json().token;
+        return this.http.post<any>(url, JSON.stringify(request), {headers: this.headers})
+            .pipe(
+                map(response => {
+                    // login successful if there's a jwt token in the response
+                    let token = response && response.token;
 
-                if (token) {
+                    if (token) {
 
-                    // set token property
-                    this.token = token;
+                        // set token property
+                        this.token = token;
 
-                    // store username and jwt token in local storage to keep user logged in between page refreshes
-                    localStorage.setItem('currentUser', JSON.stringify({ username: user.username, token: token }));
+                        // store username and jwt token in local storage to keep user logged in between page refreshes
+                        localStorage.setItem('currentUser', JSON.stringify({username: user.username, token: token}));
 
-                    // return true to indicate successful login
-                    return true;
-                } else {console.log('no token');
-                    // return false to indicate failed login
-                    return false;
-                }
-            })
-            .catch(this.errorService.handleError.bind(this));
+                        // return true to indicate successful login
+                        return true;
+                    } else {
+                        console.log('no token');
+                        // return false to indicate failed login
+                        return false;
+                    }
+                }),
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     logout(): void {

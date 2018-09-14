@@ -14,7 +14,7 @@
                     <input type="text" id="username"
                            required
                            [(ngModel)]="user.username" name="username"
-                           [disabled]="slimLoadingBarService.progress > 0"
+                           [disabled]="loading"
                            #username="ngModel">
                     <span class="bar"></span>
                     <label for="username">Identifiant</label>
@@ -26,7 +26,7 @@
                     <input type="text" id="email"
                            required
                            [(ngModel)]="user.email" name="email"
-                           [disabled]="slimLoadingBarService.progress > 0"
+                           [disabled]="loading"
                            #email="ngModel">
                     <span class="bar"></span>
                     <label for="email">E-Mail</label>
@@ -38,7 +38,7 @@
                     <input type="password" id="password"
                            required
                            [(ngModel)]="user.password" name="password"
-                           [disabled]="slimLoadingBarService.progress > 0"
+                           [disabled]="loading"
                            #password="ngModel">
                     <span class="bar"></span>
                     <label for="password">Mot de passe</label>
@@ -50,7 +50,7 @@
                     <input type="password" id="confirmPassword"
                            required
                            [(ngModel)]="user.confirmPassword" name="confirmPassword"
-                           [disabled]="slimLoadingBarService.progress > 0"
+                           [disabled]="loading"
                            #confirmPassword="ngModel">
                     <span class="bar"></span>
                     <label for="confirmPassword">Confirmation mot de passe</label>
@@ -64,11 +64,11 @@
 
             <div class="row" style="margin-top: 15px;">
                 <div class="col-md-12">
-                    <button [disabled]="!loginForm.form.valid || slimLoadingBarService.progress > 0" class="btn btn-primary">Start</button>
+                    <button [disabled]="!loginForm.form.valid || loading" class="btn btn-primary">Start</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-<loading *ngIf="slimLoadingBarService.progress > 0" [action]="action"></loading>
+<loading *ngIf="loading" [action]="action"></loading>

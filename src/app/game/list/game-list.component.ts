@@ -1,4 +1,4 @@
-import {Component, Renderer, OnInit} from '@angular/core';
+import {Component, Renderer2, OnInit, HostListener} from '@angular/core';
 import {Router}            from '@angular/router';
 import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
@@ -13,7 +13,6 @@ import {FormatNamePipe} from "../../_pipes/formatName.pipe";
 import {FilterPipe} from "../../_pipes/filter.pipe";
 import {LengthPipe} from "../../_pipes/length.pipe";
 import {TotalPipe} from "../../_pipes/total.pipe";
-import {HostListener} from "@angular/core/src/metadata/directives";
 import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 import {Contact} from "../../_models/contact";
 
@@ -96,7 +95,7 @@ export class GamesComponent implements OnInit {
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private router: Router,
-                private renderer: Renderer,
+                private renderer: Renderer2,
                 private filterPipe: FilterPipe,
                 private orderByPipe: OrderByPipe) {
 
@@ -533,14 +532,6 @@ export class GamesComponent implements OnInit {
         else {
             this.orderField = orderField;
             this.orderOption = true;
-        }
-    }
-
-    setItemClass(e) {
-        if (e.value) {
-            this.renderer.setElementProperty(e.target, 'className', 'gameBox visible_anim');
-        } else {
-            this.renderer.setElementProperty(e.target, 'className', 'gameBox');
         }
     }
 

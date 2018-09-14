@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Response} from '@angular/http';
+import {HttpErrorResponse} from '@angular/common/http';
 import {Router} from "@angular/router";
 
 
@@ -8,15 +8,13 @@ export class ErrorService {
     constructor(private router: Router) {
     }
 
-    handleError(error: Response | any) {
+    handleError(error: any) {
 
         console.error('handleError');
 
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;
-        if (error instanceof Response) {
-            const body = error.json() || '';
-            const err = body.error || JSON.stringify(body);
+        if (error instanceof HttpErrorResponse) {
 
             if (error.status == 404) {
                 this.router.navigate(['/']);
@@ -25,19 +23,16 @@ export class ErrorService {
                 this.router.navigate(['/login']);
             }
 
-            errMsg = error.status + ' - ' + error.statusText + (err.exception ? '\n' + err.exception[0].message : '');
-            console.error('instanceof Response');
+            errMsg = error.status + ' - ' + error.error.message;
 
         }
         else {
-            errMsg = error.message ? error.message : error.toString();
-            console.error('handleError');
+            errMsg = error.message ? error.error.message : error.toString();
 
             alert('Oups...\n' + errMsg);
             this.router.navigate(['/']);
         }
 
-        console.error(error);
         console.error(errMsg);
 
         return errMsg;

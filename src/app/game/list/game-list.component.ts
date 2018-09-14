@@ -52,7 +52,7 @@ export class GamesComponent implements OnInit {
 
     userGameFields = [];
 
-    tableFields = ['progress', 'cond', 'game.name', 'version', 'completeness', 'rating',
+    tableFields = ['progress', 'game.name', 'platform.name', 'version', 'cond', 'completeness', 'rating',
         'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
         'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
 

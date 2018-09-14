@@ -2,7 +2,6 @@
   display: inline-block;
   cursor: pointer;
   padding: 1px 5px 0;
-  background: #18121e;
   -webkit-transition: background-color .4s ease-in;
   transition: background-color .4s ease-in;
   border: 1px solid rgba(255,255,255,.3);
@@ -16,7 +15,6 @@
 
   div {
     color: #fff;
-    background: #18121e;
     border-left: 1px solid rgba(255,255,255,.3);
     right: 0;
     margin-left: 5px;
@@ -38,12 +36,11 @@
 }
 
 .tag.on {
-  background: $colorTagOn;
+  background: $colorSuccess0;
   transition: background-color 0.4s ease-in;
   border: 1px solid rgba(255, 255, 255, 1);
 
   div {
     border-left: 1px solid rgba(255, 255, 255, 1);
-    background: $colorTagOn;
   }
 }

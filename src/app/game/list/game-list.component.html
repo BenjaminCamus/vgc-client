@@ -64,7 +64,7 @@
 
                 <span *ngIf="field != 'progress'" [innerHTML]="userGame | userGameValue: userGameFields[field]"></span>
                 <div *ngIf="field == 'progress'" class="gameProgress">
-                    <i *ngIf="userGame.progress == '0'" class="fas fa-battery-empty text-error"></i>
+                    <i *ngIf="userGame.progress == '0'" class="fas fa-battery-empty text-danger"></i>
                     <i *ngIf="userGame.progress == '1'" class="fas fa-battery-half text-warning"></i>
                     <i *ngIf="userGame.progress == '2'" class="fas fa-battery-full text-success"></i>
                     <i *ngIf="userGame.progress == '3'" class="fas fa-battery-full text-info"></i>

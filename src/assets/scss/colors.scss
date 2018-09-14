@@ -1,0 +1,121 @@
+// SASS style sheet */
+// Palette color codes */
+// Palette URL: http://paletton.com/#uid=7000u0kvUvjjGCwo+xvy8otDxjc */
+
+// Feel free to copy&paste color codes to your application */
+
+
+// As hex codes */
+
+//$color-primary-0: #FA0101;	// Main Primary color */
+//$color-primary-1: #FF6262;
+//$color-primary-2: #FF3838;
+//$color-primary-3: #C30000;
+//$color-primary-4: #990000;
+//
+//$color-secondary-1-0: #FA7101;	// Main Secondary color (1) */
+//$color-secondary-1-1: #FFA962;
+//$color-secondary-1-2: #FF9238;
+//$color-secondary-1-3: #C35800;
+//$color-secondary-1-4: #994500;
+//
+//$color-secondary-2-0: #009696;	// Main Secondary color (2) */
+//$color-secondary-2-1: #44B1B1;
+//$color-secondary-2-2: #239E9E;
+//$color-secondary-2-3: #007575;
+//$color-secondary-2-4: #005C5C;
+//
+//$color-complement-0: #01C801;	// Main Complement color */
+//$color-complement-1: #53D853;
+//$color-complement-2: #2DCE2D;
+//$color-complement-3: #009C00;
+//$color-complement-4: #007A00;
+
+
+
+// As RGBa codes */
+
+$rgba-primary-0: rgba(250,  1,  1,1);	// Main Primary color */
+$rgba-primary-1: rgba(255, 98, 98,1);
+$rgba-primary-2: rgba(255, 56, 56,1);
+$rgba-primary-3: rgba(195,  0,  0,1);
+$rgba-primary-4: rgba(153,  0,  0,1);
+
+$rgba-secondary-1-0: rgba(250,113,  1,1);	// Main Secondary color (1) */
+$rgba-secondary-1-1: rgba(255,169, 98,1);
+$rgba-secondary-1-2: rgba(255,146, 56,1);
+$rgba-secondary-1-3: rgba(195, 88,  0,1);
+$rgba-secondary-1-4: rgba(153, 69,  0,1);
+
+$rgba-secondary-2-0: rgba(  0,150,150,1);	// Main Secondary color (2) */
+$rgba-secondary-2-1: rgba( 68,177,177,1);
+$rgba-secondary-2-2: rgba( 35,158,158,1);
+$rgba-secondary-2-3: rgba(  0,117,117,1);
+$rgba-secondary-2-4: rgba(  0, 92, 92,1);
+
+$rgba-complement-0: rgba(  1,200,  1,1);	// Main Complement color */
+$rgba-complement-1: rgba( 83,216, 83,1);
+$rgba-complement-2: rgba( 45,206, 45,1);
+$rgba-complement-3: rgba(  0,156,  0,1);
+$rgba-complement-4: rgba(  0,122,  0,1);
+
+$colorTextMain: white;
+
+$colorMain: $rgba-secondary-2-0;
+$colorMain0: $rgba-secondary-2-4;
+$colorSuccess: $rgba-complement-0;
+$colorSuccess0: $rgba-complement-4;
+$colorWarning: $rgba-secondary-1-0;
+$colorWarning0: $rgba-secondary-1-4;
+$colorError: $rgba-primary-0;
+$colorError0: $rgba-primary-4;
+
+body {
+  color: $colorTextMain;
+}
+
+hr {
+  border: 1px rgba(255, 255, 255, .2) dashed;
+}
+
+a {
+  color: $colorMain;
+}
+
+a:focus, a:hover {
+  color: $colorMain;
+  text-decoration: underline;
+}
+
+.text-success {
+  color: $colorSuccess!important;
+}
+.text-warning {
+  color: $colorWarning!important;
+}
+.text-danger {
+  color: $colorError!important;
+}
+.text-info {
+  color: $colorMain!important;
+}
+
+.btn-success {
+  background-color: $colorSuccess0!important;
+}
+.btn-danger {
+  background-color: $colorError0!important;
+}
+.btn-primary {
+  background-color: $colorMain0!important;
+}
+
+.btn-success:hover {
+  background-color: $colorSuccess!important;
+}
+.btn-danger:hover {
+  background-color: $colorError!important;
+}
+.btn-primary:hover {
+  background-color: $colorMain!important;
+}

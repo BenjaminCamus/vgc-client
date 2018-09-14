@@ -459,11 +459,6 @@
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"></i></div>
 </div>
 
-<game-chart *ngIf="displayChart" [filters]="filters"></game-chart>
-<div class="topnav" *ngIf="displayChart">
-    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeChart()"></i></div>
-</div>
-
 
 <loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction"
          preventParentScroll></loading>

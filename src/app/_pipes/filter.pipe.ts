@@ -100,22 +100,25 @@ export class FilterPipe implements PipeTransform {
         }
         else {
             let filterKey = tagType == 'progress' ? tagType + 'es' : tagType + 's';
-            if (item[tagType] !== undefined && item[tagType] !== null && filter[filterKey] && filter[filterKey].length > 0) {
+            if (filter[filterKey] && filter[filterKey].length > 0) {
+              
+                if (item[tagType] !== undefined && item[tagType] !== null) {
 
-                if (typeof item[tagType] == "number" || typeof item[tagType] == "string") {
-                    if (filter[filterKey].indexOf(item[tagType]) > -1) {
+                    if (typeof item[tagType] == "number" || typeof item[tagType] == "string") {
+                        if (filter[filterKey].indexOf(item[tagType]) > -1) {
+                            return true;
+                        }
+                    }
+
+                    else if (deepIndexOf(filter[filterKey], item[tagType]) > -1) {
                         return true;
                     }
-                }
-
-                else if (deepIndexOf(filter[filterKey], item[tagType]) > -1) {
-                    return true;
                 }
 
                 return false;
             }
 
-            return false;
+            return true;
         }
     }
 

@@ -119,3 +119,7 @@ a:focus, a:hover {
 .btn-primary:hover {
   background-color: $colorMain!important;
 }
+
+.ui-state-active, .ui-state-active:hover, .ui-state-active:focus {
+  background-color: $colorMain!important;
+}

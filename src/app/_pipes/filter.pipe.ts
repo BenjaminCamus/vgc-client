@@ -115,7 +115,7 @@ export class FilterPipe implements PipeTransform {
                 return false;
             }
 
-            return true;
+            return false;
         }
     }
 

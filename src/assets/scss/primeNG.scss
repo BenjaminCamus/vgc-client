@@ -94,8 +94,9 @@ label.primeng {
   width: 70px;
 }
 
-.ui-datepicker select.ui-datepicker-year {
-  width: 70px;
+.ui-datepicker select.ui-datepicker-month {
+    width: 100px;
+    margin-right: 10px !important;
 }
 
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
@@ -103,5 +104,5 @@ label.primeng {
   top: .125em;
   width: 1.8em;
   height: 1.8em;
-  top: 7px;
+  top: 14px;
 }

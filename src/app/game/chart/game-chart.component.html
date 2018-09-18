@@ -1,0 +1,13 @@
+<div style="margin: 90px 20px 20px 20px">
+
+    <select id="field"
+            [(ngModel)]="field" name="field"
+            #name="ngModel">
+        <option *ngFor="let f of fields.pie" [ngValue]=f>{{f}}</option>
+    </select>
+
+    <section *ngFor="let f of fields.pie">
+        <p-chart *ngIf="field == f" type="doughnut" [data]="chartData[f]" [options]="chartOptions"></p-chart>
+    </section>
+
+</div>

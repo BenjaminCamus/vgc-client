@@ -422,14 +422,14 @@
             </p-tabPanel>
             <p-tabPanel header="Vendeur">
                 <tag *ngFor="let contact of filters.tags.purchaseContact;"
-                     [tag]="contact | formatName"
+                     [tag]="contact"
                      [filter]="userGameFilter.purchaseContacts"
                      [suffix]="filters.count.purchaseContact[contact.id]"
                      (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
             </p-tabPanel>
             <p-tabPanel header="Acheteur" *ngIf="filters.tags.saleContact.length > 0">
                 <tag *ngFor="let contact of filters.tags.saleContact;"
-                     [tag]="contact | formatName"
+                     [tag]="contact"
                      [filter]="userGameFilter.saleContacts"
                      [suffix]="filters.count.saleContact[contact.id]"
                      (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>

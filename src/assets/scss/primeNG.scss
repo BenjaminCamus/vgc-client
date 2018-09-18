@@ -12,7 +12,7 @@
   color: inherit;
 }
 
-.ui-tabview.ui-tabview-top>.ui-tabview-nav li {
+.ui-tabview.ui-tabview-top > .ui-tabview-nav li {
   border: 0;
   margin: 0 5px 1px 0;
 }
@@ -66,6 +66,8 @@ label.primeng {
 .ui-widget-header {
   font-weight: normal;
   border-radius: 0;
+  background: none;
+  border: 0;
 }
 
 .ui-datepicker th {
@@ -95,8 +97,8 @@ label.primeng {
 }
 
 .ui-datepicker select.ui-datepicker-month {
-    width: 100px;
-    margin-right: 10px !important;
+  width: 100px;
+  margin-right: 10px !important;
 }
 
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {

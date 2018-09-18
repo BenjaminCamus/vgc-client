@@ -13,9 +13,12 @@
   position: absolute;
   width: 100%;
   min-height: 100%;
-  padding-bottom: 70px;
   background: rgba(0, 0, 0, 0.5);
   overflow-x: hidden;
+}
+
+.mainPage .container-fluid {
+    padding-bottom: 70px;
 }
 
 .fakePage {

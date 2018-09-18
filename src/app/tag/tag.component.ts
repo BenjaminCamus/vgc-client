@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, Output} from "@angular/core";
 import {deepIndexOf} from "../functions";
+import {FormatNamePipe} from "../_pipes/formatName.pipe";
 
 @Component({
     moduleId: module.id,
@@ -15,7 +16,12 @@ export class TagComponent {
     @Input() set filter(filter: any) {
         this._filter = filter;
 
-        this.tagLabel = typeof this.tag == 'number' || typeof this.tag == 'string' ? this.tag + '' : this.tag.name;
+        if (typeof this.tag == 'number' || typeof this.tag == 'string') {
+            this.tagLabel = this.tag + '';
+        }
+        else {
+            this.tagLabel = this.formatNamePipe.transform(this.tag);
+        }
 
         this.setActive();
     }
@@ -23,6 +29,9 @@ export class TagComponent {
     @Output() uploaded: EventEmitter<any> = new EventEmitter();
 
     active: boolean = false;
+
+    constructor(private formatNamePipe: FormatNamePipe) {
+    }
 
     setActive() {
 

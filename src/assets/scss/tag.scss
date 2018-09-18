@@ -14,6 +14,9 @@
   position: relative;
 
   div {
+    background: #111;
+    -webkit-transition: background-color .4s ease-in;
+    transition: background-color .4s ease-in;
     color: #fff;
     border-left: 1px solid rgba(255,255,255,.3);
     right: 0;
@@ -42,5 +45,6 @@
 
   div {
     border-left: 1px solid rgba(255, 255, 255, 1);
+    background: $colorSuccess0;
   }
 }

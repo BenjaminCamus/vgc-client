@@ -122,4 +122,6 @@ a:focus, a:hover {
 
 .ui-state-active, .ui-state-active:hover, .ui-state-active:focus {
   background-color: $colorMain!important;
+  color: white;
+  outline: none;
 }

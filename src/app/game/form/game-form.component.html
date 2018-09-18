@@ -148,6 +148,7 @@
                     <select id="newContacts{{sp}}"
                             [(ngModel)]="_userGame[sp+'Contact']" name="newContacts{{sp}}"
                             #name="ngModel">
+                        <option [ngValue]="null"></option>
                         <option [ngValue]="newContact">{{newContact | formatName}}</option>
                         <option *ngFor="let c of userContacts" [ngValue]="c">{{c | formatName:true}}</option>
                     </select>

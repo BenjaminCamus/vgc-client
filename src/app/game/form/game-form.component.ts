@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 import {Platform} from "../../_models/platform";
 
 import {orderByName} from "../../functions";
-import {Contact, NewContact} from "../../_models/contact";
+import {Contact} from "../../_models/contact";
 import {GameLocalService} from "../../_services/gameLocal.service";
 
 @Component({

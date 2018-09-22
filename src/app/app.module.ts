@@ -25,10 +25,19 @@ import {GameFormComponent} from "./game/form/game-form.component";
 import {FormatNamePipe} from "./_pipes/formatName.pipe";
 import {GameLocalService} from "./_services/gameLocal.service";
 import {UserGameValuePipe} from "./_pipes/userGameValue.pipe";
+import {WrapValuePipe} from "./_pipes/wrapValue.pipe";
 import {LengthPipe} from "./_pipes/length.pipe";
 import {TotalPipe} from "./_pipes/total.pipe";
 import {BannerComponent} from "./banner/banner.component";
 import {PreventParentScrollModule} from "ngx-prevent-parent-scroll";
+import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
+import {HttpClient} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+// AoT requires an exported function for factories
+export function HttpLoaderFactory(http: HttpClient) {
+    return new TranslateHttpLoader(http);
+}
 
 @NgModule({
     imports: [
@@ -44,10 +53,18 @@ import {PreventParentScrollModule} from "ngx-prevent-parent-scroll";
         TabViewModule,
         CalendarModule,
         PreventParentScrollModule,
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: HttpLoaderFactory,
+                deps: [HttpClient]
+            }
+        })
     ],
     declarations: [
         FilterPipe,
         UserGameValuePipe,
+        WrapValuePipe,
         OrderByPipe,
         SafePipe,
         TruncatePipe,

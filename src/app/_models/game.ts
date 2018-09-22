@@ -21,6 +21,18 @@ export class Game {
     // IGDB
     platforms: Array<Platform>;
 
+    fieldTypes = {
+        name: 'string',
+        series: 'tags',
+        developers: 'tags',
+        publishers: 'tags',
+        modes: 'tags',
+        themes: 'tags',
+        genres: 'tags',
+        rating: 'rating',
+        igdbUrl: 'url'
+    };
+
     constructor(name: string = '') {
         this.name = name;
     }

@@ -21,8 +21,6 @@ export class LoadingComponent implements OnInit {
     @Input() total: number = 0;
 
     image: string;
-    title: string;
-    subtitle: string;
 
     constructor() {
     }
@@ -34,26 +32,6 @@ export class LoadingComponent implements OnInit {
 
     ngOnInit(): void {
         this.randomBgIndex();
-
-        switch (this.action) {
-            case 'login':
-                this.title = 'Connexion en cours';
-                break;
-            case 'register':
-                this.title = 'Inscription en cours';
-                break;
-            case 'sync':
-                this.title = 'Synchronisation en cours';
-                break;
-            default:
-                this.title = 'Sauvegarde en cours';
-                break;
-
-        }
-
-        this.subtitle = 'Veuillez ne pas éteindre la console ni retirer la cartouche';
-
-
     }
 
     randomBgIndex() {

@@ -39,7 +39,17 @@ $hovicon-size: 50px;
 .hovicon:hover {
   background: $colorMain0;
   color: #fff;
-  box-shadow: 0 0 0 2px $colorMain;
+  box-shadow: 0 0 0 2px $colorMain !important;
+}
+
+.hovicon.i18n {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  z-index: 999;
+  top: calc(100vh - 70px);
+  left: calc(100vw - 70px);
+  box-shadow: 0 0 0 2px #fff;
 }
 
 //.hovicon:hover:before {

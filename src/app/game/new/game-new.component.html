@@ -1,7 +1,7 @@
 <div *ngIf="!selectedGame">
     <banner [data]="games"></banner>
     <div class="title" *ngIf="!selectedGame">
-        Nouveau Jeu
+        {{ 'title.newGame' | translate }}
         <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
             <div class="input">
                 <input type="text" id="search"
@@ -15,7 +15,7 @@
                 <button type="submit"
                         class="btn btn-success">
                     <i class="fas fa-sync" [ngClass]="loading ? 'fa-spin' : ''"></i>
-                    Rechercher via IGDB.com
+                    {{ 'btn.igdbSearch' | translate }}
                 </button>
             </div>
         </form>
@@ -53,7 +53,7 @@
                          src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"/>
                 </div>
 
-                <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.release_date"><label>Date de sortie</label> {{selectedGame.release_date}}</div>
+                <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.release_date"><label>{{ 'field.userGame.releaseDate' | translate }}</label> {{selectedGame.release_date}}</div>
                 <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.summary">{{selectedGame.summary}}</div>
             </div>
 

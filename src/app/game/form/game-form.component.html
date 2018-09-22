@@ -11,29 +11,29 @@
                     <option *ngFor="let p of game.platforms" [ngValue]="p">{{p.name}}</option>
                 </select>
                 <span class="bar"></span>
-                <label for="selectedPlatform">Plateforme</label>
+                <label for="selectedPlatform">{{ 'field.userGame.platform' | translate }}</label>
             </div>
             <div class="col-md-4">
                 <select id="completeness"
                         required
                         [(ngModel)]="_userGame.completeness" name="completeness"
                         #name="ngModel">
-                    <option value="0">Loose</option>
-                    <option value="1">Sans Notice</option>
-                    <option value="2">Sans Boîte</option>
-                    <option value="3" selected>Complet</option>
-                    <option value="4">Dématérialisé</option>
-                    <option value="5">Neuf</option>
+                    <option value="0">{{ 'enum.completeness.0' | translate }}</option>
+                    <option value="1">{{ 'enum.completeness.1' | translate }}</option>
+                    <option value="2">{{ 'enum.completeness.2' | translate }}</option>
+                    <option value="3" selected>{{ 'enum.completeness.3' | translate }}</option>
+                    <option value="4">{{ 'enum.completeness.4' | translate }}</option>
+                    <option value="5">{{ 'enum.completeness.5' | translate }}</option>
                 </select>
                 <span class="bar"></span>
-                <label for="completeness">Jeu</label>
+                <label for="completeness">{{ 'field.userGame.completeness' | translate }}</label>
             </div>
             <div class="col-md-4">
                 <input type="text" id="rating"
                        [(ngModel)]="_userGame.rating"
                        [formControl]="validateUserGameForm.get('rating')">
                 <span class="bar"></span>
-                <label for="rating">Note</label>
+                <label for="rating">{{ 'field.userGame.rating' | translate }}</label>
             </div>
         </div>
         <div class="row">
@@ -48,34 +48,34 @@
                     <option value="USA">USA</option>
                 </select>
                 <span class="bar"></span>
-                <label for="version">Version</label>
+                <label for="version">{{ 'field.userGame.version' | translate }}</label>
             </div>
             <div class="col-md-4">
                 <select id="cond"
                         required
                         [(ngModel)]="_userGame.cond" name="cond"
                         #name="ngModel">
-                    <option value="0">Bof Bof</option>
-                    <option value="1">Bon État</option>
-                    <option value="2" selected>Très Bon État</option>
-                    <option value="3">Near Mint</option>
-                    <option value="4">Mint !!</option>
+                    <option value="0">{{ 'enum.cond.0' | translate }}</option>
+                    <option value="1">{{ 'enum.cond.1' | translate }}</option>
+                    <option value="2" selected>{{ 'enum.cond.2' | translate }}</option>
+                    <option value="3">{{ 'enum.cond.3' | translate }}</option>
+                    <option value="4">{{ 'enum.cond.4' | translate }}</option>
                 </select>
                 <span class="bar"></span>
-                <label for="cond">État</label>
+                <label for="cond">{{ 'field.userGame.cond' | translate }}</label>
             </div>
             <div class="col-md-4">
                 <select id="progress"
                         required
                         [(ngModel)]="_userGame.progress" name="progress"
                         #name="ngModel">
-                    <option value="2">Terminé</option>
-                    <option value="1">En cours</option>
-                    <option value="0" selected>Jamais joué</option>
-                    <option value="3">Abandonné</option>
+                    <option value="2">{{ 'enum.progress.2' | translate }}</option>
+                    <option value="1">{{ 'enum.progress.1' | translate }}</option>
+                    <option value="0" selected>{{ 'enum.progress.0' | translate }}</option>
+                    <option value="3">{{ 'enum.progress.3' | translate }}</option>
                 </select>
                 <span class="bar"></span>
-                <label for="progress">Progression</label>
+                <label for="progress">{{ 'field.userGame.progress' | translate }}</label>
             </div>
         </div>
 
@@ -89,28 +89,28 @@
                            [(ngModel)]="_userGame.priceAsked"
                            [formControl]="validateUserGameForm.get('priceAsked')">
                     <span class="bar"></span>
-                    <label for="priceAsked">Prix demandé</label>
+                    <label for="priceAsked">{{ 'field.userGame.priceAsked' | translate }}</label>
                 </div>
                 <div class="col-md-3" *ngIf="sp == 'purchase'">
                     <input type="text" id="pricePaid"
                            [(ngModel)]="_userGame.pricePaid"
                            [formControl]="validateUserGameForm.get('pricePaid')">
                     <span class="bar"></span>
-                    <label for="pricePaid">Prix payé</label>
+                    <label for="pricePaid">{{ 'field.userGame.pricePaid' | translate }}</label>
                 </div>
                 <div class="col-md-3" *ngIf="sp == 'sale'">
                     <input type="text" id="priceResale"
                            [(ngModel)]="_userGame.priceResale"
                            [formControl]="validateUserGameForm.get('priceResale')">
                     <span class="bar"></span>
-                    <label for="priceResale">Estimation vente</label>
+                    <label for="priceResale">{{ 'field.userGame.priceResale' | translate }}</label>
                 </div>
                 <div class="col-md-3" *ngIf="sp == 'sale'">
                     <input type="text" id="priceSold"
                            [(ngModel)]="_userGame.priceSold"
                            [formControl]="validateUserGameForm.get('priceSold')">
                     <span class="bar"></span>
-                    <label for="priceSold">Prix vendu</label>
+                    <label for="priceSold">{{ 'field.userGame.priceSold' | translate }}</label>
                 </div>
                 <div class="col-md-6">
 
@@ -124,7 +124,7 @@
                     ></p-calendar>
 
                     <span class="bar"></span>
-                    <label class="primeng" for="{{ sp }}Date">Date {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                    <label class="primeng" for="{{ sp }}Date">{{ 'field.userGame.' + sp + 'Date' | translate }}</label>
                 </div>
             </div>
 
@@ -136,26 +136,25 @@
                             *ngIf="this[sp+'PlaceSelect']"
                             (change)="onSelectPlace($event.target.value, sp)">
                         <option *ngFor="let p of places" [ngValue]="p">{{p}}</option>
-                        <option value="__new__">Nouveau Lieu</option>
+                        <option value="__new__">{{ 'label.newPlace' | translate }}</option>
                     </select>
                     <input type="text" id="{{ sp }}Place"
                            [(ngModel)]="_userGame[sp+'Place']" name="{{ sp }}Place"
                            *ngIf="!this[sp+'PlaceSelect']">
                     <span class="bar"></span>
-                    <label for="{{ sp }}Place">Lieu {{ sp === 'purchase' ? 'Achat' : 'Vente'}}</label>
+                    <label for="{{ sp }}Place">{{ 'field.userGame.' + sp + 'Place' | translate }}</label>
                 </div>
                 <div class="col-md-6">
                     <select id="newContacts{{sp}}"
                             [(ngModel)]="_userGame[sp+'Contact']" name="newContacts{{sp}}"
                             #name="ngModel">
                         <option [ngValue]="null"></option>
-                        <option [ngValue]="newContact">{{newContact | formatName}}</option>
+                        <option [ngValue]="newContact">{{ 'label.newContact' | translate }}</option>
                         <option *ngFor="let c of userContacts" [ngValue]="c">{{c | formatName:true}}</option>
                     </select>
 
                     <span class="bar"></span>
-                    <label for="newContacts{{sp}}">Contact {{ sp === 'purchase' ? 'Achat' :
-                        'Vente'}}</label>
+                    <label for="newContacts{{sp}}">{{ 'field.userGame.' + sp + 'Contact' | translate }}</label>
                 </div>
             </div>
 
@@ -234,7 +233,7 @@
                                   [(ngModel)]="_userGame.note" name="note"
                                   #name="ngModel"></textarea>
                 <span class="bar"></span>
-                <label for="note">Commentaires</label>
+                <label for="note">{{ 'field.userGame.note' | translate }}</label>
 
             </div>
         </div>
@@ -243,7 +242,7 @@
             <div class="col-md-12">
                 <button type="submit" class="btn btn-success" *ngIf="postUserGameForm"
                         [disabled]="!postUserGameForm.form.valid || !validateUserGameForm.valid || loading">
-                    Sauvegarder
+                    {{ 'btn.save' | translate }}
                 </button>
             </div>
         </div>
@@ -251,9 +250,9 @@
 
     <div class="row" *ngIf="action == 'delete'">
         <div class="col-md-12">
-            <h1>Voulez vous vraiment supprimer ce jeu de votre collection ?</h1>
+            <h1>{{ 'msg.removeConfirm' | translate }}</h1>
             <button type="submit" class="btn btn-danger">
-                Supprimer
+                {{ 'btn.remove' | translate }}
             </button>
         </div>
     </div>

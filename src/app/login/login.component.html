@@ -2,10 +2,10 @@
 
 <div class="full">
     <div class="fullTitle">
-        <a *ngIf="action == 'login'" class="navRight" (click)="action = 'register'">Inscription</a>
-        <a *ngIf="action == 'register'" class="navRight" (click)="action = 'login'">Connexion</a>
-        <h2 *ngIf="action == 'login'">Connexion</h2>
-        <h2 *ngIf="action == 'register'">Inscription</h2>
+        <a *ngIf="action == 'login'" class="navRight" (click)="action = 'register'">{{ 'title.register' | translate }}</a>
+        <a *ngIf="action == 'register'" class="navRight" (click)="action = 'login'">{{ 'title.login' | translate }}</a>
+        <h2 *ngIf="action == 'login'">{{ 'title.register' | translate }}</h2>
+        <h2 *ngIf="action == 'register'">{{ 'title.register' | translate }}</h2>
             
         <form name="form" (ngSubmit)="login()"  #loginForm="ngForm">
 
@@ -17,7 +17,7 @@
                            [disabled]="loading"
                            #username="ngModel">
                     <span class="bar"></span>
-                    <label for="username">Identifiant</label>
+                    <label for="username">{{ 'field.user.username' | translate }}</label>
                 </div>
             </div>
 
@@ -29,7 +29,7 @@
                            [disabled]="loading"
                            #email="ngModel">
                     <span class="bar"></span>
-                    <label for="email">E-Mail</label>
+                    <label for="email">{{ 'field.user.email' | translate }}</label>
                 </div>
             </div>
 
@@ -41,7 +41,7 @@
                            [disabled]="loading"
                            #password="ngModel">
                     <span class="bar"></span>
-                    <label for="password">Mot de passe</label>
+                    <label for="password">{{ 'field.user.password' | translate }}</label>
                 </div>
             </div>
 
@@ -53,7 +53,7 @@
                            [disabled]="loading"
                            #confirmPassword="ngModel">
                     <span class="bar"></span>
-                    <label for="confirmPassword">Confirmation mot de passe</label>
+                    <label for="confirmPassword">{{ 'field.user.confirmPassword' | translate }}</label>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@
 
             <div class="row" style="margin-top: 15px;">
                 <div class="col-md-12">
-                    <button [disabled]="!loginForm.form.valid || loading" class="btn btn-primary">Start</button>
+                    <button [disabled]="!loginForm.form.valid || loading" class="btn btn-primary">{{ 'btn.start' | translate }}</button>
                 </div>
             </div>
         </form>

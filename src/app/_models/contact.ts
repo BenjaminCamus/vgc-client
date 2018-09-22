@@ -13,5 +13,3 @@ export class Contact {
         this.firstName = firstName;
     }
 }
-
-export const NewContact: Contact = new Contact('Nouveau Contact');

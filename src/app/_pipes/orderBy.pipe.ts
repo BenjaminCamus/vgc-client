@@ -15,22 +15,22 @@ export class OrderByPipe implements PipeTransform {
             return null;
         }
 
-        array.sort((a: any, b: any) => {
+        var fieldSplit = orderField.split('.');
+        var object = fieldSplit[0];
+        var field = fieldSplit[1];
 
-            var fieldSplit = orderField.split('.');
-            var object = fieldSplit[0];
-            var field = fieldSplit[1];
+        array.sort((a: any, b: any) => {
 
             if (object === 'userGame') {
 
                 if (a[field] && a[field].firstName
-                    && a[field] && a[field].firstName) {
+                    && b[field] && b[field].firstName) {
 
                     var aVal = a[field].firstName;
                     var bVal = b[field].firstName;
                 }
                 else if (a[field] && a[field].name
-                    && a[field] && a[field].name) {
+                    && b[field] && b[field].name) {
 
                     var aVal = a[field].name;
                     var bVal = b[field].name;
@@ -43,14 +43,22 @@ export class OrderByPipe implements PipeTransform {
             }
             else {
                 var aVal = a['game'][field];
-                var bVal = a['game'][field];
+                var bVal = b['game'][field];
             }
 
             let tmpReturn = 0;
 
-            if (aVal < bVal) {
+            if (aVal == bVal) {
+
+                if (a.game.name < b.game.name) {
+                    return -1;
+                } else if (a.game.name > b.game.name) {
+                    return 1;
+                }
+            }
+            else if (aVal < bVal || !aVal) {
                 tmpReturn = -1;
-            } else if (aVal > bVal) {
+            } else if (aVal > bVal || !bVal) {
                 tmpReturn = 1;
             }
 

@@ -28,5 +28,5 @@
 
 <div *ngIf="game" class="gameBannerMessage">
         {{ game.name }}
-        <div *ngIf="!game.screenshots || game.screenshots.length == 0" style="font-size: 14px; margin-top: 15px;">Aucune image disponible</div>
+        <div *ngIf="!game.screenshots || game.screenshots.length == 0" style="font-size: 14px; margin-top: 15px;">{{ 'msg.noImage' | translate }}</div>
 </div>

@@ -50,15 +50,14 @@ export class GamesComponent implements OnInit {
     displayNewUserGame: boolean = false;
     displayChart: boolean = false;
 
-    userGameFields = [];
-
-    tableFields = ['progress', 'game.name', 'platform.name', 'version', 'cond', 'completeness', 'rating',
-        'pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact',
-        'priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact'];
+    tableFields = ['userGame.progress', 'game.name', 'userGame.platform', 'userGame.version',
+        'userGame.cond', 'userGame.completeness', 'userGame.rating',
+        'userGame.pricePaid', 'userGame.priceAsked', 'userGame.purchaseDate', 'userGame.purchasePlace', 'userGame.purchaseContact',
+        'userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact'];
 
     displayFilters: boolean = false;
     displayMode: number = 0;
-    orderField: string = 'purchaseDate';
+    orderField: string = 'userGame.purchaseDate';
     orderOption: boolean = false;
 
     filters = {
@@ -102,11 +101,9 @@ export class GamesComponent implements OnInit {
                 private router: Router,
                 private renderer: Renderer2,
                 private filterPipe: FilterPipe,
-                private orderByPipe: OrderByPipe) {
+                private orderByPipe: OrderByPipe) {}
 
-        var ug = new UserGame();
-        this.userGameFields = ug.fields;
-    }
+
 
     @HostListener('document:keyup', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {

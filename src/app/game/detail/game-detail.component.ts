@@ -28,22 +28,15 @@ export class GameDetailComponent {
     selectedGame: Game = null;
     private selectedPlatform: Object;
 
-    private userGameFields = [];
-    userFields = [['version', 'completeness', 'rating', 'progress', 'cond'],
-        ['pricePaid', 'priceAsked', 'purchaseDate', 'purchasePlace', 'purchaseContact'],
-        ['priceResale', 'priceSold', 'saleDate', 'salePlace', 'saleContact']];
-    gameFields = ['game.series', 'releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
+    userFields = [['userGame.version', 'userGame.completeness', 'userGame.rating', 'userGame.progress', 'userGame.cond'],
+        ['userGame.pricePaid', 'userGame.priceAsked', 'userGame.purchaseDate', 'userGame.purchasePlace', 'userGame.purchaseContact'],
+        ['userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact']];
+    gameFields = ['game.series', 'userGame.releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private formAction: string;
 
-    constructor (
-        private changeDetectorRef: ChangeDetectorRef
-    ) {
-
+    constructor (private changeDetectorRef: ChangeDetectorRef) {
         this.changeDetectorRef = changeDetectorRef;
-
-        var ug = new UserGame();
-        this.userGameFields = ug.fields;
     }
 
     /**

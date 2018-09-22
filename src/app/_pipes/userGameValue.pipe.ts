@@ -2,48 +2,57 @@ import {Pipe} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "./formatName.pipe";
 import {UserGame} from "../_models/userGame";
+import {Game} from "../_models/game";
 
 @Pipe({
     name: 'userGameValue'
 })
 export class UserGameValuePipe {
 
-    userGameFields = [];
+    userGameFieldTypes = {};
+    gameFieldTypes = {};
 
     constructor(private datePipe: DatePipe,
                 private formatNamePipe: FormatNamePipe) {
 
         var ug = new UserGame();
-        this.userGameFields = ug.fields;
+        this.userGameFieldTypes = ug.fieldTypes;
+        var g = new Game();
+        this.gameFieldTypes = g.fieldTypes;
     }
 
-    transform(userGame: UserGame, field: any, detail: boolean = true): string {
+    transform(userGame: UserGame, objectField: string, detail: boolean = true): string {
 
-        if (field.name.indexOf('.') > -1) {
-            var fieldSplit = field.name.split('.');
-            var value = userGame[fieldSplit[0]][fieldSplit[1]];
+        var fieldSplit = objectField.split('.');
+        var object = fieldSplit[0];
+        var field = fieldSplit[1];
+
+        if (object === 'userGame') {
+            var value = userGame[field];
+            var type = this.userGameFieldTypes[field];
         }
         else {
-            var value = userGame[field.name];
+            var value = userGame['game'][field];
+            var type = this.gameFieldTypes[fieldSplit[1]];
         }
 
-        if ((!value || value.length == 0) && field.type != 'completeness' && field.type != 'progress' && field.type != 'cond') {
+        if ((!value || value.length == 0) && type != 'completeness' && type != 'progress' && type != 'cond') {
             return '•';
         }
 
-        switch (field.type) {
+        switch (type) {
             case 'price':
                 value = parseFloat(value);
                 value = value.toString().replace('.', ',');
                 value = value + ' €';
 
-                var field1 = field.name;
-                var field2 = field.name;
+                var field1 = field;
+                var field2 = field;
 
-                if (field.name == 'pricePaid') {
+                if (field == 'pricePaid') {
                     field1 = 'priceAsked';
                 }
-                else if (field.name == 'priceResale' || field.name == 'priceSold') {
+                else if (field == 'priceResale' || field == 'priceSold') {
                     field2 = 'pricePaid';
                 }
 
@@ -52,7 +61,7 @@ export class UserGameValuePipe {
 
                     if (detail) {
                         value += ' (';
-                        if (field1 == field.name) {
+                        if (field1 == field) {
                             value += '+';
                         }
                         else {
@@ -71,55 +80,9 @@ export class UserGameValuePipe {
                 value = this.formatNamePipe.transform(value);
                 break;
             case 'completeness':
-                if (value == 0) {
-                    value = '<span class="text-warning">Loose</span>';
-                }
-                else if (value == 1) {
-                    value = '<span class="text-warning">Sans Notice</span>';
-                }
-                else if (value == 2) {
-                    value = '<span class="text-warning">Sans Boîte</span>';
-                }
-                else if (value == 3) {
-                    value = '<span class="text-success">Complet</span>';
-                }
-                else if (value == 4) {
-                    value = '<span class="text-info">Dématérialisé</span>';
-                }
-                else if (value == 5) {
-                    value = '<span class="text-success">Neuf</span>';
-                }
-                break;
             case 'progress':
-                if (value == 0) {
-                    value = '<span class="text-danger"><i class="fas fa-battery-empty"></i> Jamais joué</span>';
-                }
-                else if (value == 1) {
-                    value = '<span class="text-warning"><i class="fas fa-battery-half"></i> En cours</span>';
-                }
-                else if (value == 2) {
-                    value = '<span class="text-success"><i class="fas fa-battery-full"></i> Terminé</span>';
-                }
-                else if (value == 3) {
-                    value = '<span class="text-info"><i class="fas fa-battery-empty"></i> Abandonné</span>';
-                }
-                break;
             case 'cond':
-                if (value == 0) {
-                    value = '<span class="text-danger">Bof Bof</span>';
-                }
-                else if (value == 1) {
-                    value = '<span class="text-warning">Bon État</span>';
-                }
-                else if (value == 2) {
-                    value = '<span class="text-success">Très Bon État</span>';
-                }
-                else if (value == 3) {
-                    value = '<span class="text-success">Near Mint</span>';
-                }
-                else if (value == 4) {
-                    value = '<span class="text-success">Mint !!</span>';
-                }
+                value = 'enum.'+field+'.' + value;
                 break;
             case 'tags':
                 var tags = '';

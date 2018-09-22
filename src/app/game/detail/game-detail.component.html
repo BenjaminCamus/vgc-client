@@ -39,8 +39,8 @@
                     <div *ngFor="let colFields of userFields" class="col-md-4">
                         <table class="table static">
                             <tr *ngFor="let field of colFields">
-                                <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
-                                <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                                <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
+                                <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
                             </tr>
                         </table>
                     </div>
@@ -52,8 +52,8 @@
                     <div class="col-md-12">
                         <table class="table static">
                             <tr *ngFor="let field of gameFields">
-                                <td class="tdLabel"><label>{{ userGameFields[field].label }}</label></td>
-                                <td [innerHTML]="userGame | userGameValue: userGameFields[field]"></td>
+                                <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
+                                <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
                             </tr>
                         </table>
                     </div>
@@ -63,7 +63,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <label>Commentaires</label>
+                        <label>{{ 'field.userGame.note' | translate }}</label>
                         <br/>
                         {{userGame.note}}
                     </div>

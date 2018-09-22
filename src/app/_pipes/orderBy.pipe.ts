@@ -17,28 +17,33 @@ export class OrderByPipe implements PipeTransform {
 
         array.sort((a: any, b: any) => {
 
-            if (orderField.indexOf('.') > -1) {
+            var fieldSplit = orderField.split('.');
+            var object = fieldSplit[0];
+            var field = fieldSplit[1];
 
-                var orderFieldSplit = orderField.split('.');
-                var aVal = a[orderFieldSplit[0]][orderFieldSplit[1]];
-                var bVal = b[orderFieldSplit[0]][orderFieldSplit[1]];
-            }
-            else if (a[orderField] && a[orderField].firstName
-                && a[orderField] && a[orderField].firstName) {
+            if (object === 'userGame') {
 
-                var aVal = a[orderField].firstName;
-                var bVal = b[orderField].firstName;
-            }
-            else if (a[orderField] && a[orderField].name
-                && a[orderField] && a[orderField].name) {
+                if (a[field] && a[field].firstName
+                    && a[field] && a[field].firstName) {
 
-                var aVal = a[orderField].name;
-                var bVal = b[orderField].name;
+                    var aVal = a[field].firstName;
+                    var bVal = b[field].firstName;
+                }
+                else if (a[field] && a[field].name
+                    && a[field] && a[field].name) {
+
+                    var aVal = a[field].name;
+                    var bVal = b[field].name;
+                }
+                else {
+
+                    var aVal = a[field];
+                    var bVal = b[field];
+                }
             }
             else {
-
-                var aVal = a[orderField];
-                var bVal = b[orderField];
+                var aVal = a['game'][field];
+                var bVal = a['game'][field];
             }
 
             let tmpReturn = 0;

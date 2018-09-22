@@ -43,7 +43,7 @@ export class GameFormComponent implements OnInit {
 
     private validateUserGameForm: FormGroup;
 
-    newContact = NewContact;
+    newContact = new Contact();
     newContacts = {
         'purchase': new Contact(),
         'sale': new Contact()

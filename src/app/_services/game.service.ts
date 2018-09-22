@@ -112,7 +112,7 @@ export class GameService {
 
     postUserGame(userGame: UserGame): Observable<UserGame> {
 
-        delete userGame.fields;
+        delete userGame.fieldTypes;
         delete userGame.createdAt;
         delete userGame.updatedAt;
         let userGameJson = JSON.stringify(userGame);

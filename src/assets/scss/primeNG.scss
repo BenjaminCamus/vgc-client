@@ -20,6 +20,12 @@
 .ui-widget {
   font-family: inherit;
 }
+.ui-tooltip .ui-tooltip-text {
+  background: $colorMain0;
+}
+.ui-tooltip-right .ui-tooltip-arrow {
+  border-right-color: $colorMain0;
+}
 
 .ui-slider-horizontal .ui-slider-handle {
   border: none;

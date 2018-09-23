@@ -18,11 +18,17 @@
             <div class="title">
                 <div class="navRight">
                     <i *ngIf="!selectedGame" class="hovicon far fa-edit"
-                          (click)="openForm('edit')"></i>
+                          (click)="openForm('edit')"
+                           pTooltip="{{ 'btn.edit' | translate }}"
+                           tooltipPosition="left"></i>
                     <i *ngIf="!selectedGame" class="hovicon far fa-trash-alt"
-                          (click)="openForm('delete')"></i>
+                          (click)="openForm('delete')"
+                           pTooltip="{{ 'btn.remove' | translate }}"
+                           tooltipPosition="left"></i>
                     <i *ngIf="selectedGame" class="hovicon fas fa-times"
-                          (click)="openForm()"></i>
+                          (click)="openForm()"
+                           pTooltip="{{ 'btn.close' | translate }}"
+                           tooltipPosition="left"></i>
                 </div>
                 <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">{{ userGame.game.name }}
                 <!--<span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span>&lt;!&ndash;-->

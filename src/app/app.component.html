@@ -1,4 +1,6 @@
 <img src="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.2.0/flags/1x1/{{flag}}.svg"
      class="hovicon i18n"
-     (click)="switchLanguage()">
+     (click)="switchLanguage()"
+     pTooltip="{{ 'btn.i18n' + flag | translate }}"
+     tooltipPosition="left">
 <router-outlet></router-outlet>

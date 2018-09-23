@@ -64,7 +64,9 @@
 
                     <div class="navRight">
                         <i *ngIf="selectedGame" class="hovicon fas fa-times"
-                           (click)="selectedGame = false;"></i>
+                           (click)="selectedGame = false;"
+                           pTooltip="{{ 'btn.close' | translate }}"
+                           tooltipPosition="left"></i>
                     </div>
                 </div>
 

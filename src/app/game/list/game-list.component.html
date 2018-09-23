@@ -61,7 +61,9 @@
             <td *ngFor="let field of tableFields" [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
         </tr>
     </table>
-    <i class="hovicon fas fa-plus" (click)="openNewUserGame()"></i>
+    <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
+       pTooltip="{{ 'btn.newGame' | translate }}"
+       tooltipPosition="right"></i>
 </div>
 <div *ngIf="displayMode == 0" class="gameBoxContainer">
 
@@ -105,19 +107,26 @@
         </div>
     </section>
     <section class="gameBox visible_anim">
-        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"></i>
+        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
+           pTooltip="{{ 'btn.newGame' | translate }}"
+           tooltipPosition="top"></i>
     </section>
 </div>
 
 <nav class="topnav">
     <div class="navLeft">
-        <i routerLink="/login" routerLinkActive="active" class="hovicon fas fa-user"></i>
-        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"></i>
+        <i routerLink="/login" routerLinkActive="active" class="hovicon fas fa-user"
+           pTooltip="{{ 'btn.logout' | translate }}"
+           tooltipPosition="right"></i>
+        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
+           pTooltip="{{ 'btn.newGame' | translate }}"
+           tooltipPosition="right"></i>
         <i class="hovicon fas fa-sync" (click)="getGames()"
-           [ngClass]="loading ? 'fa-spin' : ''"></i>
-        <div *ngIf="userGamesDate" class="syncDate">{{
-            userGamesDate | date:'dd/MM'}}<br/>{{ userGamesDate | date:'HH:mm'}}
-        </div>
+           [ngClass]="loading ? 'fa-spin' : ''"
+           pTooltip="{{ 'btn.sync' | translate }}
+           {{ userGamesDate | date:'dd/MM'}} {{ userGamesDate | date:'HH:mm' }}"
+           tooltipPosition="right"></i>
+        <div *ngIf="userGamesDate" class="syncDate"></div>
     </div>
     <div class="navRight">
         <div class="searchToolsBig">
@@ -141,11 +150,19 @@
                 </select>
             </div>
             <i class="hovicon fa" (click)="orderOption = !orderOption"
-               [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"></i>
+               [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"
+               pTooltip="{{ 'btn.sort' + (orderOption ? 'Desc' : 'Asc') | translate }}"
+               tooltipPosition="left"></i>
         </div>
-        <i class="hovicon fas fa-search" (click)="displayFilters = !displayFilters"></i>
-        <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fas fa-th"></i>
-        <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fas fa-list"></i>
+        <i class="hovicon fas fa-search" (click)="displayFilters = !displayFilters"
+           pTooltip="{{ 'btn.filter' | translate }}"
+           tooltipPosition="left"></i>
+        <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fas fa-th"
+           pTooltip="{{ 'btn.displayThumbs' | translate }}"
+           tooltipPosition="left"></i>
+        <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fas fa-list"
+           pTooltip="{{ 'btn.displayTable' | translate }}"
+           tooltipPosition="left"></i>
     </div>
 
     <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" preventParentScroll>
@@ -175,7 +192,9 @@
                 </div>
                 <div class="col-md-4">
                     <i class="hovicon fa" (click)="orderOption = !orderOption"
-                       [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"></i>
+                       [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"
+                       pTooltip="{{ 'btn.sort' + (orderOption ? 'Desc' : 'Asc') | translate }}"
+                       tooltipPosition="left"></i>
                 </div>
             </div>
         </div>
@@ -436,16 +455,24 @@
 
 <div class="topnav" *ngIf="displayUserGame && selectedUserGame">
 
-    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeUserGame()"></i></div>
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeUserGame()"
+         pTooltip="{{ 'btn.close' | translate }}"
+         tooltipPosition="left"></i></div>
     <i *ngIf="prevUserGame" class="hovicon fas fa-chevron-left"
-       (click)="navUserGame(true)"></i>
+       (click)="navUserGame(true)"
+       pTooltip="{{ 'btn.previous' | translate }}"
+       tooltipPosition="right"></i>
     <i *ngIf="nextUserGame" class="hovicon fas fa-chevron-right"
-       (click)="navUserGame()"></i>
+       (click)="navUserGame()"
+       pTooltip="{{ 'btn.next' | translate }}"
+       tooltipPosition="right"></i>
 </div>
 
 <game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)" preventParentScroll></game-new>
 <div class="topnav" *ngIf="displayNewUserGame">
-    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"></i></div>
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"
+         pTooltip="{{ 'btn.close' | translate }}"
+         tooltipPosition="left"></i></div>
 </div>
 
 

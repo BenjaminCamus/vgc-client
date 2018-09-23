@@ -41,6 +41,7 @@ export class UserGameValuePipe {
         }
 
         switch (type) {
+
             case 'price':
                 value = parseFloat(value);
                 value = value.toString().replace('.', ',');
@@ -73,17 +74,21 @@ export class UserGameValuePipe {
                     value = value + '</span>';
                 }
                 break;
+
             case 'date':
                 value = this.datePipe.transform(value, 'dd/MM/yy');
                 break;
+
             case 'name':
                 value = this.formatNamePipe.transform(value);
                 break;
+
             case 'completeness':
             case 'progress':
             case 'cond':
-                value = 'enum.'+field+'.' + value;
+                value = 'enum.' + field + '.' + value;
                 break;
+
             case 'tags':
                 var tags = '';
                 for (let index in value) {

@@ -76,7 +76,7 @@ export class UserGameValuePipe {
                 break;
 
             case 'date':
-                value = this.datePipe.transform(value, 'dd/MM/yy');
+                value = this.datePipe.transform(value, 'dd/MM/yyyy');
                 break;
 
             case 'name':

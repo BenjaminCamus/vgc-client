@@ -163,6 +163,9 @@
         <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fas fa-list"
            pTooltip="{{ 'btn.displayTable' | translate }}"
            tooltipPosition="left"></i>
+        <i class="hovicon fas fa-chart-pie" (click)="openChart()"
+           pTooltip="{{ 'btn.charts' | translate }}"
+           tooltipPosition="left"></i>
     </div>
 
     <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" preventParentScroll>
@@ -204,42 +207,42 @@
                     <div class="col-md-6">
                         <div>
                             <label for="name">{{ 'field.userGame.platform' | translate }}</label><br>
-                            <tag *ngFor="let platform of filters.tags.platforms;"
+                            <tag *ngFor="let platform of userGameFilter.stats.tags.platform;"
                                  [tag]="platform"
-                                 [filter]="userGameFilter.platforms"
-                                 [suffix]="filters.count.platforms[platform.id]"
+                                 [filter]="userGameFilter.platform"
+                                 [suffix]="userGameFilter.stats.count.platform[platform.id]"
                                  (uploaded)="toggleTag('platforms', $event, platform)"></tag>
                         </div>
                         <div>
                             <label for="name">{{ 'field.game.series' | translate }}</label><br>
-                            <tag *ngFor="let series of filters.tags.series;"
+                            <tag *ngFor="let series of userGameFilter.stats.tags.series;"
                                  [tag]="series"
                                  [filter]="userGameFilter.game.series"
-                                 [suffix]="filters.count.series[series.id]"
+                                 [suffix]="userGameFilter.stats.count.series[series.id]"
                                  (uploaded)="toggleTag('series', $event, series)"></tag>
                         </div>
                         <div>
                             <label for="name">{{ 'field.game.modes' | translate }}</label><br>
-                            <tag *ngFor="let mode of filters.tags.modes;"
+                            <tag *ngFor="let mode of userGameFilter.stats.tags.modes;"
                                  [tag]="mode"
                                  [filter]="userGameFilter.game.modes"
-                                 [suffix]="filters.count.modes[mode.id]"
+                                 [suffix]="userGameFilter.stats.count.modes[mode.id]"
                                  (uploaded)="toggleTag('modes', $event, mode)"></tag>
                         </div>
                         <div>
                             <label for="name">{{ 'field.game.themes' | translate }}</label><br>
-                            <tag *ngFor="let theme of filters.tags.themes;"
+                            <tag *ngFor="let theme of userGameFilter.stats.tags.themes;"
                                  [tag]="theme"
                                  [filter]="userGameFilter.game.themes"
-                                 [suffix]="filters.count.themes[theme.id]"
+                                 [suffix]="userGameFilter.stats.count.themes[theme.id]"
                                  (uploaded)="toggleTag('themes', $event, theme)"></tag>
                         </div>
                         <div>
                             <label for="name">{{ 'field.game.genres' | translate }}</label><br>
-                            <tag *ngFor="let genre of filters.tags.genres;"
+                            <tag *ngFor="let genre of userGameFilter.stats.tags.genres;"
                                  [tag]="genre"
                                  [filter]="userGameFilter.game.genres"
-                                 [suffix]="filters.count.genres[genre.id]"
+                                 [suffix]="userGameFilter.stats.count.genres[genre.id]"
                                  (uploaded)="toggleTag('genres', $event, genre)"></tag>
                         </div>
                     </div>
@@ -298,19 +301,19 @@
                             <label>{{ 'field.userGame.version' | translate }}</label><br>
                             <tag [tag]="'FRA'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="filters.count.version['FRA']"
+                                 [suffix]="userGameFilter.stats.count.version['FRA']"
                                  (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
                             <tag [tag]="'EUR'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="filters.count.version['EUR']"
+                                 [suffix]="userGameFilter.stats.count.version['EUR']"
                                  (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
                             <tag [tag]="'JAP'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="filters.count.version['JAP']"
+                                 [suffix]="userGameFilter.stats.count.version['JAP']"
                                  (uploaded)="toggleTag('versions', $event, 'JAP')"></tag>
                             <tag [tag]="'USA'"
                                  [filter]="userGameFilter.versions"
-                                 [suffix]="filters.count.version['USA']"
+                                 [suffix]="userGameFilter.stats.count.version['USA']"
                                  (uploaded)="toggleTag('versions', $event, 'USA')"></tag>
                         </div>
                         <div>
@@ -318,32 +321,32 @@
                             <tag [tag]="'enum.completeness.0' | translate"
                                  [value]="0"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="filters.count.completeness[0]"
+                                 [suffix]="userGameFilter.stats.count.completeness[0]"
                                  (uploaded)="toggleTag('completenesss', $event, 0)"></tag>
                             <tag [tag]="'enum.completeness.1' | translate"
                                  [value]="1"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="filters.count.completeness[1]"
+                                 [suffix]="userGameFilter.stats.count.completeness[1]"
                                  (uploaded)="toggleTag('completenesss', $event, 1)"></tag>
                             <tag [tag]="'enum.completeness.2' | translate"
                                  [value]="2"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="filters.count.completeness[2]"
+                                 [suffix]="userGameFilter.stats.count.completeness[2]"
                                  (uploaded)="toggleTag('completenesss', $event, 2)"></tag>
                             <tag [tag]="'enum.completeness.3' | translate"
                                  [value]="3"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="filters.count.completeness[3]"
+                                 [suffix]="userGameFilter.stats.count.completeness[3]"
                                  (uploaded)="toggleTag('completenesss', $event, 3)"></tag>
                             <tag [tag]="'enum.completeness.4' | translate"
                                  [value]="4"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="filters.count.completeness[4]"
+                                 [suffix]="userGameFilter.stats.count.completeness[4]"
                                  (uploaded)="toggleTag('completenesss', $event, 4)"></tag>
                             <tag [tag]="'enum.completeness.5' | translate"
                                  [value]="5"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="filters.count.completeness[5]"
+                                 [suffix]="userGameFilter.stats.count.completeness[5]"
                                  (uploaded)="toggleTag('completenesss', $event, 5)"></tag>
                         </div>
                         <div>
@@ -351,20 +354,20 @@
                             <tag [tag]="'enum.progress.0' | translate"
                                  [value]="0"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="filters.count.progress[0]"
+                                 [suffix]="userGameFilter.stats.count.progress[0]"
                                  (uploaded)="toggleTag('progresses', $event, 0)"></tag>
                             <tag [tag]="'enum.progress.1' | translate"
                                  [value]="1"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="filters.count.progress[1]"
+                                 [suffix]="userGameFilter.stats.count.progress[1]"
                                  (uploaded)="toggleTag('progresses', $event, 1)"></tag>
                             <tag [tag]="'enum.progress.2' | translate"
                                  [value]="2"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="filters.count.progress[2]"
+                                 [suffix]="userGameFilter.stats.count.progress[2]"
                                  (uploaded)="toggleTag('progresses', $event, 2)"></tag>
                             <tag [tag]="'enum.progress.3' | translate" [value]="3" [filter]="userGameFilter.progresses"
-                                 [suffix]="filters.count.progress[3]"
+                                 [suffix]="userGameFilter.stats.count.progress[3]"
                                  (uploaded)="toggleTag('progresses', $event, 3)"></tag>
                         </div>
                         <div>
@@ -372,74 +375,74 @@
                             <tag [tag]="'enum.cond.2' | translate"
                                  [value]="2"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="filters.count.cond[2]"
+                                 [suffix]="userGameFilter.stats.count.cond[2]"
                                  (uploaded)="toggleTag('conds', $event, 2)"></tag>
                             <tag [tag]="'enum.cond.1' | translate"
                                  [value]="1"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="filters.count.cond[1]"
+                                 [suffix]="userGameFilter.stats.count.cond[1]"
                                  (uploaded)="toggleTag('conds', $event, 1)"></tag>
                             <tag [tag]="'enum.cond.0' | translate"
                                  [value]="0"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="filters.count.cond[0]"
+                                 [suffix]="userGameFilter.stats.count.cond[0]"
                                  (uploaded)="toggleTag('conds', $event, 0)"></tag>
                             <tag [tag]="'enum.cond.3' | translate"
                                  [value]="3"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="filters.count.cond[3]"
+                                 [suffix]="userGameFilter.stats.count.cond[3]"
                                  (uploaded)="toggleTag('conds', $event, 3)"></tag>
                             <tag [tag]="'enum.cond.4' | translate"
                                  [value]="4"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="filters.count.cond[4]"
+                                 [suffix]="userGameFilter.stats.count.cond[4]"
                                  (uploaded)="toggleTag('conds', $event, 4)"></tag>
                         </div>
                         <div>
                             <label for="name">{{ 'field.userGame.purchasePlace' | translate }}</label><br>
-                            <tag *ngFor="let place of filters.tags.purchasePlace;"
+                            <tag *ngFor="let place of userGameFilter.stats.tags.purchasePlace;"
                                  [tag]="place"
                                  [filter]="userGameFilter.purchasePlaces"
-                                 [suffix]="filters.count.purchasePlace[place]"
+                                 [suffix]="userGameFilter.stats.count.purchasePlace[place]"
                                  (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
                         </div>
-                        <div *ngIf="filters.tags.salePlace.length > 0">
+                        <div *ngIf="userGameFilter.stats.tags.salePlace.length > 0">
                             <label for="name">{{ 'field.userGame.salePlace' | translate }}</label><br>
-                            <tag *ngFor="let place of filters.tags.salePlace;"
+                            <tag *ngFor="let place of userGameFilter.stats.tags.salePlace;"
                                  [tag]="place"
                                  [filter]="userGameFilter.salePlaces"
-                                 [suffix]="filters.count.salePlace[place]"
+                                 [suffix]="userGameFilter.stats.count.salePlace[place]"
                                  (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
                         </div>
                     </div>
                 </div>
             </p-tabPanel>
             <p-tabPanel header="{{ 'field.game.developers' | translate }}">
-                <tag *ngFor="let developer of filters.tags.developers;"
+                <tag *ngFor="let developer of userGameFilter.stats.tags.developers;"
                      [tag]="developer"
                      [filter]="userGameFilter.game.developers"
-                     [suffix]="filters.count.developers[developer.id]"
+                     [suffix]="userGameFilter.stats.count.developers[developer.id]"
                      (uploaded)="toggleTag('developers', $event, developer)"></tag>
             </p-tabPanel>
             <p-tabPanel header="{{ 'field.game.publishers' | translate }}">
-                <tag *ngFor="let publisher of filters.tags.publishers;"
+                <tag *ngFor="let publisher of userGameFilter.stats.tags.publishers;"
                      [tag]="publisher"
                      [filter]="userGameFilter.game.publishers"
-                     [suffix]="filters.count.publishers[publisher.id]"
+                     [suffix]="userGameFilter.stats.count.publishers[publisher.id]"
                      (uploaded)="toggleTag('publishers', $event, publisher)"></tag>
             </p-tabPanel>
             <p-tabPanel header="{{ 'field.userGame.purchaseContact' | translate }}">
-                <tag *ngFor="let contact of filters.tags.purchaseContact;"
+                <tag *ngFor="let contact of userGameFilter.stats.tags.purchaseContact;"
                      [tag]="contact"
                      [filter]="userGameFilter.purchaseContacts"
-                     [suffix]="filters.count.purchaseContact[contact.id]"
+                     [suffix]="userGameFilter.stats.count.purchaseContact[contact.id]"
                      (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
             </p-tabPanel>
-            <p-tabPanel header="{{ 'field.userGame.saleContact' | translate }}" *ngIf="filters.tags.saleContact.length > 0">
-                <tag *ngFor="let contact of filters.tags.saleContact;"
+            <p-tabPanel header="{{ 'field.userGame.saleContact' | translate }}" *ngIf="userGameFilter.stats.tags.saleContact.length > 0">
+                <tag *ngFor="let contact of userGameFilter.stats.tags.saleContact;"
                      [tag]="contact"
                      [filter]="userGameFilter.saleContacts"
-                     [suffix]="filters.count.saleContact[contact.id]"
+                     [suffix]="userGameFilter.stats.count.saleContact[contact.id]"
                      (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
             </p-tabPanel>
         </p-tabView>
@@ -471,8 +474,15 @@
 <game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)" preventParentScroll></game-new>
 <div class="topnav" *ngIf="displayNewUserGame">
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"
-         pTooltip="{{ 'btn.close' | translate }}"
-         tooltipPosition="left"></i></div>
+                             pTooltip="{{ 'btn.close' | translate }}"
+                             tooltipPosition="left"></i></div>
+</div>
+
+<game-chart *ngIf="displayChart" [userGameFilter]="userGameFilter" preventParentScroll></game-chart>
+<div class="topnav" *ngIf="displayChart">
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeChart()"
+                             pTooltip="{{ 'btn.close' | translate }}"
+                             tooltipPosition="left"></i></div>
 </div>
 
 

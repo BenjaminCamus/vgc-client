@@ -4,7 +4,7 @@ import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
 import {GameLocalService}       from '../../_services/gameLocal.service';
 import {UserGame} from "../../_models/userGame";
-import {deepIndexOf, orderByName, orderByCount} from "../../functions";
+import {deepIndexOf, orderByName} from "../../functions";
 import {UserGameFilter} from "../../_models/userGameFilter";
 import {DatePipe} from "@angular/common";
 import {FormatNamePipe} from "../../_pipes/formatName.pipe";
@@ -60,42 +60,6 @@ export class GamesComponent implements OnInit {
     orderField: string = 'userGame.purchaseDate';
     orderOption: boolean = false;
 
-    filters = {
-        tags: {
-            purchasePlace: [],
-            salePlace: [],
-            purchaseContact: [],
-            saleContact: [],
-            platforms: [],
-            series: [],
-            developers: [],
-            publishers: [],
-            modes: [],
-            themes: [],
-            genres: []
-
-        },
-        count: {
-            purchasePlace: [],
-            salePlace: [],
-            purchaseContact: [],
-            saleContact: [],
-            platforms: [],
-            series: [],
-            developers: [],
-            publishers: [],
-            modes: [],
-            themes: [],
-            genres: [],
-
-            version: [],
-            progress: [],
-            cond: [],
-            completeness: []
-
-        }
-    }
-
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private router: Router,
@@ -134,7 +98,7 @@ export class GamesComponent implements OnInit {
 
         this.userGames = this.gameLocalService.getUserGames();
         this.userGamesDate = this.gameLocalService.getUserGamesDate();
-        this.setFilters();
+        this.reset();
 
         if (this.userGames.length == 0) {
             this.getGames();
@@ -190,7 +154,7 @@ export class GamesComponent implements OnInit {
                     this.gameLocalService.setUserGames(this.userGames);
                     this.userGamesDate = this.gameLocalService.setUserGamesDate();
 
-                    this.setFilters();
+                    this.reset();
 
                     this.loading = false;
                 }
@@ -204,6 +168,7 @@ export class GamesComponent implements OnInit {
 
     openNewUserGame() {
         this.closeUserGame();
+        this.closeChart();
         this.displayNewUserGame = true;
     }
 
@@ -211,8 +176,19 @@ export class GamesComponent implements OnInit {
         this.displayNewUserGame = false;
     }
 
+    openChart() {
+        this.closeNewUserGame();
+        this.closeUserGame();
+        this.displayChart = true;
+    }
+
+    closeChart() {
+        this.displayChart = false;
+    }
+
     openUserGame(userGame) {
         this.closeNewUserGame();
+        this.closeChart();
         this.selectUserGame(userGame);
         this.displayUserGame = true;
     }
@@ -302,185 +278,9 @@ export class GamesComponent implements OnInit {
         this.displayUserGame = false;
     }
 
-    private setFilters() {
+    private reset() {
 
-        this.filters.tags.purchasePlace = [];
-        this.filters.tags.salePlace = [];
-        this.filters.tags.purchaseContact = [];
-        this.filters.tags.saleContact = [];
-        this.filters.tags.platforms = [];
-        this.filters.tags.series = [];
-        this.filters.tags.developers = [];
-        this.filters.tags.publishers = [];
-        this.filters.tags.modes = [];
-        this.filters.tags.themes = [];
-        this.filters.tags.genres = [];
-
-        this.filters.count.purchasePlace = [];
-        this.filters.count.salePlace = [];
-        this.filters.count.purchaseContact = [];
-        this.filters.count.saleContact = [];
-        this.filters.count.platforms = [];
-        this.filters.count.series = [];
-        this.filters.count.developers = [];
-        this.filters.count.publishers = [];
-        this.filters.count.modes = [];
-        this.filters.count.themes = [];
-        this.filters.count.genres = [];
-
-        this.filters.count.version = [];
-        this.filters.count.progress = [];
-        this.filters.count.cond = [];
-        this.filters.count.completeness = [];
-
-        var minRating = 20;
-        var maxRating = 0;
-        var minPrice = 1000000000;
-        var maxPrice = 0;
-        var minReleaseYear = 1000000000;
-        var maxReleaseYear = 0;
-        var minPurchaseYear = 1000000000;
-        var maxPurchaseYear = 0;
-
-        for (let userGame of this.userGames) {
-
-            // Rating
-            if (userGame.rating < minRating) {
-                minRating = userGame.rating;
-            }
-
-            if (userGame.rating > maxRating) {
-                maxRating = userGame.rating;
-            }
-
-            // Release Year
-            if (userGame.releaseDate && userGame.releaseDate.getFullYear() < minReleaseYear) {
-                minReleaseYear = userGame.releaseDate.getFullYear();
-            }
-
-            if (userGame.releaseDate && userGame.releaseDate.getFullYear() > maxReleaseYear) {
-                maxReleaseYear = userGame.releaseDate.getFullYear();
-            }
-
-            // Purchase Year
-            if (userGame.purchaseDate && userGame.purchaseDate.getFullYear() < minPurchaseYear) {
-                minPurchaseYear = userGame.purchaseDate.getFullYear();
-            }
-
-            if (userGame.purchaseDate && userGame.purchaseDate.getFullYear() > maxPurchaseYear) {
-                maxPurchaseYear = userGame.purchaseDate.getFullYear();
-            }
-
-            // Price
-            var minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
-            if (minP < minPrice) {
-                minPrice = minP;
-            }
-
-            var maxP = Math.max(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
-            if (maxP > maxPrice) {
-                maxPrice = maxP;
-            }
-
-            // UserGame Tags
-            var tagTypes = ['platforms', 'purchaseContact', 'saleContact'];
-            for (let type of tagTypes) {
-
-                let ugParam = type == 'platforms' ? 'platform' : type;
-
-                if (userGame[ugParam]) {
-                    if (!this.filters.count[type][userGame[ugParam].id]) {
-
-                        this.filters.tags[type].push(userGame[ugParam]);
-                        this.filters.count[type][userGame[ugParam].id] = 0;
-                    }
-
-                    this.filters.count[type][userGame[ugParam].id]++;
-                }
-            }
-
-            // UserGame Places
-            var tagTypes = ['purchasePlace', 'salePlace'];
-            for (let type of tagTypes) {
-
-                if (userGame[type]) {
-                    if (!this.filters.count[type][userGame[type]]) {
-
-                        this.filters.tags[type].push(userGame[type]);
-                        this.filters.count[type][userGame[type]] = 0;
-                    }
-
-                    this.filters.count[type][userGame[type]]++;
-                }
-            }
-
-            // Game Tags
-            for (let tagType of ['series', 'developers', 'publishers', 'modes', 'themes', 'genres']) {
-                if (userGame.game[tagType] && userGame.game[tagType].length > 0) {
-
-                    for (let tag of userGame.game[tagType]) {
-
-                        if (!this.filters.count[tagType][tag.id]) {
-
-                            this.filters.tags[tagType].push(tag);
-                            this.filters.count[tagType][tag.id] = 0;
-                        }
-
-                        this.filters.count[tagType][tag.id]++;
-                    }
-                }
-            }
-
-            if (!this.filters.count.version[userGame.version]) {
-                this.filters.count.version[userGame.version] = 0;
-            }
-            this.filters.count.version[userGame.version]++;
-
-            if (!this.filters.count.progress[userGame.progress]) {
-                this.filters.count.progress[userGame.progress] = 0;
-            }
-            this.filters.count.progress[userGame.progress]++;
-
-            if (!this.filters.count.cond[userGame.cond]) {
-                this.filters.count.cond[userGame.cond] = 0;
-            }
-            this.filters.count.cond[userGame.cond]++;
-
-            if (!this.filters.count.completeness[userGame.completeness]) {
-                this.filters.count.completeness[userGame.completeness] = 0;
-            }
-            this.filters.count.completeness[userGame.completeness]++;
-        }
-
-        // orderByCount
-        this.filters.tags.platforms.sort(orderByCount(this.filters.count.platforms));
-        this.filters.tags.series.sort(orderByCount(this.filters.count.series));
-        this.filters.tags.developers.sort(orderByCount(this.filters.count.developers));
-        this.filters.tags.publishers.sort(orderByCount(this.filters.count.publishers));
-        this.filters.tags.purchaseContact.sort(orderByCount(this.filters.count.purchaseContact));
-        this.filters.tags.saleContact.sort(orderByCount(this.filters.count.saleContact));
-        this.filters.tags.purchasePlace.sort();
-        this.filters.tags.salePlace.sort();
-
-        this.userGameFilter.ratingRange = [minRating, maxRating];
-        this.userGameFilter.minRating = minRating;
-        this.userGameFilter.maxRating = maxRating;
-
-        this.userGameFilter.releaseYearRange = [minReleaseYear, maxReleaseYear];
-        this.userGameFilter.minReleaseYear = minReleaseYear;
-        this.userGameFilter.maxReleaseYear = maxReleaseYear;
-
-        this.userGameFilter.purchaseYearRange = [minPurchaseYear, maxPurchaseYear];
-        this.userGameFilter.minPurchaseYear = minPurchaseYear;
-        this.userGameFilter.maxPurchaseYear = maxPurchaseYear;
-
-        this.userGameFilter.priceAskedRange = [minPrice, maxPrice];
-        this.userGameFilter.pricePaidRange = [minPrice, maxPrice];
-        this.userGameFilter.priceResaleRange = [minPrice, maxPrice];
-        this.userGameFilter.priceSoldRange = [minPrice, maxPrice];
-        this.userGameFilter.minPrice = minPrice;
-        this.userGameFilter.maxPrice = maxPrice;
-
+        this.userGameFilter.setStats(this.userGames);
         this.resetSelectedUserGame();
     }
 
@@ -552,7 +352,7 @@ export class GamesComponent implements OnInit {
                 return el.game.id !== deleteUserGame.game.id;
             });
 
-            this.setFilters();
+            this.reset();
 
             this.loading = false;
         }
@@ -585,7 +385,7 @@ export class GamesComponent implements OnInit {
 
             this.selectUserGame(userGame);
 
-            this.setFilters();
+            this.reset();
 
             this.loading = false;
         }

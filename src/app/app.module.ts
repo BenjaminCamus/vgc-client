@@ -10,7 +10,7 @@ import {ErrorService} from "./_services/error.service";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AuthenticationService} from "./_services/authentification.service";
 import {LoginComponent} from "./login/login.component";
-import {SharedModule, SliderModule, TabViewModule, CalendarModule, TooltipModule} from "primeng/primeng";
+import {SharedModule, SliderModule, TabViewModule, CalendarModule, TooltipModule, ChartModule} from "primeng/primeng";
 import {FilterPipe} from "./_pipes/filter.pipe";
 import {OrderByPipe} from "./_pipes/orderBy.pipe";
 import {SafePipe} from "./_pipes/safe.pipe";
@@ -33,6 +33,7 @@ import {PreventParentScrollModule} from "ngx-prevent-parent-scroll";
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {GameChartComponent} from "./game/chart/game-chart.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -53,6 +54,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         TabViewModule,
         CalendarModule,
         TooltipModule,
+        ChartModule,
         PreventParentScrollModule,
         TranslateModule.forRoot({
             loader: {
@@ -80,6 +82,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         LoadingComponent,
 
         GamesComponent,
+        GameChartComponent,
         GameDetailComponent,
         GameNewComponent,
         GameFormComponent

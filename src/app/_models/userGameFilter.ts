@@ -177,7 +177,7 @@ export class UserGameFilter extends UserGame {
                     var tag = userGame[type];
 
                     if (type.substring(0, 5) == 'price') {
-                        tag = Math.floor(parseInt(userGame[type]/10, 10));
+                        tag = Math.floor(parseInt(userGame[type], 10)/10);
                     }
 
                     if (!this.stats.count[type][tag]) {

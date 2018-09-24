@@ -166,28 +166,28 @@
                                [(ngModel)]="newContacts[sp].firstName" name="newContacts{{sp}}FirstName"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}FirstName">Prénom</label>
+                        <label for="newContacts{{sp}}FirstName">{{ 'field.contact.firstName' | translate }}</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="newContacts{{sp}}LastName"
                                [(ngModel)]="newContacts[sp].lastName" name="newContacts{{sp}}LastName"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}LastName">Nom</label>
+                        <label for="newContacts{{sp}}LastName">{{ 'field.contact.lastName' | translate }}</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="newContacts{{sp}}Nickame"
                                [(ngModel)]="newContacts[sp].nickname" name="newContacts{{sp}}Nickame"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}Nickame">Pseudo</label>
+                        <label for="newContacts{{sp}}Nickame">{{ 'field.contact.nickname' | translate }}</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="newContacts{{sp}}Email"
                                [(ngModel)]="newContacts[sp].email" name="newContacts{{sp}}Email"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}Email">E-mail</label>
+                        <label for="newContacts{{sp}}Email">{{ 'field.contact.email' | translate }}</label>
                     </div>
                 </div>
 
@@ -197,28 +197,28 @@
                                [(ngModel)]="newContacts[sp].phone" name="newContacts{{sp}}Phone"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}Phone">Téléphone</label>
+                        <label for="newContacts{{sp}}Phone">{{ 'field.contact.phone' | translate }}</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="newContacts{{sp}}Address"
                                [(ngModel)]="newContacts[sp].address" name="newContacts{{sp}}Address"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}Address">Adresse</label>
+                        <label for="newContacts{{sp}}Address">{{ 'field.contact.address' | translate }}</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="newContacts{{sp}}Zipcode"
                                [(ngModel)]="newContacts[sp].zipcode" name="newContacts{{sp}}Zipcode"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}Zipcode">Code Postal</label>
+                        <label for="newContacts{{sp}}Zipcode">{{ 'field.contact.zipcode' | translate }}</label>
                     </div>
                     <div class="col-md-3">
                         <input type="text" id="newContacts{{sp}}City"
                                [(ngModel)]="newContacts[sp].city" name="newContacts{{sp}}City"
                                #name="ngModel">
                         <span class="bar"></span>
-                        <label for="newContacts{{sp}}City">Ville</label>
+                        <label for="newContacts{{sp}}City">{{ 'field.contact.city' | translate }}</label>
                     </div>
                 </div>
             </section>

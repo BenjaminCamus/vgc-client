@@ -23,27 +23,35 @@ export class OrderByPipe implements PipeTransform {
 
             if (object === 'userGame') {
 
+                var aVal, bVal;
+
                 if (a[field] && a[field].firstName
                     && b[field] && b[field].firstName) {
 
-                    var aVal = a[field].firstName;
-                    var bVal = b[field].firstName;
+                    aVal = a[field].firstName;
+                    bVal = b[field].firstName;
                 }
                 else if (a[field] && a[field].name
                     && b[field] && b[field].name) {
 
-                    var aVal = a[field].name;
-                    var bVal = b[field].name;
+                    aVal = a[field].name;
+                    bVal = b[field].name;
                 }
                 else {
 
-                    var aVal = a[field];
-                    var bVal = b[field];
+                    aVal = a[field];
+                    bVal = b[field];
+
+                    if (field.substring(0, 5) == 'price') {
+
+                        aVal = parseFloat(aVal);
+                        bVal = parseFloat(bVal);
+                    }
                 }
             }
             else {
-                var aVal = a['game'][field];
-                var bVal = b['game'][field];
+                aVal = a['game'][field];
+                bVal = b['game'][field];
             }
 
             let tmpReturn = 0;

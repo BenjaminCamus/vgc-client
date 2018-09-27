@@ -76,7 +76,10 @@ export class UserGameFilter extends UserGame {
                 pricePaid: [],
                 priceAsked: [],
                 priceResale: [],
-                priceSold: []
+                priceSold: [],
+
+                rating: [],
+                ratingIGDB: []
 
             },
             count: {
@@ -100,7 +103,10 @@ export class UserGameFilter extends UserGame {
                 pricePaid: [],
                 priceAsked: [],
                 priceResale: [],
-                priceSold: []
+                priceSold: [],
+
+                rating: [],
+                ratingIGDB: []
             }
         };
 
@@ -169,7 +175,7 @@ export class UserGameFilter extends UserGame {
             }
 
             // UserGame Places
-            var tagTypes = ['purchasePlace', 'salePlace', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
+            var tagTypes = ['purchasePlace', 'salePlace', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold', 'rating'];
             for (let type of tagTypes) {
 
                 if (userGame[type]) {
@@ -189,6 +195,14 @@ export class UserGameFilter extends UserGame {
                     this.stats.count[type][tag]++;
                 }
             }
+
+            if (!this.stats.count.ratingIGDB[userGame.game.rating]) {
+
+                this.stats.tags.ratingIGDB.push(userGame.game.rating);
+                this.stats.count.ratingIGDB[userGame.game.rating] = 0;
+            }
+
+            this.stats.count.ratingIGDB[userGame.game.rating]++;
 
             // Game Tags
             for (let tagType of ['series', 'developers', 'publishers', 'modes', 'themes', 'genres']) {
@@ -262,6 +276,21 @@ export class UserGameFilter extends UserGame {
             this.stats.tags[type].sort(sortNumber);
         }
 
+        var ratingTypes = ['rating', 'ratingIGDB'];
+        for (let type of ratingTypes) {
+
+            for (let i = 0; i <= 20; i++) {
+
+                if (!this.stats.count[type][i]) {
+
+                    this.stats.tags[type].push(i);
+                    this.stats.count[type][i] = 0;
+                }
+            }
+
+            this.stats.tags[type].sort(sortNumber);
+        }
+
         // orderByCount
         this.stats.tags.platform.sort(orderByCount(this.stats.count.platform));
         this.stats.tags.series.sort(orderByCount(this.stats.count.series));
@@ -276,6 +305,6 @@ export class UserGameFilter extends UserGame {
     }
 }
 
-function sortNumber(a,b) {
+function sortNumber(a, b) {
     return a - b;
 }

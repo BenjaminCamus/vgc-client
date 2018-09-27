@@ -18,4 +18,5 @@
                 [options]="chartOptions[f]"
                 [height]="'80vh'"></p-chart>
     </div>
+    <div *ngIf="!chartType[f] && field == f" style="margin: 30px;">NO DATA</div>
 </section>

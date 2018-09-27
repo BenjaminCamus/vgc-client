@@ -184,6 +184,7 @@ export class UserGameFilter extends UserGame {
 
                     if (type.substring(0, 5) == 'price') {
                         tag = Math.floor(parseInt(userGame[type], 10)/10);
+                        // tag = parseInt(userGame[type], 10);
                     }
 
                     if (!this.stats.count[type][tag]) {
@@ -265,6 +266,7 @@ export class UserGameFilter extends UserGame {
         for (let type of priceTypes) {
 
             for (let i = Math.floor(minPrice/10); i <= Math.floor(maxPrice/10); i++) {
+            // for (let i = 0; i <= maxPrice; i++) {
 
                 if (!this.stats.count[type][i]) {
 

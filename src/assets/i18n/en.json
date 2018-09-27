@@ -72,6 +72,7 @@
 	"field.userGame.saleDate": "Sale Date",
 	"field.userGame.salePlace": "Sale Place",
 	"field.userGame.version": "Version",
+	"field.userGame.price": "Price",
 	"label.game": "Game",
 	"label.newContact": "New Contact",
 	"label.newPlace": "New Place",

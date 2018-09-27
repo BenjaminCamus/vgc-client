@@ -18,11 +18,30 @@ export class GameChartComponent implements OnInit {
     fields = [
         'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
         'userGame.rating', 'userGame.version', 'userGame.progress', 'userGame.cond', 'userGame.completeness',
+        'userGame.price',
         'userGame.purchasePlace', 'userGame.salePlace',
-        'userGame.purchaseContact', 'userGame.saleContact',
-        'userGame.pricePaid', 'userGame.priceAsked', 'userGame.priceResale', 'userGame.priceSold'
+        'userGame.purchaseContact', 'userGame.saleContact'
     ];
     field = 'userGame.platform';
+
+    colors = [
+        'rgba(139, 233, 253, .5)',
+        'rgba(80, 250, 123, .5)',
+        'rgba(255, 184, 108, .5)',
+        'rgba(255, 121, 198, .5)',
+        'rgba(189, 147, 249, .5)',
+        'rgba(255, 85, 85, .5)',
+        'rgba(241, 250, 140, .5)'
+    ];
+    colorsHover = [
+        'rgba(139, 233, 253, .5)',
+        'rgba(80, 250, 123, .5)',
+        'rgba(255, 184, 108, .5)',
+        'rgba(255, 121, 198, .5)',
+        'rgba(189, 147, 249, .5)',
+        'rgba(255, 85, 85, .5)',
+        'rgba(241, 250, 140, .5)'
+    ];
 
     chartData: any = {};
     chartType: any = {};
@@ -37,6 +56,19 @@ export class GameChartComponent implements OnInit {
 
             var objectField = this.fields[fieldIndex].split('.');
             var field = objectField[1];
+
+            if (this.userGameFilter.stats.count[field]) {
+
+                var test = false;
+                for (let count in this.userGameFilter.stats.count[field]) {
+                    test = true;
+                    continue;
+                }
+
+                if (!test) {
+                    continue;
+                }
+            }
 
             this.chartType[this.fields[fieldIndex]] = 'doughnut';
 
@@ -91,86 +123,73 @@ export class GameChartComponent implements OnInit {
                 labels: [],
                 datasets: [
                     {
+                        label: null,
                         data: [],
-                        backgroundColor: [
-                            'rgba(139, 233, 253, .5)',
-                            'rgba(80, 250, 123, .5)',
-                            'rgba(255, 184, 108, .5)',
-                            'rgba(255, 121, 198, .5)',
-                            'rgba(189, 147, 249, .5)',
-                            'rgba(255, 85, 85, .5)',
-                            'rgba(241, 250, 140, .5)'
-                        ],
-                        hoverBackgroundColor: [
-                            'rgba(139, 233, 253, 1)',
-                            'rgba(80, 250, 123, 1)',
-                            'rgba(255, 184, 108, 1)',
-                            'rgba(255, 121, 198, 1)',
-                            'rgba(189, 147, 249, 1)',
-                            'rgba(255, 85, 85, 1)',
-                            'rgba(241, 250, 140, 1)'
-                        ]
+                        backgroundColor: this.colors,
+                        hoverBackgroundColor: this.colorsHover
                     }
                 ]
             };
 
-            if (field.substring(0, 5) == 'price' || field == 'rating') {
+            if (field == 'rating') {
 
+                this.chartType[this.fields[fieldIndex]] = 'bar';
                 this.chartOptions[this.fields[fieldIndex]].legend.display = false;
-                this.chartData[this.fields[fieldIndex]].datasets[0].backgroundColor = 'rgba(139, 233, 253, 1)';
-                this.chartData[this.fields[fieldIndex]].datasets[0].hoverBackgroundColor = 'rgba(139, 233, 253, .5)';
 
-                if (field == 'rating') {
-                    this.chartType[this.fields[fieldIndex]] = 'bar';
-                    this.chartData[this.fields[fieldIndex]].datasets[1] = {
+                this.chartData[this.fields[fieldIndex]].datasets[0].backgroundColor = this.colors[0];
+                this.chartData[this.fields[fieldIndex]].datasets[0].hoverBackgroundColor = this.colorsHover[0];
+
+                this.chartData[this.fields[fieldIndex]].datasets[1] = {
+                    data: [],
+                    backgroundColor: 'rgba(80, 250, 123, .5)',
+                    hoverBackgroundColor: 'rgba(80, 250, 123, 1)'
+                };
+            }
+            else if(field == 'price') {
+
+                this.chartType[this.fields[fieldIndex]] = 'line';
+
+                for (let i = 0; i <= 3; i++) {
+                    this.chartData[this.fields[fieldIndex]].datasets[i] = {
                         data: [],
-                        backgroundColor: 'rgba(80, 250, 123, .5)',
-                        hoverBackgroundColor: 'rgba(80, 250, 123, 1)'
+                        fill: false,
+                        borderColor: this.colors[i]
                     };
-                    this.chartData[this.fields[fieldIndex]].datasets[1].backgroundColor = 'rgba(80, 250, 123, 1)';
-                    this.chartData[this.fields[fieldIndex]].datasets[1].hoverBackgroundColor = 'rgba(80, 250, 123, .5)';
-                }
-                else {
-                    this.chartType[this.fields[fieldIndex]] = 'line';
-                    this.chartData[this.fields[fieldIndex]].datasets[0].borderColor = 'rgba(139, 233, 253, 1)';
-                    this.chartData[this.fields[fieldIndex]].datasets[0].fill = false;
                 }
             }
 
-            for (var i in this.userGameFilter.stats.tags[field]) {
+            var tagField = field == 'price' ? "pricePaid" : field;
+            for (let i in this.userGameFilter.stats.tags[tagField]) {
 
-                if (parseInt(i, 10) < 7 || field.substring(0, 5) == 'price' || field == 'rating') {
-
-                    if (!this.userGameFilter.stats.tags[field]) {
-                        break;
-                    }
+                if (parseInt(i, 10) < 7 || field == 'price' || field == 'rating') {
 
                     let label: string = '';
-                    let data = 0;
-                    let data2;
+                    let data = [];
 
                     switch (field) {
 
-                        case 'pricePaid':
-                        case 'priceAsked':
-                        case 'priceResale':
-                        case 'priceSold':
-                            let price = this.userGameFilter.stats.tags[field][i];
-                            label = price*10 + '-' + (price*10+10);
-                            data = this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]];
+                        case 'price':
+                            let price = this.userGameFilter.stats.tags.pricePaid[i];
+                            label = price * 10 + '-' + (price * 10 + 10);
+                            // label = price;
+                            var priceTypes = ['pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
+                            for (let p in priceTypes) {
+                                this.chartData[this.fields[fieldIndex]].datasets[p].label = this.translatePipe.transform('field.userGame.' + priceTypes[p]);
+                                data.push(this.userGameFilter.stats.count[priceTypes[p]][this.userGameFilter.stats.tags[priceTypes[p]][i]]);
+                            }
                             break;
 
                         case 'rating':
                             label = this.userGameFilter.stats.tags[field][i];
-                            data = this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]];
-                            data2 = this.userGameFilter.stats.count.ratingIGDB[this.userGameFilter.stats.tags.ratingIGDB[i]];
+                            data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]]);
+                            data.push(this.userGameFilter.stats.count.ratingIGDB[this.userGameFilter.stats.tags.ratingIGDB[i]]);
                             break;
 
                         case 'purchasePlace':
                         case 'salePlace':
                         case 'version':
                             label = this.userGameFilter.stats.tags[field][i];
-                            data = this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]];
+                            data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]]);
                             break;
 
                         case 'progress':
@@ -179,18 +198,18 @@ export class GameChartComponent implements OnInit {
                             label = this.userGameFilter.stats.tags[field][i];
                             label = 'enum.' + field + '.' + label;
                             label = this.translatePipe.transform(label);
-                            data = this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]];
+                            data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]]);
                             break;
 
                         case 'purchaseContact':
                         case 'saleContact':
                             label = this.userGameFilter.stats.tags[field][i].firstName;
-                            data = this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i].id];
+                            data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i].id]);
                             break;
 
                         default:
                             label = this.userGameFilter.stats.tags[field][i].name;
-                            data = this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i].id];
+                            data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i].id]);
                             break;
                     }
 
@@ -198,10 +217,9 @@ export class GameChartComponent implements OnInit {
 
                     if (label != '') {
                         this.chartData[this.fields[fieldIndex]].labels.push(label.substring(0, 15) + (label.length > 15 ? '...' : ''));
-                        this.chartData[this.fields[fieldIndex]].datasets[0].data.push(data);
 
-                        if (field == 'rating') {
-                            this.chartData[this.fields[fieldIndex]].datasets[1].data.push(data2);
+                        for (let i in data) {
+                            this.chartData[this.fields[fieldIndex]].datasets[i].data.push(data[i]);
                         }
                     }
                 }

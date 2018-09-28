@@ -54,6 +54,11 @@ export class OrderByPipe implements PipeTransform {
                 bVal = b['game'][field];
             }
 
+            if (typeof aVal === 'string') {
+                aVal = aVal.toLowerCase();
+                bVal = bVal.toLowerCase();
+            }
+
             let tmpReturn = 0;
 
             if (aVal == bVal) {

@@ -26,7 +26,11 @@
              [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
 
-<div *ngIf="game" class="gameBannerMessage">
-        {{ game.name }}
-        <div *ngIf="!game.screenshots || game.screenshots.length == 0" style="font-size: 14px; margin-top: 15px;">{{ 'msg.noImage' | translate }}</div>
+<!--<div *ngIf="game" class="gameBannerMessage">-->
+        <!--{{ game.name }}-->
+        <!--<div *ngIf="!game.screenshots || game.screenshots.length == 0" style="font-size: 14px; margin-top: 15px;">{{ 'msg.noImage' | translate }}</div>-->
+<!--</div>-->
+
+<div *ngIf="game && (!game.screenshots || game.screenshots.length == 0)" class="gameBannerMessage">
+        <div  style="font-size: 14px;">{{ 'msg.noImage' | translate }}</div>
 </div>

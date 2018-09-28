@@ -68,6 +68,10 @@ export function formatDate(date: Date, format = 'y-m-d') {
         case 'd/m/y':
             formattedDate = d + '/' + m + '/' + y;
             break;
+
+        case 'y/m':
+            formattedDate = y + '/' + m;
+            break;
     }
 
     return formattedDate;

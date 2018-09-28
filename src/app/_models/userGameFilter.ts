@@ -1,7 +1,7 @@
 import {Platform} from "./platform";
 import {UserGame} from "./userGame";
 import {Contact} from "./contact";
-import {orderByCount} from "../functions";
+import {orderByCount, formatDate} from "../functions";
 
 export class UserGameFilter extends UserGame {
 
@@ -60,6 +60,8 @@ export class UserGameFilter extends UserGame {
                 salePlace: [],
                 purchaseContact: [],
                 saleContact: [],
+                purchaseDate: [],
+                saleDate: [],
                 platform: [],
                 series: [],
                 developers: [],
@@ -87,6 +89,8 @@ export class UserGameFilter extends UserGame {
                 salePlace: [],
                 purchaseContact: [],
                 saleContact: [],
+                purchaseDate: [],
+                saleDate: [],
                 platform: [],
                 series: [],
                 developers: [],
@@ -175,7 +179,7 @@ export class UserGameFilter extends UserGame {
             }
 
             // UserGame Places
-            var tagTypes = ['purchasePlace', 'salePlace', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold', 'rating'];
+            var tagTypes = ['purchasePlace', 'salePlace', 'purchaseDate', 'saleDate', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold', 'rating'];
             for (let type of tagTypes) {
 
                 if (userGame[type]) {
@@ -183,8 +187,11 @@ export class UserGameFilter extends UserGame {
                     var tag = userGame[type];
 
                     if (type.substring(0, 5) == 'price') {
-                        tag = Math.floor(parseInt(userGame[type], 10)/10);
+                        tag = Math.floor(parseInt(tag, 10)/10);
                         // tag = parseInt(userGame[type], 10);
+                    }
+                    else if (type.substr(type.length - 4) == 'Date') {
+                        tag = formatDate(tag, 'y/m');
                     }
 
                     if (!this.stats.count[type][tag]) {
@@ -197,6 +204,7 @@ export class UserGameFilter extends UserGame {
                 }
             }
 
+            // Rating
             if (!this.stats.count.ratingIGDB[userGame.game.rating]) {
 
                 this.stats.tags.ratingIGDB.push(userGame.game.rating);
@@ -293,6 +301,20 @@ export class UserGameFilter extends UserGame {
             this.stats.tags[type].sort(sortNumber);
         }
 
+        // for (let y = minPurchaseYear; y <= maxPurchaseYear; y++) {
+        //
+        //     for (let m = 1; m <= 12; m++) {
+        //
+        //         let yearMonth = y + '/' + ('00' + m).slice(-2);
+        //
+        //         if (!this.stats.count.purchaseDate[yearMonth]) {
+        //
+        //             this.stats.tags.purchaseDate.push(yearMonth);
+        //             this.stats.count.purchaseDate[yearMonth] = 0;
+        //         }
+        //     }
+        // }
+
         // orderByCount
         this.stats.tags.platform.sort(orderByCount(this.stats.count.platform));
         this.stats.tags.series.sort(orderByCount(this.stats.count.series));
@@ -300,6 +322,8 @@ export class UserGameFilter extends UserGame {
         this.stats.tags.publishers.sort(orderByCount(this.stats.count.publishers));
         this.stats.tags.purchaseContact.sort(orderByCount(this.stats.count.purchaseContact));
         this.stats.tags.saleContact.sort(orderByCount(this.stats.count.saleContact));
+        this.stats.tags.purchaseDate.sort();
+        this.stats.tags.saleDate.sort();
         this.stats.tags.purchasePlace.sort();
         this.stats.tags.salePlace.sort();
 

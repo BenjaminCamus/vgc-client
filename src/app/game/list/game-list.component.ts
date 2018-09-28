@@ -357,7 +357,6 @@ export class GamesComponent implements OnInit {
             this.loading = false;
         }
         else if (event.substr(0, 4) == 'add_') {
-            this.userGameFilter = new UserGameFilter();
             this.closeNewUserGame();
             this.closeUserGame();
 

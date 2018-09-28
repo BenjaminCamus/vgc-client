@@ -159,11 +159,13 @@ export class GameChartComponent implements OnInit {
             }
             else if (field.substr(field.length - 4) == 'Date') {
 
-                this.chartType[this.fields[fieldIndex]] = 'bar';
+                this.chartType[this.fields[fieldIndex]] = 'line';
                 this.chartOptions[this.fields[fieldIndex]].legend.display = false;
-
-                this.chartData[this.fields[fieldIndex]].datasets[0].backgroundColor = this.colors[0];
-                this.chartData[this.fields[fieldIndex]].datasets[0].hoverBackgroundColor = this.colorsHover[0];
+                this.chartData[this.fields[fieldIndex]].datasets[0] = {
+                    data: [],
+                    fill: false,
+                    borderColor: this.colors[0]
+                };
             }
 
             var tagField = field == 'price' ? "pricePaid" : field;

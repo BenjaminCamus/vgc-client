@@ -73,6 +73,10 @@ export class GameService {
             userGame.releaseDate = new Date(userGame.releaseDate.timestamp * 1000);
         }
 
+        if (userGame.game.name.substr(0, 4).toLowerCase() == 'the ') {
+            userGame.game.name = userGame.game.name.substr(4) + ' (The)';
+        }
+
         return userGame;
     }
 

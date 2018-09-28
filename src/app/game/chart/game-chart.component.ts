@@ -19,8 +19,8 @@ export class GameChartComponent implements OnInit {
         'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
         'userGame.rating', 'userGame.version', 'userGame.progress', 'userGame.cond', 'userGame.completeness',
         'userGame.price',
-        'userGame.purchasePlace', 'userGame.salePlace',
-        'userGame.purchaseContact', 'userGame.saleContact'
+        'userGame.purchasePlace', 'userGame.purchaseContact', 'userGame.purchaseDate',
+        'userGame.salePlace', 'userGame.saleContact', 'userGame.saleDate'
     ];
     field = 'userGame.platform';
 
@@ -157,11 +157,19 @@ export class GameChartComponent implements OnInit {
                     };
                 }
             }
+            else if (field.substr(field.length - 4) == 'Date') {
+
+                this.chartType[this.fields[fieldIndex]] = 'bar';
+                this.chartOptions[this.fields[fieldIndex]].legend.display = false;
+
+                this.chartData[this.fields[fieldIndex]].datasets[0].backgroundColor = this.colors[0];
+                this.chartData[this.fields[fieldIndex]].datasets[0].hoverBackgroundColor = this.colorsHover[0];
+            }
 
             var tagField = field == 'price' ? "pricePaid" : field;
             for (let i in this.userGameFilter.stats.tags[tagField]) {
 
-                if (parseInt(i, 10) < 7 || field == 'price' || field == 'rating') {
+                if (parseInt(i, 10) < 7 || field == 'price' || field == 'rating' || field.substr(field.length - 4) == 'Date') {
 
                     let label: string = '';
                     let data = [];
@@ -189,6 +197,14 @@ export class GameChartComponent implements OnInit {
                         case 'salePlace':
                         case 'version':
                             label = this.userGameFilter.stats.tags[field][i];
+                            data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]]);
+                            break;
+
+                        case 'purchaseDate':
+                        case 'saleDate':
+                            console.log(this.userGameFilter.stats.tags[field][i]);
+                            let date = this.userGameFilter.stats.tags[field][i].split('/');
+                            label = date[1] + '/' + date[0];
                             data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]]);
                             break;
 

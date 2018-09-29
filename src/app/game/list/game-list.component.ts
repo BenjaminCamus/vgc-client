@@ -71,6 +71,12 @@ export class GamesComponent implements OnInit {
 
     @HostListener('document:keyup', ['$event'])
     handleKeyboardEvent(event: KeyboardEvent) {
+
+        var lightbox = document.getElementsByClassName('lightbox');
+        if (lightbox.length > 0) {
+            return false;
+        }
+
         switch (event.key) {
             case 'ArrowLeft':
                 this.navUserGame(true);

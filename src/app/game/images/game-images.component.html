@@ -1,0 +1,9 @@
+<img id="gameCover" *ngIf="game.cover"
+     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.cloudinaryId}}.jpg"
+     (click)="open(0)"/>
+<div>
+        <img *ngFor="let sc of game.screenshots; let i = index"
+             class="thumbSmall"
+             [src]="'http://images.igdb.com/igdb/image/upload/t_thumb/' + sc.cloudinaryId + '.jpg'"
+             (click)="open(i+1)"/>
+</div>

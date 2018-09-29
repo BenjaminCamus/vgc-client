@@ -26,6 +26,7 @@
     "@ngx-translate/http-loader": "^3.0.1",
     "core-js": "^2.4.1",
     "ng2-validation": "^4.2.0",
+    "ngx-lightbox": "^1.1.0",
     "ngx-prevent-parent-scroll": "0.0.5",
     "ngx-rating": "0.0.9",
     "npm": "^5.8.0",

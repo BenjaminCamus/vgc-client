@@ -4,12 +4,7 @@
     <div *ngIf="userGame.game" class="row">
         <div class="col-md-4 text-center">
 
-            <img id="gameCover" *ngIf="userGame.game.cover"
-                 src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{userGame.game.cover.cloudinaryId}}.jpg"/>
-            <div>
-                <img class="thumbSmall" *ngFor="let sc of userGame.game.screenshots;"
-                     src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg" />
-            </div>
+            <game-images [game]="userGame.game"></game-images>
         </div>
 
         <div class="col-md-8">

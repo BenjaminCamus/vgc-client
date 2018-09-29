@@ -142,6 +142,7 @@
                 <select id="orderField"
                         [(ngModel)]="orderField" name="orderField"
                         #name="ngModel">
+                    <option value="random">{{ 'label.random' | translate }}</option>
                     <option *ngFor="let field of tableFields"
                             [value]="field">
 
@@ -185,6 +186,7 @@
                     <select id="orderFieldSmall"
                             [(ngModel)]="orderField" name="orderField"
                             #name="ngModel">
+                        <option value="random">{{ 'field.random' | translate }}</option>
                         <option *ngFor="let field of tableFields"
                                 [value]="field">
 

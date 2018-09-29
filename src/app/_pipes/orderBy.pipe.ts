@@ -15,6 +15,20 @@ export class OrderByPipe implements PipeTransform {
             return null;
         }
 
+        if (orderField == 'random') {
+
+            var tempArr = [];
+            for ( var i = 0; i < array.length-1; i++ ) {
+
+                tempArr.push(array.splice(Math.floor(Math.random()*array.length),1)[0]);
+            }
+
+            tempArr.push(array[0]);
+
+            return tempArr;
+
+        }
+
         var fieldSplit = orderField.split('.');
         var object = fieldSplit[0];
         var field = fieldSplit[1];

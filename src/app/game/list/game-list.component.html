@@ -141,7 +141,9 @@
             <div class="input">
                 <select id="orderField"
                         [(ngModel)]="orderField" name="orderField"
-                        #name="ngModel">
+                        #name="ngModel"
+                        #t
+                        (change)="changeOrder(t.value)">
                     <option value="random">{{ 'label.random' | translate }}</option>
                     <option *ngFor="let field of tableFields"
                             [value]="field">
@@ -150,7 +152,7 @@
                     </option>
                 </select>
             </div>
-            <i class="hovicon fa" (click)="orderOption = !orderOption"
+            <i class="hovicon fa" (click)="orderOption = !orderOption; changeOrder(orderField)"
                [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"
                pTooltip="{{ 'btn.sort' + (orderOption ? 'Desc' : 'Asc') | translate }}"
                tooltipPosition="left"></i>
@@ -185,8 +187,10 @@
                 <div class="col-md-4">
                     <select id="orderFieldSmall"
                             [(ngModel)]="orderField" name="orderField"
-                            #name="ngModel">
-                        <option value="random">{{ 'field.random' | translate }}</option>
+                            #name="ngModel"
+                            #t
+                            (change)="changeOrder(t.value)">
+                        <option value="random">{{ 'label.random' | translate }}</option>
                         <option *ngFor="let field of tableFields"
                                 [value]="field">
 
@@ -196,7 +200,7 @@
                     <label for="orderFieldSmall">{{ 'label.sort' | translate }}</label>
                 </div>
                 <div class="col-md-4">
-                    <i class="hovicon fa" (click)="orderOption = !orderOption"
+                    <i class="hovicon fa" (click)="orderOption = !orderOption; changeOrder(orderField)"
                        [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"
                        pTooltip="{{ 'btn.sort' + (orderOption ? 'Desc' : 'Asc') | translate }}"
                        tooltipPosition="left"></i>

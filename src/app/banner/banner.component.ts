@@ -27,18 +27,18 @@ export class BannerComponent {
 
     @Input() set data(data: any) {
 
-        // If UserGame
+        // If Game
         if (data
-            && data.game) {
-
-            this.game = data.game;
-        }
-
-        // ElseIf Game
-        else if (data
             && data.name) {
 
             this.game = data;
+        }
+
+        // ElseIf UserGame
+        else if (data
+            && data.game) {
+
+            this.game = data.game;
         }
 
         // ElseIf Games (for IGDB search)

@@ -46,12 +46,7 @@
         <div class="row">
             <div class="col-md-4 text-center">
 
-                <img id="gameCover" *ngIf="selectedGame.cover"
-                     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{selectedGame.cover.cloudinaryId}}.jpg"/>
-                <div>
-                    <img class="thumbSmall" *ngFor="let sc of selectedGame.screenshots;"
-                         src="http://images.igdb.com/igdb/image/upload/t_thumb/{{sc.cloudinaryId}}.jpg"/>
-                </div>
+                <game-images [game]="selectedGame"></game-images>
 
                 <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.release_date"><label>{{ 'field.userGame.releaseDate' | translate }}</label> {{selectedGame.release_date}}</div>
                 <div style="font-size: 12px; text-align: justify; margin: 10px;" *ngIf="selectedGame.summary">{{selectedGame.summary}}</div>

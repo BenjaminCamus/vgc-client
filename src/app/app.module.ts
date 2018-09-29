@@ -34,6 +34,8 @@ import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {HttpClient} from "@angular/common/http";
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {GameChartComponent} from "./game/chart/game-chart.component";
+import {LightboxModule} from 'ngx-lightbox';
+import {GameImagesComponent} from "./game/images/game-images.component";
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -56,6 +58,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         TooltipModule,
         ChartModule,
         PreventParentScrollModule,
+        LightboxModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
@@ -85,7 +88,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         GameChartComponent,
         GameDetailComponent,
         GameNewComponent,
-        GameFormComponent
+        GameFormComponent,
+        GameImagesComponent
 
     ],
     providers: [

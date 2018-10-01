@@ -86,10 +86,20 @@
   height: 100%;
 }
 
-.thumbSmall {
+.thumbs {
+  max-width: 260px;
+  margin: 30px auto;
+}
+
+.thumb {
   cursor: zoom-in;
   height: 50px;
-  margin: 5px;
+  margin: 2px;
+  filter: brightness(50%);
+}
+
+.thumb:hover {
+  filter: brightness(100%);
 }
 
 

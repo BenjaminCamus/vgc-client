@@ -136,30 +136,7 @@
   width: 100%;
   height: calc(100vh - 70px);
   overflow-y: auto;
-  animation: 1s ease-in-out FadeOut;
   position: fixed;
   top: 70px;
   left: 0;
-}
-
-.filters.on {
-  animation: FadeIn 1s ease-in-out;
-}
-
-@keyframes FadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
-@keyframes FadeOut {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-  }
 }

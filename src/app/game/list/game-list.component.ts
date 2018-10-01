@@ -12,14 +12,16 @@ import {FilterPipe} from "../../_pipes/filter.pipe";
 import {LengthPipe} from "../../_pipes/length.pipe";
 import {TotalPipe} from "../../_pipes/total.pipe";
 import {OrderByPipe} from "../../_pipes/orderBy.pipe";
+import {opacityTransition} from "../../_animations/opacity.animations";
+import {topNavTransition} from "../../_animations/topNav.animations";
 
 @Component({
     moduleId: module.id,
     providers: [GameService, FilterPipe, OrderByPipe, DatePipe, FormatNamePipe, LengthPipe, TotalPipe],
     selector: 'game-list',
     templateUrl: './game-list.component.html',
-    animations: [routerTransition()],
-    host: {'[@routerTransition]': '', class: 'mainPage'}
+    animations: [routerTransition(), opacityTransition(), topNavTransition()],
+    host: {'[@opacityTransition]': '', class: 'mainPage'}
 })
 export class GamesComponent implements OnInit {
 

@@ -6,19 +6,7 @@ import {Lightbox} from 'ngx-lightbox';
 @Component({
     moduleId: module.id,
     selector: 'game-images',
-    templateUrl: './game-images.component.html',
-    animations: [
-        trigger('transition', [
-            transition('void => *', [
-                style({opacity: 0}),
-                animate(1000, style({opacity: 1}))
-            ]),
-            transition('* => void', [
-                style({opacity: 1}),
-                animate(1000, style({opacity: 0}))
-            ])
-        ])
-    ]
+    templateUrl: './game-images.component.html'
 })
 export class GameImagesComponent {
 

@@ -181,7 +181,7 @@
            tooltipPosition="left"></i>
     </div>
 
-    <div class="filters" *ngIf="displayFilters" [ngClass]="displayFilters ? 'on' : ''" preventParentScroll>
+    <div class="filters" *ngIf="displayFilters" [@routerTransition] preventParentScroll>
 
         <div class="container-fluid searchToolsSmall">
             <div class="row">
@@ -480,7 +480,7 @@
              *ngIf="displayUserGame && selectedUserGame2"
              (state)="detailStateUpdate($event)"></game-detail>
 
-<div class="topnav" *ngIf="displayUserGame && selectedUserGame">
+<div class="topnav" *ngIf="displayUserGame && selectedUserGame" [@topNavTransition]>
 
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeUserGame()"
                              pTooltip="{{ 'btn.close' | translate }}"
@@ -496,7 +496,7 @@
 </div>
 
 <game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)" preventParentScroll></game-new>
-<div class="topnav" *ngIf="displayNewUserGame">
+<div class="topnav" *ngIf="displayNewUserGame" [@topNavTransition]>
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"
                              pTooltip="{{ 'btn.close' | translate }}"
                              tooltipPosition="left"></i></div>
@@ -504,7 +504,7 @@
 
 <game-chart *ngIf="displayChart" [field]="chartField" [userGameFilter]="userGameFilter"
             preventParentScroll></game-chart>
-<div class="topnav" *ngIf="displayChart">
+<div class="topnav" *ngIf="displayChart" [@topNavTransition]>
     <i class="hovicon fas fa-chevron-left"
        (click)="chartField = chartFields.indexOf(chartField) == 0 ? chartFields[chartFields.length - 1] : chartFields[chartFields.indexOf(chartField) - 1]"
        pTooltip="{{ 'btn.previous' | translate }}"

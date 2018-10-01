@@ -1,23 +1,13 @@
 import {Component, ElementRef, Input, HostListener, ViewChild} from "@angular/core";
 import {trigger, animate, style, transition} from '@angular/animations';
 import {Game} from "../_models/game";
+import {opacityTransition} from "../_animations/opacity.animations";
 
 @Component({
     moduleId: module.id,
     selector: 'banner',
     templateUrl: './banner.component.html',
-    animations: [
-        trigger('transition', [
-            transition('void => *', [
-                style({opacity: 0}),
-                animate(1000, style({opacity: 1}))
-            ]),
-            transition('* => void', [
-                style({opacity: 1}),
-                animate(1000, style({opacity: 0}))
-            ])
-        ])
-    ]
+    animations: [opacityTransition()]
 })
 export class BannerComponent {
 

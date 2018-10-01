@@ -60,6 +60,15 @@ export class GamesComponent implements OnInit {
     orderField: string = 'userGame.purchaseDate';
     orderOption: boolean = false;
 
+    chartFields = [
+        'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
+        'userGame.rating', 'userGame.version', 'userGame.progress', 'userGame.cond', 'userGame.completeness',
+        'userGame.price',
+        'userGame.purchasePlace', 'userGame.purchaseContact', 'userGame.purchaseDate',
+        'userGame.salePlace', 'userGame.saleContact', 'userGame.saleDate'
+    ];
+    chartField = 'userGame.platform';
+
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private router: Router,

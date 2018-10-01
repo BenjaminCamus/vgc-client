@@ -1,22 +1,14 @@
 <div style="margin: 90px 20px 20px 20px">
 
-    <select id="field"
-            [(ngModel)]="field" name="field"
-            #name="ngModel">
-        <option *ngFor="let f of fields" [ngValue]="f">
-            {{ 'field.' + f | translate }}
-        </option>
-    </select>
+    <section *ngFor="let f of fields">
+        <div *ngIf="chartType[f] && field == f">
+            <p-chart
+                    [type]="chartType[f]"
+                    [data]="chartData[f]"
+                    [options]="chartOptions[f]"
+                    [height]="'80vh'"></p-chart>
+        </div>
+        <div *ngIf="!chartType[f] && field == f" style="margin: 30px;">NO DATA</div>
+    </section>
 
 </div>
-
-<section *ngFor="let f of fields">
-    <div *ngIf="chartType[f] && field == f">
-        <p-chart
-                [type]="chartType[f]"
-                [data]="chartData[f]"
-                [options]="chartOptions[f]"
-                [height]="'80vh'"></p-chart>
-    </div>
-    <div *ngIf="!chartType[f] && field == f" style="margin: 30px;">NO DATA</div>
-</section>

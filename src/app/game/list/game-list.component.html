@@ -58,7 +58,8 @@
 
             <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
 
-            <td *ngFor="let field of tableFields" [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
+            <td *ngFor="let field of tableFields"
+                [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
         </tr>
     </table>
     <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
@@ -81,27 +82,36 @@
                 <div class="col-md-12">
                     <div style="float: right" [innerHTML]="userGame | userGameValue: 'userGame.rating'"></div>
                     {{ userGame.platform.name }}<br>
-                    <div *ngIf="userGame.game.series[0]" style="overflow: hidden; white-space: nowrap"><label>{{ 'field.game.series' | translate }}</label> {{ userGame.game.series[0].name }}</div>
-                    <div *ngIf="userGame.game.developers[0]" style="overflow: hidden; white-space: nowrap"><label>{{ 'field.game.developers' | translate }}</label> {{ userGame.game.developers[0].name }}</div>
-                    <span [innerHTML]="userGame | userGameValue: 'userGame.completeness' | translate | wrapValue: userGame: 'userGame.completeness'"></span> •
+                    <div *ngIf="userGame.game.series[0]" style="overflow: hidden; white-space: nowrap"><label>{{
+                        'field.game.series' | translate }}</label> {{ userGame.game.series[0].name }}
+                    </div>
+                    <div *ngIf="userGame.game.developers[0]" style="overflow: hidden; white-space: nowrap"><label>{{
+                        'field.game.developers' | translate }}</label> {{ userGame.game.developers[0].name }}
+                    </div>
+                    <span [innerHTML]="userGame | userGameValue: 'userGame.completeness' | translate | wrapValue: userGame: 'userGame.completeness'"></span>
+                    •
                     <span [innerHTML]="userGame | userGameValue: 'userGame.cond' | translate | wrapValue: userGame: 'userGame.cond'"></span><br>
                     <span [innerHTML]="userGame | userGameValue: 'userGame.progress' | translate | wrapValue: userGame: 'userGame.progress'"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label>{{ 'field.userGame.priceAsked' | translate }}</label>&nbsp;<span [innerHTML]="userGame | userGameValue: 'userGame.priceAsked': false | wrapValue: userGame: 'userGame.priceAsked'"></span>
+                    <label>{{ 'field.userGame.priceAsked' | translate }}</label>&nbsp;<span
+                        [innerHTML]="userGame | userGameValue: 'userGame.priceAsked': false | wrapValue: userGame: 'userGame.priceAsked'"></span>
                 </div>
                 <div class="col-md-6">
-                    <label>{{ 'field.userGame.pricePaid' | translate }}</label>&nbsp;<span [innerHTML]="userGame | userGameValue: 'pricePaid': false | wrapValue: userGame: 'userGame.pricePaid'"></span>
+                    <label>{{ 'field.userGame.pricePaid' | translate }}</label>&nbsp;<span
+                        [innerHTML]="userGame | userGameValue: 'pricePaid': false | wrapValue: userGame: 'userGame.pricePaid'"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6">
-                    <label>{{ 'field.userGame.priceResale' | translate }}</label>&nbsp;<span [innerHTML]="userGame | userGameValue: 'priceResale': false | wrapValue: userGame: 'userGame.priceResale'"></span>
+                    <label>{{ 'field.userGame.priceResale' | translate }}</label>&nbsp;<span
+                        [innerHTML]="userGame | userGameValue: 'priceResale': false | wrapValue: userGame: 'userGame.priceResale'"></span>
                 </div>
                 <div class="col-md-6">
-                    <label>{{ 'field.userGame.priceSold' | translate }}</label>&nbsp;<span [innerHTML]="userGame | userGameValue: 'priceSold': false | wrapValue: userGame: 'userGame.priceSold'"></span>
+                    <label>{{ 'field.userGame.priceSold' | translate }}</label>&nbsp;<span
+                        [innerHTML]="userGame | userGameValue: 'priceSold': false | wrapValue: userGame: 'userGame.priceSold'"></span>
                 </div>
             </div>
         </div>
@@ -253,49 +263,56 @@
                         </div>
                     </div>
                     <div class="col-md-3">
-                        <label for="name">{{ 'field.userGame.releaseDate' | translate }} ({{userGameFilter.releaseYearRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.releaseDate' | translate }}
+                            ({{userGameFilter.releaseYearRange[0] + ' - ' +
                             userGameFilter.releaseYearRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.releaseYearRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minReleaseYear"
                                   [max]="userGameFilter.maxReleaseYear"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.purchaseDate' | translate }} ({{userGameFilter.purchaseYearRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.purchaseDate' | translate }}
+                            ({{userGameFilter.purchaseYearRange[0] + ' - ' +
                             userGameFilter.purchaseYearRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.purchaseYearRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPurchaseYear"
                                   [max]="userGameFilter.maxPurchaseYear"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.rating' | translate }} ({{userGameFilter.ratingRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.rating' | translate }} ({{userGameFilter.ratingRange[0] + '
+                            - ' +
                             userGameFilter.ratingRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minRating"
                                   [max]="userGameFilter.maxRating"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.pricePaid' | translate }} ({{userGameFilter.pricePaidRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.pricePaid' | translate }}
+                            ({{userGameFilter.pricePaidRange[0] + ' - ' +
                             userGameFilter.pricePaidRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.priceResale' | translate }} ({{userGameFilter.priceResaleRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.priceResale' | translate }}
+                            ({{userGameFilter.priceResaleRange[0] + ' - ' +
                             userGameFilter.priceResaleRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.priceSold' | translate }} ({{userGameFilter.priceSoldRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.priceSold' | translate }}
+                            ({{userGameFilter.priceSoldRange[0] + ' - ' +
                             userGameFilter.priceSoldRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minPrice"
                                   [max]="userGameFilter.maxPrice"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.priceAsked' | translate }} ({{userGameFilter.priceAskedRange[0] + ' - ' +
+                        <label for="name">{{ 'field.userGame.priceAsked' | translate }}
+                            ({{userGameFilter.priceAskedRange[0] + ' - ' +
                             userGameFilter.priceAskedRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
@@ -444,7 +461,8 @@
                      [suffix]="userGameFilter.stats.count.purchaseContact[contact.id]"
                      (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
             </p-tabPanel>
-            <p-tabPanel header="{{ 'field.userGame.saleContact' | translate }}" *ngIf="userGameFilter.stats.tags.saleContact.length > 0">
+            <p-tabPanel header="{{ 'field.userGame.saleContact' | translate }}"
+                        *ngIf="userGameFilter.stats.tags.saleContact.length > 0">
                 <tag *ngFor="let contact of userGameFilter.stats.tags.saleContact;"
                      [tag]="contact"
                      [filter]="userGameFilter.saleContacts"
@@ -465,8 +483,8 @@
 <div class="topnav" *ngIf="displayUserGame && selectedUserGame">
 
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeUserGame()"
-         pTooltip="{{ 'btn.close' | translate }}"
-         tooltipPosition="left"></i></div>
+                             pTooltip="{{ 'btn.close' | translate }}"
+                             tooltipPosition="left"></i></div>
     <i *ngIf="prevUserGame" class="hovicon fas fa-chevron-left"
        (click)="navUserGame(true)"
        pTooltip="{{ 'btn.previous' | translate }}"
@@ -484,8 +502,28 @@
                              tooltipPosition="left"></i></div>
 </div>
 
-<game-chart *ngIf="displayChart" [userGameFilter]="userGameFilter" preventParentScroll></game-chart>
+<game-chart *ngIf="displayChart" [field]="chartField" [userGameFilter]="userGameFilter"
+            preventParentScroll></game-chart>
 <div class="topnav" *ngIf="displayChart">
+    <i class="hovicon fas fa-chevron-left"
+       (click)="chartField = chartFields.indexOf(chartField) == 0 ? chartFields[chartFields.length - 1] : chartFields[chartFields.indexOf(chartField) - 1]"
+       pTooltip="{{ 'btn.previous' | translate }}"
+       tooltipPosition="right"></i>
+    <i class="hovicon fas fa-chevron-right"
+       (click)="chartField = chartFields.indexOf(chartField) == chartFields.length - 1 ? chartFields[0] : chartFields[chartFields.indexOf(chartField) + 1]"
+       pTooltip="{{ 'btn.next' | translate }}"
+       tooltipPosition="right"></i>
+
+    <select id="chartField"
+            [(ngModel)]="chartField" name="chartField"
+            #name="ngModel"
+            style="display: inline-block; width: auto; margin: 0 0 0 10px;">
+
+        <option *ngFor="let f of chartFields" [ngValue]="f">
+            {{ 'field.' + f | translate }}
+        </option>
+    </select>
+
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeChart()"
                              pTooltip="{{ 'btn.close' | translate }}"
                              tooltipPosition="left"></i></div>

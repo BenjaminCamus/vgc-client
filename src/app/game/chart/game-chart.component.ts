@@ -22,7 +22,7 @@ export class GameChartComponent implements OnInit {
         'userGame.purchasePlace', 'userGame.purchaseContact', 'userGame.purchaseDate',
         'userGame.salePlace', 'userGame.saleContact', 'userGame.saleDate'
     ];
-    field = 'userGame.platform';
+    @Input() field = 'userGame.platform';
 
     colors = [
         'rgba(139, 233, 253, .5)',

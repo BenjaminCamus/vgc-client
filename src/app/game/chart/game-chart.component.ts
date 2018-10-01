@@ -204,7 +204,6 @@ export class GameChartComponent implements OnInit {
 
                         case 'purchaseDate':
                         case 'saleDate':
-                            console.log(this.userGameFilter.stats.tags[field][i]);
                             let date = this.userGameFilter.stats.tags[field][i].split('/');
                             label = date[1] + '/' + date[0];
                             data.push(this.userGameFilter.stats.count[field][this.userGameFilter.stats.tags[field][i]]);

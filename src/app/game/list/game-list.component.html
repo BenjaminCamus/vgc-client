@@ -21,13 +21,13 @@
         </tr>
         <tr>
             <td class="tdLabel">{{ 'label.search' | translate }}</td>
-            <td>{{ userGames | filter: userGameFilter | length }}&nbsp;<span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)</span>
+            <td>{{ userGames | filter: userGameFilter | length }} <span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)</span>
             </td>
-            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€&nbsp;<span
+            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€ <span
                     *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
                 number:'2.0-0' }}%)</span>
             </td>
-            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€&nbsp;<span
+            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€ <span
                     *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
                 total:'priceResale')) | number:'2.0-0' }}%)</span>
             </td>

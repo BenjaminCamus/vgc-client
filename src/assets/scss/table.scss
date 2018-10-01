@@ -16,14 +16,15 @@
   line-height: 22px;
   width: auto;
   padding: 0 10px;
+  white-space: normal;
 }
 
 .title .table {
   display: inline;
   margin-bottom: 0;
-  margin-left: 30px;
   float: right;
   width: auto;
+  max-width: 100%;
 }
 
 

@@ -52,8 +52,8 @@ export class GamesComponent implements OnInit {
     displayNewUserGame: boolean = false;
     displayChart: boolean = false;
 
-    tableFields = ['userGame.progress', 'game.name', 'userGame.platform', 'userGame.version',
-        'userGame.cond', 'userGame.completeness', 'userGame.rating',
+    tableFields = ['game.name', 'userGame.platform', 'userGame.rating', 'userGame.progress', 'userGame.version',
+        'userGame.cond', 'userGame.completeness',
         'userGame.pricePaid', 'userGame.priceAsked', 'userGame.purchaseDate', 'userGame.purchasePlace', 'userGame.purchaseContact',
         'userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact'];
 

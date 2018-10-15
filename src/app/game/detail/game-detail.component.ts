@@ -28,7 +28,7 @@ export class GameDetailComponent {
     selectedGame: Game = null;
     private selectedPlatform: Object;
 
-    userFields = [['userGame.version', 'userGame.completeness', 'userGame.rating', 'userGame.progress', 'userGame.cond'],
+    userFields = [['userGame.rating', 'userGame.progress', 'userGame.version', 'userGame.cond', 'userGame.completeness'],
         ['userGame.pricePaid', 'userGame.priceAsked', 'userGame.purchaseDate', 'userGame.purchasePlace', 'userGame.purchaseContact'],
         ['userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact']];
     gameFields = ['game.series', 'userGame.releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];

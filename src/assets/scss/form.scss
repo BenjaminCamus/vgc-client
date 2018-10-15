@@ -63,7 +63,7 @@ textarea ~ label  {
   margin-top: -136px;
   position: absolute;
 }
-input[type=text]:focus ~ label, input[type=date]:focus ~ label, input[type=password]:focus ~ label, select:focus ~ label,
+input[type=text]:focus ~ label, input[type=date]:focus ~ label, input[type=password]:focus ~ label, textarea:focus ~ label, select:focus ~ label,
 input[type=checkbox]:checked ~ label, input[type=radio][checked] ~ label {
   color: white;
 }

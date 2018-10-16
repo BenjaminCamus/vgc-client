@@ -4,7 +4,7 @@
     <div class="fullTitle">
         <a *ngIf="action == 'login'" class="navRight" (click)="action = 'register'">{{ 'title.register' | translate }}</a>
         <a *ngIf="action == 'register'" class="navRight" (click)="action = 'login'">{{ 'title.login' | translate }}</a>
-        <h2 *ngIf="action == 'login'">{{ 'title.register' | translate }}</h2>
+        <h2 *ngIf="action == 'login'">{{ 'title.login' | translate }}</h2>
         <h2 *ngIf="action == 'register'">{{ 'title.register' | translate }}</h2>
             
         <form name="form" (ngSubmit)="login()"  #loginForm="ngForm">

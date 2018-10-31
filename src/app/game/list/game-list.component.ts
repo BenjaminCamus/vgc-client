@@ -25,8 +25,8 @@ import {topNavTransition} from "../../_animations/topNav.animations";
 })
 export class GamesComponent implements OnInit {
 
-    loading: boolean = false;
-    loadingAction: string;
+    loading: boolean = true;
+    loadingAction: string = 'load';
 
     title = 'VGC';
 
@@ -111,15 +111,24 @@ export class GamesComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.loading = false;
 
-        this.userGames = this.gameLocalService.getUserGames();
-        this.userGamesDate = this.gameLocalService.getUserGamesDate();
-        this.reset();
+        this.gameLocalService.getUserGames().then(
+            userGames => {
 
-        if (this.userGames.length == 0) {
-            this.getGames();
-        }
+                this.userGames = userGames;
+                this.userGamesDate = this.gameLocalService.getUserGamesDate();
+                this.reset();
+
+                if (this.userGames.length == 0) {
+                    this.getGames();
+                }
+
+                this.loading = false;
+            },
+            error => {
+                this.loading = false;
+                this.errorMessage = <any>error;
+            });
     }
 
     ngOnDestroy() {

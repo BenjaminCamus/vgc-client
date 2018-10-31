@@ -220,7 +220,7 @@ export class GameLocalService {
         return new UserGame();
     }
 
-    getPlaces(): string[] {
+    getPlaces() {
 
         return this.db.openDatabase().then(() => {
             return this.db.getAll('userGames').then((userGames) => {

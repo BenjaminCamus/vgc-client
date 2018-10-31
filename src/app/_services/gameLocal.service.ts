@@ -1,39 +1,74 @@
 import {Injectable} from '@angular/core';
+import {AngularIndexedDB} from 'angular2-indexeddb';
 import {UserGame} from "../_models/userGame";
-import {orderByName} from "../functions";
 import {Contact} from "../_models/contact";
 
+const DB_NAME = 'VGC';
+const DB_VERSION = 1;
 
 @Injectable()
 export class GameLocalService {
+
+    db;
+
     constructor() {
+
+        this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
+
+        this.db.openDatabase(DB_VERSION, (evt) => {
+            evt.currentTarget.result.createObjectStore(
+                'userGames', {keyPath: "id", autoIncrement: true});
+        });
     }
 
-    private userGamesLocalId = 'userGames';
     private userGamesDateLocalId = 'userGamesDate';
     private userContactsLocalId = 'userContacts';
     private newGameSearchLocalId = 'newGameSearch';
     private newUserGameLocalId = 'newUserGame';
 
     static resetAll() {
-        var resetIds = ['userGames', 'userGamesDate', 'userContacts', 'newGameSearch'];
+        var resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
         for (var i in resetIds) {
             localStorage.removeItem(resetIds[i]);
+        }
+
+        var db = new AngularIndexedDB(DB_NAME, DB_VERSION);
+        db.openDatabase(DB_VERSION).then(() => {
+            db.getAll('userGames').then((userGames) => {
+                for (let userGame of userGames) {
+                    db.delete('userGames', userGame.id).then(() => {
+                        // Do something after the value was added
+                    }, (error) => {
+                        console.log(error);
+                    });
+                }
+                return userGames;
+            }, (error) => {
+                console.log(error);
+            });
+        });
+    }
+
+    dbError(error) {
+        console.log(error);
+    }
+
+    setUserGames(userGames: UserGame[]) {
+        for (let userGame of userGames) {
+            this.setUserGame(userGame);
         }
     }
 
     getUserGames() {
-        if (localStorage.getItem(this.userGamesLocalId)) {
 
-            let userGames = JSON.parse(localStorage.getItem(this.userGamesLocalId));
-            for (let userGame of userGames) {
-                userGame = this.setDates(userGame);
-            }
+        return this.db.openDatabase().then(() => {
+            return this.db.getAll('userGames').then((userGames) => {
 
-            return userGames;
-        }
-
-        return [];
+                return userGames;
+            }, (error) => {
+                this.dbError(error);
+            });
+        });
     }
 
     setUserGamesDate() {
@@ -52,80 +87,88 @@ export class GameLocalService {
         return null;
     }
 
-    setUserGames(userGames: UserGame[]) {
-        return localStorage.setItem(this.userGamesLocalId, JSON.stringify(userGames));
-    }
-
     getUserGameByPlatform(userGame: UserGame) {
 
+        return this.db.openDatabase().then(() => {
+            return this.db.getAll('userGames').then((userGames) => {
 
-        let userGames = this.getUserGames();
+                if (userGames.length == 0) {
+                    return userGame;
+                }
+                else {
+                    let index = userGames.findIndex(function (cur) {
+                        return userGame.game.slug === cur.game.slug && userGame.platform.slug === cur.platform.slug;
+                    });
 
-        if (userGames.length == 0) {
-            return userGame;
-        }
-        else {
-            let index = userGames.findIndex(function (cur) {
-                return userGame.game.slug === cur.game.slug && userGame.platform.slug === cur.platform.slug;
+                    if (index === -1) {
+                        return userGame;
+                    }
+                    else {
+                        return userGames[index];
+                    }
+                }
+            }, (error) => {
+                console.log(error);
             });
-
-            if (index === -1) {
-                return userGame;
-            }
-            else {
-                return userGames[index];
-            }
-        }
+        });
     }
 
     setUserGame(userGame: UserGame) {
-        let userGames = this.getUserGames();
-        if (userGames.length == 0) {
-            userGames.push(userGame);
-        }
-        else {
-            let index = userGames.findIndex(function (cur) {
-                return userGame.id === cur.id;
+
+        this.db.openDatabase().then(() => {
+
+            this.db.getByKey('userGames', userGame.id).then((localUserGame) => {
+
+                if (localUserGame) {
+
+                    this.db.update('userGames', userGame).then(() => {
+                        // Do something after the value was added
+                    }, (error) => {
+                        console.log(error);
+                    });
+
+                }
+                else {
+
+                    let newUserGame = new UserGame();
+                    newUserGame.purchaseDate = userGame.purchaseDate;
+                    newUserGame.purchasePlace = userGame.purchasePlace;
+                    newUserGame.purchaseContact = userGame.purchaseContact;
+                    newUserGame.saleDate = userGame.saleDate;
+                    newUserGame.salePlace = userGame.salePlace;
+                    newUserGame.saleContact = userGame.saleContact;
+
+                    this.setNewUserGame(newUserGame);
+
+                    this.db.add('userGames', userGame).then(() => {
+                        // Do something after the value was added
+                    }, (error) => {
+                        console.log(error);
+                    });
+                }
+
+
+            }, (error) => {
+
+                this.dbError(error);
             });
-            if (index === -1) {
-                userGames.push(userGame);
-
-                var newUserGame = new UserGame();
-                newUserGame.purchaseDate = userGame.purchaseDate;
-                newUserGame.purchasePlace = userGame.purchasePlace;
-                newUserGame.purchaseContact = userGame.purchaseContact;
-                newUserGame.saleDate = userGame.saleDate;
-                newUserGame.salePlace = userGame.salePlace;
-                newUserGame.saleContact = userGame.saleContact;
-
-                this.setNewUserGame(newUserGame);
-            }
-            else {
-                userGames[index] = userGame;
-            }
-
-        }
-
-        userGames.sort(orderByName);
-        this.setUserGames(userGames);
-
-        return userGame;
+        });
     }
 
     removeUserGame(userGame: UserGame) {
-        let userGames = this.getUserGames();
-        if (userGames.length > 0) {
-            let index = userGames.findIndex(function (cur) {
-                return userGame.id === cur.id;
-            });
-            if (index > -1) {
-                userGames.splice(index, 1);
-            }
 
-            userGames.sort(orderByName);
-            this.setUserGames(userGames);
-        }
-        return userGames;
+        this.db.openDatabase().then(() => {
+
+            this.db.delete('userGames', userGame.id).then(() => {
+                // Do something after the value was added
+            }, (error) => {
+                console.log(error);
+            });
+        });
+    }
+
+    setNewGameSearch(search: string) {
+        return localStorage.setItem(this.newGameSearchLocalId, search);
     }
 
     getNewGameSearch() {
@@ -136,8 +179,8 @@ export class GameLocalService {
         return '';
     }
 
-    setNewGameSearch(search: string) {
-        return localStorage.setItem(this.newGameSearchLocalId, search);
+    setUserContacts(contacts: Contact[]) {
+        return localStorage.setItem(this.userContactsLocalId, JSON.stringify(contacts));
     }
 
     getUserContacts() {
@@ -146,10 +189,6 @@ export class GameLocalService {
         }
 
         return [];
-    }
-
-    setUserContacts(contacts: Contact[]) {
-        return localStorage.setItem(this.userContactsLocalId, JSON.stringify(contacts));
     }
 
     setDates(userGame) {
@@ -182,19 +221,25 @@ export class GameLocalService {
     }
 
     getPlaces(): string[] {
-        let userGames = this.getUserGames();
-        var places = [];
-        if (userGames.length > 0) {
-            for (let userGame of userGames) {
-                if (userGame.purchasePlace && userGame.purchasePlace != '' && places.indexOf(userGame.purchasePlace) < 0) {
-                    places.push(userGame.purchasePlace);
+
+        return this.db.openDatabase().then(() => {
+            return this.db.getAll('userGames').then((userGames) => {
+
+                let places = [];
+
+                for (let userGame of userGames) {
+                    if (userGame.purchasePlace && userGame.purchasePlace != '' && places.indexOf(userGame.purchasePlace) < 0) {
+                        places.push(userGame.purchasePlace);
+                    }
+                    if (userGame.salePlace && userGame.salePlace != '' && places.indexOf(userGame.salePlace) < 0) {
+                        places.push(userGame.salePlace);
+                    }
                 }
-                if (userGame.salePlace && userGame.salePlace != '' && places.indexOf(userGame.salePlace) < 0) {
-                    places.push(userGame.salePlace);
-                }
-            }
-        }
-        places.sort();
-        return places;
+
+                return places;
+            }, (error) => {
+                this.dbError(error);
+            });
+        });
     }
 }

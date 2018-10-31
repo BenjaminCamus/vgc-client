@@ -24,6 +24,8 @@ export class AuthenticationService {
 
     login(user: any): Observable<boolean> {
 
+        GameLocalService.resetAll();
+
         if (user.email) {
             var url = this.registerUrl;
             var request: any = {

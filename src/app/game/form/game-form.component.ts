@@ -38,8 +38,6 @@ export class GameFormComponent implements OnInit {
 
     private userContacts: Contact[];
     private places: string[];
-    private purchasePlaceSelect: boolean = true;
-    private salePlaceSelect: boolean = true;
 
     private validateUserGameForm: FormGroup;
 
@@ -67,9 +65,17 @@ export class GameFormComponent implements OnInit {
     ngOnInit(): void {
 
         this.userContacts = this.gameLocalService.getUserContacts();
-        this.places = this.gameLocalService.getPlaces();
         this.updateSelects();
         this.getContacts();
+
+
+        this.gameLocalService.getPlaces().then(
+            places => {
+                this.places = places;
+            },
+            error => {
+                console.log(error);
+            });
     }
 
     submitForm() {

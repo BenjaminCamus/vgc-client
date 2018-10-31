@@ -82,6 +82,7 @@
 	"label.total": "Total",
 	"msg.loading.login": "Signing In",
 	"msg.loading.register": "Registering",
+	"msg.loading.load": "Loading",
 	"msg.loading.save": "Saving",
 	"msg.loading.sync": "Syncing",
 	"msg.removeConfirm": "Do you really want to remove this game from your collection?",

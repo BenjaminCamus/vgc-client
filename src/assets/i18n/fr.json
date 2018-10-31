@@ -82,6 +82,7 @@
 	"label.total": "Total",
 	"msg.loading.login": "Connexion",
 	"msg.loading.register": "Inscription",
+	"msg.loading.load": "Chargement en cours",
 	"msg.loading.save": "Sauvegarde en cours",
 	"msg.loading.sync": "Synchronisation en cours",
 	"msg.removeConfirm": "Voulez vous vraiment supprimer ce jeu de votre collection ?",

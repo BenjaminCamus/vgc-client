@@ -61,7 +61,7 @@ export class GameNewComponent {
 
                         for (let game of this.games) {
                             for (let platform of game.platforms) {
-                                this.buttonClass[game.id + '_' + platform.id] = this.getPlatformButtonClass(game, platform);
+                                this.getPlatformButtonClass(game, platform);
 
                             }
                         }
@@ -81,13 +81,20 @@ export class GameNewComponent {
         userGame.game = game;
         userGame.platform = platform;
 
-        userGame = this.gameLocalService.getUserGameByPlatform(userGame);
+        return this.gameLocalService.getUserGameByPlatform(userGame).then(
+            userGame => {
+                let buttonClass = 'btn-primary';
 
-        if (userGame.user) {
-            return 'btn-success';
-        }
+                if (userGame.user) {
+                    buttonClass  = 'btn-success';
+                }
 
-        return 'btn-primary';
+                this.buttonClass[game.id + '_' + platform.id] = buttonClass;
+            },
+            error => {
+                this.loading = false;
+                this.errorMessage = <any>error;
+            });
     }
 
     onSelect(game, platform: Object): void {

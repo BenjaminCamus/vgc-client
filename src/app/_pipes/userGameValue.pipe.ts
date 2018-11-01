@@ -44,7 +44,6 @@ export class UserGameValuePipe {
 
             case 'price':
                 value = parseFloat(value);
-                value = value.toString().replace('.', ',');
                 value = value + ' €';
 
                 var field1 = field;
@@ -68,11 +67,13 @@ export class UserGameValuePipe {
                         else {
                             value += '-';
                         }
-                        value += (parseFloat(userGame[field1]) - parseFloat(userGame[field2])) + ')';
+                        value += (parseFloat(userGame[field1]) - parseFloat(userGame[field2])).toPrecision(2) + ')';
                     }
 
                     value = value + '</span>';
                 }
+
+                value = value.replace(/\.0\)/gi, ')').replace('.', ',');
                 break;
 
             case 'date':
@@ -103,7 +104,7 @@ export class UserGameValuePipe {
                 break;
 
             case 'url':
-                value = '<a href="' + value + '" target="_blank">' + value + '</a>'
+                value = '<a href="' + value + '" target="_blank">' + value.replace(/https:\/\/www./gi, '') + '</a>'
                 break;
 
             case 'rating':

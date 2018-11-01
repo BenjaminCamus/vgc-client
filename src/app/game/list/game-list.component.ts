@@ -119,11 +119,11 @@ export class GamesComponent implements OnInit {
                 this.userGamesDate = this.gameLocalService.getUserGamesDate();
                 this.reset();
 
-                if (this.userGames.length == 0) {
+                this.loading = false;
+
+                if (!this.userGames || this.userGames.length == 0) {
                     this.getGames();
                 }
-
-                this.loading = false;
             },
             error => {
                 this.loading = false;
@@ -302,6 +302,13 @@ export class GamesComponent implements OnInit {
 
     closeUserGame() {
         this.displayUserGame = false;
+    }
+
+    resetUserGameFilter() {
+
+        this.userGameFilter = new UserGameFilter();
+        this.reset();
+        this.displayFilters = false;
     }
 
     private reset() {

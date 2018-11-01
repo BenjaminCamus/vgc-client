@@ -61,8 +61,8 @@ export class OrderByPipe implements PipeTransform {
             }
 
             if (typeof aVal === 'string') {
-                aVal = aVal.toLowerCase();
-                bVal = bVal.toLowerCase();
+                aVal = aVal.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+                bVal = bVal.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
             }
 
             let tmpReturn = 0;

@@ -48,6 +48,14 @@
     position: absolute;
     margin-top: -70px;
   }
+
+  .titleText {
+    display: inline-block;
+    width: calc(100% - 210px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
 
 .searchToolsBig {
@@ -59,6 +67,10 @@
 @media (min-width: 1110px) {
   .searchToolsBig {
     display: inline-block;
+  }
+
+  .filters .ui-tabview {
+    margin-top: 40px;
   }
 }
 @media (max-width: 1109px) {
@@ -139,4 +151,8 @@
   position: fixed;
   top: 70px;
   left: 0;
+}
+
+.filters .container-fluid {
+  padding-bottom: 0;
 }

@@ -14,6 +14,8 @@ export class UserGameFilter extends UserGame {
     saleContacts: Contact[] = [];
     versions = [];
     progresses = [];
+    completenesss = [];
+    conds = [];
 
     ratingRange = [0, 1000000];
     minRating = 0;

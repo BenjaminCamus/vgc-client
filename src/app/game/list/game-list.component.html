@@ -183,6 +183,17 @@
 
     <div class="filters" *ngIf="displayFilters" [@routerTransition] preventParentScroll>
 
+        <div style="float:right;">
+            <i class="hovicon fas fa-undo"
+               (click)="resetUserGameFilter()"
+               pTooltip="Reset"
+               tooltipPosition="left"></i>
+            <i class="hovicon fas fa-times"
+               (click)="displayFilters = false"
+               pTooltip="{{ 'btn.close' | translate }}"
+               tooltipPosition="left"></i>
+        </div>
+
         <div class="container-fluid searchToolsSmall">
             <div class="row">
                 <div class="col-md-4">
@@ -225,7 +236,7 @@
                             <label for="name">{{ 'field.userGame.platform' | translate }}</label><br>
                             <tag *ngFor="let platform of userGameFilter.stats.tags.platform;"
                                  [tag]="platform"
-                                 [filter]="userGameFilter.platform"
+                                 [filter]="userGameFilter.platforms"
                                  [suffix]="userGameFilter.stats.count.platform[platform.id]"
                                  (uploaded)="toggleTag('platforms', $event, platform)"></tag>
                         </div>

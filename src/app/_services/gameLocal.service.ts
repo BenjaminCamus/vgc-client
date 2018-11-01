@@ -13,6 +13,8 @@ export class GameLocalService {
 
     constructor() {
 
+        localStorage.removeItem('userGames');
+
         this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
 
         this.db.openDatabase(DB_VERSION, (evt) => {

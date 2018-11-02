@@ -74,6 +74,12 @@
   }
 }
 @media (max-width: 1109px) {
+
+  game-new .gameBanner.gameBannerBig,
+  game-new .gameBanner.gameBannerBig .gameBannerBg {
+    height: 20vh;
+  }
+
   .title .table>tbody>tr>td, .title .table>tbody>tr>th, .title .table>tfoot>tr>td, .title .table>tfoot>tr>th, .title .table>thead>tr>td, .title .table>thead>tr>th {
     padding: 0 3px;
   }

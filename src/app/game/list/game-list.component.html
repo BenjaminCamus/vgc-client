@@ -486,10 +486,16 @@
 
 <game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState" preventParentScroll
              *ngIf="displayUserGame && selectedUserGame1"
-             (state)="detailStateUpdate($event)"></game-detail>
+             (state)="detailStateUpdate($event)"
+             (swipeleft)="navUserGame()"
+             (swiperight)="navUserGame(true)"
+             (pinchout)="closeUserGame()"></game-detail>
 <game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" preventParentScroll
              *ngIf="displayUserGame && selectedUserGame2"
-             (state)="detailStateUpdate($event)"></game-detail>
+             (state)="detailStateUpdate($event)"
+             (swipeleft)="navUserGame()"
+             (swiperight)="navUserGame(true)"
+             (pinchout)="closeUserGame()"></game-detail>
 
 <div class="topnav" *ngIf="displayUserGame && selectedUserGame" [@topNavTransition]>
 

@@ -1,5 +1,5 @@
 import {NgModule} from "@angular/core";
-import {BrowserModule} from "@angular/platform-browser";
+import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerGestureConfig} from "@angular/platform-browser";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {CustomFormsModule} from 'ng2-validation';
@@ -36,6 +36,13 @@ import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {GameChartComponent} from "./game/chart/game-chart.component";
 import {LightboxModule} from 'ngx-lightbox';
 import {GameImagesComponent} from "./game/images/game-images.component";
+
+export class MyHammerConfig extends HammerGestureConfig {
+    overrides = <any> {
+        'pinch': { enable: false },
+        'rotate': { enable: false }
+    }
+}
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
@@ -97,8 +104,13 @@ export function HttpLoaderFactory(http: HttpClient) {
         AuthGuard,
         AuthenticationService,
 
+        {
+            provide: HAMMER_GESTURE_CONFIG,
+            useClass: MyHammerConfig
+        },
+
         GameService,
-        GameLocalService,
+        GameLocalService
     ],
     bootstrap: [AppComponent]
 })

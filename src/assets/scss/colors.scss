@@ -82,9 +82,13 @@ a {
   color: $colorMain;
 }
 
-a:focus, a:hover {
+a:not(.ui-paginator-element):focus, a:not(.ui-paginator-element):hover {
   color: $colorMain;
   text-decoration: underline;
+}
+
+a:focus {
+  outline: 0;
 }
 
 .text-success {

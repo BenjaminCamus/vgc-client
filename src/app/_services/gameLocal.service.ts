@@ -4,7 +4,7 @@ import {UserGame} from "../_models/userGame";
 import {Contact} from "../_models/contact";
 
 const DB_NAME = 'VGC';
-const DB_VERSION = 10;
+const DB_VERSION = 11;
 
 @Injectable()
 export class GameLocalService {
@@ -31,26 +31,23 @@ export class GameLocalService {
     private newGameSearchLocalId = 'newGameSearch';
     private newUserGameLocalId = 'newUserGame';
 
-    static resetAll() {
+    resetAll() {
         var resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
         for (var i in resetIds) {
             localStorage.removeItem(resetIds[i]);
         }
 
-        var db = new AngularIndexedDB(DB_NAME, DB_VERSION);
-        db.openDatabase(DB_VERSION, (evt) => {
-            db.getAll('userGames').then((userGames) => {
+        return this.db.openDatabase().then(() => {
+            return this.db.getAll('userGames').then((userGames) => {
                 for (let userGame of userGames) {
-                    db.delete('userGames', userGame.id).then(() => {
+                    this.db.delete('userGames', userGame.id).then(() => {
                         // Do something after the value was added
                     }, (error) => {
                         console.log(error);
                     });
                 }
             }, (error) => {
-                console.log(error);
-                evt.currentTarget.result.createObjectStore(
-                    'userGames', {keyPath: "id", autoIncrement: true});
+                this.dbError(error);
             });
         });
     }

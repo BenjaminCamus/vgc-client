@@ -114,3 +114,16 @@ label.primeng {
   height: 1.8em;
   top: 14px;
 }
+
+.paginator {
+  position: fixed;
+  z-index: 999;
+  top: calc(100vh - 70px);
+  padding: 0 10px;
+  background: rgba(0,0,0,.7);
+  border-radius: 0 10px 10px 0;
+}
+.ui-widget-header {
+   display: inline-block;
+   text-align: left;
+ }

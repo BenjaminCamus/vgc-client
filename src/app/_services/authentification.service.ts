@@ -24,8 +24,6 @@ export class AuthenticationService {
 
     login(user: any): Observable<boolean> {
 
-        GameLocalService.resetAll();
-
         if (user.email) {
             var url = this.registerUrl;
             var request: any = {
@@ -72,8 +70,6 @@ export class AuthenticationService {
     }
 
     logout(): void {
-
-        GameLocalService.resetAll();
 
         // clear token remove user from local storage to log user out
         this.token = null;

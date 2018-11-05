@@ -2,6 +2,7 @@ import {Component, OnInit} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {routerTransition} from "../_animations/router.animations";
 import {AuthenticationService} from "../_services/authentification.service";
+import {GameLocalService} from "../_services/gameLocal.service";
 
 @Component({
     moduleId: module.id,
@@ -18,10 +19,12 @@ export class LoginComponent implements OnInit {
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
-                private authenticationService: AuthenticationService) {
+                private authenticationService: AuthenticationService,
+                private gameLocalService: GameLocalService) {
     }
 
     ngOnInit() {
+        this.gameLocalService.resetAll();
         this.authenticationService.logout();
 
         this.route.data.subscribe(params => {

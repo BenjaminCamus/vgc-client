@@ -116,13 +116,16 @@ export class GamesComponent implements OnInit {
             userGames => {
 
                 this.userGames = userGames;
-                this.userGamesDate = this.gameLocalService.getUserGamesDate();
-                this.reset();
-
-                this.loading = false;
 
                 if (!this.userGames || this.userGames.length == 0) {
+                    this.loading = false;
                     this.getGames();
+                }
+                else {
+                    this.userGamesDate = this.gameLocalService.getUserGamesDate();
+                    this.reset();
+
+                    this.loading = false;
                 }
             },
             error => {

@@ -1,8 +1,8 @@
-<banner [data]="selectedUserGame" [resize]="true"></banner>
+<banner *ngIf="displayMode == 0" [data]="selectedUserGame" [resize]="true"></banner>
 
-<div class="vgc">VGC</div>
+<div *ngIf="displayMode == 0" class="vgc">VGC</div>
 
-<div class="title">
+<div *ngIf="displayMode == 0" class="title">
     {{ 'title.gameList' | translate }}
 
     <table class="table static">
@@ -51,7 +51,7 @@
                 <i class="fas fa-sort-down invisible" *ngIf="orderField != field"></i>
             </th>
         </tr>
-        <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
+        <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd;"
             [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''"
             (click)="openUserGame(userGame)"
             (mouseenter)="selectUserGame(userGame)">
@@ -66,13 +66,15 @@
        pTooltip="{{ 'btn.newGame' | translate }}"
        tooltipPosition="right"></i>
 </div>
+
 <div *ngIf="displayMode == 0" class="gameBoxContainer">
 
-    <section *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption;"
-             (click)="openUserGame(userGame)"
-             (mouseenter)="userGameHover(userGame)"
-             class="gameBox visible_anim"
-             [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
+    <section
+            *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd;"
+            (click)="openUserGame(userGame)"
+            (mouseenter)="userGameHover(userGame)"
+            class="gameBox visible_anim"
+            [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
         <div class="gameCover" *ngIf="userGame.game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <div class=gameInfos>
@@ -121,6 +123,35 @@
            pTooltip="{{ 'btn.newGame' | translate }}"
            tooltipPosition="top"></i>
     </section>
+</div>
+
+<div class="paginator" *ngIf="!loading && userGames.length > 10">
+
+    <div class="input" style="width: 64px;">
+
+        <select id="sliceGap"
+                [(ngModel)]="sliceGap" name="sliceGap"
+                #name="ngModel"
+                (change)="sliceStart = 0; sliceEnd = sliceGap">
+            <option [value]="10">10</option>
+            <option *ngIf="userGames.length > 20" [value]="20">20</option>
+            <option *ngIf="userGames.length > 50" [value]="50">50</option>
+            <option *ngIf="userGames.length > 100" [value]="100">100</option>
+            <option *ngIf="userGames.length > 200" [value]="200">200</option>
+            <option [value]="userGames.length">{{ userGames.length }}</option>
+        </select>
+    </div>
+
+    <p-paginator [first]="sliceStart" [rows]="sliceGap" [totalRecords]="userGames | filter: userGameFilter | length" (onPageChange)="paginate($event)"></p-paginator>
+
+    <span style="white-space: nowrap">
+        {{ sliceStart + 1 }}
+        ˃
+        {{(userGames | filter: userGameFilter | length) < sliceEnd ? (userGames | filter: userGameFilter | length) : sliceEnd }}
+        /
+        {{ userGames | filter: userGameFilter | length }}
+    </span>
+
 </div>
 
 <nav class="topnav">

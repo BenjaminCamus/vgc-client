@@ -67,7 +67,7 @@
                     <div class="col-md-12">
                         <label>{{ 'field.userGame.note' | translate }}</label>
                         <br/>
-                        {{userGame.note}}
+                        <div [innerHTML]="userGame | userGameValue: 'userGame.note'"></div>
                     </div>
                 </div>
             </section>

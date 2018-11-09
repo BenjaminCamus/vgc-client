@@ -293,13 +293,11 @@ export class GamesComponent implements OnInit {
                 }
                 else if ((index + 1) % this.sliceGap == 0) {
                     this.sliceStart = index + 1 - this.sliceGap;
-                    console.log(this.sliceStart);
                 }
                 else {
                     let userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
                     if (index == userGameList.length - 1) {
                         this.sliceStart = Math.floor(index / this.sliceGap) * this.sliceGap;
-                        console.log(this.sliceStart);
                     }
                 }
 

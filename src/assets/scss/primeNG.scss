@@ -117,11 +117,10 @@ label.primeng {
 
 .paginator {
   position: fixed;
-  z-index: 999;
-  top: calc(100vh - 70px);
+  top:70px;
+  right: 0;
   padding: 0 10px;
-  background: rgba(0,0,0,.7);
-  border-radius: 0 10px 10px 0;
+  background: rgba(0,0,0,.5);
 }
 .ui-widget-header {
    display: inline-block;

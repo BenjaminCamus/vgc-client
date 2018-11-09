@@ -61,6 +61,9 @@ export class GamesComponent implements OnInit {
     displayMode: number = 0;
     orderField: string = 'userGame.purchaseDate';
     orderOption: boolean = false;
+    sliceStart: number = 0;
+    sliceEnd: number = 50;
+    sliceGap: number = 50;
 
     chartFields = [
         'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
@@ -108,6 +111,20 @@ export class GamesComponent implements OnInit {
                 }
                 break;
         }
+    }
+
+    paginate(event) {
+        this.sliceStart = parseInt(event.first, 10);
+
+        if (typeof this.sliceGap === 'string') {
+            this.sliceGap = parseInt(this.sliceGap, 10);
+        }
+
+        this.sliceEnd = parseInt(event.first, 10) + this.sliceGap;
+
+        //event.rows = Number of rows to display in new page
+        //event.page = Index of the new page
+        //event.pageCount = Total number of pages
     }
 
     ngOnInit() {
@@ -270,6 +287,23 @@ export class GamesComponent implements OnInit {
 
                 this.prevUserGame = userGameList[prevIndex];
                 this.nextUserGame = userGameList[nextIndex];
+
+                if (index == 0 || index % this.sliceGap == 0) {
+                    this.sliceStart = index;
+                }
+                else if ((index + 1) % this.sliceGap == 0) {
+                    this.sliceStart = index + 1 - this.sliceGap;
+                    console.log(this.sliceStart);
+                }
+                else {
+                    let userGameList = this.filterPipe.transform(this.userGames, this.userGameFilter);
+                    if (index == userGameList.length - 1) {
+                        this.sliceStart = Math.floor(index / this.sliceGap) * this.sliceGap;
+                        console.log(this.sliceStart);
+                    }
+                }
+
+                this.sliceEnd = this.sliceStart + this.sliceGap;
             }
         }
         else {
@@ -292,6 +326,9 @@ export class GamesComponent implements OnInit {
         if (userGameList.length > 0 && (!this.selectedUserGame || deepIndexOf(userGameList, this.selectedUserGame) == -1)) {
             this.selectUserGame(userGameList[0]);
         }
+
+        this.sliceStart = 0;
+        this.sliceEnd = this.sliceGap;
     }
 
     navUserGame(prev = false) {

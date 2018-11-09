@@ -10,7 +10,7 @@ import {ErrorService} from "./_services/error.service";
 import {AuthGuard} from "./_guards/auth.guard";
 import {AuthenticationService} from "./_services/authentification.service";
 import {LoginComponent} from "./login/login.component";
-import {SharedModule, SliderModule, TabViewModule, CalendarModule, TooltipModule, ChartModule} from "primeng/primeng";
+import {SharedModule, SliderModule, TabViewModule, CalendarModule, TooltipModule, ChartModule, PaginatorModule} from "primeng/primeng";
 import {FilterPipe} from "./_pipes/filter.pipe";
 import {OrderByPipe} from "./_pipes/orderBy.pipe";
 import {SafePipe} from "./_pipes/safe.pipe";
@@ -64,6 +64,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         CalendarModule,
         TooltipModule,
         ChartModule,
+        PaginatorModule,
         PreventParentScrollModule,
         LightboxModule,
         TranslateModule.forRoot({

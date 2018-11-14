@@ -146,7 +146,7 @@
 
     <span style="white-space: nowrap">
         {{ sliceStart + 1 }}
-        ˃
+        >
         {{(userGames | filter: userGameFilter | length) < sliceEnd ? (userGames | filter: userGameFilter | length) : sliceEnd }}
         /
         {{ userGames | filter: userGameFilter | length }}

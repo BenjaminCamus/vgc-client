@@ -52,7 +52,7 @@ export class GamesComponent implements OnInit {
     displayNewUserGame: boolean = false;
     displayChart: boolean = false;
 
-    tableFields = ['game.name', 'userGame.platform', 'userGame.rating', 'userGame.progress', 'userGame.version',
+    tableFields = ['game.name', 'userGame.platform', 'userGame.releaseDate', 'userGame.rating', 'userGame.progress', 'userGame.version',
         'userGame.cond', 'userGame.completeness',
         'userGame.pricePaid', 'userGame.priceAsked', 'userGame.purchaseDate', 'userGame.purchasePlace', 'userGame.purchaseContact',
         'userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact'];
@@ -218,13 +218,7 @@ export class GamesComponent implements OnInit {
 
     setSliceGap() {
 
-        if (this.userGames.length > 400) {
-            this.sliceGap = 200;
-        }
-        else if (this.userGames.length > 200) {
-            this.sliceGap = 100;
-        }
-        else if (this.userGames.length > 100) {
+        if (this.userGames.length > 100) {
             this.sliceGap = 50;
         }
         else if (this.userGames.length > 50) {

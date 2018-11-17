@@ -48,7 +48,7 @@
 
                 <span *ngIf="field != 'progress'">{{ 'field.' + field | translate }}</span>
                 <i class="fa" *ngIf="orderField == field"
-                   [ngClass]="orderOption ? 'fa-sort-down' : 'fa-sort-up'"></i>
+                   [ngClass]="orderOption ? 'fa-sort-up' : 'fa-sort-down'"></i>
                 <i class="fas fa-sort-down invisible" *ngIf="orderField != field"></i>
             </th>
         </tr>
@@ -195,8 +195,8 @@
                 </select>
             </div>
             <i class="hovicon fa" (click)="orderOption = !orderOption; changeOrder(orderField)"
-               [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"
-               pTooltip="{{ 'btn.sort' + (orderOption ? 'Desc' : 'Asc') | translate }}"
+               [ngClass]="orderOption ? 'fa-sort-amount-up' : 'fa-sort-amount-down'"
+               pTooltip="{{ 'btn.sort' + (orderOption ? 'Asc' : 'Desc') | translate }}"
                tooltipPosition="left"></i>
         </div>
         <i class="hovicon fas fa-search" (click)="displayFilters = !displayFilters"
@@ -254,8 +254,8 @@
                 </div>
                 <div class="col-md-4">
                     <i class="hovicon fa" (click)="orderOption = !orderOption; changeOrder(orderField)"
-                       [ngClass]="orderOption ? 'fa-sort-amount-down' : 'fa-sort-amount-up'"
-                       pTooltip="{{ 'btn.sort' + (orderOption ? 'Desc' : 'Asc') | translate }}"
+                       [ngClass]="orderOption ? 'fa-sort-amount-up' : 'fa-sort-amount-down'"
+                       pTooltip="{{ 'btn.sort' + (orderOption ? 'Asc' : 'Desc') | translate }}"
                        tooltipPosition="left"></i>
                 </div>
             </div>

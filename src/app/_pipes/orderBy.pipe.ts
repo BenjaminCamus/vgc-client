@@ -60,8 +60,11 @@ export class OrderByPipe implements PipeTransform {
                 bVal = b['game'][field];
             }
 
-            if (typeof aVal === 'string') {
+            if (aVal && typeof aVal === 'string' && aVal != '') {
                 aVal = aVal.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
+            }
+
+            if (bVal && typeof bVal === 'string' && bVal != '') {
                 bVal = bVal.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, "");
             }
 

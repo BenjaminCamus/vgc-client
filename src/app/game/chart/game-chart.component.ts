@@ -2,6 +2,7 @@ import {Component, OnInit, Input} from '@angular/core';
 import {routerTransition} from '../../_animations/router.animations';
 import {UserGameFilter} from "../../_models/userGameFilter";
 import {TranslatePipe} from "@ngx-translate/core";
+import {DeviceDetectorService} from "ngx-device-detector";
 
 @Component({
     moduleId: module.id,
@@ -47,7 +48,8 @@ export class GameChartComponent implements OnInit {
     chartType: any = {};
     chartOptions: any = {};
 
-    constructor(private translatePipe: TranslatePipe) {
+    constructor(private translatePipe: TranslatePipe,
+                private deviceService: DeviceDetectorService) {
     }
 
     ngOnInit() {
@@ -75,7 +77,7 @@ export class GameChartComponent implements OnInit {
             this.chartOptions[this.fields[fieldIndex]] = {
                 legend: {
                     display: true,
-                    position: 'left',
+                    position: this.deviceService.isMobile() ? 'bottom' : 'left',
                     labels: {
                         fontColor: '#fff',
                         fontSize: 14,

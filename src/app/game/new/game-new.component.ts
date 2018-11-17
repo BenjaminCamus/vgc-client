@@ -77,19 +77,18 @@ export class GameNewComponent {
 
     getPlatformButtonClass(game: Game, platform) {
 
+        this.buttonClass[game.id + '_' + platform.id] = 'btn-primary';
+
         let userGame = this.gameLocalService.getNewUserGame();
         userGame.game = game;
         userGame.platform = platform;
 
         return this.gameLocalService.getUserGameByPlatform(userGame).then(
             userGame => {
-                let buttonClass = 'btn-primary';
 
                 if (userGame.user) {
-                    buttonClass  = 'btn-success';
+                    this.buttonClass[game.id + '_' + platform.id] = 'btn-success';
                 }
-
-                this.buttonClass[game.id + '_' + platform.id] = buttonClass;
             },
             error => {
                 this.loading = false;

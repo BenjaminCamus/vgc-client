@@ -23,15 +23,54 @@
 }
 
 .gameBannerMessage {
-  position:absolute;
+  position: absolute;
   top: 160px;
   width: 100vw;
-  text-align:  center;
+  text-align: center;
   font-size: 30px;
   padding: 15px;
-  background: rgba(0,0,0,.3);
+  background: rgba(0, 0, 0, .3);
 }
 
 loading .gameBannerMessage {
-  background: rgba(0,0,0,.7);
+  background: rgba(0, 0, 0, .7);
+}
+
+.gameBannerVideo, .gameBannerVideo iframe {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gameBannerVideo {
+  height: 300%;
+  top: -100%;
+}
+
+@media (max-width: 992px) {
+  .gameBannerVideo {
+    width: 300%;
+    left: -100%;
+  }
+}
+
+.gameBannerTools {
+  position: absolute;
+  top: 85px;
+  left: 0;
+  padding: 5px 15px;
+  border-radius: 0 15px 15px 0;
+  transition: background 1s;
+
+  a {
+    margin-right: 5px;
+  }
+}
+
+.gameBannerTools:hover,
+.gameBanner:hover ~ .gameBannerTools {
+  background: rgba(0,0,0,.5);
 }

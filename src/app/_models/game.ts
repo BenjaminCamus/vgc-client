@@ -1,6 +1,7 @@
 import {Tag} from "./tag";
 import {Image} from "./image";
 import {Platform} from "./platform";
+import {Video} from "./video";
 
 export class Game {
     id: string;
@@ -17,6 +18,7 @@ export class Game {
     themes: Tag[];
     genres: Tag[];
     screenshots: Array<Image>;
+    videos: Array<Video>;
 
     // IGDB
     platforms: Array<Platform>;

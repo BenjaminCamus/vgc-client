@@ -59,11 +59,11 @@ export class GamesComponent implements OnInit {
 
     displayFilters: boolean = false;
     displayMode: number = 0;
-    orderField: string = 'userGame.purchaseDate';
-    orderOption: boolean = false;
+    orderField: string = 'game.name';
+    orderOption: boolean = true;
     sliceStart: number = 0;
-    sliceEnd: number = 50;
-    sliceGap: number = 50;
+    sliceEnd: number = 0;
+    sliceGap: number = 0;
 
     chartFields = [
         'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
@@ -134,6 +134,8 @@ export class GamesComponent implements OnInit {
 
                 this.userGames = userGames;
 
+                this.setSliceGap();
+
                 if (!this.userGames || this.userGames.length == 0) {
                     this.loading = false;
                     this.getGames();
@@ -195,6 +197,8 @@ export class GamesComponent implements OnInit {
                 }
                 else {
 
+                    this.setSliceGap();
+
                     this.userGames.sort(orderByName);
 
                     this.gameLocalService.setUserGames(this.userGames);
@@ -210,6 +214,28 @@ export class GamesComponent implements OnInit {
                 this.errorMessage = <any>error;
             });
 
+    }
+
+    setSliceGap() {
+
+        if (this.userGames.length > 400) {
+            this.sliceGap = 200;
+        }
+        else if (this.userGames.length > 200) {
+            this.sliceGap = 100;
+        }
+        else if (this.userGames.length > 100) {
+            this.sliceGap = 50;
+        }
+        else if (this.userGames.length > 50) {
+            this.sliceGap = 20;
+        }
+        else if (this.userGames.length > 20) {
+            this.sliceGap = 10;
+        }
+        else {
+            this.sliceGap = 0;
+        }
     }
 
     openNewUserGame() {

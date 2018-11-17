@@ -2,6 +2,9 @@ import {Component, ElementRef, Input, HostListener, ViewChild} from "@angular/co
 import {trigger, animate, style, transition} from '@angular/animations';
 import {Game} from "../_models/game";
 import {opacityTransition} from "../_animations/opacity.animations";
+import {GameLocalService} from "../_services/gameLocal.service";
+import {Video} from "../_models/video";
+import { DeviceDetectorService } from 'ngx-device-detector';
 
 @Component({
     moduleId: module.id,
@@ -12,8 +15,18 @@ import {opacityTransition} from "../_animations/opacity.animations";
 export class BannerComponent {
 
     game: Game;
-    image: string;
-    image2: string;
+
+    enableVideo: boolean = true;
+    video: Video|null;
+    image: string = '';
+    image2: string = '';
+
+    bannerMarginLeft: number;
+    bannerWidth: number;
+    bannerHeight: number;
+
+    // Banner Resize
+    @Input() resize: boolean = false;
 
     @Input() set data(data: any) {
 
@@ -44,6 +57,8 @@ export class BannerComponent {
 
         let image = '';
 
+        this.randomVideo();
+
         if (this.game && this.game.screenshots && this.game.screenshots.length > 0) {
             let rand = Math.floor(Math.random() * this.game.screenshots.length);
             let imageId = this.game.screenshots[rand].cloudinaryId;
@@ -69,14 +84,6 @@ export class BannerComponent {
         }
     }
 
-
-    // Banner Resize
-    @Input() resize: boolean = false;
-
-    bannerMarginLeft: number;
-    bannerWidth: number;
-    bannerHeight: number;
-
     @ViewChild('gameBanner') gameBanner: ElementRef;
 
     @HostListener('window:scroll', ['$event']) onWindowScroll(event) {
@@ -86,6 +93,9 @@ export class BannerComponent {
     @HostListener('window:resize', ['$event']) onResize(event) {
         this.resizeBanner();
     }
+
+    constructor(private gameLocalService: GameLocalService,
+                private deviceService: DeviceDetectorService) {}
 
     resizeBanner() {
 
@@ -102,6 +112,37 @@ export class BannerComponent {
                 this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
 
             }
+        }
+    }
+
+    setEnableVideo(enableVideo) {
+        this.gameLocalService.setEnableVideo(enableVideo);
+        this.enableVideo = enableVideo;
+    }
+
+    randomVideo() {
+
+        if (this.deviceService.isMobile()) {
+            return false;
+        }
+
+        let video;
+
+        if (!this.resize && this.game && this.game.videos && this.game.videos.length > 0) {
+            let rand = Math.floor(Math.random() * this.game.videos.length);
+
+            video = this.game.videos[rand];
+
+            if (this.video && this.video.youtubeId == video.youtubeId) {
+                this.randomVideo();
+                return false;
+            }
+
+            this.enableVideo = this.gameLocalService.getEnableVideo();
+        }
+
+        if (video) {
+            this.video = video;
         }
     }
 

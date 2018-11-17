@@ -2,8 +2,24 @@
      src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.cloudinaryId}}.jpg"
      (click)="open(0)"/>
 <div class="thumbs">
+
+        <label *ngIf="game.videos && game.videos.length > 0">{{ 'field.game.videos' | translate }}</label>
+
+        <a *ngFor="let v of game.videos; let i = index"
+           class="youtube"
+           target="_blank"
+           [href]="'https://www.youtube.com/watch?v=' + v.youtubeId"
+           pTooltip="{{ v.name }}"
+           tooltipPosition="right">
+                <img
+                        class="thumb"
+                        [src]="'https://img.youtube.com/vi/' + v.youtubeId + '/default.jpg'" />
+        </a>
+
+        <label *ngIf="game.screenshots && game.screenshots.length > 0">{{ 'field.game.screenshots' | translate }}</label>
+
         <img *ngFor="let sc of game.screenshots; let i = index"
-             class="thumb"
+             class="thumb youtube"
              [src]="'http://images.igdb.com/igdb/image/upload/t_thumb/' + sc.cloudinaryId + '.jpg'"
              (click)="open(i+1)"/>
 </div>

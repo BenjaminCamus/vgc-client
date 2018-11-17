@@ -1,36 +1,61 @@
 <div *ngIf="resize" #gameBanner class="gameBanner gameBannerBig">
 
-        <div *ngIf="image != ''" class="gameBannerBg"
-             [@opacityTransition]
-             [style.margin-left]="bannerMarginLeft+'px'"
-             [style.width]="bannerWidth+'px'"
-             [style.height]="bannerHeight+'px'"
-             [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
+    <div *ngIf="image != ''" class="gameBannerBg"
+         [@opacityTransition]
+         [style.margin-left]="bannerMarginLeft+'px'"
+         [style.width]="bannerWidth+'px'"
+         [style.height]="bannerHeight+'px'"
+         [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
 
-        <div *ngIf="image2 != ''" class="gameBannerBg"
-             [@opacityTransition]
-             [style.margin-left]="bannerMarginLeft+'px'"
-             [style.width]="bannerWidth+'px'"
-             [style.height]="bannerHeight+'px'"
-             [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
+    <div *ngIf="image2 != ''" class="gameBannerBg"
+         [@opacityTransition]
+         [style.margin-left]="bannerMarginLeft+'px'"
+         [style.width]="bannerWidth+'px'"
+         [style.height]="bannerHeight+'px'"
+         [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
 
 <div *ngIf="!resize" #gameBanner class="gameBanner gameBannerBig">
 
-        <div *ngIf="image != ''" class="gameBannerBg"
-             [@opacityTransition]
-             [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
+    <div *ngIf="enableVideo && video" class="gameBannerVideo">
+        <iframe [src]="'https://www.youtube.com/embed/' + video.youtubeId + '?controls=1&showinfo=0&rel=0&autoplay=1&mute=1&loop=1&playlist=' + video.youtubeId
+                        | safe: 'resourceUrl'"
+                frameborder="0" allowfullscreen></iframe>
+    </div>
 
-        <div *ngIf="image2 != ''" class="gameBannerBg"
-             [@opacityTransition]
-             [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
+    <div *ngIf="(!enableVideo || !video) && image != ''" class="gameBannerBg"
+         [@opacityTransition]
+         [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
+
+    <div *ngIf="(!enableVideo || !video) && image2 != ''" class="gameBannerBg"
+         [@opacityTransition]
+         [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
 </div>
 
-<!--<div *ngIf="game" class="gameBannerMessage">-->
-        <!--{{ game.name }}-->
-        <!--<div *ngIf="!game.screenshots || game.screenshots.length == 0" style="font-size: 14px; margin-top: 15px;">{{ 'msg.noImage' | translate }}</div>-->
-<!--</div>-->
+<div *ngIf="!video && game && (!game.screenshots || game.screenshots.length == 0)" class="gameBannerMessage">
+    <div style="font-size: 14px;">{{ 'msg.noImage' | translate }}</div>
+</div>
 
-<div *ngIf="game && (!game.screenshots || game.screenshots.length == 0)" class="gameBannerMessage">
-        <div  style="font-size: 14px;">{{ 'msg.noImage' | translate }}</div>
+<div *ngIf="video" class="gameBannerTools">
+
+    <label style="margin: 0">{{ 'label.video' | translate }}</label>
+    <div style="font-size: 22px;">{{ video.name }}</div>
+
+    <div>
+        <a *ngIf="enableVideo" (click)="setEnableVideo(false);" class="grey" [routerLink]="">
+            <i class="fas fa-stop-circle"></i>
+        </a>
+
+        <a *ngIf="!enableVideo" (click)="setEnableVideo(true)" class="grey" [routerLink]="">
+            <i class="fas fa-play-circle"></i>
+        </a>
+
+        <a class="grey" [href]="'https://www.youtube.com/watch?v=' + video.youtubeId | safe: 'url'" target="_blank">
+            <i class="fab fa-youtube"></i>
+        </a>
+
+        <a *ngIf="game.videos.length > 1" class="grey" (click)="randomVideo(); setEnableVideo(true)" class="grey" [routerLink]="">
+            <i class="fas fa-random"></i>
+        </a>
+    </div>
 </div>

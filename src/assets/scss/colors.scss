@@ -78,13 +78,23 @@ hr {
   border: 1px rgba(255, 255, 255, .2) dashed;
 }
 
-a {
+a, a:not(.ui-paginator-element):focus {
   color: $colorMain;
+  text-decoration: none;
 }
 
-a:not(.ui-paginator-element):focus, a:not(.ui-paginator-element):hover {
+a:not(.ui-paginator-element):hover {
   color: $colorMain;
   text-decoration: underline;
+}
+
+a.grey, a.grey:focus {
+  color: rgba(255,255,255,.5);
+  text-decoration: none;
+}
+
+a.grey:hover {
+  color: $colorMain;
 }
 
 a:focus {

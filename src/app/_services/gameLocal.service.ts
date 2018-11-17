@@ -30,6 +30,7 @@ export class GameLocalService {
     private userContactsLocalId = 'userContacts';
     private newGameSearchLocalId = 'newGameSearch';
     private newUserGameLocalId = 'newUserGame';
+    private enableVideoId = 'enableVideo';
 
     resetAll() {
         var resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
@@ -88,6 +89,18 @@ export class GameLocalService {
         }
 
         return null;
+    }
+
+    setEnableVideo(enableVideo: boolean) {
+        return localStorage.setItem(this.enableVideoId, JSON.stringify(enableVideo));
+    }
+
+    getEnableVideo() {
+        if (localStorage.getItem(this.enableVideoId)) {
+            return JSON.parse(localStorage.getItem(this.enableVideoId));
+        }
+
+        return [];
     }
 
     getUserGameByPlatform(userGame: UserGame) {

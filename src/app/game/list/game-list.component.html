@@ -37,9 +37,10 @@
 </div>
 
 <div *ngIf="displayMode == 1"
-     style="overflow: auto; height: calc(100vh - 70px); position: absolute; top: 70px; width: 100%;">
+     class="tableDisplay"
+     [style]="(!loading && sliceGap > 0 ? 'padding-top:80px;' : '') | safe: 'style'">
 
-    <table class="table" style="background: #111">
+    <table class="table">
         <tr>
             <th></th>
             <th *ngFor="let field of tableFields"
@@ -81,7 +82,7 @@
             <div class="gameTitle" [innerHTML]="userGame.game | formatName:true"></div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-12">
                     <div style="float: right" [innerHTML]="userGame | userGameValue: 'userGame.rating'"></div>
                     {{ userGame.platform.name }}<br>
                     <div *ngIf="userGame.game.series[0]" style="overflow: hidden; white-space: nowrap"><label>{{
@@ -97,21 +98,21 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-6">
                     <label>{{ 'field.userGame.priceAsked' | translate }}</label>&nbsp;<span
                         [innerHTML]="userGame | userGameValue: 'userGame.priceAsked': false | wrapValue: userGame: 'userGame.priceAsked'"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     <label>{{ 'field.userGame.pricePaid' | translate }}</label>&nbsp;<span
                         [innerHTML]="userGame | userGameValue: 'pricePaid': false | wrapValue: userGame: 'userGame.pricePaid'"></span>
                 </div>
             </div>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-6">
                     <label>{{ 'field.userGame.priceResale' | translate }}</label>&nbsp;<span
                         [innerHTML]="userGame | userGameValue: 'priceResale': false | wrapValue: userGame: 'userGame.priceResale'"></span>
                 </div>
-                <div class="col-md-6">
+                <div class="col-6">
                     <label>{{ 'field.userGame.priceSold' | translate }}</label>&nbsp;<span
                         [innerHTML]="userGame | userGameValue: 'priceSold': false | wrapValue: userGame: 'userGame.priceSold'"></span>
                 </div>
@@ -125,7 +126,7 @@
     </section>
 </div>
 
-<div class="paginator" *ngIf="!loading && userGames.length > 10">
+<div class="gameBannerTools paginator" *ngIf="!loading && sliceGap > 0">
 
     <div class="input" style="width: 64px;">
 
@@ -134,10 +135,10 @@
                 #name="ngModel"
                 (change)="sliceStart = 0; sliceEnd = sliceGap">
             <option [value]="10">10</option>
-            <option *ngIf="userGames.length > 20" [value]="20">20</option>
-            <option *ngIf="userGames.length > 50" [value]="50">50</option>
-            <option *ngIf="userGames.length > 100" [value]="100">100</option>
-            <option *ngIf="userGames.length > 200" [value]="200">200</option>
+            <option *ngIf="userGames.length > 50" [value]="20">20</option>
+            <option *ngIf="userGames.length > 100" [value]="50">50</option>
+            <option *ngIf="userGames.length > 200" [value]="100">100</option>
+            <option *ngIf="userGames.length > 400" [value]="200">200</option>
             <option [value]="userGames.length">{{ userGames.length }}</option>
         </select>
     </div>

@@ -50,13 +50,6 @@ loading .gameBannerMessage {
   top: -100%;
 }
 
-@media (max-width: 992px) {
-  .gameBannerVideo {
-    width: 300%;
-    left: -100%;
-  }
-}
-
 .gameBannerTools {
   position: absolute;
   top: 85px;
@@ -73,4 +66,12 @@ loading .gameBannerMessage {
 .gameBannerTools:hover,
 .gameBanner:hover ~ .gameBannerTools {
   background: rgba(0,0,0,.5);
+}
+
+@media (max-width: 992px) {
+  .gameBannerTools {
+    width: 100%;
+    border-radius: 0;
+    background: rgba(0,0,0,.5);
+  }
 }

@@ -2,7 +2,7 @@
   cursor: default;
   position: absolute;
   right: 15px;
-  top: 120px;
+  top: 150px;
   font-size: 80px;
   color: rgba(255, 255, 255, .5);
   letter-spacing: -5px;
@@ -28,7 +28,7 @@
   padding-top: 0;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, .9);
+  background: #000;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -81,7 +81,7 @@
 
   game-new .gameBanner.gameBannerBig,
   game-new .gameBanner.gameBannerBig .gameBannerBg {
-    height: 20vh;
+    height: 30vh;
   }
 
   .title .table>tbody>tr>td, .title .table>tbody>tr>th, .title .table>tfoot>tr>td, .title .table>tfoot>tr>th, .title .table>thead>tr>td, .title .table>thead>tr>th {
@@ -138,11 +138,6 @@
   margin-right: 12px;
   display: inline-block;
   white-space: nowrap;
-}
-
-.row .title {
-  margin-bottom: 15px;
-
 }
 
 .filters {

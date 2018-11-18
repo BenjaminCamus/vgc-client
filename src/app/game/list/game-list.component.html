@@ -79,7 +79,9 @@
         <div class="gameCover" *ngIf="userGame.game.cover"
              [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <div class=gameInfos>
-            <div class="gameTitle" [innerHTML]="userGame.game | formatName:true"></div>
+            <div class="gameTitle">
+                <span [innerHTML]="userGame.game | formatName:true"></span>
+            </div>
 
             <div class="row">
                 <div class="col-12">

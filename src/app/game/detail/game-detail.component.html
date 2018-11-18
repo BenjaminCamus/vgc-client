@@ -35,7 +35,7 @@
                        [userGame]="userGame" [update]="update"
                        (state)="formStateUpdate($event)" [action]="formAction"></game-form>
 
-            <section *ngIf="!selectedGame">
+            <div *ngIf="!selectedGame" class="container-fluid" style="margin-top: 15px;">
 
                 <div class="row">
                     <div *ngFor="let colFields of userFields" class="col-md-4">
@@ -70,7 +70,7 @@
                         <div [innerHTML]="userGame | userGameValue: 'userGame.note'"></div>
                     </div>
                 </div>
-            </section>
+            </div>
         </div>
     </div>
 </div>

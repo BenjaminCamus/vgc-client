@@ -224,11 +224,8 @@ export class GamesComponent implements OnInit {
         else if (this.userGames.length > 50) {
             this.sliceGap = 20;
         }
-        else if (this.userGames.length > 20) {
-            this.sliceGap = 10;
-        }
         else {
-            this.sliceGap = 0;
+            this.sliceGap = 10;
         }
     }
 

@@ -174,6 +174,8 @@ export class GameFormComponent implements OnInit {
         }
     }
 
+    purchasePlaceSelect = true;
+    salePlaceSelect = true;
     onSelectPlace(place: string, sp: string) {
         if (place == '__new__') {
             this[sp + 'PlaceSelect'] = false;

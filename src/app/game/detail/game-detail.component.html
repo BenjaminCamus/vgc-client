@@ -35,7 +35,7 @@
                        [userGame]="userGame" [update]="update"
                        (state)="formStateUpdate($event)" [action]="formAction"></game-form>
 
-            <div *ngIf="!selectedGame" class="container-fluid" style="margin-top: 15px;">
+            <div *ngIf="!selectedGame" style="margin-top: 15px;">
 
                 <div class="row">
                     <div *ngFor="let colFields of userFields" class="col-md-4">

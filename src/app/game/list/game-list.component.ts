@@ -437,7 +437,7 @@ export class GamesComponent implements OnInit {
 
             var deleteUserGame = JSON.parse(event.substr(7));
             this.userGames = this.userGames.filter(function (el) {
-                return el.game.id !== deleteUserGame.game.id;
+                return el.id !== deleteUserGame.id;
             });
 
             this.reset();

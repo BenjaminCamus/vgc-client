@@ -117,6 +117,8 @@ export class UserGameValuePipe {
                 else {
                     value = '<span class="text-success">' + value + '</span>';
                 }
+
+                value += '<span class="label"> / 20</span>';
                 break;
         }
 

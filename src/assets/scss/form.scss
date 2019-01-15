@@ -49,8 +49,11 @@ input:focus, textarea:focus, select:focus {
 /* LABEL ======================================= */
 
 
-label  {
+label, .label {
   color: rgba(255, 255, 255, .5);
+}
+
+label {
   font-weight: normal;
   height: 20px;
   margin-top: 10px;
@@ -123,4 +126,12 @@ input[required]:not(.ng-invalid) ~ .bar:before, input[required]:not(.ng-invalid)
 textarea[required]:not(.ng-invalid) ~ .bar:before, textarea[required]:not(.ng-invalid) ~ .bar:after,
 select[required]:not(.ng-invalid) ~ .bar:before, select[required]:not(.ng-invalid) ~ .bar:after {
   background: $colorSuccess !important;
+}
+
+div.rating:before {
+  content: '/ 20';
+  position: absolute;
+  right: 38px;
+  top: 45px;
+  opacity: 0.5;
 }

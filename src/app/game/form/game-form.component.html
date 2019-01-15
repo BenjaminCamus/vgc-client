@@ -28,7 +28,7 @@
                 <span class="bar"></span>
                 <label for="completeness">{{ 'field.userGame.completeness' | translate }}</label>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 rating">
                 <input type="text" id="rating"
                        [(ngModel)]="_userGame.rating"
                        [formControl]="validateUserGameForm.get('rating')">

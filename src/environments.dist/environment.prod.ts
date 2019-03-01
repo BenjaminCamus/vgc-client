@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  vgcApiUrl: 'http://api.vgc.local/'
+  vgcApiUrl: 'https://api.vgc.ext/'
 };

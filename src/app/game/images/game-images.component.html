@@ -1,5 +1,5 @@
 <img id="gameCover" *ngIf="game.cover"
-     src="http://images.igdb.com/igdb/image/upload/t_cover_big/{{game.cover.cloudinaryId}}.jpg"
+     src="{{cover_thumb}}"
      (click)="open(0)"/>
 <div class="thumbs">
 
@@ -20,6 +20,6 @@
 
         <img *ngFor="let sc of game.screenshots; let i = index"
              class="thumb youtube"
-             [src]="'http://images.igdb.com/igdb/image/upload/t_thumb/' + sc.cloudinaryId + '.jpg'"
+             src="{{album[i+1].thumb}}"
              (click)="open(i+1)"/>
 </div>

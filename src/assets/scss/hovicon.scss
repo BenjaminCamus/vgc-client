@@ -1,8 +1,8 @@
 $hovicon-size: 50px;
 
 .hovicon {
+  transition: all 1s ease;
   display: inline-block;
-  //font-size: 0px;
   font-size: 28px;
   line-height: $hovicon-size;
   cursor: pointer;
@@ -10,36 +10,19 @@ $hovicon-size: 50px;
   width: $hovicon-size;
   height: $hovicon-size;
   text-align: center;
-  //z-index: 1;
   color: rgba(255,255,255,.7);
   border-radius: 50%;
   outline: none;
-}
-
-//.hovicon:before {
-//  speak: none;
-//  font-size: 26px;
-//  line-height: $hovicon-size;
-//  font-style: normal;
-//  font-weight: normal;
-//  font-variant: normal;
-//  text-transform: none;
-//  display: block;
-//  -webkit-font-smoothing: antialiased;
-//}
-
-.hovicon {
   box-shadow: 0 0 0 2px rgba(255,255,255,0);
   overflow: hidden;
-  -webkit-transition: background 1s, color 1s, box-shadow 1s;
-  -moz-transition: background 1s, color 1s, box-shadow 1s;
-  transition: background 1s, color 1s, box-shadow 1s;
+  transform: scale(0.8);
 }
 
 .hovicon:hover {
   background: $colorMain0;
   color: #fff;
   box-shadow: 0 0 0 2px $colorMain !important;
+  transform: scale(1);
 }
 
 .hovicon.i18n {
@@ -51,46 +34,3 @@ $hovicon-size: 50px;
   left: calc(100vw - 70px);
   box-shadow: 0 0 0 2px #fff;
 }
-
-//.hovicon:hover:before {
-//  -webkit-animation: toRightFromLeft 0.3s forwards;
-//  -moz-animation: toRightFromLeft 0.3s forwards;
-//  animation: toRightFromLeft 0.3s forwards;
-//}
-//
-//@-webkit-keyframes toRightFromLeft {
-//  49% {
-//    -webkit-transform: translate(100%);
-//  }
-//  50% {
-//    opacity: 0;
-//    -webkit-transform: translate(-100%);
-//  }
-//  51% {
-//    opacity: 1;
-//  }
-//}
-//@-moz-keyframes toRightFromLeft {
-//  49% {
-//    -moz-transform: translate(100%);
-//  }
-//  50% {
-//    opacity: 0;
-//    -moz-transform: translate(-100%);
-//  }
-//  51% {
-//    opacity: 1;
-//  }
-//}
-//@keyframes toRightFromLeft {
-//  49% {
-//    transform: translate(100%);
-//  }
-//  50% {
-//    opacity: 0;
-//    transform: translate(-100%);
-//  }
-//  51% {
-//    opacity: 1;
-//  }
-//}

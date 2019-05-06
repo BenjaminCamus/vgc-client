@@ -22,7 +22,7 @@
                            tooltipPosition="left"></i>
                     <i *ngIf="selectedGame" class="hovicon fas fa-times"
                           (click)="openForm()"
-                           pTooltip="{{ 'btn.close' | translate }}"
+                           pTooltip="{{ 'btn.cancel' | translate }}"
                            tooltipPosition="left"></i>
                 </div>
                 <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">
@@ -34,6 +34,9 @@
             <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
                        [userGame]="userGame" [update]="update"
                        (state)="formStateUpdate($event)" [action]="formAction"></game-form>
+            <button *ngIf="selectedGame" (click)="openForm()" class="btn btn-primary">
+                {{ 'btn.cancel' | translate }}
+            </button>
 
             <div *ngIf="!selectedGame" style="margin-top: 15px;">
 

@@ -4,6 +4,7 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-  production: false,
-  vgcApiUrl: 'http://api.vgc.local/'
+    production: false,
+    vgcApiUrl: 'http://api.vgc.local/',
+    imagesUrl: 'https://images.igdb.com/igdb/image/upload/'
 };

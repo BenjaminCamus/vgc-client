@@ -5,7 +5,6 @@ import {Observable} from 'rxjs';
 
 import {ErrorService} from "./error.service";
 import {environment} from "../../environments/environment";
-import {GameLocalService} from "./gameLocal.service";
 
 @Injectable()
 export class AuthenticationService {

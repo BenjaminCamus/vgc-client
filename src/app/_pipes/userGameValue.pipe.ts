@@ -44,7 +44,7 @@ export class UserGameValuePipe {
 
             case 'price':
                 value = parseFloat(value);
-                value = value + ' €';
+                value = value + '&nbsp;€';
 
                 var field1 = field;
                 var field2 = field;

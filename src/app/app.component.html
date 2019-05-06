@@ -4,3 +4,4 @@
      pTooltip="{{ 'btn.i18n' + flag | translate }}"
      tooltipPosition="left">
 <router-outlet></router-outlet>
+<loading *ngIf="welcome" [action]="'welcome'" (close)="welcome = false"></loading>

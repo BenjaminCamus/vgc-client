@@ -1,6 +1,6 @@
 <banner *ngIf="displayMode == 0" [data]="selectedUserGame" [resize]="true"></banner>
 
-<div *ngIf="displayMode == 0" class="vgc">VGC</div>
+<div *ngIf="displayMode == 0" class="vgc" (click)="welcome = true">VGC</div>
 
 <div *ngIf="displayMode == 0" class="title">
     {{ 'title.gameList' | translate }}
@@ -57,7 +57,7 @@
             (click)="openUserGame(userGame)"
             (mouseenter)="selectUserGame(userGame)">
 
-            <td [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
+            <td [style.background-image]="'url(' + environment.imagesUrl + 't_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
 
             <td *ngFor="let field of tableFields"
                 [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
@@ -77,7 +77,7 @@
             class="gameBox visible_anim"
             [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
         <div class="gameCover" *ngIf="userGame.game.cover"
-             [style.background-image]="'url(http://images.igdb.com/igdb/image/upload/t_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
+             [style.background-image]="'url(' + environment.imagesUrl + 't_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>
         <div class=gameInfos>
             <div class="gameTitle">
                 <span [innerHTML]="userGame.game | formatName:true"></span>
@@ -106,17 +106,17 @@
                 </div>
                 <div class="col-6">
                     <label>{{ 'field.userGame.pricePaid' | translate }}</label>&nbsp;<span
-                        [innerHTML]="userGame | userGameValue: 'pricePaid': false | wrapValue: userGame: 'userGame.pricePaid'"></span>
+                        [innerHTML]="userGame | userGameValue: 'userGame.pricePaid': false | wrapValue: userGame: 'userGame.pricePaid'"></span>
                 </div>
             </div>
             <div class="row">
                 <div class="col-6">
                     <label>{{ 'field.userGame.priceResale' | translate }}</label>&nbsp;<span
-                        [innerHTML]="userGame | userGameValue: 'priceResale': false | wrapValue: userGame: 'userGame.priceResale'"></span>
+                        [innerHTML]="userGame | userGameValue: 'userGame.priceResale': false | wrapValue: userGame: 'userGame.priceResale'"></span>
                 </div>
                 <div class="col-6">
                     <label>{{ 'field.userGame.priceSold' | translate }}</label>&nbsp;<span
-                        [innerHTML]="userGame | userGameValue: 'priceSold': false | wrapValue: userGame: 'userGame.priceSold'"></span>
+                        [innerHTML]="userGame | userGameValue: 'userGame.priceSold': false | wrapValue: userGame: 'userGame.priceSold'"></span>
                 </div>
             </div>
         </div>
@@ -134,6 +134,7 @@
 
         <select id="sliceGap"
                 [(ngModel)]="sliceGap" name="sliceGap"
+                (ngModelChange)="sliceGap = +sliceGap"
                 #name="ngModel"
                 (change)="sliceStart = 0; sliceEnd = sliceGap">
             <option [value]="10">10</option>
@@ -201,7 +202,7 @@
                pTooltip="{{ 'btn.sort' + (orderOption ? 'Asc' : 'Desc') | translate }}"
                tooltipPosition="left"></i>
         </div>
-        <i class="hovicon fas fa-search" (click)="displayFilters = !displayFilters"
+        <i class="hovicon fas fa-filter" (click)="displayFilters = !displayFilters"
            pTooltip="{{ 'btn.filter' | translate }}"
            tooltipPosition="left"></i>
         <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fas fa-th"
@@ -579,5 +580,5 @@
 </div>
 
 
-<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction"
-         preventParentScroll></loading>
+<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction" preventParentScroll></loading>
+<loading *ngIf="welcome" [action]="'welcome'" (close)="welcome = false"></loading>

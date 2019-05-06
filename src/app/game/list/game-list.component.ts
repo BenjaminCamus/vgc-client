@@ -14,6 +14,7 @@ import {TotalPipe} from "../../_pipes/total.pipe";
 import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 import {opacityTransition} from "../../_animations/opacity.animations";
 import {topNavTransition} from "../../_animations/topNav.animations";
+import {environment} from "../../../environments/environment";
 
 @Component({
     moduleId: module.id,
@@ -25,8 +26,10 @@ import {topNavTransition} from "../../_animations/topNav.animations";
 })
 export class GamesComponent implements OnInit {
 
+    private  environment = environment;
     loading: boolean = true;
     loadingAction: string = 'load';
+    welcome: boolean = false;
 
     title = 'VGC';
 
@@ -115,11 +118,6 @@ export class GamesComponent implements OnInit {
 
     paginate(event) {
         this.sliceStart = parseInt(event.first, 10);
-
-        if (typeof this.sliceGap === 'string') {
-            this.sliceGap = parseInt(this.sliceGap, 10);
-        }
-
         this.sliceEnd = parseInt(event.first, 10) + this.sliceGap;
 
         //event.rows = Number of rows to display in new page
@@ -427,6 +425,8 @@ export class GamesComponent implements OnInit {
 
     detailStateUpdate(event) {
 
+        let userGamesLength = this.userGames.length;
+
         if (event == 'submitted') {
             this.loadingAction = 'save';
             this.loading = true;
@@ -475,6 +475,11 @@ export class GamesComponent implements OnInit {
             this.reset();
 
             this.loading = false;
+        }
+
+        if (this.sliceGap === userGamesLength) {
+            this.sliceGap = this.userGames.length;
+            this.sliceEnd = this.sliceStart + this.sliceGap;
         }
     }
 

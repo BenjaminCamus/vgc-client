@@ -14,7 +14,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   position: absolute;
-  //transition: height 1s, opacity 1s, filter 1s;
 }
 
 .gameBanner.gameBannerBig,
@@ -51,12 +50,12 @@ loading .gameBannerMessage {
 }
 
 .gameBannerTools {
+  transition: all 1s ease;
   position: absolute;
   top: 85px;
   left: 0;
   padding: 5px 15px;
   border-radius: 0 15px 15px 0;
-  transition: background 1s;
 
   a {
     margin-right: 5px;

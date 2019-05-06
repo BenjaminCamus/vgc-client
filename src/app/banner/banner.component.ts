@@ -63,7 +63,7 @@ export class BannerComponent {
             let rand = Math.floor(Math.random() * this.game.screenshots.length);
             let imageId = this.game.screenshots[rand].cloudinaryId;
 
-            image = 'http://images.igdb.com/igdb/image/upload/t_original/' + imageId + '.jpg';
+            image = 'https://images.igdb.com/igdb/image/upload/t_original/' + imageId + '.jpg';
         }
         else {
             let rand = Math.floor(Math.random() * 222) + 1;

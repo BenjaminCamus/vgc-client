@@ -32,6 +32,11 @@ export class LoginComponent implements OnInit {
         });
     }
 
+    switchAction() {
+        this.user = {};
+        this.action = this.action === 'login' ? 'register' : 'login';
+    }
+
     login() {
         this.loading = true;
 

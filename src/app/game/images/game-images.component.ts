@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from "@angular/core";
-import {trigger, animate, style, transition} from '@angular/animations';
 import {Game} from "../../_models/game";
 import {Lightbox} from 'ngx-lightbox';
+import {environment} from "../../../environments/environment";
 
 @Component({
     moduleId: module.id,
@@ -11,44 +11,46 @@ import {Lightbox} from 'ngx-lightbox';
 export class GameImagesComponent {
 
     @Input() game: Game;
-    private _album: any[] = [];
+    private album: any[] = [];
+
+    private cover_thumb;
 
     constructor(private _lightbox: Lightbox) {
     }
 
     ngOnInit() {
 
-        const src = 'http://images.igdb.com/igdb/image/upload/t_original/' + this.game.cover.cloudinaryId + '.jpg';
         const caption = this.game.name;
-        const thumb = 'http://images.igdb.com/igdb/image/upload/t_cover_big/' + this.game.cover.cloudinaryId + '.jpg';
+        const src = environment.imagesUrl + 't_original/' + this.game.cover.cloudinaryId + '.jpg';
+        this.cover_thumb = environment.imagesUrl + 't_cover_big/' + this.game.cover.cloudinaryId + '.jpg';
 
-        const album = {
-            src: src,
+        var pic = {
             caption: caption,
-            thumb: thumb
+            src: src,
+            thumb: this.cover_thumb
         };
 
-        this._album.push(album);
+        this.album.push(pic);
 
         for (let i in this.game.screenshots) {
 
             const sc = this.game.screenshots[i];
-            const src = 'http://images.igdb.com/igdb/image/upload/t_original/' + sc.cloudinaryId + '.jpg';
-            const caption = this.game.name + ' • ' + (parseInt(i,10)+1) + '/' + this.game.screenshots.length;
-            const thumb = 'http://images.igdb.com/igdb/image/upload/t_thumb/' + sc.cloudinaryId + '.jpg';
+            const caption = this.game.name + ' • ' + (parseInt(i, 10) + 1) + '/' + this.game.screenshots.length;
+            const src = environment.imagesUrl + 't_original/' + sc.cloudinaryId + '.jpg';
+            const thumb = environment.imagesUrl + 't_thumb/' + sc.cloudinaryId + '.jpg';
 
-            const album = {
-                src: src,
+            const pic = {
                 caption: caption,
+                src: src,
                 thumb: thumb
             };
 
-            this._album.push(album);
+            this.album.push(pic);
         }
     }
 
     open(index: number): void {
 
-        this._lightbox.open(this._album, index);
+        this._lightbox.open(this.album, index);
     }
 }

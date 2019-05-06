@@ -6,7 +6,6 @@
   height: 240px;
   border: 5px solid transparent;
   text-align: center;
-  transition: all 2s ease;
   color: transparent;
   left: 50%;
   margin-left: -120px;
@@ -23,7 +22,6 @@
   animation-timing-function: linear;
   animation-name: spin;
   top: 100%;
-  transition: background 2s ease;
   animation-duration: 10s;
 }
 

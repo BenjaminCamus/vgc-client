@@ -1,24 +1,9 @@
-.vgc {
-  cursor: default;
-  position: absolute;
-  right: 15px;
-  top: 150px;
-  font-size: 80px;
-  color: rgba(255, 255, 255, .5);
-  letter-spacing: -5px;
-  margin: 0 auto;
-}
-
 .mainPage {
   position: absolute;
   width: 100%;
   min-height: 100%;
-  background: rgba(0, 0, 0, 0.5);
   overflow-x: hidden;
-}
-
-.mainPage .container-fluid {
-    padding-bottom: 70px;
+  padding-bottom: 70px;
 }
 
 .fakePage {
@@ -28,7 +13,7 @@
   padding-top: 0;
   top: 0;
   left: 0;
-  background: #000;
+  background: #111;
   overflow-x: hidden;
   overflow-y: scroll;
 }
@@ -65,9 +50,11 @@
 .searchToolsBig {
   display: none;
 }
+
 .searchToolsSmall {
   display: none;
 }
+
 @media (min-width: 1110px) {
   .searchToolsBig {
     display: inline-block;
@@ -77,6 +64,7 @@
     margin-top: 40px;
   }
 }
+
 @media (max-width: 1109px) {
 
   game-new .gameBanner.gameBannerBig,
@@ -84,7 +72,7 @@
     height: 30vh;
   }
 
-  .title .table>tbody>tr>td, .title .table>tbody>tr>th, .title .table>tfoot>tr>td, .title .table>tfoot>tr>th, .title .table>thead>tr>td, .title .table>thead>tr>th {
+  .title .table > tbody > tr > td, .title .table > tbody > tr > th, .title .table > tfoot > tr > td, .title .table > tfoot > tr > th, .title .table > thead > tr > td, .title .table > thead > tr > th {
     padding: 0 3px;
   }
 

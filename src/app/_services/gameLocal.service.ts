@@ -31,6 +31,7 @@ export class GameLocalService {
     private newGameSearchLocalId = 'newGameSearch';
     private newUserGameLocalId = 'newUserGame';
     private enableVideoId = 'enableVideo';
+    private welcomeShowLocalId = 'welcomeShow';
 
     resetAll() {
         var resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
@@ -89,6 +90,18 @@ export class GameLocalService {
         }
 
         return null;
+    }
+
+    setWelcomeShow(show: boolean) {
+        return localStorage.setItem(this.welcomeShowLocalId, JSON.stringify(show));
+    }
+
+    getWelcomeShow() {
+        if (localStorage.getItem(this.welcomeShowLocalId)) {
+            return JSON.parse(localStorage.getItem(this.welcomeShowLocalId));
+        }
+
+        return true;
     }
 
     setEnableVideo(enableVideo: boolean) {

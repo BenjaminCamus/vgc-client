@@ -6,6 +6,7 @@ import {Game}    from '../../_models/game';
 import {GameService}       from '../../_services/game.service';
 import {orderByName, formatDate} from "../../functions";
 import {GameLocalService} from "../../_services/gameLocal.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
     moduleId: module.id,
@@ -19,6 +20,7 @@ export class GameNewComponent {
 
     errorMessage: string;
 
+    private environment = environment;
     private search: string = '';
     private games: Array<any>;
     selectedGame: any;

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
+import {GameLocalService} from "./_services/gameLocal.service";
 
 @Component({
     moduleId: module.id,
@@ -10,11 +11,14 @@ export class AppComponent {
 
     private defaultLang = 'fr';
     flag = 'gb';
+    welcome = true;
 
-    constructor(private translate: TranslateService) {
+    constructor(private translate: TranslateService,
+                private gameLocalService: GameLocalService) {
 
         translate.setDefaultLang(this.defaultLang);
         translate.use(this.defaultLang);
+        this.welcome = this.gameLocalService.getWelcomeShow();
     }
 
     get currentUser(): any {

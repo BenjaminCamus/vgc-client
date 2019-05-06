@@ -1,9 +1,11 @@
-import {Component, OnInit, Input, HostListener} from "@angular/core";
+import {Component, OnInit, Input, Output, EventEmitter, HostListener} from "@angular/core";
+import {GameLocalService} from "../_services/gameLocal.service";
+
 
 @Component({
     moduleId: module.id,
     selector: 'loading',
-    templateUrl: './loading.component.html',
+    templateUrl: './loading.component.html'
 })
 export class LoadingComponent implements OnInit {
 
@@ -22,7 +24,11 @@ export class LoadingComponent implements OnInit {
 
     image: string;
 
-    constructor() {
+    welcomeHide: boolean = false;
+
+    @Output() close: EventEmitter<any> = new EventEmitter();
+
+    constructor(private gameLocalService: GameLocalService) {
     }
 
     @HostListener('document:keyup', ['$event'])
@@ -32,6 +38,7 @@ export class LoadingComponent implements OnInit {
 
     ngOnInit(): void {
         this.randomBgIndex();
+        this.welcomeHide = !this.gameLocalService.getWelcomeShow();
     }
 
     randomBgIndex() {
@@ -75,5 +82,10 @@ export class LoadingComponent implements OnInit {
         }, stepTime);
 
 
+    }
+
+    closeWelcome() {
+        this.gameLocalService.setWelcomeShow(!this.welcomeHide);
+        this.close.emit(true);
     }
 }

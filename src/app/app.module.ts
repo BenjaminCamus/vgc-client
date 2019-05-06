@@ -13,6 +13,7 @@ import {LoginComponent} from "./login/login.component";
 import {SharedModule, SliderModule, TabViewModule, CalendarModule, TooltipModule, ChartModule, PaginatorModule} from "primeng/primeng";
 import {FilterPipe} from "./_pipes/filter.pipe";
 import {OrderByPipe} from "./_pipes/orderBy.pipe";
+import {TerminalPipe} from "./_pipes/terminal.pipe";
 import {SafePipe} from "./_pipes/safe.pipe";
 import {TruncatePipe} from "./_pipes/truncate.pipe";
 import {GameService} from "./_services/game.service";
@@ -47,7 +48,7 @@ export class MyHammerConfig extends HammerGestureConfig {
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient) {
-    return new TranslateHttpLoader(http);
+    return new TranslateHttpLoader(http, '/assets/i18n/', '.json?cb=' + new Date().getTime());
 }
 
 @NgModule({
@@ -87,6 +88,7 @@ export function HttpLoaderFactory(http: HttpClient) {
         FormatNamePipe,
         LengthPipe,
         TotalPipe,
+        TerminalPipe,
 
         AppComponent,
         LoginComponent,

@@ -315,6 +315,9 @@ export class GamesComponent implements OnInit {
                         this.sliceStart = Math.floor(index / this.sliceGap) * this.sliceGap;
                     }
                 }
+              
+              console.log(typeof this.sliceStart);
+              console.log(typeof this.sliceGap);
 
                 this.sliceEnd = this.sliceStart + this.sliceGap;
             }

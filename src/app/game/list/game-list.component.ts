@@ -26,7 +26,7 @@ import {environment} from "../../../environments/environment";
 })
 export class GamesComponent implements OnInit {
 
-    private  environment = environment;
+    private environment = environment;
     loading: boolean = true;
     loadingAction: string = 'load';
     welcome: boolean = false;
@@ -82,8 +82,8 @@ export class GamesComponent implements OnInit {
                 private router: Router,
                 private renderer: Renderer2,
                 private filterPipe: FilterPipe,
-                private orderByPipe: OrderByPipe) {}
-
+                private orderByPipe: OrderByPipe) {
+    }
 
 
     @HostListener('document:keyup', ['$event'])
@@ -315,9 +315,6 @@ export class GamesComponent implements OnInit {
                         this.sliceStart = Math.floor(index / this.sliceGap) * this.sliceGap;
                     }
                 }
-              
-              console.log(typeof this.sliceStart);
-              console.log(typeof this.sliceGap);
 
                 this.sliceEnd = this.sliceStart + this.sliceGap;
             }

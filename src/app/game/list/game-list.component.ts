@@ -1,5 +1,4 @@
-import {Component, Renderer2, OnInit, HostListener} from '@angular/core';
-import {Router}            from '@angular/router';
+import {Component, OnInit, HostListener} from '@angular/core';
 import {routerTransition} from '../../_animations/router.animations';
 import {GameService}       from '../../_services/game.service';
 import {GameLocalService}       from '../../_services/gameLocal.service';
@@ -22,7 +21,7 @@ import {environment} from "../../../environments/environment";
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition(), opacityTransition(), topNavTransition()],
-    host: {'[@opacityTransition]': '', class: 'mainPage'}
+    host: {'[@opacityTransition]': '', 'class': 'mainPage'}
 })
 export class GamesComponent implements OnInit {
 
@@ -79,8 +78,6 @@ export class GamesComponent implements OnInit {
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
-                private router: Router,
-                private renderer: Renderer2,
                 private filterPipe: FilterPipe,
                 private orderByPipe: OrderByPipe) {
     }

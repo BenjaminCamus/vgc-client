@@ -19,7 +19,7 @@ export class GameLocalService {
 
         this.db.openDatabase(DB_VERSION, (evt) => {
             this.db.getAll('userGames').then({}, (error) => {
-                this.dbError(error);
+                GameLocalService.dbError(error);
                 evt.currentTarget.result.createObjectStore(
                     'userGames', {keyPath: "id", autoIncrement: true});
             });
@@ -34,8 +34,8 @@ export class GameLocalService {
     private welcomeShowLocalId = 'welcomeShow';
 
     resetAll() {
-        var resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
-        for (var i in resetIds) {
+        let resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
+        for (let i in resetIds) {
             localStorage.removeItem(resetIds[i]);
         }
 
@@ -49,12 +49,12 @@ export class GameLocalService {
                     });
                 }
             }, (error) => {
-                this.dbError(error);
+                GameLocalService.dbError(error);
             });
         });
     }
 
-    dbError(error) {
+    private static dbError(error) {
         console.log(error);
     }
 
@@ -71,22 +71,21 @@ export class GameLocalService {
 
                 return userGames;
             }, (error) => {
-                this.dbError(error);
+                GameLocalService.dbError(error);
             });
         });
     }
 
     setUserGamesDate() {
-        var date = new Date();
+        let date = new Date();
         localStorage.setItem(this.userGamesDateLocalId, date.getTime().toString());
         return date;
     }
 
     getUserGamesDate() {
         if (localStorage.getItem(this.userGamesDateLocalId)) {
-            var dateTime = localStorage.getItem(this.userGamesDateLocalId);
-            var date = new Date(parseInt(dateTime));
-            return date;
+            let dateTime = localStorage.getItem(this.userGamesDateLocalId);
+            return new Date(parseInt(dateTime));
         }
 
         return null;
@@ -179,7 +178,7 @@ export class GameLocalService {
 
             }, (error) => {
 
-                this.dbError(error);
+                GameLocalService.dbError(error);
             });
         });
     }
@@ -220,7 +219,7 @@ export class GameLocalService {
         return [];
     }
 
-    setDates(userGame) {
+    private static setDates(userGame) {
 
         userGame.purchaseDate = new Date(userGame.purchaseDate);
         if (userGame.saleDate) {
@@ -241,7 +240,7 @@ export class GameLocalService {
         if (localStorage.getItem(this.newUserGameLocalId)) {
 
             let userGame = JSON.parse(localStorage.getItem(this.newUserGameLocalId));
-            userGame = this.setDates(userGame);
+            userGame = GameLocalService.setDates(userGame);
 
             return userGame;
         }
@@ -267,7 +266,7 @@ export class GameLocalService {
 
                 return places;
             }, (error) => {
-                this.dbError(error);
+                GameLocalService.dbError(error);
             });
         });
     }

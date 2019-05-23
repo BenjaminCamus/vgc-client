@@ -133,14 +133,14 @@
                     <select id="{{ sp }}Place"
                             [(ngModel)]="_userGame[sp+'Place']" name="{{ sp }}Place"
                             #name="ngModel"
-                            *ngIf="this[sp+'PlaceSelect']"
+                            *ngIf="placeSelect[sp]"
                             (change)="onSelectPlace($event.target.value, sp)">
                         <option *ngFor="let p of places" [ngValue]="p">{{p}}</option>
                         <option value="__new__">{{ 'label.newPlace' | translate }}</option>
                     </select>
                     <input type="text" id="{{ sp }}Place"
                            [(ngModel)]="_userGame[sp+'Place']" name="{{ sp }}Place"
-                           *ngIf="!this[sp+'PlaceSelect']">
+                           *ngIf="!placeSelect[sp]">
                     <span class="bar"></span>
                     <label for="{{ sp }}Place">{{ 'field.userGame.' + sp + 'Place' | translate }}</label>
                 </div>

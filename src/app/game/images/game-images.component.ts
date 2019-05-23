@@ -13,7 +13,7 @@ export class GameImagesComponent {
     @Input() game: Game;
     private album: any[] = [];
 
-    private cover_thumb;
+    private coverThumb;
 
     constructor(private _lightbox: Lightbox) {
     }
@@ -22,12 +22,12 @@ export class GameImagesComponent {
 
         const caption = this.game.name;
         const src = environment.imagesUrl + 't_original/' + this.game.cover.cloudinaryId + '.jpg';
-        this.cover_thumb = environment.imagesUrl + 't_cover_big/' + this.game.cover.cloudinaryId + '.jpg';
+        this.coverThumb = environment.imagesUrl + 't_cover_big/' + this.game.cover.cloudinaryId + '.jpg';
 
         var pic = {
             caption: caption,
             src: src,
-            thumb: this.cover_thumb
+            thumb: this.coverThumb
         };
 
         this.album.push(pic);

@@ -23,7 +23,7 @@ export class Game {
     // IGDB
     platforms: Array<Platform>;
 
-    fieldTypes = {
+    readonly fieldTypes = {
         name: 'string',
         series: 'tags',
         developers: 'tags',
@@ -57,7 +57,7 @@ export class Game {
         if (!this[type]) {
             return this;
         }
-        var index = this[type].indexOf(tag, 0);
+        let index = this[type].indexOf(tag, 0);
         if (index > -1) {
             this[type].splice(index, 1);
         }

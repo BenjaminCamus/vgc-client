@@ -3,6 +3,4 @@ export class Platform {
     igdbId: number;
     name: string;
     slug: string;
-
-    constructor() {}
 }

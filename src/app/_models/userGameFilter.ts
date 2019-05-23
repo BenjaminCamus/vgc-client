@@ -46,7 +46,7 @@ export class UserGameFilter extends UserGame {
     }
 
     removeElement(arrayName, element) {
-        var index = this[arrayName].indexOf(element, 0);
+        let index = this[arrayName].indexOf(element, 0);
         if (index > -1) {
             this[arrayName].splice(index, 1);
         }
@@ -87,43 +87,43 @@ export class UserGameFilter extends UserGame {
 
             },
             count: {
-                purchasePlace: [],
-                salePlace: [],
-                purchaseContact: [],
-                saleContact: [],
-                purchaseDate: [],
-                saleDate: [],
-                platform: [],
-                series: [],
-                developers: [],
-                publishers: [],
-                modes: [],
-                themes: [],
-                genres: [],
+                purchasePlace: {},
+                salePlace: {},
+                purchaseContact: {},
+                saleContact: {},
+                purchaseDate: {},
+                saleDate: {},
+                platform: {},
+                series: {},
+                developers: {},
+                publishers: {},
+                modes: {},
+                themes: {},
+                genres: {},
 
-                version: [],
-                progress: [],
-                cond: [],
-                completeness: [],
+                version: {},
+                progress: {},
+                cond: {},
+                completeness: {},
 
-                pricePaid: [],
-                priceAsked: [],
-                priceResale: [],
-                priceSold: [],
+                pricePaid: {},
+                priceAsked: {},
+                priceResale: {},
+                priceSold: {},
 
-                rating: [],
-                ratingIGDB: []
+                rating: {},
+                ratingIGDB: {}
             }
         };
 
-        var minRating = 20;
-        var maxRating = 0;
-        var minPrice = 1000000000;
-        var maxPrice = 0;
-        var minReleaseYear = 1000000000;
-        var maxReleaseYear = 0;
-        var minPurchaseYear = 1000000000;
-        var maxPurchaseYear = 0;
+        let minRating = 20;
+        let maxRating = 0;
+        let minPrice = 1000000000;
+        let maxPrice = 0;
+        let minReleaseYear = 1000000000;
+        let maxReleaseYear = 0;
+        let minPurchaseYear = 1000000000;
+        let maxPurchaseYear = 0;
 
         for (let userGame of userGames) {
 
@@ -155,18 +155,18 @@ export class UserGameFilter extends UserGame {
             }
 
             // Price
-            var minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
+            let minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
             if (minP < minPrice) {
                 minPrice = minP;
             }
 
-            var maxP = Math.max(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
+            let maxP = Math.max(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
             if (maxP > maxPrice) {
                 maxPrice = maxP;
             }
 
             // UserGame Tags
-            var tagTypes = ['platform', 'purchaseContact', 'saleContact'];
+            let tagTypes = ['platform', 'purchaseContact', 'saleContact'];
             for (let type of tagTypes) {
 
                 if (userGame[type]) {
@@ -181,12 +181,12 @@ export class UserGameFilter extends UserGame {
             }
 
             // UserGame Places
-            var tagTypes = ['purchasePlace', 'salePlace', 'purchaseDate', 'saleDate', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold', 'rating'];
+            tagTypes = ['purchasePlace', 'salePlace', 'purchaseDate', 'saleDate', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold', 'rating'];
             for (let type of tagTypes) {
 
                 if (userGame[type]) {
 
-                    var tag = userGame[type];
+                    let tag = userGame[type];
 
                     if (type.substring(0, 5) == 'price') {
                         tag = Math.floor(parseInt(tag, 10)/10);
@@ -272,7 +272,7 @@ export class UserGameFilter extends UserGame {
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
 
-        var priceTypes = ['pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
+        let priceTypes = ['pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
         for (let type of priceTypes) {
 
             for (let i = Math.floor(minPrice/10); i <= Math.floor(maxPrice/10); i++) {
@@ -288,7 +288,7 @@ export class UserGameFilter extends UserGame {
             this.stats.tags[type].sort(sortNumber);
         }
 
-        var ratingTypes = ['rating', 'ratingIGDB'];
+        let ratingTypes = ['rating', 'ratingIGDB'];
         for (let type of ratingTypes) {
 
             for (let i = 0; i <= 20; i++) {

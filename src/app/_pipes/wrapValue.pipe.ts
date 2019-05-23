@@ -12,25 +12,23 @@ export class WrapValuePipe {
 
     constructor() {
 
-        var ug = new UserGame();
+        let ug = new UserGame();
         this.userGameFieldTypes = ug.fieldTypes;
-        var g = new Game();
+        let g = new Game();
         this.gameFieldTypes = g.fieldTypes;
     }
 
     transform(content: string, userGame: UserGame, objectField: string): string {
         
-        var fieldSplit = objectField.split('.');
-        var object = fieldSplit[0];
-        var field = fieldSplit[1];
+        let fieldSplit = objectField.split('.');
+        let object = fieldSplit[0];
+        let field = fieldSplit[1];
+        let value = userGame['game'][field];
+        let type = this.gameFieldTypes[fieldSplit[1]];
 
         if (object === 'userGame') {
-            var value = userGame[field];
-            var type = this.userGameFieldTypes[field];
-        }
-        else {
-            var value = userGame['game'][field];
-            var type = this.gameFieldTypes[fieldSplit[1]];
+            value = userGame[field];
+            type = this.userGameFieldTypes[field];
         }
 
         if ((!value || value.length == 0) && type != 'completeness' && type != 'progress' && type != 'cond') {

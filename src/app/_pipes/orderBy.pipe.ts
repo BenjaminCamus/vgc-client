@@ -9,21 +9,17 @@ export class OrderByPipe implements PipeTransform {
 
     transform(array: Array<Object>, orderField: string, orderOption: boolean): Array<Object> {
 
-
         if (array == null) {
-
             return null;
         }
 
         if (orderField == 'random') {
-
             return array;
-
         }
 
-        var fieldSplit = orderField.split('.');
-        var object = fieldSplit[0];
-        var field = fieldSplit[1];
+        let fieldSplit = orderField.split('.');
+        let object = fieldSplit[0];
+        let field = fieldSplit[1];
 
         array.sort((a: any, b: any) => {
 
@@ -91,6 +87,7 @@ export class OrderByPipe implements PipeTransform {
                 return -tmpReturn;
             }
         });
+
         return array;
     }
 }

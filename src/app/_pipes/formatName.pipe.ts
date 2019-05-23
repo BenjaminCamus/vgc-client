@@ -22,16 +22,16 @@ export class FormatNamePipe {
         // Contact
         var display = '';
 
-        display = this.concatDisplay(display, obj.firstName);
-        display = this.concatDisplay(display, obj.lastName);
-        display = obj.nickname == obj.firstName ? display : this.concatDisplay(display, obj.nickname);
+        display = FormatNamePipe.concatDisplay(display, obj.firstName);
+        display = FormatNamePipe.concatDisplay(display, obj.lastName);
+        display = obj.nickname == obj.firstName ? display : FormatNamePipe.concatDisplay(display, obj.nickname);
 
         if (long) {
-            display = this.concatDisplay(display, obj.email);
-            display = !obj.phone || obj.phone == 0 ? display : this.concatDisplay(display, '0'+obj.phone);
-            display = this.concatDisplay(display, obj.address);
-            display = !obj.zipcode || obj.zipcode == 0 ? display : this.concatDisplay(display, obj.zipcode);
-            display = this.concatDisplay(display, obj.city);
+            display = FormatNamePipe.concatDisplay(display, obj.email);
+            display = !obj.phone || obj.phone == 0 ? display : FormatNamePipe.concatDisplay(display, '0'+obj.phone);
+            display = FormatNamePipe.concatDisplay(display, obj.address);
+            display = !obj.zipcode || obj.zipcode == 0 ? display : FormatNamePipe.concatDisplay(display, obj.zipcode);
+            display = FormatNamePipe.concatDisplay(display, obj.city);
         }
 
         if (display.length == 0) {
@@ -41,7 +41,7 @@ export class FormatNamePipe {
         return display;
     }
 
-    private concatDisplay(display, param) {
+    private static concatDisplay(display, param) {
         if (param) {
             if (display != '') {
                 display += ' ';

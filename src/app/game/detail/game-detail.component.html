@@ -9,21 +9,20 @@
 
         <div class="col-md-8">
 
-
             <div class="title">
                 <div class="navRight">
                     <i *ngIf="!selectedGame" class="hovicon far fa-edit"
-                          (click)="openForm('edit')"
-                           pTooltip="{{ 'btn.edit' | translate }}"
-                           tooltipPosition="left"></i>
+                       (click)="openForm('edit')"
+                       pTooltip="{{ 'btn.edit' | translate }}"
+                       tooltipPosition="left"></i>
                     <i *ngIf="!selectedGame" class="hovicon far fa-trash-alt"
-                          (click)="openForm('delete')"
-                           pTooltip="{{ 'btn.remove' | translate }}"
-                           tooltipPosition="left"></i>
+                       (click)="openForm('delete')"
+                       pTooltip="{{ 'btn.remove' | translate }}"
+                       tooltipPosition="left"></i>
                     <i *ngIf="selectedGame" class="hovicon fas fa-times"
-                          (click)="openForm()"
-                           pTooltip="{{ 'btn.cancel' | translate }}"
-                           tooltipPosition="left"></i>
+                       (click)="openForm()"
+                       pTooltip="{{ 'btn.cancel' | translate }}"
+                       tooltipPosition="left"></i>
                 </div>
                 <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">
                 <div class="titleText">{{ userGame.game.name }}</div>

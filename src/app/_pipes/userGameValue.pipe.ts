@@ -9,31 +9,29 @@ import {Game} from "../_models/game";
 })
 export class UserGameValuePipe {
 
-    userGameFieldTypes = {};
-    gameFieldTypes = {};
+    private userGameFieldTypes = {};
+    private gameFieldTypes = {};
 
     constructor(private datePipe: DatePipe,
                 private formatNamePipe: FormatNamePipe) {
 
-        var ug = new UserGame();
+        let ug = new UserGame();
         this.userGameFieldTypes = ug.fieldTypes;
-        var g = new Game();
+        let g = new Game();
         this.gameFieldTypes = g.fieldTypes;
     }
 
     transform(userGame: UserGame, objectField: string, detail: boolean = true): string {
 
-        var fieldSplit = objectField.split('.');
-        var object = fieldSplit[0];
-        var field = fieldSplit[1];
+        let fieldSplit = objectField.split('.');
+        let object = fieldSplit[0];
+        let field = fieldSplit[1];
+        let value = userGame['game'][field];
+        let type = this.gameFieldTypes[fieldSplit[1]];
 
         if (object === 'userGame') {
-            var value = userGame[field];
-            var type = this.userGameFieldTypes[field];
-        }
-        else {
-            var value = userGame['game'][field];
-            var type = this.gameFieldTypes[fieldSplit[1]];
+            value = userGame[field];
+            type = this.userGameFieldTypes[field];
         }
 
         if ((!value || value.length == 0) && type != 'completeness' && type != 'progress' && type != 'cond') {
@@ -46,8 +44,8 @@ export class UserGameValuePipe {
                 value = parseFloat(value);
                 value = value + '&nbsp;€';
 
-                var field1 = field;
-                var field2 = field;
+                let field1 = field;
+                let field2 = field;
 
                 if (field == 'pricePaid') {
                     field1 = 'priceAsked';
@@ -91,7 +89,7 @@ export class UserGameValuePipe {
                 break;
 
             case 'tags':
-                var tags = '';
+                let tags = '';
                 for (let index in value) {
 
                     if (tags != '') {
@@ -130,6 +128,6 @@ function nl2br (str, is_xhtml) {
     if (typeof str === 'undefined' || str === null) {
         return '';
     }
-    var breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
+    let breakTag = (is_xhtml || typeof is_xhtml === 'undefined') ? '<br />' : '<br>';
     return (str + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + breakTag + '$2');
 }

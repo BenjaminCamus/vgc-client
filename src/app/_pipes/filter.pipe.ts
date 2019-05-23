@@ -11,7 +11,6 @@ import {UserGameFilter} from "../_models/userGameFilter";
 export class FilterPipe implements PipeTransform {
     transform(items: UserGame[], filter: UserGameFilter): Array<any> {
 
-
         return items.filter(item => {
             /**
              * Title
@@ -23,31 +22,27 @@ export class FilterPipe implements PipeTransform {
             /**
              * Tags
              */
-            return (this.filterTags('platform', filter, item)
-            && this.filterTags('purchasePlace', filter, item)
-            && this.filterTags('purchaseContact', filter, item)
-            && this.filterTags('salePlace', filter, item)
-            && this.filterTags('saleContact', filter, item)
-            && this.filterTags('progress', filter, item)
-            && this.filterTags('cond', filter, item)
-            && this.filterTags('completeness', filter, item)
-            && this.filterTags('version', filter, item)
-            && this.filterTags('series', filter, item)
-            && this.filterTags('developers', filter, item)
-            && this.filterTags('publishers', filter, item)
-            && this.filterTags('modes', filter, item)
-            && this.filterTags('themes', filter, item)
-            && this.filterTags('genres', filter, item));
+            return (FilterPipe.filterTags('platform', filter, item)
+            && FilterPipe.filterTags('purchasePlace', filter, item)
+            && FilterPipe.filterTags('purchaseContact', filter, item)
+            && FilterPipe.filterTags('salePlace', filter, item)
+            && FilterPipe.filterTags('saleContact', filter, item)
+            && FilterPipe.filterTags('progress', filter, item)
+            && FilterPipe.filterTags('cond', filter, item)
+            && FilterPipe.filterTags('completeness', filter, item)
+            && FilterPipe.filterTags('version', filter, item)
+            && FilterPipe.filterTags('series', filter, item)
+            && FilterPipe.filterTags('developers', filter, item)
+            && FilterPipe.filterTags('publishers', filter, item)
+            && FilterPipe.filterTags('modes', filter, item)
+            && FilterPipe.filterTags('themes', filter, item)
+            && FilterPipe.filterTags('genres', filter, item));
         }).filter(item => {
             /**
              * Rating
              */
             if (filter.ratingRange) {
-                if (item.rating >= filter.ratingRange[0] && item.rating <= filter.ratingRange[1]) {
-                    return true;
-                }
-
-                return false;
+                return item.rating >= filter.ratingRange[0] && item.rating <= filter.ratingRange[1];
             }
 
             return true;
@@ -55,17 +50,17 @@ export class FilterPipe implements PipeTransform {
             /**
              * Ranges : rating, prices
              */
-            return (this.filterRange(filter.ratingRange, item.rating)
-            && this.filterRange(filter.priceAskedRange, item.priceAsked)
-            && this.filterRange(filter.pricePaidRange, item.pricePaid)
-            && this.filterRange(filter.priceResaleRange, item.priceResale)
-            && this.filterRange(filter.priceSoldRange, item.priceSold));
+            return (FilterPipe.filterRange(filter.ratingRange, item.rating)
+            && FilterPipe.filterRange(filter.priceAskedRange, item.priceAsked)
+            && FilterPipe.filterRange(filter.pricePaidRange, item.pricePaid)
+            && FilterPipe.filterRange(filter.priceResaleRange, item.priceResale)
+            && FilterPipe.filterRange(filter.priceSoldRange, item.priceSold));
         }).filter(item => {
             /**
              * Release Year
              */
             if (item.releaseDate) {
-                return this.filterRange(filter.releaseYearRange, item.releaseDate.getFullYear());
+                return FilterPipe.filterRange(filter.releaseYearRange, item.releaseDate.getFullYear());
             }
 
             return true;
@@ -74,14 +69,14 @@ export class FilterPipe implements PipeTransform {
              * Purchase Year
              */
             if (item.purchaseDate) {
-                return this.filterRange(filter.purchaseYearRange, item.purchaseDate.getFullYear());
+                return FilterPipe.filterRange(filter.purchaseYearRange, item.purchaseDate.getFullYear());
             }
 
             return true;
         });
     }
 
-    private filterTags(tagType, filter, item) {
+    private static filterTags(tagType, filter, item) {
 
         let gameTagTypes = ['series', 'developers', 'publishers', 'modes', 'themes', 'genres'];
 
@@ -122,11 +117,8 @@ export class FilterPipe implements PipeTransform {
         }
     }
 
-    private filterRange(range: number[], val: number) {
-        if (val >= range[0] && val <= range[1]) {
-            return true;
-        }
+    private static filterRange(range: number[], val: number) {
 
-        return false;
+        return val >= range[0] && val <= range[1];
     }
 }

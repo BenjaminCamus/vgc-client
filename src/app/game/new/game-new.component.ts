@@ -14,7 +14,7 @@ import {environment} from "../../../environments/environment";
     selector: 'game-new',
     templateUrl: './game-new.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': '', class: 'mainPage fakePage'}
+    host: {'[@routerTransition]': '', 'class': 'mainPage fakePage'}
 })
 export class GameNewComponent {
 

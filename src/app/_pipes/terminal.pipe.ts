@@ -5,7 +5,7 @@ import {Pipe} from '@angular/core';
 })
 export class TerminalPipe {
 
-    static transform(content: string): string {
+    transform(content: string): string {
 
         return '<div class="terminal">' +
             '<p>' +

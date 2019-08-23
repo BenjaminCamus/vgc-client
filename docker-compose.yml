@@ -6,7 +6,7 @@ services:
     container_name: vgc-client_nginx
 #    restart: always # Always restart container
     volumes:
-      - ./docker/nginx/vgc-client.conf:/etc/nginx/conf.d/vgc-client.conf
+      - ./docker/vgc-client.conf:/etc/nginx/conf.d/vgc-client.conf
       - ./dist:/www
     environment:
       - VIRTUAL_HOST=vgc.local # Enviroment variable needed for nginx proxy

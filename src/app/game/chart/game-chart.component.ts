@@ -10,13 +10,13 @@ import {DeviceDetectorService} from "ngx-device-detector";
     selector: 'game-chart',
     templateUrl: './game-chart.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': '', class: 'mainPage fakePage'}
+    host: {'[@routerTransition]': '', 'class': 'mainPage fakePage'}
 })
 export class GameChartComponent implements OnInit {
 
     @Input() userGameFilter: UserGameFilter;
 
-    fields = [
+    readonly fields = [
         'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
         'userGame.rating', 'userGame.version', 'userGame.progress', 'userGame.cond', 'userGame.completeness',
         'userGame.price',
@@ -25,7 +25,7 @@ export class GameChartComponent implements OnInit {
     ];
     @Input() field = 'userGame.platform';
 
-    colors = [
+    readonly colors = [
         'rgba(139, 233, 253, .5)',
         'rgba(80, 250, 123, .5)',
         'rgba(255, 184, 108, .5)',
@@ -34,7 +34,7 @@ export class GameChartComponent implements OnInit {
         'rgba(255, 85, 85, .5)',
         'rgba(241, 250, 140, .5)'
     ];
-    colorsHover = [
+    readonly colorsHover = [
         'rgba(139, 233, 253, 1)',
         'rgba(80, 250, 123, 1)',
         'rgba(255, 184, 108, 1)',
@@ -44,9 +44,9 @@ export class GameChartComponent implements OnInit {
         'rgba(241, 250, 140, 1)'
     ];
 
-    chartData: any = {};
-    chartType: any = {};
-    chartOptions: any = {};
+    private chartData: any = {};
+    private chartType: any = {};
+    private chartOptions: any = {};
 
     constructor(private translatePipe: TranslatePipe,
                 private deviceService: DeviceDetectorService) {
@@ -59,17 +59,8 @@ export class GameChartComponent implements OnInit {
             var objectField = this.fields[fieldIndex].split('.');
             var field = objectField[1];
 
-            if (this.userGameFilter.stats.count[field]) {
-
-                var test = false;
-                for (let count in this.userGameFilter.stats.count[field]) {
-                    test = true;
-                    continue;
-                }
-
-                if (!test) {
-                    continue;
-                }
+            if (this.userGameFilter.stats.count[field] && Object.keys(this.userGameFilter.stats.count[field]).length === 0) {
+                continue;
             }
 
             this.chartType[this.fields[fieldIndex]] = 'doughnut';
@@ -91,13 +82,10 @@ export class GameChartComponent implements OnInit {
                     callbacks: {
                         label: function (tooltipItem, data) {
 
-                            var label =
-                                ' '
+                            return ' '
                                 + data.labels[tooltipItem.index]
                                 + ' : '
                                 + data.datasets[tooltipItem.datasetIndex].data[tooltipItem.index];
-
-                            return label;
                         }
                     }
                 },
@@ -147,7 +135,7 @@ export class GameChartComponent implements OnInit {
                     hoverBackgroundColor: 'rgba(80, 250, 123, 1)'
                 };
             }
-            else if(field == 'price') {
+            else if (field == 'price') {
 
                 this.chartType[this.fields[fieldIndex]] = 'line';
 

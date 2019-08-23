@@ -1,10 +1,9 @@
 import {Component, ElementRef, Input, HostListener, ViewChild} from "@angular/core";
-import {trigger, animate, style, transition} from '@angular/animations';
 import {Game} from "../_models/game";
 import {opacityTransition} from "../_animations/opacity.animations";
 import {GameLocalService} from "../_services/gameLocal.service";
 import {Video} from "../_models/video";
-import { DeviceDetectorService } from 'ngx-device-detector';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
     moduleId: module.id,
@@ -31,23 +30,19 @@ export class BannerComponent {
     @Input() set data(data: any) {
 
         // If Game
-        if (data
-            && data.name) {
+        if (data && data.name) {
 
             this.game = data;
         }
 
         // ElseIf UserGame
-        else if (data
-            && data.game) {
+        else if (data && data.game) {
 
             this.game = data.game;
         }
 
         // ElseIf Games (for IGDB search)
-        else if (data
-            && data[0]
-            && data[0].name) {
+        else if (data && data[0] && data[0].name) {
 
             this.game = data[0];
         }
@@ -95,7 +90,8 @@ export class BannerComponent {
     }
 
     constructor(private gameLocalService: GameLocalService,
-                private deviceService: DeviceDetectorService) {}
+                private deviceService: DeviceDetectorService) {
+    }
 
     resizeBanner() {
 

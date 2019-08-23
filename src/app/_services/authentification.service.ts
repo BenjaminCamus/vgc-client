@@ -8,6 +8,7 @@ import {environment} from "../../environments/environment";
 
 @Injectable()
 export class AuthenticationService {
+
     private headers = new HttpHeaders({'Content-type': 'application/json'});
     private loginUrl = environment.vgcApiUrl + 'login_check';
     private registerUrl = environment.vgcApiUrl + 'api_register';
@@ -17,15 +18,17 @@ export class AuthenticationService {
     constructor(private http: HttpClient,
                 private errorService: ErrorService) {
         // set token if saved in local storage
-        var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.token = currentUser && currentUser.token;
     }
 
     login(user: any): Observable<boolean> {
 
+        let url, request;
+
         if (user.email) {
-            var url = this.registerUrl;
-            var request: any = {
+            url = this.registerUrl;
+            request = {
                 "email": user.email,
                 "username": user.username,
                 "plainPassword": {
@@ -35,8 +38,8 @@ export class AuthenticationService {
             };
         }
         else {
-            var url = this.loginUrl;
-            var request: any = {
+            url = this.loginUrl;
+            request = {
                 "_username": user.username,
                 "_password": user.password
             };

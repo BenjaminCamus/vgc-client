@@ -8,8 +8,4 @@ export class Contact {
     address: string = '';
     zipcode: string = '';
     city: string = '';
-
-    constructor (firstName: string = '') {
-        this.firstName = firstName;
-    }
 }

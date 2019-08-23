@@ -44,7 +44,7 @@ export class GameService {
             .pipe(
                 map(response => {
                     for (let key in response) {
-                        response[key] = this.setDates(response[key]);
+                        response[key] = GameService.setDates(response[key]);
                     }
                     return response as UserGame[];
                 }),
@@ -61,7 +61,7 @@ export class GameService {
             );
     }
 
-    setDates(userGame) {
+    private static setDates(userGame) {
 
         if (userGame.purchaseDate) {
             userGame.purchaseDate = new Date(userGame.purchaseDate.timestamp * 1000);
@@ -97,7 +97,7 @@ export class GameService {
             .get<UserGame>(url, {headers: headers})
             .pipe(
                 map(response => {
-                    return this.setDates(response) as UserGame;
+                    return GameService.setDates(response) as UserGame;
                 }),
                 catchError(this.errorService.handleError.bind(this))
             );
@@ -135,7 +135,7 @@ export class GameService {
             .post<UserGame>(this.url + 'user/games/add', userGameJson, {headers: this.headers})
             .pipe(
                 map(response => {
-                    return this.setDates(response) as UserGame;
+                    return GameService.setDates(response) as UserGame;
                 }),
                 catchError(this.errorService.handleError.bind(this))
             );

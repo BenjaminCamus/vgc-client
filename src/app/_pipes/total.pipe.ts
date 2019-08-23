@@ -8,9 +8,9 @@ import {Pipe, PipeTransform} from '@angular/core';
 export class TotalPipe implements PipeTransform {
 
     transform(array: Array<any>, param: string): number {
-        var total = 0;
+        let total = 0;
 
-        for (var object of array) {
+        for (let object of array) {
             if (object[param]) {
                 total += parseInt(object[param], 10);
             }

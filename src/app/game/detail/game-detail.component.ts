@@ -17,7 +17,7 @@ import {carouselTransition} from "../../_animations/carousel.animations";
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [carouselTransition()],
-    host: {'[@carouselTransition]': 'transitionState', class: 'mainPage fakePage'}
+    host: {'[@carouselTransition]': 'transitionState', 'class': 'mainPage fakePage'}
 })
 export class GameDetailComponent {
 
@@ -25,17 +25,17 @@ export class GameDetailComponent {
     @Input() userGame: UserGame;
     @Output() state: EventEmitter<string> = new EventEmitter();
 
-    selectedGame: Game = null;
+    private selectedGame: Game = null;
     private selectedPlatform: Object;
 
-    userFields = [['userGame.rating', 'userGame.progress', 'userGame.version', 'userGame.cond', 'userGame.completeness'],
+    readonly userFields = [['userGame.rating', 'userGame.progress', 'userGame.version', 'userGame.cond', 'userGame.completeness'],
         ['userGame.pricePaid', 'userGame.priceAsked', 'userGame.purchaseDate', 'userGame.purchasePlace', 'userGame.purchaseContact'],
         ['userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact']];
-    gameFields = ['game.series', 'userGame.releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
+    readonly gameFields = ['game.series', 'userGame.releaseDate', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'];
 
     private formAction: string;
 
-    constructor (private changeDetectorRef: ChangeDetectorRef) {
+    constructor(private changeDetectorRef: ChangeDetectorRef) {
         this.changeDetectorRef = changeDetectorRef;
     }
 

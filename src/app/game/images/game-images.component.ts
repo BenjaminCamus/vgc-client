@@ -20,11 +20,11 @@ export class GameImagesComponent {
 
     ngOnInit() {
 
-        const caption = this.game.name;
-        const src = environment.imagesUrl + 't_original/' + this.game.cover.cloudinaryId + '.jpg';
+        let caption = this.game.name;
+        let src = environment.imagesUrl + 't_original/' + this.game.cover.cloudinaryId + '.jpg';
         this.coverThumb = environment.imagesUrl + 't_cover_big/' + this.game.cover.cloudinaryId + '.jpg';
 
-        var pic = {
+        let pic = {
             caption: caption,
             src: src,
             thumb: this.coverThumb
@@ -34,12 +34,12 @@ export class GameImagesComponent {
 
         for (let i in this.game.screenshots) {
 
-            const sc = this.game.screenshots[i];
-            const caption = this.game.name + ' • ' + (parseInt(i, 10) + 1) + '/' + this.game.screenshots.length;
-            const src = environment.imagesUrl + 't_original/' + sc.cloudinaryId + '.jpg';
-            const thumb = environment.imagesUrl + 't_thumb/' + sc.cloudinaryId + '.jpg';
+            let sc = this.game.screenshots[i];
+            let caption = this.game.name + ' • ' + (parseInt(i, 10) + 1) + '/' + this.game.screenshots.length;
+            let src = environment.imagesUrl + 't_original/' + sc.cloudinaryId + '.jpg';
+            let thumb = environment.imagesUrl + 't_thumb/' + sc.cloudinaryId + '.jpg';
 
-            const pic = {
+            let pic = {
                 caption: caption,
                 src: src,
                 thumb: thumb

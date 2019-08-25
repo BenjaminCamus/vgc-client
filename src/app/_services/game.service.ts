@@ -44,7 +44,7 @@ export class GameService {
             .pipe(
                 map(response => {
                     for (let key in response) {
-                        response[key] = GameService.setDates(response[key]);
+                        response[key] = GameService.convertData(response[key]);
                     }
                     return response as UserGame[];
                 }),
@@ -61,17 +61,11 @@ export class GameService {
             );
     }
 
-    private static setDates(userGame) {
+    private static convertData(userGame) {
 
-        if (userGame.purchaseDate) {
-            userGame.purchaseDate = new Date(userGame.purchaseDate.timestamp * 1000);
-        }
-        if (userGame.saleDate) {
-            userGame.saleDate = new Date(userGame.saleDate.timestamp * 1000);
-        }
-        if (userGame.releaseDate) {
-            userGame.releaseDate = new Date(userGame.releaseDate.timestamp * 1000);
-        }
+        userGame.purchaseDate = GameService.dateFromISO( userGame.purchaseDate);
+        userGame.saleDate = GameService.dateFromISO( userGame.saleDate);
+        userGame.releaseDate = GameService.dateFromISO( userGame.releaseDate);
 
         if (userGame.game.name.substr(0, 4).toLowerCase() == 'the ') {
             userGame.game.name = userGame.game.name.substr(4) + ' (The)';
@@ -80,25 +74,19 @@ export class GameService {
         return userGame;
     }
 
+    private static dateFromISO(date) {
+        if (date) {
+            let timestamp = Date.parse(date);
+            return new Date(timestamp);
+        }
+
+        return date;
+    }
+
     getUserContacts(): Observable<Contact[]> {
 
         return this.http.get<Contact[]>(this.url + 'user/contacts', {headers: this.headers})
             .pipe(
-                catchError(this.errorService.handleError.bind(this))
-            );
-    }
-
-    getGame(userGame: UserGame): Observable<UserGame> {
-
-        var url = this.url + 'user/games/' + userGame.id;
-        var headers = this.headers;
-
-        return this.http
-            .get<UserGame>(url, {headers: headers})
-            .pipe(
-                map(response => {
-                    return GameService.setDates(response) as UserGame;
-                }),
                 catchError(this.errorService.handleError.bind(this))
             );
     }
@@ -135,7 +123,7 @@ export class GameService {
             .post<UserGame>(this.url + 'user/games/add', userGameJson, {headers: this.headers})
             .pipe(
                 map(response => {
-                    return GameService.setDates(response) as UserGame;
+                    return GameService.convertData(response) as UserGame;
                 }),
                 catchError(this.errorService.handleError.bind(this))
             );

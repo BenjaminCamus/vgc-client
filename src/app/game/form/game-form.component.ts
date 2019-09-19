@@ -19,7 +19,7 @@ import {GameLocalService} from "../../_services/gameLocal.service";
 })
 export class GameFormComponent implements OnInit {
 
-    private loading: boolean = false;
+    public loading: boolean = false;
     private errorMessage: string;
 
     @Input() game: Game;

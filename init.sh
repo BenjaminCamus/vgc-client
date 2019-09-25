@@ -65,17 +65,26 @@ done <.env.dist
 truncate -s 0 .env
 echo -e "${DOTENV}" >>.env
 
+export $(egrep -v '^#' .env | xargs)
+
+echo_step "nginx conf"
+cp docker/${APP_NAME}.conf.dist docker/${APP_NAME}.conf
+sed -i 's/_API_HOST_/'${API_HOST}'/g' docker/${APP_NAME}.conf
+sed -i 's/_ADMIN_HOST_/'${ADMIN_HOST}'/g' docker/${APP_NAME}.conf
+cat docker/${APP_NAME}.conf
+
+echo_step "npm install"
+npm install
+
+echo_step "ng build"
+ng build
+
 echo_step "docker build"
 docker-compose -f docker-compose.yml build
 docker-compose -f ../nginx-proxy/docker-compose.yml stop
 docker-compose -f ../nginx-proxy/docker-compose.yml up -d
 
-echo_step "docker up"
-make start
-
-make install
-
-echo_step "docker reload"
+echo_step "docker start"
 make start
 
 echo_success "App successfully installed!"

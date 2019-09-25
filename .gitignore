@@ -20,3 +20,5 @@ tmp/
 # Mac OSX Finder files.
 **/.DS_Store
 .DS_Store
+
+/docker/vgc-client.conf

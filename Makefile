@@ -16,5 +16,5 @@ bash:
 update:
 	git pull
 	npm install
-	/root/.npm-global/bin/ng build --prod
+	ng build --prod
 	make start

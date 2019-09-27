@@ -28,13 +28,14 @@ export class GameLocalService {
 
     private userGamesDateLocalId = 'userGamesDate';
     private userContactsLocalId = 'userContacts';
+    private userPlacesLocalId = 'userPlaces';
     private newGameSearchLocalId = 'newGameSearch';
     private newUserGameLocalId = 'newUserGame';
     private enableVideoId = 'enableVideo';
     private welcomeShowLocalId = 'welcomeShow';
 
     resetAll() {
-        let resetIds = ['userGamesDate', 'userContacts', 'newGameSearch'];
+        let resetIds = ['userGamesDate', 'userContacts', 'userPlaces', 'newGameSearch'];
         for (let i in resetIds) {
             localStorage.removeItem(resetIds[i]);
         }
@@ -219,6 +220,18 @@ export class GameLocalService {
         return [];
     }
 
+    setUserPlaces(places: string[]) {
+        return localStorage.setItem(this.userPlacesLocalId, JSON.stringify(places));
+    }
+
+    getUserPlaces() {
+        if (localStorage.getItem(this.userPlacesLocalId)) {
+            return JSON.parse(localStorage.getItem(this.userPlacesLocalId));
+        }
+
+        return [];
+    }
+
     private static setDates(userGame) {
 
         userGame.purchaseDate = new Date(userGame.purchaseDate);
@@ -246,28 +259,5 @@ export class GameLocalService {
         }
 
         return new UserGame();
-    }
-
-    getPlaces() {
-
-        return this.db.openDatabase().then(() => {
-            return this.db.getAll('userGames').then((userGames) => {
-
-                let places = [];
-
-                for (let userGame of userGames) {
-                    if (userGame.purchasePlace && userGame.purchasePlace != '' && places.indexOf(userGame.purchasePlace) < 0) {
-                        places.push(userGame.purchasePlace);
-                    }
-                    if (userGame.salePlace && userGame.salePlace != '' && places.indexOf(userGame.salePlace) < 0) {
-                        places.push(userGame.salePlace);
-                    }
-                }
-
-                return places;
-            }, (error) => {
-                GameLocalService.dbError(error);
-            });
-        });
     }
 }

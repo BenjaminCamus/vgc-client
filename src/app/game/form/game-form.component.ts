@@ -40,7 +40,7 @@ export class GameFormComponent implements OnInit {
     @Output() state: EventEmitter<string> = new EventEmitter();
 
     private userContacts: Contact[];
-    private places: string[];
+    private userPlaces: string[];
 
     private validateUserGameForm: FormGroup;
 
@@ -67,17 +67,10 @@ export class GameFormComponent implements OnInit {
     ngOnInit(): void {
 
         this.userContacts = this.gameLocalService.getUserContacts();
+        this.userPlaces = this.gameLocalService.getUserPlaces();
         this.updateSelects();
         this.getContacts();
-
-
-        this.gameLocalService.getPlaces().then(
-            places => {
-                this.places = places;
-            },
-            error => {
-                console.log(error);
-            });
+        this.getPlaces();
     }
 
     submitForm() {
@@ -155,6 +148,21 @@ export class GameFormComponent implements OnInit {
         }
     }
 
+    getPlaces() {
+        if (!this.loading) {
+            this.gameService.getUserPlaces()
+                .subscribe(
+                    userPlaces => {
+                        this.userPlaces = userPlaces;
+                        this.gameLocalService.setUserPlaces(this.userPlaces);
+                        this.updateSelects();
+                    },
+                    error => {
+                        this.errorMessage = <any>error;
+                    });
+        }
+    }
+
     updateSelects() {
 
         if (this.userContacts) {
@@ -166,12 +174,12 @@ export class GameFormComponent implements OnInit {
             }
         }
 
-        if (this.places) {
+        if (this.userPlaces) {
             if (this._userGame && this._userGame.purchasePlace) {
-                this._userGame.purchasePlace = this.places.find(place => place === this._userGame.purchasePlace);
+                this._userGame.purchasePlace = this.userPlaces.find(place => place === this._userGame.purchasePlace);
             }
             if (this._userGame && this._userGame.salePlace) {
-                this._userGame.salePlace = this.places.find(place => place === this._userGame.salePlace);
+                this._userGame.salePlace = this.userPlaces.find(place => place === this._userGame.salePlace);
             }
         }
     }

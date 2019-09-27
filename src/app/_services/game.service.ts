@@ -91,6 +91,14 @@ export class GameService {
             );
     }
 
+    getUserPlaces(): Observable<string[]> {
+
+        return this.http.get<string[]>(this.url + 'user/places', {headers: this.headers})
+            .pipe(
+                catchError(this.errorService.handleError.bind(this))
+            );
+    }
+
     deleteUserGame(userGame: UserGame): Observable<UserGame> {
         var url = this.url + 'user/games/' + userGame.id;
         var headers = this.headers;

@@ -135,7 +135,7 @@
                             #name="ngModel"
                             *ngIf="placeSelect[sp]"
                             (change)="onSelectPlace($event.target.value, sp)">
-                        <option *ngFor="let p of places" [ngValue]="p">{{p}}</option>
+                        <option *ngFor="let p of userPlaces" [ngValue]="p">{{p}}</option>
                         <option value="__new__">{{ 'label.newPlace' | translate }}</option>
                     </select>
                     <input type="text" id="{{ sp }}Place"

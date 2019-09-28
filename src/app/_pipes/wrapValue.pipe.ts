@@ -37,7 +37,7 @@ export class WrapValuePipe {
 
         switch (type) {
             case 'completeness':
-                switch (content) {
+                switch (value) {
                     case 'LOOSE':
                     case 'NO_MANUAL':
                     case 'NO_BOX':
@@ -53,7 +53,7 @@ export class WrapValuePipe {
                 }
                 break;
             case 'progress':
-                switch (content) {
+                switch (value) {
                     case 'NEVER_PLAYED':
                         content = '<span class="text-danger"><i class="fas fa-battery-empty"></i> ' + content + '</span>';
                         break;
@@ -69,7 +69,7 @@ export class WrapValuePipe {
                 }
                 break;
             case 'cond':
-                switch (content) {
+                switch (value) {
                     case 'BAD':
                         content = '<span class="text-danger">' + content + '</span>';
                         break;

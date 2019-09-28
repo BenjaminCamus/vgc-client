@@ -71,11 +71,10 @@ export class UserGameFilter extends UserGame {
                 modes: [],
                 themes: [],
                 genres: [],
-
                 version: ['FRA', 'EUR', 'JAP', 'USA'],
-                progress: [0, 1, 2, 3],
-                cond: [0, 1, 2, 3, 4],
-                completeness: [0, 1, 2, 3, 4, 5],
+                progress: ['NEVER_PLAYED', 'IN_PROGRESS', 'FINISHED', 'ABANDONED'],
+                cond: ['BAD', 'GOOD', 'VERY_GOOD', 'NEAR_MINT', 'MINT'],
+                completeness: ['LOOSE', 'NO_MANUAL', 'NO_BOX', 'COMPLETE', 'DEMATERIALIZED', 'NEW'],
 
                 pricePaid: [],
                 priceAsked: [],

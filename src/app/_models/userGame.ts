@@ -10,9 +10,9 @@ export class UserGame {
 
     rating: number;
     version: string = 'FRA';
-    progress: number = 0;
-    cond: number = 2;
-    completeness: number = 3;
+    progress: string = 'NEVER_PLAYED';
+    cond: string = 'VERY_GOOD';
+    completeness: string = 'COMPLETE';
 
     priceAsked: number;
     pricePaid: number;

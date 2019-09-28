@@ -387,57 +387,59 @@
                         </div>
                         <div>
                             <label>{{ 'field.userGame.completeness' | translate }}</label><br>
-                            <tag [tag]="'enum.completeness.0' | translate"
-                                 [value]="0"
+                            <tag [tag]="'enum.completeness.LOOSE' | translate"
+                                 [value]="'LOOSE'"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness[0]"
-                                 (uploaded)="toggleTag('completenesss', $event, 0)"></tag>
-                            <tag [tag]="'enum.completeness.1' | translate"
-                                 [value]="1"
+                                 [suffix]="userGameFilter.stats.count.completeness['LOOSE']"
+                                 (uploaded)="toggleTag('completenesss', $event, 'LOOSE')"></tag>
+                            <tag [tag]="'enum.completeness.NO_MANUAL' | translate"
+                                 [value]="'NO_MANUAL'"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness[1]"
-                                 (uploaded)="toggleTag('completenesss', $event, 1)"></tag>
-                            <tag [tag]="'enum.completeness.2' | translate"
-                                 [value]="2"
+                                 [suffix]="userGameFilter.stats.count.completeness['NO_MANUAL']"
+                                 (uploaded)="toggleTag('completenesss', $event, 'NO_MANUAL')"></tag>
+                            <tag [tag]="'enum.completeness.NO_BOX' | translate"
+                                 [value]="'NO_BOX'"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness[2]"
-                                 (uploaded)="toggleTag('completenesss', $event, 2)"></tag>
-                            <tag [tag]="'enum.completeness.3' | translate"
-                                 [value]="3"
+                                 [suffix]="userGameFilter.stats.count.completeness['NO_BOX']"
+                                 (uploaded)="toggleTag('completenesss', $event, 'NO_BOX')"></tag>
+                            <tag [tag]="'enum.completeness.COMPLETE' | translate"
+                                 [value]="'COMPLETE'"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness[3]"
-                                 (uploaded)="toggleTag('completenesss', $event, 3)"></tag>
-                            <tag [tag]="'enum.completeness.4' | translate"
-                                 [value]="4"
+                                 [suffix]="userGameFilter.stats.count.completeness['COMPLETE']"
+                                 (uploaded)="toggleTag('completenesss', $event, 'COMPLETE')"></tag>
+                            <tag [tag]="'enum.completeness.DEMATERIALIZED' | translate"
+                                 [value]="'DEMATERIALIZED'"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness[4]"
-                                 (uploaded)="toggleTag('completenesss', $event, 4)"></tag>
-                            <tag [tag]="'enum.completeness.5' | translate"
-                                 [value]="5"
+                                 [suffix]="userGameFilter.stats.count.completeness['DEMATERIALIZED']"
+                                 (uploaded)="toggleTag('completenesss', $event, 'DEMATERIALIZED')"></tag>
+                            <tag [tag]="'enum.completeness.NEW' | translate"
+                                 [value]="'NEW'"
                                  [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness[5]"
-                                 (uploaded)="toggleTag('completenesss', $event, 5)"></tag>
+                                 [suffix]="userGameFilter.stats.count.completeness['NEW']"
+                                 (uploaded)="toggleTag('completenesss', $event, 'NEW')"></tag>
                         </div>
                         <div>
                             <label>{{ 'field.userGame.progress' | translate }}</label><br>
-                            <tag [tag]="'enum.progress.0' | translate"
-                                 [value]="0"
+                            <tag [tag]="'enum.progress.NEVER_PLAYED' | translate"
+                                 [value]="'NEVER_PLAYED'"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress[0]"
-                                 (uploaded)="toggleTag('progresses', $event, 0)"></tag>
-                            <tag [tag]="'enum.progress.1' | translate"
-                                 [value]="1"
+                                 [suffix]="userGameFilter.stats.count.progress['NEVER_PLAYED']"
+                                 (uploaded)="toggleTag('progresses', $event, 'NEVER_PLAYED')"></tag>
+                            <tag [tag]="'enum.progress.IN_PROGRESS' | translate"
+                                 [value]="'IN_PROGRESS'"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress[1]"
-                                 (uploaded)="toggleTag('progresses', $event, 1)"></tag>
-                            <tag [tag]="'enum.progress.2' | translate"
-                                 [value]="2"
+                                 [suffix]="userGameFilter.stats.count.progress['IN_PROGRESS']"
+                                 (uploaded)="toggleTag('progresses', $event, 'IN_PROGRESS')"></tag>
+                            <tag [tag]="'enum.progress.FINISHED' | translate"
+                                 [value]="'FINISHED'"
                                  [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress[2]"
-                                 (uploaded)="toggleTag('progresses', $event, 2)"></tag>
-                            <tag [tag]="'enum.progress.3' | translate" [value]="3" [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress[3]"
-                                 (uploaded)="toggleTag('progresses', $event, 3)"></tag>
+                                 [suffix]="userGameFilter.stats.count.progress['FINISHED']"
+                                 (uploaded)="toggleTag('progresses', $event, 'FINISHED')"></tag>
+                            <tag [tag]="'enum.progress.ABANDONED' | translate"
+                                 [value]="'ABANDONED'"
+                                 [filter]="userGameFilter.progresses"
+                                 [suffix]="userGameFilter.stats.count.progress['ABANDONED']"
+                                 (uploaded)="toggleTag('progresses', $event, 'ABANDONED')"></tag>
                         </div>
                         <div>
                             <label>{{ 'field.userGame.cond' | translate }}</label><br>

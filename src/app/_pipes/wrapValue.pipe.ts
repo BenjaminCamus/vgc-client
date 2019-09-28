@@ -1,6 +1,6 @@
 import {Pipe} from '@angular/core';
-import {UserGame} from "../_models/userGame";
-import {Game} from "../_models/game";
+import {UserGame} from '../_models/userGame';
+import {Game} from '../_models/game';
 
 @Pipe({
     name: 'wrapValue'
@@ -19,7 +19,7 @@ export class WrapValuePipe {
     }
 
     transform(content: string, userGame: UserGame, objectField: string): string {
-        
+
         let fieldSplit = objectField.split('.');
         let object = fieldSplit[0];
         let field = fieldSplit[1];
@@ -37,56 +37,50 @@ export class WrapValuePipe {
 
         switch (type) {
             case 'completeness':
-
-                if (value == 0) {
-                    content = '<span class="text-warning">' + content + '</span>';
+                switch (content) {
+                    case 'LOOSE':
+                    case 'NO_MANUAL':
+                    case 'NO_BOX':
+                        content = '<span class="text-warning">' + content + '</span>';
+                        break;
+                    case 'COMPLETE':
+                    case 'NEW':
+                        content = '<span class="text-success">' + content + '</span>';
+                        break;
+                    case 'DEMATERIALIZED':
+                        content = '<span class="text-info">' + content + '</span>';
+                        break;
                 }
-                else if (value == 1) {
-                    content = '<span class="text-warning">' + content + '</span>';
-                }
-                else if (value == 2) {
-                    content = '<span class="text-warning">' + content + '</span>';
-                }
-                else if (value == 3) {
-                    content = '<span class="text-success">' + content + '</span>';
-                }
-                else if (value == 4) {
-                    content = '<span class="text-info">' + content + '</span>';
-                }
-                else if (value == 5) {
-                    content = '<span class="text-success">' + content + '</span>';
-                }
-
                 break;
             case 'progress':
-                if (value == 0) {
-                    content = '<span class="text-danger"><i class="fas fa-battery-empty"></i> ' + content + '</span>';
-                }
-                else if (value == 1) {
-                    content = '<span class="text-warning"><i class="fas fa-battery-half"></i> ' + content + '</span>';
-                }
-                else if (value == 2) {
-                    content = '<span class="text-success"><i class="fas fa-battery-full"></i> ' + content + '</span>';
-                }
-                else if (value == 3) {
-                    content = '<span class="text-info"><i class="fas fa-battery-empty"></i> ' + content + '</span>';
+                switch (content) {
+                    case 'NEVER_PLAYED':
+                        content = '<span class="text-danger"><i class="fas fa-battery-empty"></i> ' + content + '</span>';
+                        break;
+                    case 'IN_PROGRESS':
+                        content = '<span class="text-warning"><i class="fas fa-battery-half"></i> ' + content + '</span>';
+                        break;
+                    case 'FINISHED':
+                        content = '<span class="text-success"><i class="fas fa-battery-full"></i> ' + content + '</span>';
+                        break;
+                    case 'ABANDONED':
+                        content = '<span class="text-info"><i class="fas fa-battery-empty"></i> ' + content + '</span>';
+                        break;
                 }
                 break;
             case 'cond':
-                if (value == 0) {
-                    content = '<span class="text-danger">' + content + '</span>';
-                }
-                else if (value == 1) {
-                    content = '<span class="text-warning">' + content + '</span>';
-                }
-                else if (value == 2) {
-                    content = '<span class="text-success">' + content + '</span>';
-                }
-                else if (value == 3) {
-                    content = '<span class="text-success">' + content + '</span>';
-                }
-                else if (value == 4) {
-                    content = '<span class="text-success">' + content + '</span>';
+                switch (content) {
+                    case 'BAD':
+                        content = '<span class="text-danger">' + content + '</span>';
+                        break;
+                    case 'GOOD':
+                        content = '<span class="text-warning">' + content + '</span>';
+                        break;
+                    case 'VERY_GOOD':
+                    case 'NEAR_MINT':
+                    case 'MINT':
+                        content = '<span class="text-success">' + content + '</span>';
+                        break;
                 }
                 break;
         }

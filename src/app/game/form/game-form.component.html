@@ -18,12 +18,12 @@
                         required
                         [(ngModel)]="_userGame.completeness" name="completeness"
                         #name="ngModel">
-                    <option value="0">{{ 'enum.completeness.0' | translate }}</option>
-                    <option value="1">{{ 'enum.completeness.1' | translate }}</option>
-                    <option value="2">{{ 'enum.completeness.2' | translate }}</option>
-                    <option value="3" selected>{{ 'enum.completeness.3' | translate }}</option>
-                    <option value="4">{{ 'enum.completeness.4' | translate }}</option>
-                    <option value="5">{{ 'enum.completeness.5' | translate }}</option>
+                    <option value="LOOSE">{{ 'enum.completeness.LOOSE' | translate }}</option>
+                    <option value="NO_MANUAL">{{ 'enum.completeness.NO_MANUAL' | translate }}</option>
+                    <option value="NO_BOX">{{ 'enum.completeness.NO_BOX' | translate }}</option>
+                    <option value="COMPLETE" selected>{{ 'enum.completeness.COMPLETE' | translate }}</option>
+                    <option value="DEMATERIALIZED">{{ 'enum.completeness.DEMATERIALIZED' | translate }}</option>
+                    <option value="NEW">{{ 'enum.completeness.NEW' | translate }}</option>
                 </select>
                 <span class="bar"></span>
                 <label for="completeness">{{ 'field.userGame.completeness' | translate }}</label>
@@ -55,11 +55,11 @@
                         required
                         [(ngModel)]="_userGame.cond" name="cond"
                         #name="ngModel">
-                    <option value="0">{{ 'enum.cond.0' | translate }}</option>
-                    <option value="1">{{ 'enum.cond.1' | translate }}</option>
-                    <option value="2" selected>{{ 'enum.cond.2' | translate }}</option>
-                    <option value="3">{{ 'enum.cond.3' | translate }}</option>
-                    <option value="4">{{ 'enum.cond.4' | translate }}</option>
+                    <option value="BAD">{{ 'enum.cond.BAD' | translate }}</option>
+                    <option value="GOOD">{{ 'enum.cond.GOOD' | translate }}</option>
+                    <option value="VERY_GOOD" selected>{{ 'enum.cond.VERY_GOOD' | translate }}</option>
+                    <option value="NEAR_MINT">{{ 'enum.cond.NEAR_MINT' | translate }}</option>
+                    <option value="MINT">{{ 'enum.cond.MINT' | translate }}</option>
                 </select>
                 <span class="bar"></span>
                 <label for="cond">{{ 'field.userGame.cond' | translate }}</label>
@@ -69,10 +69,10 @@
                         required
                         [(ngModel)]="_userGame.progress" name="progress"
                         #name="ngModel">
-                    <option value="2">{{ 'enum.progress.2' | translate }}</option>
-                    <option value="1">{{ 'enum.progress.1' | translate }}</option>
-                    <option value="0" selected>{{ 'enum.progress.0' | translate }}</option>
-                    <option value="3">{{ 'enum.progress.3' | translate }}</option>
+                    <option value="NEVER_PLAYED" selected>{{ 'enum.progress.NEVER_PLAYED' | translate }}</option>
+                    <option value="IN_PROGRESS">{{ 'enum.progress.IN_PROGRESS' | translate }}</option>
+                    <option value="FINISHED">{{ 'enum.progress.FINISHED' | translate }}</option>
+                    <option value="ABANDONED">{{ 'enum.progress.ABANDONED' | translate }}</option>
                 </select>
                 <span class="bar"></span>
                 <label for="progress">{{ 'field.userGame.progress' | translate }}</label>

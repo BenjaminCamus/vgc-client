@@ -32,7 +32,7 @@
   "enum.cond.MINT": "Mint!",
   "enum.progress.NEVER_PLAYED": "Not Played Yet",
   "enum.progress.IN_PROGRESS": "In Progress",
-  "enum.progress.COMPLETED": "Completed",
+  "enum.progress.FINISHED": "Finished",
   "enum.progress.ABANDONED": "Abandoned",
   "field.contact.firstName": "First Name",
   "field.contact.lastName": "Last Name",

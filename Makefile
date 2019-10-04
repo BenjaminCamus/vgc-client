@@ -1,5 +1,5 @@
 serve:
-	ng serve --open=true
+	ng serve --host 0.0.0.0 --disable-host-check
 
 start: stop
 	docker-compose -f docker-compose.yml up -d

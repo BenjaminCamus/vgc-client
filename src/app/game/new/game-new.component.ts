@@ -59,7 +59,7 @@ export class GameNewComponent {
                             return index == self.indexOf(elem);
                         });
 
-                        this.games = games.slice(0, this.gameService.searchLimit).sort(orderByName);
+                        this.games = games.sort(orderByName);
 
                         for (let game of this.games) {
                             for (let platform of game.platforms) {

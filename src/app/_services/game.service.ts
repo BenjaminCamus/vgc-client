@@ -22,8 +22,6 @@ import {formatDate} from "../functions";
 @Injectable()
 export class GameService {
 
-    searchLimit = 10;
-
     private url = environment.vgcApiUrl;
     private headers = new HttpHeaders({
         'Authorization': 'Bearer ' + this.authenticationService.token,

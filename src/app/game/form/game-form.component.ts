@@ -2,14 +2,14 @@ import {Component, Input, Output, OnInit, EventEmitter, ElementRef} from '@angul
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 
-import {Game}    from '../../_models/game';
-import {GameService}       from '../../_services/game.service';
-import {UserGame} from "../../_models/userGame";
-import {Platform} from "../../_models/platform";
+import {Game} from '../../_models/game';
+import {GameService} from '../../_services/game.service';
+import {UserGame} from '../../_models/userGame';
+import {Platform} from '../../_models/platform';
 
-import {orderByName} from "../../functions";
-import {Contact} from "../../_models/contact";
-import {GameLocalService} from "../../_services/gameLocal.service";
+import {orderByName} from '../../functions';
+import {Contact} from '../../_models/contact';
+import {GameLocalService} from '../../_services/gameLocal.service';
 
 @Component({
     moduleId: module.id,
@@ -19,7 +19,7 @@ import {GameLocalService} from "../../_services/gameLocal.service";
 })
 export class GameFormComponent implements OnInit {
 
-    public loading: boolean = false;
+    public loading = false;
     private errorMessage: string;
 
     @Input() game: Game;
@@ -50,9 +50,14 @@ export class GameFormComponent implements OnInit {
         'sale': new Contact()
     };
 
+    private placeSelect = {
+        purchase: true,
+        sale: true,
+    };
+
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
-                private fb: FormBuilder,) {
+                private fb: FormBuilder) {
         this.validateUserGameForm = fb.group({
             'rating': ['', [CustomValidators.digits, CustomValidators.range([0, 20])]],
             'priceAsked': ['', [CustomValidators.number]],
@@ -76,8 +81,7 @@ export class GameFormComponent implements OnInit {
     submitForm() {
         if (this.action == 'delete') {
             this.deleteUserGame();
-        }
-        else {
+        } else {
             this.postUserGame();
         }
     }
@@ -153,6 +157,7 @@ export class GameFormComponent implements OnInit {
             this.gameService.getUserPlaces()
                 .subscribe(
                     userPlaces => {
+                        userPlaces.sort();
                         this.userPlaces = userPlaces;
                         this.gameLocalService.setUserPlaces(this.userPlaces);
                         this.updateSelects();
@@ -184,13 +189,8 @@ export class GameFormComponent implements OnInit {
         }
     }
 
-    private placeSelect = {
-        purchase: true,
-        sale: true,
-    };
-
     onSelectPlace(place: string, sp: string) {
-        if (place == '__new__') {
+        if (place === '__new__') {
             this.placeSelect[sp] = false;
             this._userGame[sp + 'Place'] = '';
         }

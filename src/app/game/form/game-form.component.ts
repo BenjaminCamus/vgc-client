@@ -1,4 +1,4 @@
-import {Component, Input, Output, OnInit, EventEmitter, ElementRef} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, ElementRef, Renderer2, Injector} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
 
@@ -10,6 +10,8 @@ import {Platform} from '../../_models/platform';
 import {orderByName} from '../../functions';
 import {Contact} from '../../_models/contact';
 import {GameLocalService} from '../../_services/gameLocal.service';
+import {GamesComponent} from '../list/game-list.component';
+import {Router} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -57,7 +59,9 @@ export class GameFormComponent implements OnInit {
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService,
-                private fb: FormBuilder) {
+                private fb: FormBuilder,
+                private injector: Injector,
+                private router: Router) {
         this.validateUserGameForm = fb.group({
             'rating': ['', [CustomValidators.digits, CustomValidators.range([0, 20])]],
             'priceAsked': ['', [CustomValidators.number]],
@@ -110,8 +114,18 @@ export class GameFormComponent implements OnInit {
                 userGame => {
 
                     this._userGame = userGame;
-                    this.gameLocalService.setUserGame(userGame);
-                    this.state.emit('add_' + JSON.stringify(this._userGame));
+                    this.gameLocalService.setUserGame(userGame).then(
+                        userGame => {
+
+                            const parentComponent = this.injector.get(GamesComponent);
+                            parentComponent.ngOnInit();
+                            this.router.navigate(['/games']);
+                        },
+                        error => {
+                            console.log(error);
+                            this.loading = false;
+                            this.errorMessage = <any>error;
+                        });
                 },
                 error => {
                     this.errorMessage = <any>error;

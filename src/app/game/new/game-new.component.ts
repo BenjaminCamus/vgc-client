@@ -1,4 +1,4 @@
-import {Component, Renderer2, OnInit, OnDestroy, ViewChild, EventEmitter, Output} from '@angular/core';
+import {Component, OnInit, OnDestroy, EventEmitter, Output} from '@angular/core';
 
 import {routerTransition} from '../../_animations/router.animations';
 
@@ -7,6 +7,7 @@ import {GameService}       from '../../_services/game.service';
 import {orderByName, formatDate} from "../../functions";
 import {GameLocalService} from "../../_services/gameLocal.service";
 import {environment} from "../../../environments/environment";
+import {GamesComponent} from '../list/game-list.component';
 
 @Component({
     moduleId: module.id,
@@ -16,7 +17,7 @@ import {environment} from "../../../environments/environment";
     animations: [routerTransition()],
     host: {'[@routerTransition]': '', 'class': 'mainPage fakePage'}
 })
-export class GameNewComponent {
+export class GameNewComponent implements OnInit, OnDestroy {
 
     errorMessage: string;
 
@@ -28,12 +29,12 @@ export class GameNewComponent {
     private subscription;
     private buttonClass: Array<string> = [];
     loading: boolean = false;
+    topNav = false;
 
     @Output() state: EventEmitter<string> = new EventEmitter();
 
     constructor(private gameService: GameService,
-                private gameLocalService: GameLocalService,
-                private renderer: Renderer2,) {
+                private gameLocalService: GameLocalService) {
     }
 
     ngOnInit() {

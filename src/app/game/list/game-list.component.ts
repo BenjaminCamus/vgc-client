@@ -14,6 +14,7 @@ import {OrderByPipe} from "../../_pipes/orderBy.pipe";
 import {opacityTransition} from "../../_animations/opacity.animations";
 import {topNavTransition} from "../../_animations/topNav.animations";
 import {environment} from "../../../environments/environment";
+import {Router} from '@angular/router';
 
 @Component({
     moduleId: module.id,
@@ -51,7 +52,6 @@ export class GamesComponent implements OnInit {
     nextUserGame: UserGame;
 
     displayUserGame: boolean = false;
-    displayNewUserGame: boolean = false;
     displayChart: boolean = false;
 
     tableFields = ['game.name', 'userGame.platform', 'userGame.releaseDate', 'userGame.rating', 'userGame.progress', 'userGame.version',
@@ -76,7 +76,8 @@ export class GamesComponent implements OnInit {
     ];
     chartField = 'userGame.platform';
 
-    constructor(private gameService: GameService,
+    constructor(private router: Router,
+                private gameService: GameService,
                 private gameLocalService: GameLocalService,
                 private filterPipe: FilterPipe,
                 private orderByPipe: OrderByPipe) {
@@ -99,14 +100,13 @@ export class GamesComponent implements OnInit {
                 this.navUserGame();
                 break;
             case '+':
-                this.openNewUserGame();
+                this.router.navigate(['/games/new']);
                 break;
             case 'Escape':
                 this.closeUserGame();
-                this.closeNewUserGame();
                 break;
             case 'Enter':
-                if (!this.displayUserGame && this.selectedUserGame && !this.displayNewUserGame && !this.displayFilters) {
+                if (!this.displayUserGame && this.selectedUserGame && !this.displayFilters) {
                     this.openUserGame(this.selectedUserGame);
                 }
                 break;
@@ -123,11 +123,13 @@ export class GamesComponent implements OnInit {
     }
 
     ngOnInit() {
+        console.log('ngOnInit');
 
         this.gameLocalService.getUserGames().then(
             userGames => {
 
                 this.userGames = userGames;
+                console.log(userGames.length);
 
                 this.setSliceGap();
 
@@ -143,6 +145,7 @@ export class GamesComponent implements OnInit {
                 }
             },
             error => {
+                console.log(error);
                 this.loading = false;
                 this.errorMessage = <any>error;
             });
@@ -224,18 +227,7 @@ export class GamesComponent implements OnInit {
         }
     }
 
-    openNewUserGame() {
-        this.closeUserGame();
-        this.closeChart();
-        this.displayNewUserGame = true;
-    }
-
-    closeNewUserGame() {
-        this.displayNewUserGame = false;
-    }
-
     openChart() {
-        this.closeNewUserGame();
         this.closeUserGame();
         this.displayChart = true;
     }
@@ -245,7 +237,6 @@ export class GamesComponent implements OnInit {
     }
 
     openUserGame(userGame) {
-        this.closeNewUserGame();
         this.closeChart();
         this.selectUserGame(userGame);
         this.displayUserGame = true;
@@ -442,8 +433,6 @@ export class GamesComponent implements OnInit {
             this.loading = false;
         }
         else if (event.substr(0, 4) == 'add_') {
-            this.closeNewUserGame();
-            this.closeUserGame();
 
             var userGame = JSON.parse(event.substr(4));
 

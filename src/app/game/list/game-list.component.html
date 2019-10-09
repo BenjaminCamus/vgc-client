@@ -63,7 +63,7 @@
                 [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
         </tr>
     </table>
-    <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
+    <i routerLink="new" class="hovicon fas fa-plus"
        pTooltip="{{ 'btn.newGame' | translate }}"
        tooltipPosition="right"></i>
 </div>
@@ -122,7 +122,7 @@
         </div>
     </section>
     <section class="gameBox visible_anim">
-        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
+        <i routerLink="new" class="hovicon fas fa-plus"
            pTooltip="{{ 'btn.newGame' | translate }}"
            tooltipPosition="top"></i>
     </section>
@@ -163,7 +163,7 @@
         <i routerLink="/login" routerLinkActive="active" class="hovicon fas fa-user"
            pTooltip="{{ 'btn.logout' | translate }}"
            tooltipPosition="right"></i>
-        <i class="hovicon fas fa-plus" (click)="openNewUserGame()"
+        <i routerLink="new" class="hovicon fas fa-plus"
            pTooltip="{{ 'btn.newGame' | translate }}"
            tooltipPosition="right"></i>
         <i class="hovicon fas fa-sync" (click)="getGames()"
@@ -549,13 +549,6 @@
        tooltipPosition="right"></i>
 </div>
 
-<game-new *ngIf="displayNewUserGame" (state)="detailStateUpdate($event)" preventParentScroll></game-new>
-<div class="topnav" *ngIf="displayNewUserGame" [@topNavTransition]>
-    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeNewUserGame()"
-                             pTooltip="{{ 'btn.close' | translate }}"
-                             tooltipPosition="left"></i></div>
-</div>
-
 <game-chart *ngIf="displayChart" [field]="chartField" [userGameFilter]="userGameFilter"
             preventParentScroll></game-chart>
 <div class="topnav" *ngIf="displayChart" [@topNavTransition]>
@@ -586,3 +579,5 @@
 
 <loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction" preventParentScroll></loading>
 <loading *ngIf="welcome" [action]="'welcome'" (close)="welcome = false"></loading>
+
+<router-outlet></router-outlet>

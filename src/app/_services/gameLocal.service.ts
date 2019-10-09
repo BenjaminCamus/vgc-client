@@ -66,9 +66,12 @@ export class GameLocalService {
     }
 
     getUserGames() {
+        console.log('getUserGames openDatabase');
 
         return this.db.openDatabase().then(() => {
+            console.log('getAll openDatabase');
             return this.db.getAll('userGames').then((userGames) => {
+                console.log('return userGames');
 
                 return userGames;
             }, (error) => {
@@ -143,15 +146,17 @@ export class GameLocalService {
     }
 
     setUserGame(userGame: UserGame) {
+        console.log('setUserGame openDatabase');
 
-        this.db.openDatabase().then(() => {
+        return this.db.openDatabase().then(() => {
 
-            this.db.getByKey('userGames', userGame.id).then((localUserGame) => {
+            console.log('getByKey');
+            return this.db.getByKey('userGames', userGame.id).then((localUserGame) => {
 
                 if (localUserGame) {
 
                     this.db.update('userGames', userGame).then(() => {
-                        // Do something after the value was added
+                        return userGame;
                     }, (error) => {
                         console.log(error);
                     });
@@ -159,7 +164,7 @@ export class GameLocalService {
                 }
                 else {
 
-                    let newUserGame = new UserGame();
+                    const newUserGame = new UserGame();
                     newUserGame.purchaseDate = userGame.purchaseDate;
                     newUserGame.purchasePlace = userGame.purchasePlace;
                     newUserGame.purchaseContact = userGame.purchaseContact;
@@ -169,16 +174,14 @@ export class GameLocalService {
 
                     this.setNewUserGame(newUserGame);
 
+                    console.log('add');
                     this.db.add('userGames', userGame).then(() => {
-                        // Do something after the value was added
+                        return userGame;
                     }, (error) => {
-                        console.log(error);
+                        GameLocalService.dbError(error);
                     });
                 }
-
-
             }, (error) => {
-
                 GameLocalService.dbError(error);
             });
         });

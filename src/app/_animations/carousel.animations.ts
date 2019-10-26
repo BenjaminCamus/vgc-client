@@ -1,30 +1,19 @@
-import {trigger, animate, style, transition} from '@angular/animations';
+import { trigger, transition, group, query, style, animate } from '@angular/animations';
 
-export function carouselTransition() {
-    return trigger('carouselTransition', [
-
-        // Leave to left
-        transition('next => void', [
-            style({transform: 'translateX(0%)'}),
-            animate('0.5s ease-in-out', style({transform: 'translateX(-100%)'})),
-        ]),
-
-        // Enter from right
-        transition('void => next', [
-            style({transform: 'translateX(100%)'}),
-            animate('0.5s ease-in-out', style({transform: 'translateX(0)'})),
-        ]),
-
-        // Leave to right
-        transition('prev => void', [
-            style({transform: 'translateX(0%)'}),
-            animate('0.5s ease-in-out', style({transform: 'translateX(100%)'})),
-        ]),
-
-        // Enter from left
-        transition('void => prev', [
-            style({transform: 'translateX(-100%)'}),
-            animate('0.5s ease-in-out', style({transform: 'translateX(0)'})),
-        ]),
-    ]);
+export class CarouselAnimations {
+    static routeSlide =
+        trigger('routeSlide', [
+            transition('* <=> *', [
+                group([
+                    query(':enter', [
+                        style({transform: 'translateX({{offsetEnter}}%)'}),
+                        animate('0.4s ease-in-out', style({transform: 'translateX(0%)'}))
+                    ], {optional: true}),
+                    query(':leave', [
+                        style({transform: 'translateX(0%)'}),
+                        animate('0.4s ease-in-out', style({transform: 'translateX({{offsetLeave}}%)'}))
+                    ], {optional: true}),
+                ])
+            ]),
+        ]);
 }

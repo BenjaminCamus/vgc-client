@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core';
 
 export class OrderByPipe implements PipeTransform {
 
-    transform(array: Array<Object>, orderField: string, orderOption: boolean): Array<Object> {
+    transform(array: Array<Object>, orderField: string, orderOption: boolean): Array<any> {
 
         if (array == null) {
             return null;

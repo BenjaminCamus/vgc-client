@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {AngularIndexedDB} from 'angular2-indexeddb';
-import {UserGame} from "../_models/userGame";
-import {Contact} from "../_models/contact";
+import {UserGame} from '../_models/userGame';
+import {Contact} from '../_models/contact';
 
 const DB_NAME = 'VGC';
 const DB_VERSION = 11;
@@ -9,22 +9,8 @@ const DB_VERSION = 11;
 @Injectable()
 export class GameLocalService {
 
-    db;
-
-    constructor() {
-
-        localStorage.removeItem('userGames');
-
-        this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
-
-        this.db.openDatabase(DB_VERSION, (evt) => {
-            this.db.getAll('userGames').then({}, (error) => {
-                GameLocalService.dbError(error);
-                evt.currentTarget.result.createObjectStore(
-                    'userGames', {keyPath: "id", autoIncrement: true});
-            });
-        });
-    }
+    private db: AngularIndexedDB;
+    private userGames: UserGame[] = [];
 
     private userGamesDateLocalId = 'userGamesDate';
     private userContactsLocalId = 'userContacts';
@@ -34,15 +20,50 @@ export class GameLocalService {
     private enableVideoId = 'enableVideo';
     private welcomeShowLocalId = 'welcomeShow';
 
-    resetAll() {
-        let resetIds = ['userGamesDate', 'userContacts', 'userPlaces', 'newGameSearch'];
-        for (let i in resetIds) {
-            localStorage.removeItem(resetIds[i]);
+    private static setDates(userGame) {
+
+        userGame.purchaseDate = new Date(userGame.purchaseDate);
+        if (userGame.saleDate) {
+            userGame.saleDate = new Date(userGame.saleDate);
+        }
+        if (userGame.releaseDate) {
+            userGame.releaseDate = new Date(userGame.releaseDate);
         }
 
-        return this.db.openDatabase().then(() => {
+        return userGame;
+    }
+
+    private static dbError(error) {
+        console.log(error);
+    }
+
+    constructor() {
+
+        localStorage.removeItem('userGames');
+
+        this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
+
+        this.db.openDatabase(DB_VERSION, (evt) => {
+            this.db.getAll('userGames').then((error) => {
+                GameLocalService.dbError(error);
+                evt.currentTarget.result.createObjectStore(
+                    'userGames', {keyPath: 'id', autoIncrement: true});
+            });
+        });
+    }
+
+
+    resetAll() {
+        const resetIds = ['userGamesDate', 'userContacts', 'userPlaces', 'newGameSearch'];
+        for (const id of resetIds) {
+            localStorage.removeItem(id);
+        }
+
+        this.userGames = [];
+
+        return this.db.openDatabase(DB_VERSION).then(() => {
             return this.db.getAll('userGames').then((userGames) => {
-                for (let userGame of userGames) {
+                for (const userGame of userGames) {
                     this.db.delete('userGames', userGame.id).then(() => {
                         // Do something after the value was added
                     }, (error) => {
@@ -55,21 +76,24 @@ export class GameLocalService {
         });
     }
 
-    private static dbError(error) {
-        console.log(error);
-    }
-
     setUserGames(userGames: UserGame[]) {
-        for (let userGame of userGames) {
+        for (const userGame of userGames) {
             this.setUserGame(userGame);
         }
     }
 
     getUserGames() {
+        if (this.userGames.length > 0) {
+            return new Promise(resolve => {
+                resolve(this.userGames);
+            });
+        }
 
-        return this.db.openDatabase().then(() => {
+        this.userGames = [];
+
+        return this.db.openDatabase(DB_VERSION).then(() => {
             return this.db.getAll('userGames').then((userGames) => {
-
+                this.userGames = userGames;
                 return userGames;
             }, (error) => {
                 GameLocalService.dbError(error);
@@ -78,15 +102,15 @@ export class GameLocalService {
     }
 
     setUserGamesDate() {
-        let date = new Date();
+        const date = new Date();
         localStorage.setItem(this.userGamesDateLocalId, date.getTime().toString());
         return date;
     }
 
     getUserGamesDate() {
         if (localStorage.getItem(this.userGamesDateLocalId)) {
-            let dateTime = localStorage.getItem(this.userGamesDateLocalId);
-            return new Date(parseInt(dateTime));
+            const dateTime = localStorage.getItem(this.userGamesDateLocalId);
+            return new Date(parseInt(dateTime, 10));
         }
 
         return null;
@@ -116,50 +140,50 @@ export class GameLocalService {
         return [];
     }
 
-    getUserGameByPlatform(userGame: UserGame) {
+    getUserGame(id) {
+        const index = this.userGames.findIndex(function (cur) {
+            return id === cur.id;
+        });
 
-        return this.db.openDatabase().then(() => {
-            return this.db.getAll('userGames').then((userGames) => {
+        if (index > 0) {
+            return new Promise(resolve => {
+                resolve(this.userGames[index]);
+            });
+        }
 
-                if (userGames.length == 0) {
-                    return userGame;
-                }
-                else {
-                    let index = userGames.findIndex(function (cur) {
-                        return userGame.game.slug === cur.game.slug && userGame.platform.slug === cur.platform.slug;
-                    });
-
-                    if (index === -1) {
-                        return userGame;
-                    }
-                    else {
-                        return userGames[index];
-                    }
-                }
+        return this.db.openDatabase(DB_VERSION).then(() => {
+            return this.db.getByKey('userGames', id).then((userGame) => {
+                return userGame;
             }, (error) => {
-                console.log(error);
+                GameLocalService.dbError(error);
             });
         });
     }
 
     setUserGame(userGame: UserGame) {
 
-        this.db.openDatabase().then(() => {
+        const index = this.userGames.findIndex(function (cur) {
+            return userGame.id === cur.id;
+        });
+        if (index === -1) {
+            this.userGames.push(userGame);
+        } else {
+            this.userGames[index] = userGame;
+        }
 
-            this.db.getByKey('userGames', userGame.id).then((localUserGame) => {
+        return this.db.openDatabase(DB_VERSION).then(() => {
+            return this.db.getByKey('userGames', userGame.id).then((localUserGame) => {
 
                 if (localUserGame) {
 
                     this.db.update('userGames', userGame).then(() => {
-                        // Do something after the value was added
+                        return userGame;
                     }, (error) => {
                         console.log(error);
                     });
+                } else {
 
-                }
-                else {
-
-                    let newUserGame = new UserGame();
+                    const newUserGame = new UserGame();
                     newUserGame.purchaseDate = userGame.purchaseDate;
                     newUserGame.purchasePlace = userGame.purchasePlace;
                     newUserGame.purchaseContact = userGame.purchaseContact;
@@ -170,15 +194,12 @@ export class GameLocalService {
                     this.setNewUserGame(newUserGame);
 
                     this.db.add('userGames', userGame).then(() => {
-                        // Do something after the value was added
+                        return userGame;
                     }, (error) => {
-                        console.log(error);
+                        GameLocalService.dbError(error);
                     });
                 }
-
-
             }, (error) => {
-
                 GameLocalService.dbError(error);
             });
         });
@@ -186,10 +207,14 @@ export class GameLocalService {
 
     removeUserGame(userGame: UserGame) {
 
-        this.db.openDatabase().then(() => {
+        this.userGames = this.userGames.filter(function (el) {
+            return el.id !== userGame.id;
+        });
 
-            this.db.delete('userGames', userGame.id).then(() => {
-                // Do something after the value was added
+        return this.db.openDatabase(DB_VERSION).then(() => {
+
+            return this.db.delete('userGames', userGame.id).then(() => {
+                return userGame;
             }, (error) => {
                 console.log(error);
             });
@@ -230,19 +255,6 @@ export class GameLocalService {
         }
 
         return [];
-    }
-
-    private static setDates(userGame) {
-
-        userGame.purchaseDate = new Date(userGame.purchaseDate);
-        if (userGame.saleDate) {
-            userGame.saleDate = new Date(userGame.saleDate);
-        }
-        if (userGame.releaseDate) {
-            userGame.releaseDate = new Date(userGame.releaseDate);
-        }
-
-        return userGame;
     }
 
     setNewUserGame(userGame: UserGame) {

@@ -1,15 +1,16 @@
-import {Component, Input, Output, OnInit, EventEmitter, ElementRef} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter, ElementRef, Renderer2, Injector} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ng2-validation';
-
 import {Game} from '../../_models/game';
 import {GameService} from '../../_services/game.service';
 import {UserGame} from '../../_models/userGame';
 import {Platform} from '../../_models/platform';
-
 import {orderByName} from '../../functions';
 import {Contact} from '../../_models/contact';
 import {GameLocalService} from '../../_services/gameLocal.service';
+import {GamesComponent} from '../list/game-list.component';
+import {Router} from '@angular/router';
+import {GameDetailComponent} from '../detail/game-detail.component';
 
 @Component({
     moduleId: module.id,
@@ -18,9 +19,9 @@ import {GameLocalService} from '../../_services/gameLocal.service';
     templateUrl: './game-form.component.html'
 })
 export class GameFormComponent implements OnInit {
+    private gameLocalService: GameLocalService;
 
     public loading = false;
-    private errorMessage: string;
 
     @Input() game: Game;
     @Input() platform: Platform;
@@ -32,12 +33,6 @@ export class GameFormComponent implements OnInit {
     }
 
     @Input() action: string;
-
-    @Input() set update(update: number) {
-        this.updateSelects();
-    }
-
-    @Output() state: EventEmitter<string> = new EventEmitter();
 
     private userContacts: Contact[];
     private userPlaces: string[];
@@ -56,8 +51,9 @@ export class GameFormComponent implements OnInit {
     };
 
     constructor(private gameService: GameService,
-                private gameLocalService: GameLocalService,
-                private fb: FormBuilder) {
+                private fb: FormBuilder,
+                private injector: Injector,
+                private router: Router) {
         this.validateUserGameForm = fb.group({
             'rating': ['', [CustomValidators.digits, CustomValidators.range([0, 20])]],
             'priceAsked': ['', [CustomValidators.number]],
@@ -71,6 +67,7 @@ export class GameFormComponent implements OnInit {
 
     ngOnInit(): void {
 
+        this.gameLocalService = this.injector.get(GamesComponent).gameLocalService;
         this.userContacts = this.gameLocalService.getUserContacts();
         this.userPlaces = this.gameLocalService.getUserPlaces();
         this.updateSelects();
@@ -79,7 +76,7 @@ export class GameFormComponent implements OnInit {
     }
 
     submitForm() {
-        if (this.action == 'delete') {
+        if (this.action === 'delete') {
             this.deleteUserGame();
         } else {
             this.postUserGame();
@@ -88,7 +85,7 @@ export class GameFormComponent implements OnInit {
 
     postUserGame() {
         this.loading = true;
-        this.state.emit('submitted');
+        this.injector.get(GamesComponent).startLoading('save');
 
         if (!this._userGame.game.igdbId) {
             this._userGame.game.igdbId = +this.game.id;
@@ -97,42 +94,57 @@ export class GameFormComponent implements OnInit {
             this._userGame.platform.igdbId = +this.platform.id;
         }
 
-        if (this._userGame.purchaseContact && this._userGame.purchaseContact.id == 0) {
+        if (this._userGame.purchaseContact && this._userGame.purchaseContact.id === 0) {
             this._userGame.purchaseContact = this.newContacts['purchase'];
         }
 
-        if (this._userGame.saleContact && this._userGame.saleContact.id == 0) {
+        if (this._userGame.saleContact && this._userGame.saleContact.id === 0) {
             this._userGame.saleContact = this.newContacts['sale'];
         }
 
         this.gameService.postUserGame(this._userGame)
             .subscribe(
                 userGame => {
-
-                    this._userGame = userGame;
-                    this.gameLocalService.setUserGame(userGame);
-                    this.state.emit('add_' + JSON.stringify(this._userGame));
+                    this.gameLocalService.setUserGame(userGame).then(
+                        () => {
+                            this.loading = false;
+                            this.injector.get(GamesComponent).ngOnInit();
+                            if (this._userGame.id !== '') {
+                                this.injector.get(GameDetailComponent).openForm(false);
+                            }
+                            this.router.navigate(['/games/show/' + userGame.id]);
+                        },
+                        error => {
+                            console.log(error);
+                            this.loading = false;
+                        });
                 },
                 error => {
-                    this.errorMessage = <any>error;
+                    console.log(error);
                     this.loading = false;
                 });
-
-
     }
 
     deleteUserGame() {
         this.loading = true;
-        this.state.emit('submitted');
+        this.injector.get(GamesComponent).startLoading('delete');
 
         this.gameService.deleteUserGame(this._userGame)
             .subscribe(
-                response => {
-                    this.gameLocalService.removeUserGame(this._userGame);
-                    this.state.emit('delete_' + JSON.stringify(this._userGame));
+                () => {
+                    this.gameLocalService.removeUserGame(this._userGame).then(
+                        () => {
+                            this.injector.get(GamesComponent).ngOnInit();
+                            this.router.navigate(['/games']);
+                        },
+                        error => {
+                            console.log(error);
+                            this.loading = false;
+                        });
                 },
                 error => {
-                    this.errorMessage = <any>error;
+                    console.log(error);
+                    this.loading = false;
                 });
     }
 
@@ -147,7 +159,7 @@ export class GameFormComponent implements OnInit {
                         this.updateSelects();
                     },
                     error => {
-                        this.errorMessage = <any>error;
+                        console.log(error);
                     });
         }
     }
@@ -163,7 +175,7 @@ export class GameFormComponent implements OnInit {
                         this.updateSelects();
                     },
                     error => {
-                        this.errorMessage = <any>error;
+                        console.log(error);
                     });
         }
     }

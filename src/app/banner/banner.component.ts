@@ -1,8 +1,8 @@
-import {Component, ElementRef, Input, HostListener, ViewChild} from "@angular/core";
-import {Game} from "../_models/game";
-import {opacityTransition} from "../_animations/opacity.animations";
-import {GameLocalService} from "../_services/gameLocal.service";
-import {Video} from "../_models/video";
+import {Component, ElementRef, Input, HostListener, ViewChild} from '@angular/core';
+import {Game} from '../_models/game';
+import {opacityTransition} from '../_animations/opacity.animations';
+import {GameLocalService} from '../_services/gameLocal.service';
+import {Video} from '../_models/video';
 import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
@@ -16,7 +16,7 @@ export class BannerComponent {
     game: Game;
 
     enableVideo: boolean = true;
-    video: Video|null;
+    video: Video | null;
     image: string = '';
     image2: string = '';
 
@@ -45,8 +45,7 @@ export class BannerComponent {
         else if (data && data[0] && data[0].name) {
 
             this.game = data[0];
-        }
-        else {
+        } else {
             this.game = null;
         }
 
@@ -59,11 +58,10 @@ export class BannerComponent {
             let imageId = this.game.screenshots[rand].cloudinaryId;
 
             image = 'https://images.igdb.com/igdb/image/upload/t_original/' + imageId + '.jpg';
-        }
-        else {
+        } else {
             let rand = Math.floor(Math.random() * 222) + 1;
-            let str = "" + rand;
-            let pad = "000";
+            let str = '' + rand;
+            let pad = '000';
             let imageId = pad.substring(0, pad.length - str.length) + str;
 
             image = 'assets/img/pixel-bg/pixel-background-' + imageId + '.gif';
@@ -72,8 +70,7 @@ export class BannerComponent {
         if (this.image != '') {
             this.image = '';
             this.image2 = image;
-        }
-        else {
+        } else {
             this.image = image;
             this.image2 = '';
         }
@@ -101,8 +98,7 @@ export class BannerComponent {
                 this.bannerWidth = 0;
                 this.bannerHeight = 0;
 
-            }
-            else {
+            } else {
                 this.bannerMarginLeft = -window.pageYOffset / 2;
                 this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
                 this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;

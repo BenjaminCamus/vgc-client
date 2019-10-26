@@ -113,7 +113,6 @@ export class BannerComponent {
     }
 
     randomVideo() {
-        return false;
 
         if (this.deviceService.isMobile()) {
             return false;

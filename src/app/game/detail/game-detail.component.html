@@ -1,7 +1,7 @@
 <banner [data]="userGame"></banner>
 
-<div class="container-fluid">
-    <div *ngIf="userGame.game" class="row">
+<div class="container-fluid" *ngIf="userGame">
+    <div class="row">
         <div class="col-md-4 text-center">
 
             <game-images [game]="userGame.game"></game-images>
@@ -20,7 +20,7 @@
                        pTooltip="{{ 'btn.remove' | translate }}"
                        tooltipPosition="left"></i>
                     <i *ngIf="selectedGame" class="hovicon fas fa-times"
-                       (click)="openForm()"
+                       (click)="openForm(false)"
                        pTooltip="{{ 'btn.cancel' | translate }}"
                        tooltipPosition="left"></i>
                 </div>
@@ -31,8 +31,8 @@
 
 
             <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
-                       [userGame]="userGame" [update]="update"
-                       (state)="formStateUpdate($event)" [action]="formAction"></game-form>
+                       [userGame]="userGame"
+                       [action]="formAction"></game-form>
             <button *ngIf="selectedGame" (click)="openForm()" class="btn btn-primary">
                 {{ 'btn.cancel' | translate }}
             </button>

@@ -21,7 +21,9 @@
         </tr>
         <tr>
             <td class="tdLabel">{{ 'label.search' | translate }}</td>
-            <td>{{ userGames | filter: userGameFilter | length }} <span *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}%)</span>
+            <td>{{ userGames | filter: userGameFilter | length }} <span
+                    *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}
+                %)</span>
             </td>
             <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€ <span
                     *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
@@ -54,7 +56,7 @@
         </tr>
         <tr *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd;"
             [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''"
-            (click)="openUserGame(userGame)"
+            [routerLink]="'show/' + userGame.id"
             (mouseenter)="selectUserGame(userGame)">
 
             <td [style.background-image]="'url(' + environment.imagesUrl + 't_cover_big/' + userGame.game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></td>
@@ -71,8 +73,8 @@
 <div *ngIf="displayMode == 0" class="gameBoxContainer">
 
     <section
-            *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd;"
-            (click)="openUserGame(userGame)"
+            *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd"
+            [routerLink]="'show/' + userGame.id"
             (mouseenter)="userGameHover(userGame)"
             class="gameBox visible_anim"
             [ngClass]="selectedUserGame && selectedUserGame == userGame ? 'focus' : ''">
@@ -146,7 +148,8 @@
         </select>
     </div>
 
-    <p-paginator [first]="sliceStart" [rows]="sliceGap" [totalRecords]="userGames | filter: userGameFilter | length" (onPageChange)="paginate($event)"></p-paginator>
+    <p-paginator [first]="sliceStart" [rows]="sliceGap" [totalRecords]="userGames | filter: userGameFilter | length"
+                 (onPageChange)="paginate($event)"></p-paginator>
 
     <span style="white-space: nowrap">
         {{ sliceStart + 1 }}
@@ -327,9 +330,8 @@
                                   [min]="userGameFilter.minPurchaseYear"
                                   [max]="userGameFilter.maxPurchaseYear"></p-slider>
 
-                        <label for="name">{{ 'field.userGame.rating' | translate }} ({{userGameFilter.ratingRange[0] + '
-                            - ' +
-                            userGameFilter.ratingRange[1]}})</label><br>
+                        <label for="name">{{ 'field.userGame.rating' | translate }} ({{userGameFilter.ratingRange[0]
+                        + ' - ' + userGameFilter.ratingRange[1]}})</label><br>
                         <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true"
                                   (onChange)="resetSelectedUserGame()"
                                   [min]="userGameFilter.minRating"
@@ -523,31 +525,9 @@
     </div>
 </nav>
 
-<game-detail [userGame]="selectedUserGame1" [transitionState]="transitionState" preventParentScroll
-             *ngIf="displayUserGame && selectedUserGame1"
-             (state)="detailStateUpdate($event)"
-             (swipeleft)="navUserGame()"
-             (swiperight)="navUserGame(true)"></game-detail>
-<game-detail [userGame]="selectedUserGame2" [transitionState]="transitionState" preventParentScroll
-             *ngIf="displayUserGame && selectedUserGame2"
-             (state)="detailStateUpdate($event)"
-             (swipeleft)="navUserGame()"
-             (swiperight)="navUserGame(true)"></game-detail>
-
-<div class="topnav" *ngIf="displayUserGame && selectedUserGame" [@topNavTransition]>
-
-    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeUserGame()"
-                             pTooltip="{{ 'btn.close' | translate }}"
-                             tooltipPosition="left"></i></div>
-    <i *ngIf="prevUserGame" class="hovicon fas fa-chevron-left"
-       (click)="navUserGame(true)"
-       pTooltip="{{ 'btn.previous' | translate }}"
-       tooltipPosition="right"></i>
-    <i *ngIf="nextUserGame" class="hovicon fas fa-chevron-right"
-       (click)="navUserGame()"
-       pTooltip="{{ 'btn.next' | translate }}"
-       tooltipPosition="right"></i>
-</div>
+<!--<game-detail
+<!--             (swipeleft)="navUserGame()"-->
+<!--             (swiperight)="navUserGame(true)"></game-detail>-->
 
 <game-chart *ngIf="displayChart" [field]="chartField" [userGameFilter]="userGameFilter"
             preventParentScroll></game-chart>
@@ -577,7 +557,32 @@
 </div>
 
 
-<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction" preventParentScroll></loading>
+<loading *ngIf="loading" [progress]="userGames.length" [total]="total" [action]="loadingAction"
+         preventParentScroll></loading>
 <loading *ngIf="welcome" [action]="'welcome'" (close)="welcome = false"></loading>
 
-<router-outlet></router-outlet>
+<!--<router-outlet></router-outlet>-->
+<div *ngIf="routeTrigger" [@routeSlide]="routeTrigger">
+    <router-outlet></router-outlet>
+
+    <div class="topnav" *ngIf="router.url.indexOf('/games/show') === 0" [@topNavTransition]>
+        <i class="hovicon fas fa-chevron-left"
+           (click)="navigateUserGame(currentIndex - 1)"
+           pTooltip="{{ 'btn.previous' | translate }}"
+           tooltipPosition="right"></i>
+        <i class="hovicon fas fa-chevron-right"
+           (click)="navigateUserGame(currentIndex + 1)"
+           pTooltip="{{ 'btn.next' | translate }}"
+           tooltipPosition="right"></i>
+
+        <div class="navRight"><i [routerLink]="'/games'" class="hovicon fas fa-times"
+                                 pTooltip="{{ 'btn.close' | translate }}"
+                                 tooltipPosition="left"></i></div>
+    </div>
+</div>
+
+<div class="topnav" *ngIf="router.url === '/games/new'" [@topNavTransition]>
+    <div class="navRight"><i routerLink="/games" class="hovicon fas fa-times"
+                             pTooltip="{{ 'btn.close' | translate }}"
+                             tooltipPosition="left"></i></div>
+</div>

@@ -2,11 +2,11 @@ import {Component, OnInit, OnDestroy, EventEmitter, Output} from '@angular/core'
 
 import {routerTransition} from '../../_animations/router.animations';
 
-import {Game}    from '../../_models/game';
-import {GameService}       from '../../_services/game.service';
-import {orderByName, formatDate} from "../../functions";
-import {GameLocalService} from "../../_services/gameLocal.service";
-import {environment} from "../../../environments/environment";
+import {Game} from '../../_models/game';
+import {GameService} from '../../_services/game.service';
+import {orderByName, formatDate} from '../../functions';
+import {GameLocalService} from '../../_services/gameLocal.service';
+import {environment} from '../../../environments/environment';
 import {GamesComponent} from '../list/game-list.component';
 
 @Component({
@@ -19,8 +19,6 @@ import {GamesComponent} from '../list/game-list.component';
 })
 export class GameNewComponent implements OnInit, OnDestroy {
 
-    errorMessage: string;
-
     private environment = environment;
     private search: string = '';
     private games: Array<any>;
@@ -28,10 +26,7 @@ export class GameNewComponent implements OnInit, OnDestroy {
     private selectedPlatform;
     private subscription;
     private buttonClass: Array<string> = [];
-    loading: boolean = false;
-    topNav = false;
-
-    @Output() state: EventEmitter<string> = new EventEmitter();
+    loading = false;
 
     constructor(private gameService: GameService,
                 private gameLocalService: GameLocalService) {
@@ -48,7 +43,7 @@ export class GameNewComponent implements OnInit, OnDestroy {
     }
 
     onSubmit() {
-        if (this.search != '') {
+        if (this.search !== '') {
             this.ngOnDestroy();
             this.gameLocalService.setNewGameSearch(this.search);
 
@@ -57,46 +52,31 @@ export class GameNewComponent implements OnInit, OnDestroy {
                 .subscribe(
                     games => {
                         games = games.filter(function (elem, index, self) {
-                            return index == self.indexOf(elem);
+                            return index === self.indexOf(elem);
                         });
 
                         this.games = games.sort(orderByName);
 
-                        for (let game of this.games) {
-                            for (let platform of game.platforms) {
-                                this.getPlatformButtonClass(game, platform);
+                        this.gameLocalService.getUserGames().then(
+                            userGames => {
+                                for (const game of this.games) {
+                                    for (const platform of game.platforms) {
+                                        const index = userGames.findIndex(function (cur) {
+                                            return game.id === cur.game.igdbId && platform.slug === cur.platform.slug;
+                                        });
 
-                            }
-                        }
+                                        this.buttonClass[game.id + '_' + platform.id] = index === -1 ? 'btn-primary' : 'btn-success';
+                                    }
+                                }
+                            });
 
                         this.loading = false;
                     },
                     error => {
+                        console.log(error);
                         this.loading = false;
-                        this.errorMessage = <any>error;
                     });
         }
-    }
-
-    getPlatformButtonClass(game: Game, platform) {
-
-        this.buttonClass[game.id + '_' + platform.id] = 'btn-primary';
-
-        let userGame = this.gameLocalService.getNewUserGame();
-        userGame.game = game;
-        userGame.platform = platform;
-
-        return this.gameLocalService.getUserGameByPlatform(userGame).then(
-            userGame => {
-
-                if (userGame.user) {
-                    this.buttonClass[game.id + '_' + platform.id] = 'btn-success';
-                }
-            },
-            error => {
-                this.loading = false;
-                this.errorMessage = <any>error;
-            });
     }
 
     onSelect(game, platform: Object): void {
@@ -104,13 +84,8 @@ export class GameNewComponent implements OnInit, OnDestroy {
         this.selectedGame = game;
         this.selectedPlatform = platform;
         if (this.selectedGame.first_release_date) {
-            var date = new Date(this.selectedGame.first_release_date);
+            const date = new Date(this.selectedGame.first_release_date);
             this.selectedGame.release_date = formatDate(date, 'd/m/y');
         }
-    }
-
-    formStateUpdate(event) {
-
-        this.state.emit(event);
     }
 }

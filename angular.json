@@ -26,7 +26,8 @@
               "node_modules/ngx-lightbox/lightbox.css",
               "src/styles.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "showCircularDependencies": false
           },
           "configurations": {
             "production": {

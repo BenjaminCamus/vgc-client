@@ -9,7 +9,7 @@ import {UserGameFilter} from "../_models/userGameFilter";
 })
 
 export class FilterPipe implements PipeTransform {
-    transform(items: UserGame[], filter: UserGameFilter): Array<any> {
+    transform(items: UserGame[], filter: UserGameFilter): UserGame[] {
 
         return items.filter(item => {
             /**

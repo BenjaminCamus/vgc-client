@@ -108,7 +108,7 @@ export class GamesComponent implements OnInit, OnDestroy {
                 }
                 break;
             case 'Enter':
-                if (this.selectedUserGame && !this.displayFilters && !this.displayChart) {
+                if (this.router.url === '/games' && this.selectedUserGame && !this.displayFilters && !this.displayChart) {
                     this.router.navigate(['/games/show/' + this.selectedUserGame.id]);
                 }
                 break;

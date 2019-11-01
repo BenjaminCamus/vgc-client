@@ -4,7 +4,7 @@ import {UserGame} from '../_models/userGame';
 import {Contact} from '../_models/contact';
 
 const DB_NAME = 'VGC';
-const DB_VERSION = 11;
+const DB_VERSION = 12;
 
 @Injectable()
 export class GameLocalService {
@@ -44,11 +44,8 @@ export class GameLocalService {
         this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
 
         this.db.openDatabase(DB_VERSION, (evt) => {
-            this.db.getAll('userGames').then((error) => {
-                GameLocalService.dbError(error);
-                evt.currentTarget.result.createObjectStore(
-                    'userGames', {keyPath: 'id', autoIncrement: true});
-            });
+            evt.currentTarget.result.createObjectStore(
+                'userGames', {keyPath: 'id', autoIncrement: true});
         });
     }
 

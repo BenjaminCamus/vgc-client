@@ -14,10 +14,6 @@
 @import "assets/scss/progress";
 @import "assets/scss/terminal";
 
-html {
-  overflow-y: scroll;
-}
-
 body {
   font-family: 'Share Tech Mono', monospace;
   font-size: 14px;
@@ -64,4 +60,15 @@ a:focus, a:hover {
   margin: 0 auto;
   padding: 30px;
   max-width: 100%;
+}
+
+.bgblur {
+  backdrop-filter: blur(30px) brightness(70%);
+  padding-bottom: 30px;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+game-new .bgblur {
+  backdrop-filter: blur(30px) brightness(20%);
 }

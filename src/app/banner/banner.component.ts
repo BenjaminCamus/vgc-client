@@ -24,8 +24,7 @@ export class BannerComponent {
     bannerWidth: number;
     bannerHeight: number;
 
-    // Banner Resize
-    @Input() resize: boolean = false;
+    @Input() disableVideo: boolean = false;
 
     @Input() set data(data: any) {
 
@@ -78,33 +77,8 @@ export class BannerComponent {
 
     @ViewChild('gameBanner') gameBanner: ElementRef;
 
-    @HostListener('window:scroll', ['$event']) onWindowScroll(event) {
-        this.resizeBanner();
-    }
-
-    @HostListener('window:resize', ['$event']) onResize(event) {
-        this.resizeBanner();
-    }
-
     constructor(private gameLocalService: GameLocalService,
                 private deviceService: DeviceDetectorService) {
-    }
-
-    resizeBanner() {
-
-        if (this.resize) {
-            if (window.pageYOffset > this.gameBanner.nativeElement.offsetHeight) {
-                this.bannerMarginLeft = 0;
-                this.bannerWidth = 0;
-                this.bannerHeight = 0;
-
-            } else {
-                this.bannerMarginLeft = -window.pageYOffset / 2;
-                this.bannerWidth = this.gameBanner.nativeElement.offsetWidth + window.pageYOffset;
-                this.bannerHeight = this.gameBanner.nativeElement.offsetHeight + window.pageYOffset + 70;
-
-            }
-        }
     }
 
     setEnableVideo(enableVideo) {
@@ -120,8 +94,8 @@ export class BannerComponent {
 
         let video;
 
-        if (!this.resize && this.game && this.game.videos && this.game.videos.length > 0) {
-            let rand = Math.floor(Math.random() * this.game.videos.length);
+        if (!this.disableVideo && this.game && this.game.videos && this.game.videos.length > 0) {
+            const rand = Math.floor(Math.random() * this.game.videos.length);
 
             video = this.game.videos[rand];
 

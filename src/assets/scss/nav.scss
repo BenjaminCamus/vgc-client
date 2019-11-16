@@ -1,16 +1,9 @@
-.mainPage {
-  position: absolute;
-  width: 100%;
-  min-height: 100%;
-  overflow-x: hidden;
-  padding-bottom: 70px;
-}
-
 .fakePage {
   position: fixed;
   width: 100vw;
   height: 100vh;
   padding-top: 0;
+  padding-bottom: 70px;
   top: 0;
   left: 0;
   background: #111;
@@ -18,9 +11,12 @@
   overflow-y: scroll;
 }
 
+game-list {
+  padding-bottom: 0 !important;
+}
+
 .topnav, .title {
   font-size: 28px;
-  width: 100%;
   background: rgba(0, 0, 0, .8);
   min-height: 70px;
   line-height: 70px;
@@ -29,13 +25,8 @@
 }
 
 @media (min-width: 992px) {
-  .title {
-    position: absolute;
-    margin-top: -70px;
-  }
-
-  .title.radius {
-    border-radius: 15px 0 0 0;
+  .row .title {
+    margin: 0 -15px;
   }
 
   .titleText {
@@ -67,11 +58,6 @@
 
 @media (max-width: 1109px) {
 
-  game-new .gameBanner.gameBannerBig,
-  game-new .gameBanner.gameBannerBig .gameBannerBg {
-    height: 30vh;
-  }
-
   .title .table > tbody > tr > td, .title .table > tbody > tr > th, .title .table > tfoot > tr > td, .title .table > tfoot > tr > th, .title .table > thead > tr > td, .title .table > thead > tr > th {
     padding: 0 3px;
   }
@@ -92,6 +78,7 @@
 .topnav {
   top: 0;
   left: 0;
+  right: 0;
   position: fixed;
   font-size: 0;
 }

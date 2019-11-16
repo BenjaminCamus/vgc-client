@@ -10,7 +10,7 @@ import {DeviceDetectorService} from "ngx-device-detector";
     selector: 'game-chart',
     templateUrl: './game-chart.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': '', 'class': 'mainPage fakePage'}
+    host: {'[@routerTransition]': '', 'class': 'fakePage'}
 })
 export class GameChartComponent implements OnInit {
 

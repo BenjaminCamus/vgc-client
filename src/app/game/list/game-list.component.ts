@@ -23,7 +23,7 @@ import {CarouselAnimations} from '../../_animations/carousel.animations';
     selector: 'game-list',
     templateUrl: './game-list.component.html',
     animations: [routerTransition(), opacityTransition(), topNavTransition(), CarouselAnimations.routeSlide],
-    host: {'[@opacityTransition]': '', 'class': 'mainPage'}
+    host: {'[@opacityTransition]': '', 'class': 'fakePage'}
 })
 export class GamesComponent implements OnInit, OnDestroy {
 

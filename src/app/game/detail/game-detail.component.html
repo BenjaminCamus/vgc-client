@@ -31,7 +31,7 @@
             <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
                        [userGame]="userGame"
                        [action]="formAction"></game-form>
-            <button *ngIf="selectedGame" (click)="openForm()" class="btn btn-primary">
+            <button *ngIf="selectedGame" (click)="openForm(false)" class="btn btn-primary fit">
                 {{ 'btn.cancel' | translate }}
             </button>
 

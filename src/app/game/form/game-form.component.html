@@ -248,12 +248,14 @@
         </div>
     </div>
 
-    <div class="row" *ngIf="action == 'delete'">
-        <div class="col-md-12">
-            <h1>{{ 'msg.removeConfirm' | translate }}</h1>
-            <button type="submit" class="btn btn-danger">
-                {{ 'btn.remove' | translate }}
-            </button>
+    <div *ngIf="action == 'delete'" class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>{{ 'msg.removeConfirm' | translate }}</h1>
+                <button type="submit" class="btn btn-danger">
+                    {{ 'btn.remove' | translate }}
+                </button>
+            </div>
         </div>
     </div>
 </form>

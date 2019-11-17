@@ -447,31 +447,31 @@
                         </div>
                         <div>
                             <label>{{ 'field.userGame.cond' | translate }}</label><br>
-                            <tag [tag]="'enum.cond.2' | translate"
-                                 [value]="2"
+                            <tag [tag]="'enum.cond.BAD' | translate"
+                                 [value]="'BAD'"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond[2]"
-                                 (uploaded)="toggleTag('conds', $event, 2)"></tag>
-                            <tag [tag]="'enum.cond.1' | translate"
-                                 [value]="1"
+                                 [suffix]="userGameFilter.stats.count.cond['BAD']"
+                                 (uploaded)="toggleTag('conds', $event, 'BAD')"></tag>
+                            <tag [tag]="'enum.cond.GOOD' | translate"
+                                 [value]="'GOOD'"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond[1]"
-                                 (uploaded)="toggleTag('conds', $event, 1)"></tag>
-                            <tag [tag]="'enum.cond.0' | translate"
-                                 [value]="0"
+                                 [suffix]="userGameFilter.stats.count.cond['GOOD']"
+                                 (uploaded)="toggleTag('conds', $event, 'GOOD')"></tag>
+                            <tag [tag]="'enum.cond.VERY_GOOD' | translate"
+                                 [value]="'VERY_GOOD'"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond[0]"
-                                 (uploaded)="toggleTag('conds', $event, 0)"></tag>
-                            <tag [tag]="'enum.cond.3' | translate"
-                                 [value]="3"
+                                 [suffix]="userGameFilter.stats.count.cond['VERY_GOOD']"
+                                 (uploaded)="toggleTag('conds', $event, 'VERY_GOOD')"></tag>
+                            <tag [tag]="'enum.cond.NEAR_MINT' | translate"
+                                 [value]="'NEAR_MINT'"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond[3]"
-                                 (uploaded)="toggleTag('conds', $event, 3)"></tag>
-                            <tag [tag]="'enum.cond.4' | translate"
-                                 [value]="4"
+                                 [suffix]="userGameFilter.stats.count.cond['NEAR_MINT']"
+                                 (uploaded)="toggleTag('conds', $event, 'NEAR_MINT')"></tag>
+                            <tag [tag]="'enum.cond.MINT' | translate"
+                                 [value]="'MINT'"
                                  [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond[4]"
-                                 (uploaded)="toggleTag('conds', $event, 4)"></tag>
+                                 [suffix]="userGameFilter.stats.count.cond['MINT']"
+                                 (uploaded)="toggleTag('conds', $event, 'MINT')"></tag>
                         </div>
                         <div>
                             <label for="name">{{ 'field.userGame.purchasePlace' | translate }}</label><br>

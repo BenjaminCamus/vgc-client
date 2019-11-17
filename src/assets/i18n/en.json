@@ -92,6 +92,7 @@
   "msg.loading.load": "Loading",
   "msg.loading.save": "Saving",
   "msg.loading.sync": "Syncing",
+  "msg.loading.delete": "Deleting",
   "msg.loading.welcome": "Welcome to Video Game Collector !",
   "msg.loading.welcomeText": "You will find here all the games of your collection.Add and update your games by filling out your data: prices, conditions, purchase dates, etc.Use filters and charts to have the best display of your collection.Have a good game!",
   "msg.removeConfirm": "Do you really want to remove this game from your collection?",

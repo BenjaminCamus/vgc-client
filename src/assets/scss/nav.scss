@@ -78,9 +78,10 @@ game-list {
 .topnav {
   top: 0;
   left: 0;
-  right: 15px;
+  right: 0;
   position: fixed;
   font-size: 0;
+  padding-right: 30px;
 }
 
 .topnav *, .title * {

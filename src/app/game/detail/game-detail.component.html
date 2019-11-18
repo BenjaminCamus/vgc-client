@@ -2,13 +2,11 @@
 
 <div class="container-fluid" *ngIf="userGame">
     <div class="row">
-        <div class="col-md-4 text-center">
-
+        <div class="col-md-2 offset-md-1 text-center">
             <game-images [game]="userGame.game"></game-images>
         </div>
 
-        <div class="col-md-8">
-
+        <div class="col-md-8 bgblur">
             <div class="title">
                 <div class="navRight">
                     <i *ngIf="!selectedGame" class="hovicon far fa-edit"
@@ -33,7 +31,7 @@
             <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
                        [userGame]="userGame"
                        [action]="formAction"></game-form>
-            <button *ngIf="selectedGame" (click)="openForm()" class="btn btn-primary">
+            <button *ngIf="selectedGame" (click)="openForm(false)" class="btn btn-primary fit">
                 {{ 'btn.cancel' | translate }}
             </button>
 

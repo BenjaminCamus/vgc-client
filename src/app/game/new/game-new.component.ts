@@ -15,7 +15,7 @@ import {GamesComponent} from '../list/game-list.component';
     selector: 'game-new',
     templateUrl: './game-new.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': '', 'class': 'mainPage fakePage'}
+    host: {'[@routerTransition]': '', 'class': 'fakePage'}
 })
 export class GameNewComponent implements OnInit, OnDestroy {
 

@@ -1,24 +1,19 @@
 .gameBanner {
   width: 100%;
+  height: 50vh;
   display: block;
-  height: calc(25vh - 70px);
   position: relative;
-  overflow: hidden;
 }
 
 .gameBanner .gameBannerBg {
   width: 100%;
   display: block;
-  height: 25vh;
+  height: 100vh;
   background-position: center center;
   background-size: cover;
   background-repeat: no-repeat;
-  position: absolute;
-}
-
-.gameBanner.gameBannerBig,
-.gameBanner.gameBannerBig .gameBannerBg {
-  height: 50vh;
+  position: fixed;
+  z-index: -1;
 }
 
 .gameBannerMessage {
@@ -45,8 +40,10 @@ loading .gameBannerMessage {
 }
 
 .gameBannerVideo {
-  height: 300%;
-  top: -100%;
+  height: 300vh;
+  top: -100vh;
+  position: fixed;
+  z-index: -1;
 }
 
 .gameBannerTools {

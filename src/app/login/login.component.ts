@@ -9,7 +9,7 @@ import {GameLocalService} from "../_services/gameLocal.service";
     selector: 'login',
     templateUrl: './login.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': '', 'class': 'mainPage'}
+    host: {'[@routerTransition]': '', 'class': 'fakePage'}
 })
 export class LoginComponent implements OnInit {
     user: any = {};

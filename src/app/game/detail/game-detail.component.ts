@@ -22,7 +22,7 @@ import {routerTransition} from '../../_animations/router.animations';
     selector: 'game-detail',
     templateUrl: './game-detail.component.html',
     animations: [routerTransition()],
-    host: {'[@routerTransition]': '', 'class': 'mainPage fakePage'}
+    host: {'[@routerTransition]': '', 'class': 'fakePage'}
 })
 export class GameDetailComponent implements OnInit {
 

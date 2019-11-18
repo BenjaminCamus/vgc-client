@@ -1,21 +1,4 @@
-<div *ngIf="resize" #gameBanner class="gameBanner gameBannerBig">
-
-    <div *ngIf="image != ''" class="gameBannerBg"
-         [@opacityTransition]
-         [style.margin-left]="bannerMarginLeft+'px'"
-         [style.width]="bannerWidth+'px'"
-         [style.height]="bannerHeight+'px'"
-         [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
-
-    <div *ngIf="image2 != ''" class="gameBannerBg"
-         [@opacityTransition]
-         [style.margin-left]="bannerMarginLeft+'px'"
-         [style.width]="bannerWidth+'px'"
-         [style.height]="bannerHeight+'px'"
-         [style.background-image]="'url(' + image2 + ')' | safe: 'style'"></div>
-</div>
-
-<div *ngIf="!resize" #gameBanner class="gameBanner gameBannerBig">
+<div #gameBanner class="gameBanner">
 
     <div *ngIf="enableVideo && video" class="gameBannerVideo">
         <iframe [src]="'https://www.youtube.com/embed/' + video.youtubeId + '?controls=1&showinfo=0&rel=0&autoplay=1&mute=1&loop=1&playlist=' + video.youtubeId

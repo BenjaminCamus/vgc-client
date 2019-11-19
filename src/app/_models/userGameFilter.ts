@@ -136,13 +136,13 @@ export class UserGameFilter extends UserGame {
             }
 
             // Release Year
-            if (userGame.releaseDate && userGame.releaseDate.getFullYear() < minReleaseYear) {
-                minReleaseYear = userGame.releaseDate.getFullYear();
-            }
-
-            if (userGame.releaseDate && userGame.releaseDate.getFullYear() > maxReleaseYear) {
-                maxReleaseYear = userGame.releaseDate.getFullYear();
-            }
+            // if (userGame.releaseDate && userGame.releaseDate().getFullYear() < minReleaseYear) {
+            //     minReleaseYear = userGame.releaseDate().getFullYear();
+            // }
+            //
+            // if (userGame.releaseDate && userGame.releaseDate().getFullYear() > maxReleaseYear) {
+            //     maxReleaseYear = userGame.releaseDate().getFullYear();
+            // }
 
             // Purchase Year
             if (userGame.purchaseDate && userGame.purchaseDate.getFullYear() < minPurchaseYear) {

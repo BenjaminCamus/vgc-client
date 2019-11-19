@@ -63,7 +63,6 @@ export class GameService {
 
         userGame.purchaseDate = GameService.dateFromISO( userGame.purchaseDate);
         userGame.saleDate = GameService.dateFromISO( userGame.saleDate);
-        userGame.releaseDate = GameService.dateFromISO( userGame.releaseDate);
 
         if (userGame.game.name.substr(0, 4).toLowerCase() == 'the ') {
             userGame.game.name = userGame.game.name.substr(4) + ' (The)';

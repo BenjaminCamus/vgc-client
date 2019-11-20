@@ -6,6 +6,7 @@ export class UserGame {
     id: string = '';
     game: Game = new Game;
     platform: Platform = new Platform;
+    releaseDate: Date;
 
     rating: number;
     version: string = 'FRA';

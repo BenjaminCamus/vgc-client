@@ -59,9 +59,9 @@ export class FilterPipe implements PipeTransform {
             /**
              * Release Year
              */
-            // if (item.releaseDate) {
-            //     return FilterPipe.filterRange(filter.releaseYearRange, item.releaseDate().getFullYear());
-            // }
+            if (item.releaseDate) {
+                return FilterPipe.filterRange(filter.releaseYearRange, item.releaseDate.getFullYear());
+            }
 
             return true;
         }).filter(item => {

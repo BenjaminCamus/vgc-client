@@ -29,15 +29,6 @@ export class UserGameValuePipe {
         let value = userGame['game'][field];
         let type = this.gameFieldTypes[fieldSplit[1]];
 
-      if (field === 'releaseDate') {
-        for (const releaseDate of userGame.game.releaseDates) {
-          if (userGame.platform.id === releaseDate.platform.id) {
-            return this.datePipe.transform(new Date(releaseDate.date), 'dd/MM/yyyy');
-          }
-        }
-        return '•';
-      }
-
         if (object === 'userGame') {
             value = userGame[field];
             type = this.userGameFieldTypes[field];

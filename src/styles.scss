@@ -63,8 +63,9 @@ a:focus, a:hover {
 }
 
 .bgblur {
-  background-color: rgba(0,0,0,.7);
+  background-color: rgba(0,0,0,.9);
   background-image: url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
+  box-shadow: 0 0 30px #000;
   padding-bottom: 30px;
   border-radius: 15px;
   overflow: hidden;

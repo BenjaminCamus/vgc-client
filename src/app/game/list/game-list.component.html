@@ -2,42 +2,6 @@
 
 <div *ngIf="displayMode == 0" class="vgc" (click)="welcome = true">VGC</div>
 
-<div *ngIf="displayMode == 0" class="title">
-    {{ 'title.gameList' | translate }}
-
-    <table class="table static">
-        <tbody>
-        <tr>
-            <td></td>
-            <td class="tdLabel"></td>
-            <td class="tdLabel">{{ 'field.userGame.pricePaid' | translate }}</td>
-            <td class="tdLabel">{{ 'field.userGame.priceResale' | translate }}</td>
-        </tr>
-        <tr>
-            <td class="tdLabel">{{ 'label.total' | translate }}</td>
-            <td>{{ userGames.length }}</td>
-            <td>{{ userGames | total:'pricePaid' }}&nbsp;€</td>
-            <td>{{ userGames | total:'priceResale' }}&nbsp;€</td>
-        </tr>
-        <tr>
-            <td class="tdLabel">{{ 'label.search' | translate }}</td>
-            <td>{{ userGames | filter: userGameFilter | length }} <span
-                    *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}
-                %)</span>
-            </td>
-            <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€ <span
-                    *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
-                number:'2.0-0' }}%)</span>
-            </td>
-            <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€ <span
-                    *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
-                total:'priceResale')) | number:'2.0-0' }}%)</span>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
 <div *ngIf="displayMode == 1"
      class="tableDisplay"
      [style]="(!loading && sliceGap > 0 ? 'padding-top:80px;' : '') | safe: 'style'">
@@ -71,6 +35,42 @@
 </div>
 
 <div *ngIf="displayMode == 0" class="gameBoxContainer bgblur">
+
+    <div *ngIf="displayMode == 0" class="title">
+        {{ 'title.gameList' | translate }}
+
+        <table class="table static">
+            <tbody>
+            <tr>
+                <td></td>
+                <td class="tdLabel"></td>
+                <td class="tdLabel">{{ 'field.userGame.pricePaid' | translate }}</td>
+                <td class="tdLabel">{{ 'field.userGame.priceResale' | translate }}</td>
+            </tr>
+            <tr>
+                <td class="tdLabel">{{ 'label.total' | translate }}</td>
+                <td>{{ userGames.length }}</td>
+                <td>{{ userGames | total:'pricePaid' }}&nbsp;€</td>
+                <td>{{ userGames | total:'priceResale' }}&nbsp;€</td>
+            </tr>
+            <tr>
+                <td class="tdLabel">{{ 'label.search' | translate }}</td>
+                <td>{{ userGames | filter: userGameFilter | length }} <span
+                        *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}
+                    %)</span>
+                </td>
+                <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€ <span
+                        *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
+                    number:'2.0-0' }}%)</span>
+                </td>
+                <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€ <span
+                        *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
+                    total:'priceResale')) | number:'2.0-0' }}%)</span>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
     <section
             *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd"

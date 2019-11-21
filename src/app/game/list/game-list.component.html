@@ -70,7 +70,7 @@
        tooltipPosition="right"></i>
 </div>
 
-<div *ngIf="displayMode == 0" class="gameBoxContainer">
+<div *ngIf="displayMode == 0" class="gameBoxContainer bgblur">
 
     <section
             *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd"

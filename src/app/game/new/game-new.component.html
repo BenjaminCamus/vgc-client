@@ -20,7 +20,7 @@
             </div>
         </form>
     </div>
-    <div class="gameBoxContainer">
+    <div class="gameBoxContainer bgblur">
         <section *ngFor="let game of games" class="gameBox visible_anim">
             <div class="gameCover" *ngIf="game.cover"
                  [style.background-image]="'url(' + environment.imagesUrl + 't_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>

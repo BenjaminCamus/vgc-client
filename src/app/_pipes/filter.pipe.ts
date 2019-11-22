@@ -96,7 +96,7 @@ export class FilterPipe implements PipeTransform {
         else {
             let filterKey = tagType == 'progress' ? tagType + 'es' : tagType + 's';
             if (filter[filterKey] && filter[filterKey].length > 0) {
-              
+
                 if (item[tagType] !== undefined && item[tagType] !== null) {
 
                     if (typeof item[tagType] == "number" || typeof item[tagType] == "string") {

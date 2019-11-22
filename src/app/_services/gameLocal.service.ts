@@ -26,9 +26,6 @@ export class GameLocalService {
         if (userGame.saleDate) {
             userGame.saleDate = new Date(userGame.saleDate);
         }
-        if (userGame.releaseDate) {
-            userGame.releaseDate = new Date(userGame.releaseDate);
-        }
 
         return userGame;
     }

@@ -1,26 +1,27 @@
 <div *ngIf="!selectedGame">
     <banner [data]="games"></banner>
-    <div class="title" *ngIf="!selectedGame">
-        {{ 'title.newGame' | translate }}
-        <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
-            <div class="input">
-                <input type="text" id="search"
-                       required
-                       [(ngModel)]="search" name="search"
-                       #name="ngModel"
-                       autocomplete="off">
-                <span class="bar"></span>
-            </div>
-            <div class="input">
-                <button type="submit"
-                        class="btn btn-success">
-                    <i class="fas fa-sync" [ngClass]="loading ? 'fa-spin' : ''"></i>
-                    {{ 'btn.igdbSearch' | translate }}
-                </button>
-            </div>
-        </form>
-    </div>
-    <div class="gameBoxContainer">
+    <div class="gameBoxContainer bgblur">
+        <div class="title" *ngIf="!selectedGame">
+            {{ 'title.newGame' | translate }}
+            <form (ngSubmit)="onSubmit()" #searchForm="ngForm">
+                <div class="input">
+                    <input type="text" id="search"
+                           required
+                           [(ngModel)]="search" name="search"
+                           #name="ngModel"
+                           autocomplete="off">
+                    <span class="bar"></span>
+                </div>
+                <div class="input">
+                    <button type="submit"
+                            class="btn btn-success">
+                        <i class="fas fa-sync" [ngClass]="loading ? 'fa-spin' : ''"></i>
+                        {{ 'btn.igdbSearch' | translate }}
+                    </button>
+                </div>
+            </form>
+        </div>
+
         <section *ngFor="let game of games" class="gameBox visible_anim">
             <div class="gameCover" *ngIf="game.cover"
                  [style.background-image]="'url(' + environment.imagesUrl + 't_cover_big/' + game.cover.cloudinaryId + '.jpg)' | safe: 'style'"></div>

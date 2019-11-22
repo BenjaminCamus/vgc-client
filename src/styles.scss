@@ -63,12 +63,11 @@ a:focus, a:hover {
 }
 
 .bgblur {
-  backdrop-filter: blur(30px) brightness(70%);
+  background-color: rgba(0,0,0,.9);
+  background-image: url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
+  box-shadow: 0 0 30px #000;
   padding-bottom: 30px;
   border-radius: 15px;
   overflow: hidden;
-}
-
-game-new .bgblur {
-  backdrop-filter: blur(30px) brightness(20%);
+  margin-bottom: 70px;
 }

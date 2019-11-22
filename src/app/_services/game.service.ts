@@ -61,9 +61,15 @@ export class GameService {
 
     private static convertData(userGame) {
 
-        userGame.purchaseDate = GameService.dateFromISO( userGame.purchaseDate);
-        userGame.saleDate = GameService.dateFromISO( userGame.saleDate);
-        userGame.releaseDate = GameService.dateFromISO( userGame.releaseDate);
+        userGame.purchaseDate = GameService.dateFromISO(userGame.purchaseDate);
+        userGame.saleDate = GameService.dateFromISO(userGame.saleDate);
+
+        for (const releaseDate of userGame.game.releaseDates) {
+            if (userGame.platform.id === releaseDate.platform.id) {
+                userGame.releaseDate = GameService.dateFromISO(releaseDate.date);
+                break;
+            }
+        }
 
         if (userGame.game.name.substr(0, 4).toLowerCase() == 'the ') {
             userGame.game.name = userGame.game.name.substr(4) + ' (The)';

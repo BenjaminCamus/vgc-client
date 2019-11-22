@@ -2,6 +2,7 @@ import {Tag} from "./tag";
 import {Image} from "./image";
 import {Platform} from "./platform";
 import {Video} from "./video";
+import {ReleaseDate} from './releaseDate';
 
 export class Game {
     id: string;
@@ -19,6 +20,7 @@ export class Game {
     genres: Tag[];
     screenshots: Array<Image>;
     videos: Array<Video>;
+    releaseDates: Array<ReleaseDate>;
 
     // IGDB
     platforms: Array<Platform>;

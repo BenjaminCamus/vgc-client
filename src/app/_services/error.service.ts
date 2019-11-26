@@ -11,6 +11,7 @@ export class ErrorService {
     handleError(error: any) {
 
         console.error('handleError');
+        console.error(error);
 
         // In a real world app, we might use a remote logging infrastructure
         let errMsg: string;

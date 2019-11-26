@@ -27,7 +27,7 @@ export class ErrorService {
 
         }
         else {
-            errMsg = error.message ? error.error.message : error.toString();
+            errMsg = error.message ? error.message : error.toString();
 
             alert('Oups...\n' + errMsg);
             this.router.navigate(['/']);

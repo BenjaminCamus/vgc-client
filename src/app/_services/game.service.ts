@@ -1,16 +1,8 @@
 import {Injectable}              from '@angular/core';
 import {HttpClient, HttpHeaders,}          from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
-
 import {Observable} from 'rxjs';
-
-
-
-
-
-
 import {AuthenticationService} from '../_services/authentification.service';
-
 import {Router} from "@angular/router";
 import {Game} from '../_models/game';
 import {UserGame} from "../_models/userGame";
@@ -119,6 +111,8 @@ export class GameService {
         delete userGame.fieldTypes;
         delete userGame.createdAt;
         delete userGame.updatedAt;
+        delete userGame.releaseDate;
+
         let userGameJson = JSON.stringify(userGame);
         if (userGame.purchaseDate) {
             userGameJson = userGameJson.replace(

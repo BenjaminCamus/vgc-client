@@ -110,6 +110,7 @@ export class GameFormComponent implements OnInit {
                             this.loading = false;
                             this.injector.get(GamesComponent).ngOnInit();
                             if (this._userGame.id !== '') {
+                                this.injector.get(GameDetailComponent).ngOnInit();
                                 this.injector.get(GameDetailComponent).openForm(false);
                             }
                             this.router.navigate(['/games/show/' + userGame.id]);

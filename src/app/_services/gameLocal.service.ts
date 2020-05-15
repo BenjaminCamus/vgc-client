@@ -12,13 +12,7 @@ export class GameLocalService {
     private db: AngularIndexedDB;
     private userGames: UserGame[] = [];
 
-    private userGamesDateLocalId = 'userGamesDate';
-    private userContactsLocalId = 'userContacts';
-    private userPlacesLocalId = 'userPlaces';
-    private newGameSearchLocalId = 'newGameSearch';
-    private newUserGameLocalId = 'newUserGame';
-    private enableVideoId = 'enableVideo';
-    private welcomeShowLocalId = 'welcomeShow';
+    private optionsId = 'options';
 
     private static setDates(userGame) {
 
@@ -37,6 +31,13 @@ export class GameLocalService {
     constructor() {
 
         localStorage.removeItem('userGames');
+        localStorage.removeItem('userGamesDate');
+        localStorage.removeItem('userContacts');
+        localStorage.removeItem('userPlaces');
+        localStorage.removeItem('newGameSearch');
+        localStorage.removeItem('newUserGame');
+        localStorage.removeItem('enableVideo');
+        localStorage.removeItem('welcomeShow');
 
         this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
 
@@ -95,40 +96,47 @@ export class GameLocalService {
         });
     }
 
-    setUserGamesDate() {
-        const date = new Date();
-        localStorage.setItem(this.userGamesDateLocalId, date.getTime().toString());
-        return date;
+    setOption(option, value) {
+        let options = {};
+        if (localStorage.getItem(this.optionsId)) {
+            options = JSON.parse(localStorage.getItem(this.optionsId));
+        }
+
+        options[option] = value;
+
+        return localStorage.setItem(this.optionsId, JSON.stringify(options));
     }
 
-    getUserGamesDate() {
-        if (localStorage.getItem(this.userGamesDateLocalId)) {
-            const dateTime = localStorage.getItem(this.userGamesDateLocalId);
-            return new Date(parseInt(dateTime, 10));
+    getOption(option) {
+        if (localStorage.getItem(this.optionsId)) {
+            const options = JSON.parse(localStorage.getItem(this.optionsId));
+
+            if (options[option]) {
+                let optionValue = options[option];
+
+                switch (option) {
+                    case 'syncDatetime':
+                        optionValue = new Date(parseInt(optionValue, 10));
+                        break;
+                }
+
+                return optionValue;
+            }
+
+            return null;
         }
 
         return null;
     }
 
-    setWelcomeShow(show: boolean) {
-        return localStorage.setItem(this.welcomeShowLocalId, JSON.stringify(show));
+    setItems(item, value) {
+        return localStorage.setItem(item, JSON.stringify(value));
     }
 
-    getWelcomeShow() {
-        if (localStorage.getItem(this.welcomeShowLocalId)) {
-            return JSON.parse(localStorage.getItem(this.welcomeShowLocalId));
-        }
-
-        return true;
-    }
-
-    setEnableVideo(enableVideo: boolean) {
-        return localStorage.setItem(this.enableVideoId, JSON.stringify(enableVideo));
-    }
-
-    getEnableVideo() {
-        if (localStorage.getItem(this.enableVideoId)) {
-            return JSON.parse(localStorage.getItem(this.enableVideoId));
+    getItems(option) {
+        if (localStorage.getItem(option)) {
+            const value = JSON.parse(localStorage.getItem(option));
+            return value;
         }
 
         return [];
@@ -185,8 +193,6 @@ export class GameLocalService {
                     newUserGame.salePlace = userGame.salePlace;
                     newUserGame.saleContact = userGame.saleContact;
 
-                    this.setNewUserGame(newUserGame);
-
                     this.db.add('userGames', userGame).then(() => {
                         return userGame;
                     }, (error) => {
@@ -213,57 +219,5 @@ export class GameLocalService {
                 console.log(error);
             });
         });
-    }
-
-    setNewGameSearch(search: string) {
-        return localStorage.setItem(this.newGameSearchLocalId, search);
-    }
-
-    getNewGameSearch() {
-        if (localStorage.getItem(this.newGameSearchLocalId)) {
-            return localStorage.getItem(this.newGameSearchLocalId);
-        }
-
-        return '';
-    }
-
-    setUserContacts(contacts: Contact[]) {
-        return localStorage.setItem(this.userContactsLocalId, JSON.stringify(contacts));
-    }
-
-    getUserContacts() {
-        if (localStorage.getItem(this.userContactsLocalId)) {
-            return JSON.parse(localStorage.getItem(this.userContactsLocalId));
-        }
-
-        return [];
-    }
-
-    setUserPlaces(places: string[]) {
-        return localStorage.setItem(this.userPlacesLocalId, JSON.stringify(places));
-    }
-
-    getUserPlaces() {
-        if (localStorage.getItem(this.userPlacesLocalId)) {
-            return JSON.parse(localStorage.getItem(this.userPlacesLocalId));
-        }
-
-        return [];
-    }
-
-    setNewUserGame(userGame: UserGame) {
-        return localStorage.setItem(this.newUserGameLocalId, JSON.stringify(userGame));
-    }
-
-    getNewUserGame() {
-        if (localStorage.getItem(this.newUserGameLocalId)) {
-
-            let userGame = JSON.parse(localStorage.getItem(this.newUserGameLocalId));
-            userGame = GameLocalService.setDates(userGame);
-
-            return userGame;
-        }
-
-        return new UserGame();
     }
 }

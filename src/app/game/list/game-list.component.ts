@@ -56,9 +56,32 @@ export class GamesComponent implements OnInit, OnDestroy {
         'userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact'];
 
     displayFilters = false;
-    displayMode = 0;
     orderField = 'game.name';
-    orderOption = true;
+
+    private _displayMode = 0;
+
+    get displayMode(): number {
+        return this._displayMode;
+    }
+    set displayMode(value: number) {
+        if (value !== this._displayMode) {
+            this._displayMode = value;
+            this.gameLocalService.setOption('displayMode', value);
+        }
+    }
+
+    private _orderOption = false;
+
+    get orderOption(): boolean {
+        return this._orderOption;
+    }
+    set orderOption(value: boolean) {
+        if (value !== this._orderOption) {
+            this._orderOption = value;
+            this.gameLocalService.setOption('orderOption', value);
+        }
+    }
+
     sliceStart = 0;
     sliceEnd = 0;
     sliceGap = 0;
@@ -191,7 +214,7 @@ export class GamesComponent implements OnInit, OnDestroy {
                     this.loading = false;
                     this.getGames();
                 } else {
-                    this.userGamesDate = this.gameLocalService.getUserGamesDate();
+                    this.userGamesDate = this.gameLocalService.getOption('syncDatetime');
                     this.reset();
                     this.setupRouting();
                     this.loading = false;
@@ -201,6 +224,10 @@ export class GamesComponent implements OnInit, OnDestroy {
                 console.log(error);
                 this.loading = false;
             });
+
+        this.displayMode = this.gameLocalService.getOption('displayMode');
+        this.orderField = this.gameLocalService.getOption('orderField');
+        this.orderOption = this.gameLocalService.getOption('orderOption');
     }
 
     ngOnDestroy() {
@@ -249,7 +276,7 @@ export class GamesComponent implements OnInit, OnDestroy {
                     this.userGames.sort(orderByName);
 
                     this.gameLocalService.setUserGames(this.userGames);
-                    this.userGamesDate = this.gameLocalService.setUserGamesDate();
+                    this.userGamesDate = this.gameLocalService.setOption('syncDatetime', new Date().getTime().toString());
 
                     this.reset();
 
@@ -370,6 +397,8 @@ export class GamesComponent implements OnInit, OnDestroy {
             this.orderField = orderField;
             this.orderOption = true;
         }
+
+        this.gameLocalService.setOption('orderField', orderField);
     }
 
     startLoading(action) {
@@ -381,6 +410,8 @@ export class GamesComponent implements OnInit, OnDestroy {
         if (field === 'random') {
             this.userGames = shuffle(this.userGames);
         }
+
+        this.gameLocalService.setOption('orderField', field);
     }
 }
 

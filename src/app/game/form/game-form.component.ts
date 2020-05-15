@@ -68,8 +68,8 @@ export class GameFormComponent implements OnInit {
     ngOnInit(): void {
 
         this.gameLocalService = this.injector.get(GamesComponent).gameLocalService;
-        this.userContacts = this.gameLocalService.getUserContacts();
-        this.userPlaces = this.gameLocalService.getUserPlaces();
+        this.userContacts = this.gameLocalService.getItems('userContacts');
+        this.userPlaces = this.gameLocalService.getItems('userPlaces');
         this.updateSelects();
         this.getContacts();
         this.getPlaces();
@@ -155,7 +155,7 @@ export class GameFormComponent implements OnInit {
                     userContacts => {
                         userContacts.sort(orderByName);
                         this.userContacts = userContacts;
-                        this.gameLocalService.setUserContacts(this.userContacts);
+                        this.gameLocalService.setItems('userContacts', this.userContacts);
                         this.updateSelects();
                     },
                     error => {
@@ -171,7 +171,7 @@ export class GameFormComponent implements OnInit {
                     userPlaces => {
                         userPlaces.sort();
                         this.userPlaces = userPlaces;
-                        this.gameLocalService.setUserPlaces(this.userPlaces);
+                        this.gameLocalService.setItems('userPlaces', this.userPlaces);
                         this.updateSelects();
                     },
                     error => {

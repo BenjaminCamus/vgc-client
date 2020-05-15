@@ -56,20 +56,6 @@ game-list {
   }
 }
 
-@media (max-width: 1109px) {
-
-  .title .table > tbody > tr > td, .title .table > tbody > tr > th, .title .table > tfoot > tr > td, .title .table > tfoot > tr > th, .title .table > thead > tr > td, .title .table > thead > tr > th {
-    padding: 0 3px;
-  }
-
-  .topnav {
-    padding: 0;
-  }
-  .searchToolsSmall {
-    display: block;
-  }
-}
-
 .platformLogo {
   width: 70px;
   margin-right: 15px;
@@ -136,4 +122,21 @@ game-list {
 
 .filters .container-fluid {
   padding-bottom: 0;
+}
+
+@media (max-width: 600px) {
+
+  .topnav {
+    padding: 0;
+  }
+}
+
+  @media (max-width: 1109px) {
+
+  .title .table > tbody > tr > td, .title .table > tbody > tr > th, .title .table > tfoot > tr > td, .title .table > tfoot > tr > th, .title .table > thead > tr > td, .title .table > thead > tr > th {
+    padding: 0 3px;
+  }
+  .searchToolsSmall {
+    display: block;
+  }
 }

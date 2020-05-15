@@ -28,7 +28,7 @@ import {CarouselAnimations} from '../../_animations/carousel.animations';
 export class GamesComponent implements OnInit, OnDestroy {
 
     public routeTrigger;
-    private currentIndex = 0;
+    public currentIndex = 0;
 
     private environment = environment;
     loading = true;
@@ -290,7 +290,7 @@ export class GamesComponent implements OnInit, OnDestroy {
     }
 
     userGameHover(userGame: UserGame) {
-            this.selectUserGame(userGame);
+        this.selectUserGame(userGame);
     }
 
     resetSelectedUserGame() {

@@ -13,6 +13,15 @@ export class GameLocalService {
     private userGames: UserGame[] = [];
 
     private optionsId = 'options';
+    private defaultOption = {
+        'displayMode': 0,
+        'orderField': 'game.name',
+        'orderOption': false,
+        'welcomeShow': true,
+        'enableVideo': true,
+        'syncDatetime': 0,
+        'newGameSearch': '',
+    };
 
     private static setDates(userGame) {
 
@@ -123,10 +132,10 @@ export class GameLocalService {
                 return optionValue;
             }
 
-            return null;
+            return this.defaultOption[option];
         }
 
-        return null;
+        return this.defaultOption[option];
     }
 
     setItems(item, value) {

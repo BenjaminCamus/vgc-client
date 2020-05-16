@@ -56,9 +56,9 @@ export class GamesComponent implements OnInit, OnDestroy {
         'userGame.priceResale', 'userGame.priceSold', 'userGame.saleDate', 'userGame.salePlace', 'userGame.saleContact'];
 
     displayFilters = false;
-    orderField = 'game.name';
+    orderField: string;
 
-    private _displayMode = 0;
+    private _displayMode: number;
 
     get displayMode(): number {
         return this._displayMode;
@@ -70,7 +70,7 @@ export class GamesComponent implements OnInit, OnDestroy {
         }
     }
 
-    private _orderOption = false;
+    private _orderOption: boolean;
 
     get orderOption(): boolean {
         return this._orderOption;

@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from '@ngx-translate/core';
 import {GameLocalService} from "./_services/gameLocal.service";
 
@@ -7,17 +7,20 @@ import {GameLocalService} from "./_services/gameLocal.service";
     selector: 'app-root',
     templateUrl: './app.component.html'
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     private defaultLang = 'fr';
     flag = 'gb';
-    welcome = true;
+    welcome: boolean;
 
     constructor(private translate: TranslateService,
                 private gameLocalService: GameLocalService) {
 
         translate.setDefaultLang(this.defaultLang);
         translate.use(this.defaultLang);
+    }
+
+    ngOnInit() {
         this.welcome = this.gameLocalService.getOption('welcomeShow');
     }
 

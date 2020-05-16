@@ -120,7 +120,7 @@ export class GameLocalService {
         if (localStorage.getItem(this.optionsId)) {
             const options = JSON.parse(localStorage.getItem(this.optionsId));
 
-            if (options[option]) {
+            if (typeof options[option] !== 'undefined') {
                 let optionValue = options[option];
 
                 switch (option) {

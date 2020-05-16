@@ -41,7 +41,7 @@ export class GameDetailComponent implements OnInit {
         'game.modes', 'game.themes', 'game.genres', 'game.rating', 'game.igdbUrl'
     ];
 
-    private formAction: string|boolean;
+    private formAction: string | boolean;
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
@@ -70,7 +70,7 @@ export class GameDetailComponent implements OnInit {
      * Open edit or delete form
      * @param action
      */
-    openForm(action: string|boolean): void {
+    openForm(action: string | boolean): void {
 
         if (!action || (this.formAction === action && this.selectedGame)) {
             this.selectedGame = null;
@@ -80,5 +80,9 @@ export class GameDetailComponent implements OnInit {
             this.selectedGame = this.userGame.game;
             this.selectedPlatform = this.userGame.platform;
         }
+    }
+
+    navigateUserGame(step) {
+        this.injector.get(GamesComponent).navigateUserGame(this.injector.get(GamesComponent).currentIndex + step);
     }
 }

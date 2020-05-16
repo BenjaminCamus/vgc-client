@@ -82,7 +82,7 @@ export class BannerComponent {
     }
 
     setEnableVideo(enableVideo) {
-        this.gameLocalService.setEnableVideo(enableVideo);
+        this.gameLocalService.setOption('enableVideo', enableVideo);
         this.enableVideo = enableVideo;
     }
 
@@ -104,7 +104,7 @@ export class BannerComponent {
                 return false;
             }
 
-            this.enableVideo = this.gameLocalService.getEnableVideo();
+            this.enableVideo = this.gameLocalService.getOption('enableVideo');
         }
 
         if (video) {

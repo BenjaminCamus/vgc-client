@@ -33,7 +33,7 @@ export class GameNewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.search = this.gameLocalService.getNewGameSearch();
+        this.search = this.gameLocalService.getOption('newGameSearch');
     }
 
     ngOnDestroy() {
@@ -45,7 +45,7 @@ export class GameNewComponent implements OnInit, OnDestroy {
     onSubmit() {
         if (this.search !== '') {
             this.ngOnDestroy();
-            this.gameLocalService.setNewGameSearch(this.search);
+            this.gameLocalService.setOption('newGameSearch', this.search);
 
             this.loading = true;
             this.subscription = this.gameService.igdbSearch(this.search)

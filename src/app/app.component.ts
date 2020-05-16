@@ -18,7 +18,7 @@ export class AppComponent {
 
         translate.setDefaultLang(this.defaultLang);
         translate.use(this.defaultLang);
-        this.welcome = this.gameLocalService.getWelcomeShow();
+        this.welcome = this.gameLocalService.getOption('welcomeShow');
     }
 
     get currentUser(): any {

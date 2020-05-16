@@ -558,12 +558,12 @@
 <loading *ngIf="welcome" [action]="'welcome'" (close)="welcome = false"></loading>
 
 <!--<router-outlet></router-outlet>-->
-<div *ngIf="routeTrigger" [@routeSlide]="routeTrigger"
-     (swipeleft)="navigateUserGame(currentIndex + 1)"
-     (swiperight)="navigateUserGame(currentIndex - 1)">
+<div *ngIf="routeTrigger" [@routeSlide]="routeTrigger">
     <router-outlet></router-outlet>
 
-    <div class="topnav" *ngIf="router.url.indexOf('/games/show') === 0" [@topNavTransition]>
+    <div class="topnav" *ngIf="router.url.indexOf('/games/show') === 0" [@topNavTransition]
+         (swipeleft)="navigateUserGame(currentIndex + 1)"
+         (swiperight)="navigateUserGame(currentIndex - 1)">
         <i class="hovicon fas fa-chevron-left"
            (click)="navigateUserGame(currentIndex - 1)"
            pTooltip="{{ 'btn.previous' | translate }}"

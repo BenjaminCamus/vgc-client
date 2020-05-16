@@ -1,73 +1,77 @@
-<banner [data]="userGame"></banner>
+<div *ngIf="userGame"
+     (swipeleft)="navigateUserGame(1)"
+     (swiperight)="navigateUserGame(-1)">
+    <banner [data]="userGame"></banner>
 
-<div class="container-fluid" *ngIf="userGame">
-    <div class="row">
-        <div class="col-md-2 offset-md-1 text-center">
-            <game-images [game]="userGame.game"></game-images>
-        </div>
-
-        <div class="col-md-8 bgblur">
-            <div class="title">
-                <div class="navRight">
-                    <i *ngIf="!selectedGame" class="hovicon far fa-edit"
-                       (click)="openForm('edit')"
-                       pTooltip="{{ 'btn.edit' | translate }}"
-                       tooltipPosition="left"></i>
-                    <i *ngIf="!selectedGame" class="hovicon far fa-trash-alt"
-                       (click)="openForm('delete')"
-                       pTooltip="{{ 'btn.remove' | translate }}"
-                       tooltipPosition="left"></i>
-                    <i *ngIf="selectedGame" class="hovicon fas fa-times"
-                       (click)="openForm(false)"
-                       pTooltip="{{ 'btn.cancel' | translate }}"
-                       tooltipPosition="left"></i>
-                </div>
-                <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">
-                <div class="titleText">{{ userGame.game.name }}</div>
-                <!--<span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span>&lt;!&ndash;-->
+    <div class="container-fluid" *ngIf="userGame">
+        <div class="row">
+            <div class="col-md-2 offset-md-1 text-center">
+                <game-images [game]="userGame.game"></game-images>
             </div>
 
-
-            <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
-                       [userGame]="userGame"
-                       [action]="formAction"></game-form>
-            <button *ngIf="selectedGame" (click)="openForm(false)" class="btn btn-primary fit">
-                {{ 'btn.cancel' | translate }}
-            </button>
-
-            <div *ngIf="!selectedGame" style="margin-top: 15px;">
-
-                <div class="row">
-                    <div *ngFor="let colFields of userFields" class="col-md-4">
-                        <table class="table static">
-                            <tr *ngFor="let field of colFields">
-                                <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
-                                <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
-                            </tr>
-                        </table>
+            <div class="col-md-8 bgblur">
+                <div class="title">
+                    <div class="navRight">
+                        <i *ngIf="!selectedGame" class="hovicon far fa-edit"
+                           (click)="openForm('edit')"
+                           pTooltip="{{ 'btn.edit' | translate }}"
+                           tooltipPosition="left"></i>
+                        <i *ngIf="!selectedGame" class="hovicon far fa-trash-alt"
+                           (click)="openForm('delete')"
+                           pTooltip="{{ 'btn.remove' | translate }}"
+                           tooltipPosition="left"></i>
+                        <i *ngIf="selectedGame" class="hovicon fas fa-times"
+                           (click)="openForm(false)"
+                           pTooltip="{{ 'btn.cancel' | translate }}"
+                           tooltipPosition="left"></i>
                     </div>
+                    <img src="/assets/img/platform/{{userGame.platform.slug}}.png" class="platformLogo">
+                    <div class="titleText">{{ userGame.game.name }}</div>
+                    <!--<span style="color: rgba(255,255,255,0.5); font-size: 18px;">/&nbsp;{{ userGame.platform.name }}</span>&lt;!&ndash;-->
                 </div>
 
-                <hr>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table static">
-                            <tr *ngFor="let field of gameFields">
-                                <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
-                                <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
-                            </tr>
-                        </table>
+                <game-form *ngIf="selectedGame" [game]="selectedGame" [platform]="selectedPlatform"
+                           [userGame]="userGame"
+                           [action]="formAction"></game-form>
+                <button *ngIf="selectedGame" (click)="openForm(false)" class="btn btn-primary fit">
+                    {{ 'btn.cancel' | translate }}
+                </button>
+
+                <div *ngIf="!selectedGame" style="margin-top: 15px;">
+
+                    <div class="row">
+                        <div *ngFor="let colFields of userFields" class="col-md-4">
+                            <table class="table static">
+                                <tr *ngFor="let field of colFields">
+                                    <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
+                                    <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
+                                </tr>
+                            </table>
+                        </div>
                     </div>
-                </div>
 
-                <hr>
+                    <hr>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <label>{{ 'field.userGame.note' | translate }}</label>
-                        <br/>
-                        <div [innerHTML]="userGame | userGameValue: 'userGame.note'"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table static">
+                                <tr *ngFor="let field of gameFields">
+                                    <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
+                                    <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>{{ 'field.userGame.note' | translate }}</label>
+                            <br/>
+                            <div [innerHTML]="userGame | userGameValue: 'userGame.note'"></div>
+                        </div>
                     </div>
                 </div>
             </div>

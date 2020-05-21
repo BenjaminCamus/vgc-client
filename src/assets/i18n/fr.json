@@ -19,6 +19,7 @@
   "btn.sortDesc": "Décroissant",
   "btn.start": "Start",
   "btn.sync": "Synchroniser",
+  "btn.reset": "Réinitialiser",
   "enum.completeness.LOOSE": "Loose",
   "enum.completeness.NO_MANUAL": "Sans Notice",
   "enum.completeness.NO_BOX": "Sans Boîte",

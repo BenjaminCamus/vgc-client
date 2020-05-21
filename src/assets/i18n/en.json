@@ -19,6 +19,7 @@
   "btn.sortDesc": "Descending",
   "btn.start": "Start",
   "btn.sync": "Sync",
+  "btn.reset": "Reset",
   "enum.completeness.LOOSE": "Loose",
   "enum.completeness.NO_MANUAL": "No Manual",
   "enum.completeness.NO_BOX": "No Box",

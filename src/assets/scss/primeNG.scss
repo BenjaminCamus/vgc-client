@@ -1,9 +1,23 @@
 .ui-tabview.ui-tabview-top > .ui-tabview-nav {
+  width: 100%;
+  font-size: 14px;
   padding: 0;
   background: none;
   border-bottom: 1px solid #3d3d3d;
   font-weight: normal;
   border-radius: 0;
+
+  .ui-state-default {
+    background: none !important;
+  }
+
+  ui-state-default:hover, .ui-state-default:focus,
+  .ui-state-active, .ui-state-active:hover, .ui-state-active:focus {
+    background: none !important;
+    color: $colorMain;
+    border-bottom: 1px solid $colorMain;
+    outline: none;
+  }
 }
 
 .ui-widget-content {
@@ -122,3 +136,38 @@ label.primeng {
    display: inline-block;
    text-align: left;
  }
+
+.ui-sidebar {
+  padding: 70px 0 0;
+  background: #0d0d0d;
+
+  .infos {
+    background: #000;
+    padding: 15px;
+  }
+
+  .content {
+    padding: 15px;
+  }
+
+  table {
+    font-size: 12px;
+    td {
+      padding: 5px;
+    }
+  }
+
+  .input, select {
+    margin: 0 0 15px;
+  }
+
+  &.ui-sidebar-right {
+    overflow-y: scroll;
+  }
+}
+
+.ui-sidebar-mask {
+  background-color: rgba(0, 0, 0, 0.7);
+  background-image: url(https://www.transparenttextures.com/patterns/dark-mosaic.png);
+  opacity: 1;
+}

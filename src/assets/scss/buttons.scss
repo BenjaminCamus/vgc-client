@@ -1,0 +1,59 @@
+.btn {
+  border: 0;
+  border-radius: 0;
+  position: relative;
+  display: block;
+  margin-bottom: 15px;
+  padding: 5px 15px;
+  width: 100%;
+  transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
+
+  &.fit {
+    width: calc(100% - 30px);
+    margin: 0 15px;
+  }
+
+  &.cool {
+    text-align: left;
+    background: rgba(100,100,100,.1);
+
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      z-index: 1000000000000000000000;
+      transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
+      transition-delay: .4s;
+      height: 0;
+      width: 0;
+    }
+    &:before {
+      height: 100%;
+      top: 0;
+      left: 50%;
+      border: 1px solid white;
+      border-left: 0;
+      border-right: 0;
+      transition-delay: 0.3ms;
+    }
+    &:after {
+      width: 100%;
+      left: 0;
+      top: 50%;
+      background: rgba(100,100,100,.15);
+    }
+    &:hover, &:focus {
+      color: white !important;
+      i {
+        color: $colorMain;
+      }
+      &:before {
+        width: 100%;
+        left: 0;
+      }
+      &:after {
+        height: 100%;
+        top: 0;
+      }
+    }
+  }
+}

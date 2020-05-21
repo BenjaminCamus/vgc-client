@@ -1,6 +1,8 @@
 .gameBoxContainer {
   font-size: 0;
   text-align: center;
+  margin: 70px 0;
+  padding: 30px;
 }
 
 .gameBox {
@@ -60,6 +62,7 @@
   }
 
   &:hover, &:focus {
+    outline: none;
 
     &:before {
       width: 100%;

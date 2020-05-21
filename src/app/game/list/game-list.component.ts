@@ -27,6 +27,11 @@ import {CarouselAnimations} from '../../_animations/carousel.animations';
 })
 export class GamesComponent implements OnInit, OnDestroy {
 
+
+    sidebarLeft = false;
+    sidebarRight = false;
+    currentUser;
+
     public routeTrigger;
     public currentIndex = 0;
 
@@ -206,6 +211,8 @@ export class GamesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
         this.gameLocalService.getUserGames().then(
             userGames => {
                 this.userGames = userGames;

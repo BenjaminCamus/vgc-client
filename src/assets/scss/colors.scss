@@ -85,7 +85,9 @@ a, a:not(.ui-paginator-element):not([role='tab']):focus {
 
 a:not(.ui-paginator-element):not([role='tab']):hover {
   color: $colorMain;
-  text-decoration: underline;
+  &:not(.btn) {
+    text-decoration: underline;
+  }
 }
 
 a.grey, a.grey:focus {

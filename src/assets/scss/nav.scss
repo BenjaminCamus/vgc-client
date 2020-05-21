@@ -8,6 +8,21 @@
   background: #111;
   overflow-x: hidden;
   overflow-y: scroll;
+
+  &.content {
+    padding: 85px 15px 15px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    font-size: 12px;
+    line-height: 20px;
+    overflow-y: auto;
+
+    .container-fluid {
+      padding-bottom: 0;
+    }
+  }
 }
 
 game-list {
@@ -38,18 +53,7 @@ game-list {
   }
 }
 
-.searchToolsBig {
-  display: none;
-}
-
-.searchToolsSmall {
-  display: none;
-}
-
 @media (min-width: 1110px) {
-  .searchToolsBig {
-    display: inline-block;
-  }
 
   .filters .ui-tabview {
     margin-top: 40px;
@@ -102,28 +106,6 @@ game-list {
   white-space: nowrap;
 }
 
-.filters {
-  background-color: rgba(0, 0, 0, 0.8);
-  padding: 15px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin: 0;
-  font-size: 12px;
-  line-height: 20px;
-  width: 100%;
-  height: calc(100vh - 70px);
-  overflow-y: auto;
-  position: fixed;
-  top: 70px;
-  left: 0;
-}
-
-.filters .container-fluid {
-  padding-bottom: 0;
-}
-
 @media (max-width: 600px) {
 
   .topnav {
@@ -131,12 +113,9 @@ game-list {
   }
 }
 
-  @media (max-width: 1109px) {
+@media (max-width: 1109px) {
 
   .title .table > tbody > tr > td, .title .table > tbody > tr > th, .title .table > tfoot > tr > td, .title .table > tfoot > tr > th, .title .table > thead > tr > td, .title .table > thead > tr > th {
     padding: 0 3px;
-  }
-  .searchToolsSmall {
-    display: block;
   }
 }

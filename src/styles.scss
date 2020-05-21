@@ -13,11 +13,16 @@
 @import "assets/scss/primeNG";
 @import "assets/scss/progress";
 @import "assets/scss/terminal";
+@import "assets/scss/buttons";
 
 body {
   font-family: 'Share Tech Mono', monospace;
   font-size: 14px;
   background: url("https://www.toptal.com/designers/subtlepatterns/patterns/footer_lodyas.png") center;
+}
+
+.ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button {
+  font-family: 'Share Tech Mono', monospace;
 }
 
 h1 {
@@ -37,12 +42,14 @@ a:focus, a:hover {
 #vgc {
   cursor: default;
   position: absolute;
-  right: 15px;
-  top: 150px;
-  font-size: 80px;
+  left: 50%;
+  top: 0;
+  width: 100px;
+  margin-left: -50px;
+  text-align: center;
+  font-size: 60px;
   color: rgba(255, 255, 255, .5);
   letter-spacing: -5px;
-  margin: 0 auto;
   text-shadow: none;
   padding-right: 0;
   transition: all 500ms cubic-bezier(0.77, 0, 0.175, 1);
@@ -51,8 +58,6 @@ a:focus, a:hover {
     cursor: pointer;
     color: white;
     text-shadow: 3px 0px 15px #FFFFFF, -3px 0px 15px #FFFFFF;
-    padding-right: 30px;
-    transform: scale(1.1);
   }
 }
 
@@ -65,7 +70,7 @@ a:focus, a:hover {
 }
 
 .bgblur {
-  background-color: rgba(0,0,0,.9);
+  background-color: rgba(0, 0, 0, .9);
   background-image: url("https://www.transparenttextures.com/patterns/dark-mosaic.png");
   box-shadow: 0 0 30px #000;
   padding-bottom: 30px;

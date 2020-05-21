@@ -2,18 +2,6 @@ input {
   box-shadow: none; // bug fix red border when input invalid in firefox
 }
 
-.btn {
-  border: none;
-  border-radius: 0;
-  display: block;
-  width:100%;
-}
-
-.btn.fit {
-  width: calc(100% - 30px);
-  margin: 0 15px;
-}
-
 input:-webkit-autofill {
   background: transparent !important;
   -webkit-box-shadow:0 0 0 50px black inset;

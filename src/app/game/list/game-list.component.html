@@ -1,7 +1,5 @@
 <banner *ngIf="displayMode == 0" [data]="selectedUserGame" [disableVideo]="true"></banner>
 
-<div *ngIf="displayMode == 0" id="vgc" (click)="welcome = true">VGC</div>
-
 <div *ngIf="displayMode == 1"
      class="tableDisplay"
      [style]="(!loading && sliceGap > 0 ? 'padding-top:80px;' : '') | safe: 'style'">
@@ -29,49 +27,9 @@
                 [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
         </tr>
     </table>
-    <i routerLink="new" class="hovicon fas fa-plus"
-       pTooltip="{{ 'btn.newGame' | translate }}"
-       tooltipPosition="right"></i>
 </div>
 
 <div *ngIf="displayMode == 0" class="gameBoxContainer bgblur">
-
-    <div *ngIf="displayMode == 0" class="title">
-        {{ 'title.gameList' | translate }}
-
-        <table class="table static">
-            <tbody>
-            <tr>
-                <td></td>
-                <td class="tdLabel"></td>
-                <td class="tdLabel">{{ 'field.userGame.pricePaid' | translate }}</td>
-                <td class="tdLabel">{{ 'field.userGame.priceResale' | translate }}</td>
-            </tr>
-            <tr>
-                <td class="tdLabel">{{ 'label.total' | translate }}</td>
-                <td>{{ userGames.length }}</td>
-                <td>{{ userGames | total:'pricePaid' }}&nbsp;€</td>
-                <td>{{ userGames | total:'priceResale' }}&nbsp;€</td>
-            </tr>
-            <tr>
-                <td class="tdLabel">{{ 'label.search' | translate }}</td>
-                <td>{{ userGames | filter: userGameFilter | length }} <span
-                        *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }}
-                    %)</span>
-                </td>
-                <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€ <span
-                        *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'pricePaid') * 100 / (userGames | total:'pricePaid')) |
-                    number:'2.0-0' }}%)</span>
-                </td>
-                <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€ <span
-                        *ngIf="userGames.length > 0">({{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames |
-                    total:'priceResale')) | number:'2.0-0' }}%)</span>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-
     <section
             *ngFor="let userGame of userGames | filter: userGameFilter | orderBy: orderField:orderOption | slice : sliceStart:sliceEnd"
             [routerLink]="'show/' + userGame.id"
@@ -123,11 +81,6 @@
             </div>
         </div>
     </section>
-    <section class="gameBox visible_anim">
-        <i routerLink="new" class="hovicon fas fa-plus"
-           pTooltip="{{ 'btn.newGame' | translate }}"
-           tooltipPosition="top"></i>
-    </section>
 </div>
 
 <div class="gameBannerTools paginator" *ngIf="!loading && sliceGap > 0">
@@ -161,368 +114,145 @@
 
 </div>
 
+<div class="ui-widget-overlay ui-sidebar-mask" *ngIf="sidebarLeft || sidebarRight"
+     (click)="sidebarLeft = sidebarRight = false"></div>
+
+<p-sidebar [(visible)]="sidebarLeft" [position]="'left'" [modal]="false" [autoZIndex]="false" [showCloseIcon]="false">
+    <div class="infos">
+        <i class="fas fa-fw fa-user" style="float: left; margin: 8px 10px; font-size: 24px"></i>
+        {{currentUser.username}}<br>
+        {{currentUser.email}}<br>
+        <br>
+        <a class="btn cool" routerLink="/login">
+            <i class="fas fa-fw fa-sign-out-alt"></i>
+            {{ 'btn.logout' | translate }}
+        </a>
+    </div>
+    <div class="content">
+        <label>{{ 'title.gameList' | translate }}</label>
+        <a class="btn cool" routerLink="new">
+            <i class="fas fa-fw fa-plus"></i>
+            {{ 'btn.newGame' | translate }}
+        </a>
+        <a class="btn cool" routerLink="/login">
+            <i class="fas fa-fw fa-sync"></i>
+            {{ 'btn.sync' | translate }}
+            <small>{{ userGamesDate | date:'dd/MM'}} {{ userGamesDate | date:'HH:mm' }}</small>
+        </a>
+    </div>
+</p-sidebar>
+
+<p-sidebar [(visible)]="sidebarRight" [position]="'right'" [modal]="false" [autoZIndex]="false" [showCloseIcon]="false">
+    <div class="infos p-0">
+        <table>
+            <tbody>
+            <tr>
+                <td></td>
+                <td class="tdLabel"></td>
+                <td class="tdLabel">{{ 'field.userGame.pricePaid' | translate }}</td>
+                <td class="tdLabel">{{ 'field.userGame.priceResale' | translate }}</td>
+            </tr>
+            <tr>
+                <td class="tdLabel align-right">
+                    <i class="fas fa-bars"
+                       pTooltip="{{ 'label.total' | translate }}"
+                       tooltipPosition="left"></i>
+                </td>
+                <td>{{ userGames.length }}</td>
+                <td>{{ userGames | total:'pricePaid' }}&nbsp;€</td>
+                <td>{{ userGames | total:'priceResale' }}&nbsp;€</td>
+            </tr>
+            <tr>
+                <td class="tdLabel align-right">
+                    <i class="fas fa-eye"
+                       pTooltip="{{ 'label.search' | translate }}"
+                       tooltipPosition="left"></i>
+                </td>
+                <td>{{ userGames | filter: userGameFilter | length }}</td>
+                <td>{{ userGames | filter: userGameFilter | total:'pricePaid' }}&nbsp;€</td>
+                <td>{{ userGames | filter: userGameFilter | total:'priceResale' }}&nbsp;€</td>
+            </tr>
+            <tr *ngIf="userGames.length > 0">
+                <td></td>
+                <td class="tdLabel">
+                    {{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }} %
+                </td>
+                <td class="tdLabel">
+                    {{ ((userGames | filter: userGameFilter | length) * 100 / userGames.length) | number:'2.0-0' }} %
+                </td>
+                <td class="tdLabel">
+                    {{ ((userGames | filter: userGameFilter | total:'priceResale') * 100 / (userGames | total:'priceResale')) | number:'2.0-0' }}
+                    %
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="content">
+
+        <div class="input">
+            <input type="text" id="name" name="name"
+                   [(ngModel)]="userGameFilter.game.name"
+                   (ngModelChange)="resetSelectedUserGame()"
+                   #name="ngModel"
+                   placeholder="{{ 'label.search' | translate }}"
+                   autocomplete="off">
+            <span class="bar"></span>
+        </div>
+        <a class="btn cool" (click)="displayFilters = !displayFilters">
+            <i class="fas fa-filter"></i>
+            {{ 'btn.filter' | translate }}
+        </a>
+
+        <label>{{ 'label.sort' | translate }}</label>
+        <div class="input">
+            <select id="orderField"
+                    [(ngModel)]="orderField" name="orderField"
+                    #name="ngModel"
+                    #t
+                    (change)="changeOrder(t.value)">
+                <option value="random">{{ 'label.random' | translate }}</option>
+                <option *ngFor="let field of tableFields"
+                        [value]="field">
+
+                    {{ 'field.' + field | translate }}
+                </option>
+            </select></div>
+        <a class="btn cool float-right" (click)="orderOption = !orderOption; changeOrder(orderField)">
+            <i class="fas fa-fw" [ngClass]="orderOption ? 'fa-sort-amount-up' : 'fa-sort-amount-down'"></i>
+            {{ 'btn.sort' + (orderOption ? 'Asc' : 'Desc') | translate }}
+        </a>
+
+        <label>Affichage</label>
+        <a *ngIf="displayMode == 0" class="btn cool" (click)="displayMode = 1">
+            <i class="fas fa-th"></i>
+            {{ 'btn.displayThumbs' | translate }}
+        </a>
+        <a *ngIf="displayMode == 1" class="btn cool" (click)="displayMode = 0">
+            <i class="fas fa-list"></i>
+            {{ 'btn.displayTable' | translate }}
+        </a>
+
+        <label>Outils</label>
+        <a class="btn cool" (click)="openChart()">
+            <i class="fas fa-chart-pie"></i>
+            {{ 'btn.charts' | translate }}
+        </a>
+    </div>
+</p-sidebar>
+
 <nav class="topnav">
     <div class="navLeft">
-        <i routerLink="/login" routerLinkActive="active" class="hovicon fas fa-user"
-           pTooltip="{{ 'btn.logout' | translate }}"
-           tooltipPosition="right"></i>
-        <i routerLink="new" class="hovicon fas fa-plus"
-           pTooltip="{{ 'btn.newGame' | translate }}"
-           tooltipPosition="right"></i>
-        <i class="hovicon fas fa-sync" (click)="getGames()"
-           [ngClass]="loading ? 'fa-spin' : ''"
-           pTooltip="{{ 'btn.sync' | translate }}
-           {{ userGamesDate | date:'dd/MM'}} {{ userGamesDate | date:'HH:mm' }}"
-           tooltipPosition="right"></i>
-        <div *ngIf="userGamesDate" class="syncDate"></div>
+        <i class="hovicon fas"
+           [ngClass]="sidebarLeft ? 'fa-times' : 'fa-bars'"
+           (click)="sidebarLeft = !sidebarLeft; sidebarRight = false"></i>
     </div>
     <div class="navRight">
-        <div class="searchToolsBig">
-            <div class="input">
-                <input type="text" id="name" name="name"
-                       [(ngModel)]="userGameFilter.game.name"
-                       (ngModelChange)="resetSelectedUserGame()"
-                       #name="ngModel"
-                       autocomplete="off"
-                       placeholder="{{ 'label.search' | translate }}">
-                <span class="bar"></span>
-            </div>
-            <div class="input">
-                <select id="orderField"
-                        [(ngModel)]="orderField" name="orderField"
-                        #name="ngModel"
-                        #t
-                        (change)="changeOrder(t.value)">
-                    <option value="random">{{ 'label.random' | translate }}</option>
-                    <option *ngFor="let field of tableFields"
-                            [value]="field">
-
-                        {{ 'field.' + field | translate }}
-                    </option>
-                </select>
-            </div>
-            <i class="hovicon fa" (click)="orderOption = !orderOption; changeOrder(orderField)"
-               [ngClass]="orderOption ? 'fa-sort-amount-up' : 'fa-sort-amount-down'"
-               pTooltip="{{ 'btn.sort' + (orderOption ? 'Asc' : 'Desc') | translate }}"
-               tooltipPosition="left"></i>
-        </div>
-        <i class="hovicon fas fa-filter" (click)="displayFilters = !displayFilters"
-           pTooltip="{{ 'btn.filter' | translate }}"
-           tooltipPosition="left"></i>
-        <i *ngIf="displayMode != 0" (click)="displayMode = 0" class="hovicon fas fa-th"
-           pTooltip="{{ 'btn.displayThumbs' | translate }}"
-           tooltipPosition="left"></i>
-        <i *ngIf="displayMode != 1" (click)="displayMode = 1" class="hovicon fas fa-list"
-           pTooltip="{{ 'btn.displayTable' | translate }}"
-           tooltipPosition="left"></i>
-        <i class="hovicon fas fa-chart-pie" (click)="openChart()"
-           pTooltip="{{ 'btn.charts' | translate }}"
-           tooltipPosition="left"></i>
+        <i class="hovicon fas"
+           [ngClass]="sidebarRight ? 'fa-times' : 'fa-eye'"
+           (click)="sidebarRight = !sidebarRight; sidebarLeft = false"></i>
     </div>
-
-    <div class="filters" *ngIf="displayFilters" [@routerTransition] preventParentScroll>
-
-        <div style="float:right;">
-            <i class="hovicon fas fa-undo"
-               (click)="resetUserGameFilter()"
-               pTooltip="Reset"
-               tooltipPosition="left"></i>
-            <i class="hovicon fas fa-times"
-               (click)="displayFilters = false"
-               pTooltip="{{ 'btn.close' | translate }}"
-               tooltipPosition="left"></i>
-        </div>
-
-        <div class="container-fluid searchToolsSmall">
-            <div class="row">
-                <div class="col-md-4">
-                    <input type="text" id="nameSmall" name="name"
-                           [(ngModel)]="userGameFilter.game.name"
-                           (ngModelChange)="resetSelectedUserGame()"
-                           #name="ngModel"
-                           autocomplete="off"
-                           placeholder="{{ 'label.search' | translate }}">
-                    <span class="bar"></span>
-                    <label for="nameSmall">{{ 'label.search' | translate }}</label>
-                </div>
-                <div class="col-md-4">
-                    <select id="orderFieldSmall"
-                            [(ngModel)]="orderField" name="orderField"
-                            #name="ngModel"
-                            #t
-                            (change)="changeOrder(t.value)">
-                        <option value="random">{{ 'label.random' | translate }}</option>
-                        <option *ngFor="let field of tableFields"
-                                [value]="field">
-
-                            {{ 'field.' + field | translate }}
-                        </option>
-                    </select>
-                    <label for="orderFieldSmall">{{ 'label.sort' | translate }}</label>
-                </div>
-                <div class="col-md-4">
-                    <i class="hovicon fa" (click)="orderOption = !orderOption; changeOrder(orderField)"
-                       [ngClass]="orderOption ? 'fa-sort-amount-up' : 'fa-sort-amount-down'"
-                       pTooltip="{{ 'btn.sort' + (orderOption ? 'Asc' : 'Desc') | translate }}"
-                       tooltipPosition="left"></i>
-                </div>
-            </div>
-        </div>
-        <p-tabView>
-            <p-tabPanel header="{{ 'label.game' | translate }}">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div>
-                            <label for="name">{{ 'field.userGame.platform' | translate }}</label><br>
-                            <tag *ngFor="let platform of userGameFilter.stats.tags.platform;"
-                                 [tag]="platform"
-                                 [filter]="userGameFilter.platforms"
-                                 [suffix]="userGameFilter.stats.count.platform[platform.id]"
-                                 (uploaded)="toggleTag('platforms', $event, platform)"></tag>
-                        </div>
-                        <div>
-                            <label for="name">{{ 'field.game.series' | translate }}</label><br>
-                            <tag *ngFor="let series of userGameFilter.stats.tags.series;"
-                                 [tag]="series"
-                                 [filter]="userGameFilter.game.series"
-                                 [suffix]="userGameFilter.stats.count.series[series.id]"
-                                 (uploaded)="toggleTag('series', $event, series)"></tag>
-                        </div>
-                        <div>
-                            <label for="name">{{ 'field.game.modes' | translate }}</label><br>
-                            <tag *ngFor="let mode of userGameFilter.stats.tags.modes;"
-                                 [tag]="mode"
-                                 [filter]="userGameFilter.game.modes"
-                                 [suffix]="userGameFilter.stats.count.modes[mode.id]"
-                                 (uploaded)="toggleTag('modes', $event, mode)"></tag>
-                        </div>
-                        <div>
-                            <label for="name">{{ 'field.game.themes' | translate }}</label><br>
-                            <tag *ngFor="let theme of userGameFilter.stats.tags.themes;"
-                                 [tag]="theme"
-                                 [filter]="userGameFilter.game.themes"
-                                 [suffix]="userGameFilter.stats.count.themes[theme.id]"
-                                 (uploaded)="toggleTag('themes', $event, theme)"></tag>
-                        </div>
-                        <div>
-                            <label for="name">{{ 'field.game.genres' | translate }}</label><br>
-                            <tag *ngFor="let genre of userGameFilter.stats.tags.genres;"
-                                 [tag]="genre"
-                                 [filter]="userGameFilter.game.genres"
-                                 [suffix]="userGameFilter.stats.count.genres[genre.id]"
-                                 (uploaded)="toggleTag('genres', $event, genre)"></tag>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="name">{{ 'field.userGame.releaseDate' | translate }}
-                            ({{userGameFilter.releaseYearRange[0] + ' - ' +
-                            userGameFilter.releaseYearRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.releaseYearRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minReleaseYear"
-                                  [max]="userGameFilter.maxReleaseYear"></p-slider>
-
-                        <label for="name">{{ 'field.userGame.purchaseDate' | translate }}
-                            ({{userGameFilter.purchaseYearRange[0] + ' - ' +
-                            userGameFilter.purchaseYearRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.purchaseYearRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minPurchaseYear"
-                                  [max]="userGameFilter.maxPurchaseYear"></p-slider>
-
-                        <label for="name">{{ 'field.userGame.rating' | translate }} ({{userGameFilter.ratingRange[0]
-                        + ' - ' + userGameFilter.ratingRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minRating"
-                                  [max]="userGameFilter.maxRating"></p-slider>
-
-                        <label for="name">{{ 'field.userGame.pricePaid' | translate }}
-                            ({{userGameFilter.pricePaidRange[0] + ' - ' +
-                            userGameFilter.pricePaidRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minPrice"
-                                  [max]="userGameFilter.maxPrice"></p-slider>
-
-                        <label for="name">{{ 'field.userGame.priceResale' | translate }}
-                            ({{userGameFilter.priceResaleRange[0] + ' - ' +
-                            userGameFilter.priceResaleRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minPrice"
-                                  [max]="userGameFilter.maxPrice"></p-slider>
-
-                        <label for="name">{{ 'field.userGame.priceSold' | translate }}
-                            ({{userGameFilter.priceSoldRange[0] + ' - ' +
-                            userGameFilter.priceSoldRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minPrice"
-                                  [max]="userGameFilter.maxPrice"></p-slider>
-
-                        <label for="name">{{ 'field.userGame.priceAsked' | translate }}
-                            ({{userGameFilter.priceAskedRange[0] + ' - ' +
-                            userGameFilter.priceAskedRange[1]}})</label><br>
-                        <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true"
-                                  (onChange)="resetSelectedUserGame()"
-                                  [min]="userGameFilter.minPrice"
-                                  [max]="userGameFilter.maxPrice"></p-slider>
-                    </div>
-                    <div class="col-md-3">
-                        <div>
-                            <label>{{ 'field.userGame.version' | translate }}</label><br>
-                            <tag [tag]="'FRA'"
-                                 [filter]="userGameFilter.versions"
-                                 [suffix]="userGameFilter.stats.count.version['FRA']"
-                                 (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
-                            <tag [tag]="'EUR'"
-                                 [filter]="userGameFilter.versions"
-                                 [suffix]="userGameFilter.stats.count.version['EUR']"
-                                 (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
-                            <tag [tag]="'JAP'"
-                                 [filter]="userGameFilter.versions"
-                                 [suffix]="userGameFilter.stats.count.version['JAP']"
-                                 (uploaded)="toggleTag('versions', $event, 'JAP')"></tag>
-                            <tag [tag]="'USA'"
-                                 [filter]="userGameFilter.versions"
-                                 [suffix]="userGameFilter.stats.count.version['USA']"
-                                 (uploaded)="toggleTag('versions', $event, 'USA')"></tag>
-                        </div>
-                        <div>
-                            <label>{{ 'field.userGame.completeness' | translate }}</label><br>
-                            <tag [tag]="'enum.completeness.LOOSE' | translate"
-                                 [value]="'LOOSE'"
-                                 [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness['LOOSE']"
-                                 (uploaded)="toggleTag('completenesss', $event, 'LOOSE')"></tag>
-                            <tag [tag]="'enum.completeness.NO_MANUAL' | translate"
-                                 [value]="'NO_MANUAL'"
-                                 [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness['NO_MANUAL']"
-                                 (uploaded)="toggleTag('completenesss', $event, 'NO_MANUAL')"></tag>
-                            <tag [tag]="'enum.completeness.NO_BOX' | translate"
-                                 [value]="'NO_BOX'"
-                                 [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness['NO_BOX']"
-                                 (uploaded)="toggleTag('completenesss', $event, 'NO_BOX')"></tag>
-                            <tag [tag]="'enum.completeness.COMPLETE' | translate"
-                                 [value]="'COMPLETE'"
-                                 [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness['COMPLETE']"
-                                 (uploaded)="toggleTag('completenesss', $event, 'COMPLETE')"></tag>
-                            <tag [tag]="'enum.completeness.DEMATERIALIZED' | translate"
-                                 [value]="'DEMATERIALIZED'"
-                                 [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness['DEMATERIALIZED']"
-                                 (uploaded)="toggleTag('completenesss', $event, 'DEMATERIALIZED')"></tag>
-                            <tag [tag]="'enum.completeness.NEW' | translate"
-                                 [value]="'NEW'"
-                                 [filter]="userGameFilter.completenesss"
-                                 [suffix]="userGameFilter.stats.count.completeness['NEW']"
-                                 (uploaded)="toggleTag('completenesss', $event, 'NEW')"></tag>
-                        </div>
-                        <div>
-                            <label>{{ 'field.userGame.progress' | translate }}</label><br>
-                            <tag [tag]="'enum.progress.NEVER_PLAYED' | translate"
-                                 [value]="'NEVER_PLAYED'"
-                                 [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress['NEVER_PLAYED']"
-                                 (uploaded)="toggleTag('progresses', $event, 'NEVER_PLAYED')"></tag>
-                            <tag [tag]="'enum.progress.IN_PROGRESS' | translate"
-                                 [value]="'IN_PROGRESS'"
-                                 [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress['IN_PROGRESS']"
-                                 (uploaded)="toggleTag('progresses', $event, 'IN_PROGRESS')"></tag>
-                            <tag [tag]="'enum.progress.FINISHED' | translate"
-                                 [value]="'FINISHED'"
-                                 [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress['FINISHED']"
-                                 (uploaded)="toggleTag('progresses', $event, 'FINISHED')"></tag>
-                            <tag [tag]="'enum.progress.ABANDONED' | translate"
-                                 [value]="'ABANDONED'"
-                                 [filter]="userGameFilter.progresses"
-                                 [suffix]="userGameFilter.stats.count.progress['ABANDONED']"
-                                 (uploaded)="toggleTag('progresses', $event, 'ABANDONED')"></tag>
-                        </div>
-                        <div>
-                            <label>{{ 'field.userGame.cond' | translate }}</label><br>
-                            <tag [tag]="'enum.cond.BAD' | translate"
-                                 [value]="'BAD'"
-                                 [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond['BAD']"
-                                 (uploaded)="toggleTag('conds', $event, 'BAD')"></tag>
-                            <tag [tag]="'enum.cond.GOOD' | translate"
-                                 [value]="'GOOD'"
-                                 [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond['GOOD']"
-                                 (uploaded)="toggleTag('conds', $event, 'GOOD')"></tag>
-                            <tag [tag]="'enum.cond.VERY_GOOD' | translate"
-                                 [value]="'VERY_GOOD'"
-                                 [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond['VERY_GOOD']"
-                                 (uploaded)="toggleTag('conds', $event, 'VERY_GOOD')"></tag>
-                            <tag [tag]="'enum.cond.NEAR_MINT' | translate"
-                                 [value]="'NEAR_MINT'"
-                                 [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond['NEAR_MINT']"
-                                 (uploaded)="toggleTag('conds', $event, 'NEAR_MINT')"></tag>
-                            <tag [tag]="'enum.cond.MINT' | translate"
-                                 [value]="'MINT'"
-                                 [filter]="userGameFilter.conds"
-                                 [suffix]="userGameFilter.stats.count.cond['MINT']"
-                                 (uploaded)="toggleTag('conds', $event, 'MINT')"></tag>
-                        </div>
-                        <div>
-                            <label for="name">{{ 'field.userGame.purchasePlace' | translate }}</label><br>
-                            <tag *ngFor="let place of userGameFilter.stats.tags.purchasePlace;"
-                                 [tag]="place"
-                                 [filter]="userGameFilter.purchasePlaces"
-                                 [suffix]="userGameFilter.stats.count.purchasePlace[place]"
-                                 (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
-                        </div>
-                        <div *ngIf="userGameFilter.stats.tags.salePlace.length > 0">
-                            <label for="name">{{ 'field.userGame.salePlace' | translate }}</label><br>
-                            <tag *ngFor="let place of userGameFilter.stats.tags.salePlace;"
-                                 [tag]="place"
-                                 [filter]="userGameFilter.salePlaces"
-                                 [suffix]="userGameFilter.stats.count.salePlace[place]"
-                                 (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
-                        </div>
-                    </div>
-                </div>
-            </p-tabPanel>
-            <p-tabPanel header="{{ 'field.game.developers' | translate }}">
-                <tag *ngFor="let developer of userGameFilter.stats.tags.developers;"
-                     [tag]="developer"
-                     [filter]="userGameFilter.game.developers"
-                     [suffix]="userGameFilter.stats.count.developers[developer.id]"
-                     (uploaded)="toggleTag('developers', $event, developer)"></tag>
-            </p-tabPanel>
-            <p-tabPanel header="{{ 'field.game.publishers' | translate }}">
-                <tag *ngFor="let publisher of userGameFilter.stats.tags.publishers;"
-                     [tag]="publisher"
-                     [filter]="userGameFilter.game.publishers"
-                     [suffix]="userGameFilter.stats.count.publishers[publisher.id]"
-                     (uploaded)="toggleTag('publishers', $event, publisher)"></tag>
-            </p-tabPanel>
-            <p-tabPanel header="{{ 'field.userGame.purchaseContact' | translate }}">
-                <tag *ngFor="let contact of userGameFilter.stats.tags.purchaseContact;"
-                     [tag]="contact"
-                     [filter]="userGameFilter.purchaseContacts"
-                     [suffix]="userGameFilter.stats.count.purchaseContact[contact.id]"
-                     (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
-            </p-tabPanel>
-            <p-tabPanel header="{{ 'field.userGame.saleContact' | translate }}"
-                        *ngIf="userGameFilter.stats.tags.saleContact.length > 0">
-                <tag *ngFor="let contact of userGameFilter.stats.tags.saleContact;"
-                     [tag]="contact"
-                     [filter]="userGameFilter.saleContacts"
-                     [suffix]="userGameFilter.stats.count.saleContact[contact.id]"
-                     (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
-            </p-tabPanel>
-        </p-tabView>
-    </div>
+    <div id="vgc" (click)="welcome = true">VGC</div>
 </nav>
 
 <game-chart *ngIf="displayChart" [field]="chartField" [userGameFilter]="userGameFilter"
@@ -550,6 +280,274 @@
     <div class="navRight"><i class="hovicon fas fa-times" (click)="closeChart()"
                              pTooltip="{{ 'btn.close' | translate }}"
                              tooltipPosition="left"></i></div>
+</div>
+
+<div class="fakePage content" *ngIf="displayFilters" [@routerTransition] preventParentScroll>
+    <p-tabView>
+        <p-tabPanel header="{{ 'label.game' | translate }}">
+            <div class="row">
+                <div class="col-md-6">
+                    <div>
+                        <label for="name">{{ 'field.userGame.platform' | translate }}</label><br>
+                        <tag *ngFor="let platform of userGameFilter.stats.tags.platform;"
+                             [tag]="platform"
+                             [filter]="userGameFilter.platforms"
+                             [suffix]="userGameFilter.stats.count.platform[platform.id]"
+                             (uploaded)="toggleTag('platforms', $event, platform)"></tag>
+                    </div>
+                    <div>
+                        <label for="name">{{ 'field.game.series' | translate }}</label><br>
+                        <tag *ngFor="let series of userGameFilter.stats.tags.series;"
+                             [tag]="series"
+                             [filter]="userGameFilter.game.series"
+                             [suffix]="userGameFilter.stats.count.series[series.id]"
+                             (uploaded)="toggleTag('series', $event, series)"></tag>
+                    </div>
+                    <div>
+                        <label for="name">{{ 'field.game.modes' | translate }}</label><br>
+                        <tag *ngFor="let mode of userGameFilter.stats.tags.modes;"
+                             [tag]="mode"
+                             [filter]="userGameFilter.game.modes"
+                             [suffix]="userGameFilter.stats.count.modes[mode.id]"
+                             (uploaded)="toggleTag('modes', $event, mode)"></tag>
+                    </div>
+                    <div>
+                        <label for="name">{{ 'field.game.themes' | translate }}</label><br>
+                        <tag *ngFor="let theme of userGameFilter.stats.tags.themes;"
+                             [tag]="theme"
+                             [filter]="userGameFilter.game.themes"
+                             [suffix]="userGameFilter.stats.count.themes[theme.id]"
+                             (uploaded)="toggleTag('themes', $event, theme)"></tag>
+                    </div>
+                    <div>
+                        <label for="name">{{ 'field.game.genres' | translate }}</label><br>
+                        <tag *ngFor="let genre of userGameFilter.stats.tags.genres;"
+                             [tag]="genre"
+                             [filter]="userGameFilter.game.genres"
+                             [suffix]="userGameFilter.stats.count.genres[genre.id]"
+                             (uploaded)="toggleTag('genres', $event, genre)"></tag>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label for="name">{{ 'field.userGame.releaseDate' | translate }}
+                        ({{userGameFilter.releaseYearRange[0] + ' - ' +
+                        userGameFilter.releaseYearRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.releaseYearRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minReleaseYear"
+                              [max]="userGameFilter.maxReleaseYear"></p-slider>
+
+                    <label for="name">{{ 'field.userGame.purchaseDate' | translate }}
+                        ({{userGameFilter.purchaseYearRange[0] + ' - ' +
+                        userGameFilter.purchaseYearRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.purchaseYearRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minPurchaseYear"
+                              [max]="userGameFilter.maxPurchaseYear"></p-slider>
+
+                    <label for="name">{{ 'field.userGame.rating' | translate }} ({{userGameFilter.ratingRange[0]
+                    + ' - ' + userGameFilter.ratingRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.ratingRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minRating"
+                              [max]="userGameFilter.maxRating"></p-slider>
+
+                    <label for="name">{{ 'field.userGame.pricePaid' | translate }}
+                        ({{userGameFilter.pricePaidRange[0] + ' - ' +
+                        userGameFilter.pricePaidRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.pricePaidRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minPrice"
+                              [max]="userGameFilter.maxPrice"></p-slider>
+
+                    <label for="name">{{ 'field.userGame.priceResale' | translate }}
+                        ({{userGameFilter.priceResaleRange[0] + ' - ' +
+                        userGameFilter.priceResaleRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.priceResaleRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minPrice"
+                              [max]="userGameFilter.maxPrice"></p-slider>
+
+                    <label for="name">{{ 'field.userGame.priceSold' | translate }}
+                        ({{userGameFilter.priceSoldRange[0] + ' - ' +
+                        userGameFilter.priceSoldRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.priceSoldRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minPrice"
+                              [max]="userGameFilter.maxPrice"></p-slider>
+
+                    <label for="name">{{ 'field.userGame.priceAsked' | translate }}
+                        ({{userGameFilter.priceAskedRange[0] + ' - ' +
+                        userGameFilter.priceAskedRange[1]}})</label><br>
+                    <p-slider [(ngModel)]="userGameFilter.priceAskedRange" [range]="true"
+                              (onChange)="resetSelectedUserGame()"
+                              [min]="userGameFilter.minPrice"
+                              [max]="userGameFilter.maxPrice"></p-slider>
+                </div>
+                <div class="col-md-3">
+                    <div>
+                        <label>{{ 'field.userGame.version' | translate }}</label><br>
+                        <tag [tag]="'FRA'"
+                             [filter]="userGameFilter.versions"
+                             [suffix]="userGameFilter.stats.count.version['FRA']"
+                             (uploaded)="toggleTag('versions', $event, 'FRA')"></tag>
+                        <tag [tag]="'EUR'"
+                             [filter]="userGameFilter.versions"
+                             [suffix]="userGameFilter.stats.count.version['EUR']"
+                             (uploaded)="toggleTag('versions', $event, 'EUR')"></tag>
+                        <tag [tag]="'JAP'"
+                             [filter]="userGameFilter.versions"
+                             [suffix]="userGameFilter.stats.count.version['JAP']"
+                             (uploaded)="toggleTag('versions', $event, 'JAP')"></tag>
+                        <tag [tag]="'USA'"
+                             [filter]="userGameFilter.versions"
+                             [suffix]="userGameFilter.stats.count.version['USA']"
+                             (uploaded)="toggleTag('versions', $event, 'USA')"></tag>
+                    </div>
+                    <div>
+                        <label>{{ 'field.userGame.completeness' | translate }}</label><br>
+                        <tag [tag]="'enum.completeness.LOOSE' | translate"
+                             [value]="'LOOSE'"
+                             [filter]="userGameFilter.completenesss"
+                             [suffix]="userGameFilter.stats.count.completeness['LOOSE']"
+                             (uploaded)="toggleTag('completenesss', $event, 'LOOSE')"></tag>
+                        <tag [tag]="'enum.completeness.NO_MANUAL' | translate"
+                             [value]="'NO_MANUAL'"
+                             [filter]="userGameFilter.completenesss"
+                             [suffix]="userGameFilter.stats.count.completeness['NO_MANUAL']"
+                             (uploaded)="toggleTag('completenesss', $event, 'NO_MANUAL')"></tag>
+                        <tag [tag]="'enum.completeness.NO_BOX' | translate"
+                             [value]="'NO_BOX'"
+                             [filter]="userGameFilter.completenesss"
+                             [suffix]="userGameFilter.stats.count.completeness['NO_BOX']"
+                             (uploaded)="toggleTag('completenesss', $event, 'NO_BOX')"></tag>
+                        <tag [tag]="'enum.completeness.COMPLETE' | translate"
+                             [value]="'COMPLETE'"
+                             [filter]="userGameFilter.completenesss"
+                             [suffix]="userGameFilter.stats.count.completeness['COMPLETE']"
+                             (uploaded)="toggleTag('completenesss', $event, 'COMPLETE')"></tag>
+                        <tag [tag]="'enum.completeness.DEMATERIALIZED' | translate"
+                             [value]="'DEMATERIALIZED'"
+                             [filter]="userGameFilter.completenesss"
+                             [suffix]="userGameFilter.stats.count.completeness['DEMATERIALIZED']"
+                             (uploaded)="toggleTag('completenesss', $event, 'DEMATERIALIZED')"></tag>
+                        <tag [tag]="'enum.completeness.NEW' | translate"
+                             [value]="'NEW'"
+                             [filter]="userGameFilter.completenesss"
+                             [suffix]="userGameFilter.stats.count.completeness['NEW']"
+                             (uploaded)="toggleTag('completenesss', $event, 'NEW')"></tag>
+                    </div>
+                    <div>
+                        <label>{{ 'field.userGame.progress' | translate }}</label><br>
+                        <tag [tag]="'enum.progress.NEVER_PLAYED' | translate"
+                             [value]="'NEVER_PLAYED'"
+                             [filter]="userGameFilter.progresses"
+                             [suffix]="userGameFilter.stats.count.progress['NEVER_PLAYED']"
+                             (uploaded)="toggleTag('progresses', $event, 'NEVER_PLAYED')"></tag>
+                        <tag [tag]="'enum.progress.IN_PROGRESS' | translate"
+                             [value]="'IN_PROGRESS'"
+                             [filter]="userGameFilter.progresses"
+                             [suffix]="userGameFilter.stats.count.progress['IN_PROGRESS']"
+                             (uploaded)="toggleTag('progresses', $event, 'IN_PROGRESS')"></tag>
+                        <tag [tag]="'enum.progress.FINISHED' | translate"
+                             [value]="'FINISHED'"
+                             [filter]="userGameFilter.progresses"
+                             [suffix]="userGameFilter.stats.count.progress['FINISHED']"
+                             (uploaded)="toggleTag('progresses', $event, 'FINISHED')"></tag>
+                        <tag [tag]="'enum.progress.ABANDONED' | translate"
+                             [value]="'ABANDONED'"
+                             [filter]="userGameFilter.progresses"
+                             [suffix]="userGameFilter.stats.count.progress['ABANDONED']"
+                             (uploaded)="toggleTag('progresses', $event, 'ABANDONED')"></tag>
+                    </div>
+                    <div>
+                        <label>{{ 'field.userGame.cond' | translate }}</label><br>
+                        <tag [tag]="'enum.cond.BAD' | translate"
+                             [value]="'BAD'"
+                             [filter]="userGameFilter.conds"
+                             [suffix]="userGameFilter.stats.count.cond['BAD']"
+                             (uploaded)="toggleTag('conds', $event, 'BAD')"></tag>
+                        <tag [tag]="'enum.cond.GOOD' | translate"
+                             [value]="'GOOD'"
+                             [filter]="userGameFilter.conds"
+                             [suffix]="userGameFilter.stats.count.cond['GOOD']"
+                             (uploaded)="toggleTag('conds', $event, 'GOOD')"></tag>
+                        <tag [tag]="'enum.cond.VERY_GOOD' | translate"
+                             [value]="'VERY_GOOD'"
+                             [filter]="userGameFilter.conds"
+                             [suffix]="userGameFilter.stats.count.cond['VERY_GOOD']"
+                             (uploaded)="toggleTag('conds', $event, 'VERY_GOOD')"></tag>
+                        <tag [tag]="'enum.cond.NEAR_MINT' | translate"
+                             [value]="'NEAR_MINT'"
+                             [filter]="userGameFilter.conds"
+                             [suffix]="userGameFilter.stats.count.cond['NEAR_MINT']"
+                             (uploaded)="toggleTag('conds', $event, 'NEAR_MINT')"></tag>
+                        <tag [tag]="'enum.cond.MINT' | translate"
+                             [value]="'MINT'"
+                             [filter]="userGameFilter.conds"
+                             [suffix]="userGameFilter.stats.count.cond['MINT']"
+                             (uploaded)="toggleTag('conds', $event, 'MINT')"></tag>
+                    </div>
+                    <div>
+                        <label for="name">{{ 'field.userGame.purchasePlace' | translate }}</label><br>
+                        <tag *ngFor="let place of userGameFilter.stats.tags.purchasePlace;"
+                             [tag]="place"
+                             [filter]="userGameFilter.purchasePlaces"
+                             [suffix]="userGameFilter.stats.count.purchasePlace[place]"
+                             (uploaded)="toggleTag('purchasePlaces', $event, place)"></tag>
+                    </div>
+                    <div *ngIf="userGameFilter.stats.tags.salePlace.length > 0">
+                        <label for="name">{{ 'field.userGame.salePlace' | translate }}</label><br>
+                        <tag *ngFor="let place of userGameFilter.stats.tags.salePlace;"
+                             [tag]="place"
+                             [filter]="userGameFilter.salePlaces"
+                             [suffix]="userGameFilter.stats.count.salePlace[place]"
+                             (uploaded)="toggleTag('salePlaces', $event, place)"></tag>
+                    </div>
+                </div>
+            </div>
+        </p-tabPanel>
+        <p-tabPanel header="{{ 'field.game.developers' | translate }}">
+            <tag *ngFor="let developer of userGameFilter.stats.tags.developers;"
+                 [tag]="developer"
+                 [filter]="userGameFilter.game.developers"
+                 [suffix]="userGameFilter.stats.count.developers[developer.id]"
+                 (uploaded)="toggleTag('developers', $event, developer)"></tag>
+        </p-tabPanel>
+        <p-tabPanel header="{{ 'field.game.publishers' | translate }}">
+            <tag *ngFor="let publisher of userGameFilter.stats.tags.publishers;"
+                 [tag]="publisher"
+                 [filter]="userGameFilter.game.publishers"
+                 [suffix]="userGameFilter.stats.count.publishers[publisher.id]"
+                 (uploaded)="toggleTag('publishers', $event, publisher)"></tag>
+        </p-tabPanel>
+        <p-tabPanel header="{{ 'field.userGame.purchaseContact' | translate }}">
+            <tag *ngFor="let contact of userGameFilter.stats.tags.purchaseContact;"
+                 [tag]="contact"
+                 [filter]="userGameFilter.purchaseContacts"
+                 [suffix]="userGameFilter.stats.count.purchaseContact[contact.id]"
+                 (uploaded)="toggleTag('purchaseContacts', $event, contact)"></tag>
+        </p-tabPanel>
+        <p-tabPanel header="{{ 'field.userGame.saleContact' | translate }}"
+                    *ngIf="userGameFilter.stats.tags.saleContact.length > 0">
+            <tag *ngFor="let contact of userGameFilter.stats.tags.saleContact;"
+                 [tag]="contact"
+                 [filter]="userGameFilter.saleContacts"
+                 [suffix]="userGameFilter.stats.count.saleContact[contact.id]"
+                 (uploaded)="toggleTag('saleContacts', $event, contact)"></tag>
+        </p-tabPanel>
+    </p-tabView>
+</div>
+<div class="topnav" *ngIf="displayFilters" [@topNavTransition]>
+    <div class="navRight">
+        <a (click)="resetUserGameFilter()" class="btn cool" style="width: auto; display: inline">
+            <i class="fas fa-undo"></i>
+            {{ 'btn.reset' | translate }}
+        </a>
+        <i class="hovicon fas fa-times" (click)="displayFilters = false"
+           pTooltip="{{ 'btn.close' | translate }}"
+           tooltipPosition="left"></i>
+    </div>
 </div>
 
 

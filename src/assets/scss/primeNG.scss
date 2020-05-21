@@ -134,6 +134,10 @@ label.primeng {
   top: 70px;
   width: 100%;
   text-align: center;
+
+  .ui-paginator-element {
+    border: 0;
+  }
 }
 .ui-widget-header {
    display: inline-block;

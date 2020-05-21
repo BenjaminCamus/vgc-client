@@ -1,4 +1,9 @@
-<section *ngIf="tag" (click)="toggleActive()" class="tag" [ngClass]="active ? 'on' : 'off'">
-    <div *ngIf="suffix">{{suffix}}</div>
-    {{ tagLabel }}
+<section *ngIf="tag" (click)="toggleActive()" class="tag" [ngClass]="{
+  'on': active,
+  'off': !active,
+  'platform': platform
+}">
+    <div class="suffix" *ngIf="suffix">{{suffix}}</div>
+    <img *ngIf="platform" src="/assets/img/platform/{{tag.slug}}.png" class="platformLogo">
+    <span *ngIf="!platform">{{ tagLabel }}</span>
 </section>

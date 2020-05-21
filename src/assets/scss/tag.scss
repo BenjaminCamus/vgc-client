@@ -12,7 +12,7 @@
   overflow: hidden;
   position: relative;
 
-  div {
+  .suffix {
     transition: all 1s ease;
     background: #111;
     color: #fff;
@@ -26,22 +26,34 @@
   img {
     vertical-align: middle;
   }
-}
 
-.tag.off:hover {
-  border: 1px solid rgba(255, 255, 255, 1);
+  &.platform {
+    height: 50px;
+    line-height: 50px;
+    width: 140px;
+    text-align: center;
+    padding: 0;
 
-  div {
-    border-left: 1px solid rgba(255, 255, 255, 1);
+    .suffix {
+      border-bottom: 1px solid rgba(255,255,255,.3);
+      line-height: 20px;
+    }
   }
-}
 
-.tag.on {
-  background: $colorSuccess0;
-  border: 1px solid rgba(255, 255, 255, 1);
+  &.off:hover, &.on {
+    border-color: rgba(255, 255, 255, 1);
 
-  div {
-    border-left: 1px solid rgba(255, 255, 255, 1);
+    .suffix {
+      border-color: rgba(255, 255, 255, 1);
+    }
+  }
+
+  &.on {
     background: $colorSuccess0;
+
+    .suffix {
+      background: $colorSuccess0;
+    }
   }
+
 }

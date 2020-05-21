@@ -290,6 +290,7 @@
                     <div>
                         <label for="name">{{ 'field.userGame.platform' | translate }}</label><br>
                         <tag *ngFor="let platform of userGameFilter.stats.tags.platform;"
+                             [platform]="true"
                              [tag]="platform"
                              [filter]="userGameFilter.platforms"
                              [suffix]="userGameFilter.stats.count.platform[platform.id]"

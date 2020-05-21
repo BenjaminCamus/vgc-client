@@ -11,15 +11,15 @@ export class TagComponent {
 
     @Input() tag: any;
     @Input() value: any;
+    @Input() platform = false;
     tagLabel: string;
     _filter: any;
     @Input() set filter(filter: any) {
         this._filter = filter;
 
-        if (typeof this.tag == 'number' || typeof this.tag == 'string') {
+        if (typeof this.tag === 'number' || typeof this.tag === 'string') {
             this.tagLabel = this.tag + '';
-        }
-        else {
+        } else {
             this.tagLabel = this.formatNamePipe.transform(this.tag);
         }
 

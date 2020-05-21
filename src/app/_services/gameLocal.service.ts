@@ -21,6 +21,7 @@ export class GameLocalService {
         'enableVideo': true,
         'syncDatetime': 0,
         'newGameSearch': '',
+        'sliceGap': 50,
     };
 
     private static setDates(userGame) {

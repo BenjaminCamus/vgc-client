@@ -64,7 +64,6 @@ export class GamesComponent implements OnInit, OnDestroy {
     orderField: string;
 
     private _displayMode: number;
-
     get displayMode(): number {
         return this._displayMode;
     }
@@ -76,7 +75,6 @@ export class GamesComponent implements OnInit, OnDestroy {
     }
 
     private _orderOption: boolean;
-
     get orderOption(): boolean {
         return this._orderOption;
     }
@@ -89,7 +87,17 @@ export class GamesComponent implements OnInit, OnDestroy {
 
     sliceStart = 0;
     sliceEnd = 0;
-    sliceGap = 0;
+
+    private _sliceGap: number;
+    get sliceGap(): number {
+        return this._sliceGap;
+    }
+    set sliceGap(value: number) {
+        if (value !== this._sliceGap) {
+            this._sliceGap = value;
+            this.gameLocalService.setOption('sliceGap', value);
+        }
+    }
 
     chartFields = [
         'userGame.platform', 'game.series', 'game.developers', 'game.publishers', 'game.modes', 'game.themes', 'game.genres',
@@ -211,12 +219,15 @@ export class GamesComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
+        this.displayMode = this.gameLocalService.getOption('displayMode');
+        this.orderField = this.gameLocalService.getOption('orderField');
+        this.orderOption = this.gameLocalService.getOption('orderOption');
+        this.sliceGap = this.gameLocalService.getOption('sliceGap');
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
         this.gameLocalService.getUserGames().then(
             userGames => {
                 this.userGames = userGames;
-                this.setSliceGap();
                 if (!this.userGames || this.userGames.length === 0) {
                     this.loading = false;
                     this.getGames();
@@ -231,10 +242,6 @@ export class GamesComponent implements OnInit, OnDestroy {
                 console.log(error);
                 this.loading = false;
             });
-
-        this.displayMode = this.gameLocalService.getOption('displayMode');
-        this.orderField = this.gameLocalService.getOption('orderField');
-        this.orderOption = this.gameLocalService.getOption('orderOption');
     }
 
     ngOnDestroy() {
@@ -278,8 +285,6 @@ export class GamesComponent implements OnInit, OnDestroy {
                     this.getGamesPack();
                 } else {
 
-                    this.setSliceGap();
-
                     this.userGames.sort(orderByName);
 
                     this.gameLocalService.setUserGames(this.userGames);
@@ -295,17 +300,6 @@ export class GamesComponent implements OnInit, OnDestroy {
                 this.loading = false;
             });
 
-    }
-
-    setSliceGap() {
-
-        if (this.userGames.length > 100) {
-            this.sliceGap = 50;
-        } else if (this.userGames.length > 50) {
-            this.sliceGap = 20;
-        } else {
-            this.sliceGap = 10;
-        }
     }
 
     openChart() {

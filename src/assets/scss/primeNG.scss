@@ -9,14 +9,19 @@
 
   .ui-state-default {
     background: none !important;
+    transition: border-color 0.5s ease;
   }
 
-  ui-state-default:hover, .ui-state-default:focus,
+  .ui-state-default:hover, .ui-state-default:focus,
   .ui-state-active, .ui-state-active:hover, .ui-state-active:focus {
+    transition: border-color 0.5s ease;
     background: none !important;
-    color: $colorMain;
-    border-bottom: 1px solid $colorMain;
+    border-bottom: 1px solid $colorMain !important;
     outline: none;
+  }
+
+  .ui-state-active, .ui-state-active:hover, .ui-state-active:focus {
+    color: $colorMain;
   }
 }
 

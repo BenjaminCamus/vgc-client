@@ -134,7 +134,7 @@
             <i class="fas fa-fw fa-plus"></i>
             {{ 'btn.newGame' | translate }}
         </a>
-        <a class="btn cool" routerLink="/login">
+        <a class="btn cool" (click)="getGames()">
             <i class="fas fa-fw fa-sync"></i>
             {{ 'btn.sync' | translate }}
             <small>{{ userGamesDate | date:'dd/MM'}} {{ userGamesDate | date:'HH:mm' }}</small>

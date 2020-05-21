@@ -28,7 +28,7 @@
 
 .ui-tabview.ui-tabview-top > .ui-tabview-nav li {
   border: 0;
-  margin: 0 5px 1px 0;
+  margin: 0;
 }
 
 .ui-widget {
@@ -131,6 +131,9 @@ label.primeng {
 
 .paginator {
   position: fixed;
+  top: 70px;
+  width: 100%;
+  text-align: center;
 }
 .ui-widget-header {
    display: inline-block;

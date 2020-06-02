@@ -58,28 +58,29 @@ export class LoadingComponent implements OnInit {
 
         const range = this.progressTo - this.currentProgress;
 
-        if (range == 0) {
+        if (range === 0) {
             return false;
         }
 
         this.increment = this.progressTo > this.currentProgress ? 1 : -1;
-        const stepTime = Math.abs(Math.floor(1000 / range));
+        const stepTime = Math.abs(Math.floor(10 / range));
 
         this.timer = setInterval(() => {
 
             this.currentProgress += this.increment;
 
-            if ((this.currentProgress * 100 / this.total) < this.colorInc * 1)
+            if ((this.currentProgress * 100 / this.total) < this.colorInc * 1) {
                 this.color = 'red';
-            else if ((this.currentProgress * 100 / this.total) < this.colorInc * 2)
+            } else if ((this.currentProgress * 100 / this.total) < this.colorInc * 2) {
                 this.color = 'orange';
-            else
+            } else {
                 this.color = 'green';
+            }
 
-            if (this.currentProgress == this.progressTo) {
+            if (this.currentProgress === this.progressTo) {
                 clearInterval(this.timer);
             }
-        }, stepTime);
+        }, 10);
 
 
     }

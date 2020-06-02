@@ -26,6 +26,7 @@ import {routerTransition} from '../../_animations/router.animations';
 })
 export class GameDetailComponent implements OnInit {
 
+    currentUser;
     public userGame: UserGame;
 
     private selectedGame: Game = null;
@@ -50,19 +51,28 @@ export class GameDetailComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
         this.injector.get(GamesComponent).setupRouting();
 
         const id = this.route.snapshot.paramMap.get('id');
         if (id === '') {
             this.router.navigate(['/games']);
         } else {
-            this.injector.get(GamesComponent).gameLocalService.getUserGame(id).then(
-                userGame => {
-                    this.userGame = userGame;
-                },
-                error => {
-                    console.log(error);
-                });
+
+            const currentUserGame = this.injector.get(GamesComponent).getGame(id);
+            if (false === currentUserGame) {
+                this.router.navigate(['/games']);
+            } else if (currentUserGame.user.username !== this.currentUser.username) {
+                this.userGame = currentUserGame;
+            } else {
+                this.injector.get(GamesComponent).gameLocalService.getUserGame(id).then(
+                    userGame => {
+                        this.userGame = userGame;
+                    },
+                    error => {
+                        console.log(error);
+                    });
+            }
         }
     }
 

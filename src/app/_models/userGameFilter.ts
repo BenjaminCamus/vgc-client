@@ -1,7 +1,7 @@
-import {Platform} from "./platform";
-import {UserGame} from "./userGame";
-import {Contact} from "./contact";
-import {orderByCount, formatDate} from "../functions";
+import {Platform} from './platform';
+import {UserGame} from './userGame';
+import {Contact} from './contact';
+import {orderByCount, formatDate} from '../functions';
 
 export class UserGameFilter extends UserGame {
 
@@ -39,14 +39,14 @@ export class UserGameFilter extends UserGame {
         this[arrayName].push(element);
 
         this[arrayName] = this[arrayName].filter(function (elem, index, self) {
-            return index == self.indexOf(elem);
+            return index === self.indexOf(elem);
         });
 
         return this;
     }
 
     removeElement(arrayName, element) {
-        let index = this[arrayName].indexOf(element, 0);
+        const index = this[arrayName].indexOf(element, 0);
         if (index > -1) {
             this[arrayName].splice(index, 1);
         }
@@ -76,6 +76,7 @@ export class UserGameFilter extends UserGame {
                 cond: ['BAD', 'GOOD', 'VERY_GOOD', 'NEAR_MINT', 'MINT'],
                 completeness: ['LOOSE', 'NO_MANUAL', 'NO_BOX', 'COMPLETE', 'DEMATERIALIZED', 'NEW'],
 
+                price: [],
                 pricePaid: [],
                 priceAsked: [],
                 priceResale: [],
@@ -105,6 +106,7 @@ export class UserGameFilter extends UserGame {
                 cond: {},
                 completeness: {},
 
+                price: {},
                 pricePaid: {},
                 priceAsked: {},
                 priceResale: {},
@@ -124,7 +126,7 @@ export class UserGameFilter extends UserGame {
         let minPurchaseYear = 1000000000;
         let maxPurchaseYear = 0;
 
-        for (let userGame of userGames) {
+        for (const userGame of userGames) {
 
             // Rating
             if (userGame.rating < minRating) {
@@ -154,19 +156,33 @@ export class UserGameFilter extends UserGame {
             }
 
             // Price
-            let minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
+            const priceTypes = ['pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
+            for (const type of priceTypes) {
+
+                if (userGame[type]) {
+                    if (!this.stats.count.price[type]) {
+
+                        this.stats.tags.price.push(type);
+                        this.stats.count.price[type] = 0;
+                    }
+
+                    this.stats.count.price[type] += parseFloat(userGame[type]);
+                }
+            }
+
+            const minP = Math.min(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
             if (minP < minPrice) {
                 minPrice = minP;
             }
 
-            let maxP = Math.max(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
+            const maxP = Math.max(userGame.priceAsked, userGame.pricePaid, userGame.priceResale, userGame.priceSold);
             if (maxP > maxPrice) {
                 maxPrice = maxP;
             }
 
             // UserGame Tags
             let tagTypes = ['platform', 'purchaseContact', 'saleContact'];
-            for (let type of tagTypes) {
+            for (const type of tagTypes) {
 
                 if (userGame[type]) {
                     if (!this.stats.count[type][userGame[type].id]) {
@@ -180,18 +196,21 @@ export class UserGameFilter extends UserGame {
             }
 
             // UserGame Places
-            tagTypes = ['purchasePlace', 'salePlace', 'purchaseDate', 'saleDate', 'pricePaid', 'priceAsked', 'priceResale', 'priceSold', 'rating'];
-            for (let type of tagTypes) {
+            tagTypes = [
+                'purchasePlace', 'salePlace', 'purchaseDate', 'saleDate',
+                'pricePaid', 'priceAsked', 'priceResale', 'priceSold',
+                'rating'
+            ];
+            for (const type of tagTypes) {
 
                 if (userGame[type]) {
 
                     let tag = userGame[type];
 
-                    if (type.substring(0, 5) == 'price') {
-                        tag = Math.floor(parseInt(tag, 10)/10);
+                    if (type.substring(0, 5) === 'price') {
+                        tag = Math.floor(parseInt(tag, 10) / 10);
                         // tag = parseInt(userGame[type], 10);
-                    }
-                    else if (type.substr(type.length - 4) == 'Date') {
+                    } else if (type.substr(type.length - 4) === 'Date') {
                         tag = formatDate(tag, 'y/m');
                     }
 
@@ -215,10 +234,10 @@ export class UserGameFilter extends UserGame {
             this.stats.count.ratingIGDB[userGame.game.rating]++;
 
             // Game Tags
-            for (let tagType of ['series', 'developers', 'publishers', 'modes', 'themes', 'genres']) {
+            for (const tagType of ['series', 'developers', 'publishers', 'modes', 'themes', 'genres']) {
                 if (userGame.game[tagType] && userGame.game[tagType].length > 0) {
 
-                    for (let tag of userGame.game[tagType]) {
+                    for (const tag of userGame.game[tagType]) {
 
                         if (!this.stats.count[tagType][tag.id]) {
 
@@ -271,24 +290,26 @@ export class UserGameFilter extends UserGame {
         this.minPrice = minPrice;
         this.maxPrice = maxPrice;
 
-        let priceTypes = ['pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
-        for (let type of priceTypes) {
+        const priceTypes = ['pricePaid', 'priceAsked', 'priceResale', 'priceSold'];
+        for (const type of priceTypes) {
 
-            for (let i = Math.floor(minPrice/10); i <= Math.floor(maxPrice/10); i++) {
+            for (let i = Math.floor(minPrice / 10); i <= Math.floor(maxPrice / 10); i++) {
             // for (let i = 0; i <= maxPrice; i++) {
 
                 if (!this.stats.count[type][i]) {
 
                     this.stats.tags[type].push(i);
                     this.stats.count[type][i] = 0;
+                } else {
+                    this.stats.count[type][i] = Math.round(this.stats.count[type][i]);
                 }
-            }
 
-            this.stats.tags[type].sort(sortNumber);
+                this.stats.count.price[type] = Math.round(this.stats.count.price[type]);
+            }
         }
 
-        let ratingTypes = ['rating', 'ratingIGDB'];
-        for (let type of ratingTypes) {
+        const ratingTypes = ['rating', 'ratingIGDB'];
+        for (const type of ratingTypes) {
 
             for (let i = 0; i <= 20; i++) {
 

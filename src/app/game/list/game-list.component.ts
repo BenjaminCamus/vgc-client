@@ -16,6 +16,7 @@ import {topNavTransition} from '../../_animations/topNav.animations';
 import {environment} from '../../../environments/environment';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CarouselAnimations} from '../../_animations/carousel.animations';
+import {User} from '../../_models/user';
 
 @Component({
     moduleId: module.id,
@@ -30,7 +31,7 @@ export class GamesComponent implements OnInit, OnDestroy {
 
     sidebarLeft = false;
     sidebarRight = false;
-    currentUser;
+    currentUser: User;
 
     public routeTrigger;
     public currentIndex = 0;
@@ -62,6 +63,27 @@ export class GamesComponent implements OnInit, OnDestroy {
 
     displayFilters = false;
     orderField: string;
+
+    displayVersus = false;
+    private _playerName: string;
+    get playerName(): string {
+        return this._playerName;
+    }
+    set playerName(username: string) {
+        if (username !== this._playerName) {
+            this._playerName = username;
+
+            if (username === this.currentUser.username) {
+                this.gameLocalService.getUserGames().then(
+                    userGames => {
+                        this.userGames = userGames;
+                        this.resetUserGameFilter();
+                    });
+            } else {
+                this.getGames(username);
+            }
+        }
+    }
 
     private _displayMode: number;
     get displayMode(): number {
@@ -224,13 +246,14 @@ export class GamesComponent implements OnInit, OnDestroy {
         this.orderOption = this.gameLocalService.getOption('orderOption');
         this.sliceGap = this.gameLocalService.getOption('sliceGap');
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this._playerName = this.currentUser.username;
 
         this.gameLocalService.getUserGames().then(
             userGames => {
                 this.userGames = userGames;
                 if (!this.userGames || this.userGames.length === 0) {
                     this.loading = false;
-                    this.getGames();
+                    this.getGames(this.currentUser.username);
                 } else {
                     this.userGamesDate = this.gameLocalService.getOption('syncDatetime');
                     this.reset();
@@ -250,7 +273,7 @@ export class GamesComponent implements OnInit, OnDestroy {
         }
     }
 
-    getGames() {
+    getGames(username: string) {
 
         if (!this.loading) {
 
@@ -260,12 +283,12 @@ export class GamesComponent implements OnInit, OnDestroy {
             this.loadingAction = 'sync';
             this.loading = true;
 
-            this.subscription = this.gameService.countUserGames().subscribe(
+            this.subscription = this.gameService.countUserGames(username).subscribe(
                 count => {
 
                     this.totalCalls = Math.floor(count / this.packNumber);
                     this.total = count;
-                    this.getGamesPack();
+                    this.getGamesPack(username);
 
                 },
                 error => {
@@ -275,20 +298,34 @@ export class GamesComponent implements OnInit, OnDestroy {
         }
     }
 
-    private getGamesPack() {
-        this.subscription = this.gameService.getUserGames(this.numCall * this.packNumber, this.packNumber).subscribe(
+    getGame(id) {
+        const index = this.userGames.findIndex(function (cur) {
+            return id === cur.id;
+        });
+
+        if (-1 === index) {
+            return false;
+        }
+
+        return this.userGames[index];
+    }
+
+    private getGamesPack(username) {
+        this.subscription = this.gameService.getUserGames(username, this.numCall * this.packNumber, this.packNumber).subscribe(
             userGames => {
                 this.userGames.push.apply(this.userGames, userGames);
 
                 if (this.numCall < this.totalCalls) {
                     this.numCall++;
-                    this.getGamesPack();
+                    this.getGamesPack(username);
                 } else {
 
                     this.userGames.sort(orderByName);
 
-                    this.gameLocalService.setUserGames(this.userGames);
-                    this.userGamesDate = this.gameLocalService.setOption('syncDatetime', new Date().getTime().toString());
+                    if (username === this.currentUser.username) {
+                        this.gameLocalService.setUserGames(this.userGames);
+                        this.userGamesDate = this.gameLocalService.setOption('syncDatetime', new Date().getTime().toString());
+                    }
 
                     this.reset();
 
@@ -347,6 +384,8 @@ export class GamesComponent implements OnInit, OnDestroy {
     private reset() {
 
         this.userGameFilter.setStats(this.userGames);
+        console.log(this.userGameFilter);
+        localStorage.setItem('userGameFilter-' + this.playerName, JSON.stringify(this.userGameFilter));
         this.resetSelectedUserGame();
     }
 

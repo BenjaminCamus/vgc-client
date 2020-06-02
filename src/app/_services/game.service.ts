@@ -1,15 +1,15 @@
-import {Injectable}              from '@angular/core';
-import {HttpClient, HttpHeaders,}          from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, } from '@angular/common/http';
 import {catchError, map} from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {AuthenticationService} from '../_services/authentification.service';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 import {Game} from '../_models/game';
-import {UserGame} from "../_models/userGame";
-import {ErrorService} from "./error.service";
-import {Contact} from "../_models/contact";
-import {environment} from "../../environments/environment";
-import {formatDate} from "../functions";
+import {UserGame} from '../_models/userGame';
+import {ErrorService} from './error.service';
+import {Contact} from '../_models/contact';
+import {environment} from '../../environments/environment';
+import {formatDate} from '../functions';
 
 @Injectable()
 export class GameService {
@@ -20,36 +20,6 @@ export class GameService {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     });
-
-    constructor(private http: HttpClient,
-                private authenticationService: AuthenticationService,
-                private router: Router,
-                private errorService: ErrorService) {
-    }
-
-    getUserGames(offset: number, limit: number): Observable<UserGame[]> {
-
-        return this.http
-            .get<UserGame[]>(this.url + 'user/games?offset=' + offset + '&limit=' + limit, {headers: this.headers})
-            .pipe(
-                map(response => {
-                    for (let key in response) {
-                        response[key] = GameService.convertData(response[key]);
-                    }
-                    return response as UserGame[];
-                }),
-                catchError(this.errorService.handleError.bind(this))
-            );
-    }
-
-    countUserGames(): Observable<number> {
-
-        return this.http.get<number>(this.url + 'user/games/count', {headers: this.headers})
-
-            .pipe(
-                catchError(this.errorService.handleError.bind(this))
-            );
-    }
 
     private static convertData(userGame) {
 
@@ -63,7 +33,7 @@ export class GameService {
             }
         }
 
-        if (userGame.game.name.substr(0, 4).toLowerCase() == 'the ') {
+        if (userGame.game.name.substr(0, 4).toLowerCase() === 'the ') {
             userGame.game.name = userGame.game.name.substr(4) + ' (The)';
         }
 
@@ -72,11 +42,46 @@ export class GameService {
 
     private static dateFromISO(date) {
         if (date) {
-            let timestamp = Date.parse(date);
+            const timestamp = Date.parse(date);
             return new Date(timestamp);
         }
 
         return date;
+    }
+
+    constructor(private http: HttpClient,
+                private authenticationService: AuthenticationService,
+                private router: Router,
+                private errorService: ErrorService) {
+    }
+
+    getUserGames(username: string, offset: number, limit: number): Observable<UserGame[]> {
+
+        return this.http
+            .get<UserGame[]>(
+                this.url + 'user/games?username=' + username + '&offset=' + offset + '&limit=' + limit,
+                {headers: this.headers}
+                )
+            .pipe(
+                map(response => {
+                    for (const key in response) {
+                        if (response[key]) {
+                            response[key] = GameService.convertData(response[key]);
+                        }
+                    }
+                    return response as UserGame[];
+                }),
+                catchError(this.errorService.handleError.bind(this))
+            );
+    }
+
+    countUserGames(username): Observable<number> {
+
+        return this.http.get<number>(this.url + 'user/games/count?username=' + username, {headers: this.headers})
+
+            .pipe(
+                catchError(this.errorService.handleError.bind(this))
+            );
     }
 
     getUserContacts(): Observable<Contact[]> {
@@ -96,8 +101,8 @@ export class GameService {
     }
 
     deleteUserGame(userGame: UserGame): Observable<UserGame> {
-        var url = this.url + 'user/games/' + userGame.id;
-        var headers = this.headers;
+        const url = this.url + 'user/games/' + userGame.id;
+        const headers = this.headers;
 
         return this.http
             .delete<UserGame>(url, {headers: headers})

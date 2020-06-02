@@ -116,23 +116,29 @@ a:focus {
   color: $colorMain!important;
 }
 
-.btn-success {
+.btn-success, .success {
   background-color: $colorSuccess0!important;
 }
-.btn-danger {
+.btn-warning, .warning {
+  background-color: $colorWarning0!important;
+}
+.btn-danger, .danger {
   background-color: $colorError0!important;
 }
-.btn-primary {
+.btn-primary, .primary {
   background-color: $colorMain0!important;
 }
 
-.btn-success:hover {
+.btn-success:hover, .success:hover {
   background-color: $colorSuccess!important;
 }
-.btn-danger:hover {
+.btn-warning:hover, .warning:hover {
+  background-color: $colorWarning!important;
+}
+.btn-danger:hover, .danger:hover {
   background-color: $colorError!important;
 }
-.btn-primary:hover {
+.btn-primary:hover, .primary:hover {
   background-color: $colorMain!important;
 }
 

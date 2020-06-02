@@ -39,11 +39,26 @@
 .ui-widget {
   font-family: inherit;
 }
-.ui-tooltip .ui-tooltip-text {
-  background: $colorMain0;
-}
-.ui-tooltip-right .ui-tooltip-arrow {
-  border-right-color: $colorMain0;
+
+.ui-tooltip {
+  margin-top: -5px;
+
+  &.ui-tooltip-left {
+    margin-left: -15px;
+  }
+
+  &.ui-tooltip-right {
+    margin-right: -15px;
+  }
+
+  .ui-tooltip-text {
+    background: black;
+  }
+
+  .ui-tooltip-arrow {
+    display: none;
+  }
+
 }
 
 .ui-slider-horizontal .ui-slider-handle {
@@ -144,10 +159,11 @@ label.primeng {
     border: 0;
   }
 }
+
 .ui-widget-header {
-   display: inline-block;
-   text-align: left;
- }
+  display: inline-block;
+  text-align: left;
+}
 
 .ui-sidebar {
   padding: 70px 0 0;
@@ -164,6 +180,7 @@ label.primeng {
 
   table {
     font-size: 12px;
+
     td {
       padding: 5px;
       text-align: right;

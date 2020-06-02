@@ -1,0 +1,81 @@
+<div id="versusBg" [style.background-image]="'url(' + image + ')' | safe: 'style'"></div>
+
+<div id="versus">
+    <div class="container-fluid">
+
+        <div class="row mb-4">
+            <div id="versusResult" class="col-md-12 text-center">
+                <div *ngIf="winner === 0">It's a draw!</div>
+                <div *ngIf="winner === 1">You win!</div>
+                <div *ngIf="winner === 2">{{ player2 }} wins!</div>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-2 offset-5">
+                <select class="m-0" id="field" [(ngModel)]="field" name="field" #name="ngModel" (change)="setImage()">
+                    <option *ngFor="let f of fields" [ngValue]="f">
+                        {{ 'field.' + f | translate }}
+                    </option>
+                </select>
+            </div>
+        </div>
+
+        <table>
+            <ng-template ngFor let-tag [ngForOf]="versusData[field].data" let-tagIndex="index">
+                <tr>
+                    <td class="w-50">
+                        <div class="versusBar float-right text-right"
+                             [ngClass]="getClass(tag.winner, 1)"
+                             [style.width]="getWidth(field, tagIndex, 1)">
+                            {{tag.count[1]}}
+                            <span *ngIf="field === 'userGame.price'"> €</span>
+                        </div>
+                    </td>
+
+                    <td class="align-top labelCell">
+                        <div class="text-center labelContainer">
+                            <span class="label">{{tag.label}}</span>
+                        </div>
+                    </td>
+
+                    <td class="w-50">
+                        <div class="versusBar"
+                             [ngClass]="getClass(tag.winner, 2)"
+                             [style.width]="getWidth(field, tagIndex, 2)">
+                            {{tag.count[2]}}
+                            <span *ngIf="field === 'userGame.price'"> €</span>
+                        </div>
+                    </td>
+                </tr>
+                <tr class="spacer"></tr>
+            </ng-template>
+        </table>
+    </div>
+
+
+    <div id="usernames">
+        <div class="float-right">
+            {{player2}} <i class="fas fa-fw fa-user-ninja"></i>
+        </div>
+        <i class="fas fa-fw fa-user-astronaut"></i> {{player1}}
+    </div>
+
+    <div class="totalBarContainer left">
+        <div class="totalBar float-right text-right"
+             [ngClass]="getClass(winner, 1)"
+             [style.width]="(totalPlayer1 * 100 / totalMax) + '%'">
+            {{totalPlayer1}}
+        </div>
+    </div>
+
+    <div class="totalBarContainer right">
+        <div class="totalBar"
+             [ngClass]="getClass(winner, 2)"
+             [style.width]="(totalPlayer2 * 100 / totalMax) + '%'">
+            {{totalPlayer2}}
+        </div>
+    </div>
+
+    <div id="versusLabel">VS</div>
+</div>

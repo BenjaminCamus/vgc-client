@@ -1,18 +1,20 @@
-import {Game} from "./game";
-import {Platform} from "./platform";
-import {Contact} from "./contact";
+import {Game} from './game';
+import {Platform} from './platform';
+import {Contact} from './contact';
+import {User} from './user';
 
 export class UserGame {
-    id: string = '';
+    id = '';
+    user: User;
     game: Game = new Game;
     platform: Platform = new Platform;
     releaseDate: Date;
 
     rating: number;
-    version: string = 'FRA';
-    progress: string = 'NEVER_PLAYED';
-    cond: string = 'VERY_GOOD';
-    completeness: string = 'COMPLETE';
+    version = 'FRA';
+    progress = 'NEVER_PLAYED';
+    cond = 'VERY_GOOD';
+    completeness = 'COMPLETE';
 
     priceAsked: number;
     pricePaid: number;

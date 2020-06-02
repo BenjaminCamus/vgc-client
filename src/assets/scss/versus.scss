@@ -1,0 +1,127 @@
+#versusBg {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: .1;
+}
+
+#versus {
+  margin: 190px 20px 20px 20px;
+  user-select: none;
+
+  #usernames {
+    position: absolute;
+    top: 150px;
+    left: 6%;
+    width: 88%;
+    font-size: 18px;
+  }
+
+  .totalBarContainer {
+    position: absolute;
+    top: 116px;
+    border: 1px solid #333;
+    width: 45%;
+    height: 28px;
+
+    &.left {
+      left: 5%;
+    }
+
+    &.right {
+      left: 50%;
+    }
+
+    .totalBar {
+      height: 26px;
+      line-height: 26px;
+      padding: 0 45px;
+      background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');}
+  }
+
+  #versusResult {
+    font-size: 30px;
+  }
+
+  #versusLabel {
+    position: absolute;
+    top: 100px;
+    left: 50%;
+    margin-left: -30px;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    font-size: 28px;
+    text-align: center;
+    border: 1px solid #333;
+    background: #000;
+  }
+
+  .versusBar {
+    min-width: 30px;
+    height: 24px;
+    line-height: 24px;
+    padding: 0 6px;
+    background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+    white-space: nowrap;
+  }
+
+  table {
+    width: 100%;
+
+    .labelCell {
+      background: #111;
+      max-width: 50vw;
+      overflow: hidden;
+
+      .labelContainer {
+        padding: 0 15px;
+        white-space: nowrap;
+        border-bottom: 1px solid #333;
+        height: 12px;
+        line-height: 24px;
+
+        .label {
+          background: #111;
+          padding: 0 15px;
+        }
+      }
+    }
+
+    tr {
+      &:hover {
+        .success {
+          background-color: $colorSuccess!important;
+        }
+        .warning {
+          background-color: $colorWarning!important;
+        }
+        .danger {
+          background-color: $colorError!important;
+        }
+        .primary {
+          background-color: $colorMain!important;
+        }
+
+        .labelContainer {
+          border-color: #fff;
+
+          .label {
+            color: #fff;
+          }
+        }
+      }
+    }
+
+    tr.spacer {
+      height: 15px;
+    }
+  }
+}

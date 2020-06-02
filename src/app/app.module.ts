@@ -39,6 +39,7 @@ import {GameChartComponent} from './game/chart/game-chart.component';
 import {LightboxModule} from 'ngx-lightbox';
 import {GameImagesComponent} from './game/images/game-images.component';
 import { DeviceDetectorModule } from 'ngx-device-detector';
+import {GameVersusComponent} from './game/versus/game-versus.component';
 
 export class MyHammerConfig extends HammerGestureConfig {
     overrides = <any> {
@@ -103,8 +104,8 @@ export function HttpLoaderFactory(http: HttpClient) {
         GameDetailComponent,
         GameNewComponent,
         GameFormComponent,
-        GameImagesComponent
-
+        GameImagesComponent,
+        GameVersusComponent,
     ],
     providers: [
         ErrorService,

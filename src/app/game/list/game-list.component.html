@@ -134,11 +134,32 @@
             <i class="fas fa-fw fa-plus"></i>
             {{ 'btn.newGame' | translate }}
         </a>
-        <a class="btn cool" (click)="getGames()">
+        <a class="btn cool" (click)="getGames(currentUser.username)">
             <i class="fas fa-fw fa-sync"></i>
             {{ 'btn.sync' | translate }}
             <small>{{ userGamesDate | date:'dd/MM'}} {{ userGamesDate | date:'HH:mm' }}</small>
         </a>
+
+        <label>Joueur</label>
+        <select id="playerName"
+                [(ngModel)]="playerName" name="playerName"
+                #name="ngModel">
+            <option value="{{ currentUser.username }}">{{ currentUser.username }}</option>
+            <option *ngFor="let player of currentUser.players" [value]="player">
+                {{ player }}
+            </option>
+        </select>
+
+        <a *ngIf="currentUser.username != playerName" class="btn cool"
+            (click)="displayVersus = true">
+            <i class="fas fa-fw fa-user-friends"></i>
+            Versus
+        </a>
+
+<!--        <a class="btn cool" routerLink="new">-->
+<!--            <i class="fas fa-fw fa-user-plus"></i>-->
+<!--            Ajouter un joueur-->
+<!--        </a>-->
     </div>
 </p-sidebar>
 
@@ -281,6 +302,21 @@
                              pTooltip="{{ 'btn.close' | translate }}"
                              tooltipPosition="left"></i></div>
 </div>
+
+<game-versus *ngIf="displayVersus" [player1]="currentUser.username" [player2]="playerName"
+            preventParentScroll></game-versus>
+<div class="topnav" *ngIf="displayVersus" [@topNavTransition]>
+    <div class="navRight"><i class="hovicon fas fa-times" (click)="displayVersus = false"
+                             pTooltip="{{ 'btn.close' | translate }}"
+                             tooltipPosition="left"></i></div>
+</div>
+<!--<game-versus  [player1]="currentUser.username" [player2]="'Popolon17'"-->
+<!--            preventParentScroll></game-versus>-->
+<!--<div class="topnav" [@topNavTransition]>-->
+<!--    <div class="navRight"><i class="hovicon fas fa-times" (click)="closeChart()"-->
+<!--                             pTooltip="{{ 'btn.close' | translate }}"-->
+<!--                             tooltipPosition="left"></i></div>-->
+<!--</div>-->
 
 <div class="fakePage content" *ngIf="displayFilters" [@routerTransition] preventParentScroll>
     <p-tabView>

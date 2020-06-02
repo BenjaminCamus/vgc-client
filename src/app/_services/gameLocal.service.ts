@@ -12,7 +12,7 @@ export class GameLocalService {
     private db: AngularIndexedDB;
     private userGames: UserGame[] = [];
 
-    private optionsId = 'options';
+    private optionsKey = 'options';
     private defaultOption = {
         'displayMode': 0,
         'orderField': 'game.name',
@@ -39,16 +39,6 @@ export class GameLocalService {
     }
 
     constructor() {
-
-        localStorage.removeItem('userGames');
-        localStorage.removeItem('userGamesDate');
-        localStorage.removeItem('userContacts');
-        localStorage.removeItem('userPlaces');
-        localStorage.removeItem('newGameSearch');
-        localStorage.removeItem('newUserGame');
-        localStorage.removeItem('enableVideo');
-        localStorage.removeItem('welcomeShow');
-
         this.db = new AngularIndexedDB(DB_NAME, DB_VERSION);
 
         this.db.openDatabase(DB_VERSION, (evt) => {
@@ -59,9 +49,11 @@ export class GameLocalService {
 
 
     resetAll() {
-        const resetIds = ['userGamesDate', 'userContacts', 'userPlaces', 'newGameSearch'];
-        for (const id of resetIds) {
-            localStorage.removeItem(id);
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key !== this.optionsKey) {
+                localStorage.removeItem(key);
+            }
         }
 
         this.userGames = [];
@@ -108,18 +100,18 @@ export class GameLocalService {
 
     setOption(option, value) {
         let options = {};
-        if (localStorage.getItem(this.optionsId)) {
-            options = JSON.parse(localStorage.getItem(this.optionsId));
+        if (localStorage.getItem(this.optionsKey)) {
+            options = JSON.parse(localStorage.getItem(this.optionsKey));
         }
 
         options[option] = value;
 
-        return localStorage.setItem(this.optionsId, JSON.stringify(options));
+        return localStorage.setItem(this.optionsKey, JSON.stringify(options));
     }
 
     getOption(option) {
-        if (localStorage.getItem(this.optionsId)) {
-            const options = JSON.parse(localStorage.getItem(this.optionsId));
+        if (localStorage.getItem(this.optionsKey)) {
+            const options = JSON.parse(localStorage.getItem(this.optionsKey));
 
             if (typeof options[option] !== 'undefined') {
                 let optionValue = options[option];

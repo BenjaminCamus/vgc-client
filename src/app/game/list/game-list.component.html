@@ -141,25 +141,41 @@
         </a>
 
         <label>Joueur</label>
-        <select id="playerName"
-                [(ngModel)]="playerName" name="playerName"
-                #name="ngModel">
-            <option value="{{ currentUser.username }}">{{ currentUser.username }}</option>
-            <option *ngFor="let player of currentUser.players" [value]="player">
-                {{ player }}
-            </option>
-        </select>
+<!--        <select id="playerName"-->
+<!--                [(ngModel)]="playerName" name="playerName"-->
+<!--                #name="ngModel">-->
+<!--            <option value="{{ currentUser.username }}">{{ currentUser.username }}</option>-->
+<!--            <option *ngFor="let player of currentUser.players" [value]="player">-->
+<!--                {{ player }}-->
+<!--            </option>-->
+<!--        </select>-->
 
-        <a *ngIf="currentUser.username != playerName" class="btn cool"
-            (click)="displayVersus = true">
+        <a class="btn cool"
+           [ngClass]="playerName === currentUser.username ? 'active' : ''"
+           (click)="playerName = currentUser.username">
+            <i class="fas fa-fw fa-user-friends"></i>
+            {{ currentUser.username }}
+        </a>
+
+        <a *ngFor="let player of currentUser.players"
+           [ngClass]="playerName === player ? 'active' : ''"
+           class="btn cool"
+           (click)="playerName = player">
+            <i class="fas fa-fw fa-user-friends"></i>
+            {{ player }}
+        </a>
+
+        <a *ngIf="currentUser.username != playerName"
+           class="btn cool"
+           (click)="displayVersus = true">
             <i class="fas fa-fw fa-user-friends"></i>
             Versus
         </a>
 
-<!--        <a class="btn cool" routerLink="new">-->
-<!--            <i class="fas fa-fw fa-user-plus"></i>-->
-<!--            Ajouter un joueur-->
-<!--        </a>-->
+        <!--        <a class="btn cool" routerLink="new">-->
+        <!--            <i class="fas fa-fw fa-user-plus"></i>-->
+        <!--            Ajouter un joueur-->
+        <!--        </a>-->
     </div>
 </p-sidebar>
 
@@ -304,7 +320,7 @@
 </div>
 
 <game-versus *ngIf="displayVersus" [player1]="currentUser.username" [player2]="playerName"
-            preventParentScroll></game-versus>
+             preventParentScroll></game-versus>
 <div class="topnav" *ngIf="displayVersus" [@topNavTransition]>
     <div class="navRight"><i class="hovicon fas fa-times" (click)="displayVersus = false"
                              pTooltip="{{ 'btn.close' | translate }}"

@@ -15,6 +15,7 @@ import {orderByName} from '../../functions';
 import {opacityTransition} from '../../_animations/opacity.animations';
 import {topNavTransition} from '../../_animations/topNav.animations';
 import {CarouselAnimations} from '../../_animations/carousel.animations';
+import {DeviceDetectorService} from 'ngx-device-detector';
 
 @Component({
     moduleId: module.id,
@@ -49,7 +50,7 @@ export class GameVersusComponent implements OnInit {
 
     private image = '';
 
-    constructor(private translatePipe: TranslatePipe) {
+    constructor(private translatePipe: TranslatePipe, private deviceService: DeviceDetectorService) {
     }
 
     ngOnInit() {
@@ -183,6 +184,10 @@ export class GameVersusComponent implements OnInit {
                 label = this.translatePipe.transform('field.userGame.' + userGameFilter.stats.tags[field][i]);
                 break;
 
+            case 'platform':
+                label = userGameFilter.stats.tags[field][i].slug;
+                break;
+
             default:
                 label = userGameFilter.stats.tags[field][i].name;
                 break;
@@ -241,6 +246,10 @@ export class GameVersusComponent implements OnInit {
         const imageId = pad.substring(0, pad.length - str.length) + str;
 
         this.image = 'assets/img/pixel-bg/pixel-background-' + imageId + '.gif';
+    }
+
+    private isMobile() {
+        this.deviceService.isMobile();
     }
 }
 

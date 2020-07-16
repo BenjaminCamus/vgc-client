@@ -34,9 +34,10 @@
                     </td>
 
                     <td class="align-top labelCell">
-                        <div class="text-center labelContainer">
+                        <div *ngIf="field !== 'userGame.platform'" class="text-center labelContainer">
                             <span class="label">{{tag.label}}</span>
                         </div>
+                        <img *ngIf="field === 'userGame.platform'" src="/assets/img/platform/{{tag.label}}.png" class="platformLogo">
                     </td>
 
                     <td class="w-50">
@@ -78,4 +79,7 @@
     </div>
 
     <div id="versusLabel">VS</div>
+
+    <img *ngIf="!isMobile()" class="playerGif left" src="/assets/img/ken.gif">
+    <img *ngIf="!isMobile()" class="playerGif right" src="/assets/img/dhalsim.gif">
 </div>

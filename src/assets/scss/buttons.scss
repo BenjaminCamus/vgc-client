@@ -45,7 +45,7 @@
       top: 50%;
       background: rgba(100,100,100,.15);
     }
-    &:hover, &:focus {
+    &:hover, &:focus, &.active {
       color: white !important;
       i {
         color: $colorMain;

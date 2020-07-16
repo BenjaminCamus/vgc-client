@@ -93,6 +93,10 @@
           padding: 0 15px;
         }
       }
+
+      .platformLogo {
+        margin: 15px;
+      }
     }
 
     tr {
@@ -122,6 +126,27 @@
 
     tr.spacer {
       height: 15px;
+    }
+  }
+
+  .playerGif {
+    position: fixed;
+    filter: grayscale(50%);
+    height: 300px;
+    top: 100vh;
+    margin-top: -385px;
+
+    &.left {
+      left: 50px;
+    }
+
+    &.right {
+      right: 50px;
+      transform: scaleX(-1);
+    }
+
+    &:hover {
+      filter: grayscale(0);
     }
   }
 }

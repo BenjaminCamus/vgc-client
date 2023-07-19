@@ -1,0 +1,89 @@
+.tableDisplay {
+  overflow: auto;
+  height: calc(100vh - 80px);
+  position: absolute;
+  top: 80px;
+  width: 100%;
+
+  .table {
+    background: #111;
+  }
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+  border-top: none;
+  border-bottom: 1px solid rgba(255, 255, 255, .1);
+  padding: 5px 15px;
+  white-space: nowrap;
+}
+
+.table>tbody>tr:last-child>td, .table>tbody>tr:last-child>th,
+.table>tfoot>tr>td, .table>tfoot>tr:last-child>th,
+.table>thead>tr:last-child>td, .table>thead>tr:last-child>th {
+  border-top: none;
+  border-bottom: none;
+}
+
+.title .table>tbody>tr>td, .title .table>tbody>tr>th, .title .table>tfoot>tr>td, .title .table>tfoot>tr>th, .title .table>thead>tr>td, .title .table>thead>tr>th {
+  font-size: 12px;
+  line-height: 22px;
+  width: auto;
+  padding: 0 10px;
+  white-space: normal;
+}
+
+.title .table {
+  display: inline;
+  margin-bottom: 0;
+  float: right;
+  width: auto;
+  max-width: 100%;
+}
+
+
+.table th {
+  font-weight: normal;
+  border: none;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+  background: rgba(255, 255, 255, .1);
+}
+
+.table th:hover {
+  background: rgba(255, 255, 255, .2);
+}
+
+.table th i[class*=fa-sort] {
+  margin-left: 10px;
+}
+
+.table td {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.table:not(.static) tr {
+  cursor: pointer;
+}
+
+.table:not(.static) tr:hover, .table:not(.static) tr.focus {
+  background: rgba(255, 255, 255, .05);
+}
+
+.table label, .table .tag {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+td.tdLabel {
+  color: rgba(255, 255, 255, .5);
+  white-space: nowrap;
+  width: 130px;
+}

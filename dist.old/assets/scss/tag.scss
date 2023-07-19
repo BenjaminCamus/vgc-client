@@ -1,0 +1,47 @@
+.tag {
+  transition: all 1s ease;
+  display: inline-block;
+  cursor: pointer;
+  padding: 1px 5px 0;
+  border: 1px solid rgba(255,255,255,.3);
+  margin: 0 5px 5px 0;
+  border-top-left-radius: 7px;
+  border-bottom-right-radius: 7px;
+  width: 180px;
+  white-space: nowrap;
+  overflow: hidden;
+  position: relative;
+
+  div {
+    transition: all 1s ease;
+    background: #111;
+    color: #fff;
+    border-left: 1px solid rgba(255,255,255,.3);
+    right: 0;
+    margin-left: 5px;
+    padding: 1px 5px 0;
+    position: absolute;
+  }
+
+  img {
+    vertical-align: middle;
+  }
+}
+
+.tag.off:hover {
+  border: 1px solid rgba(255, 255, 255, 1);
+
+  div {
+    border-left: 1px solid rgba(255, 255, 255, 1);
+  }
+}
+
+.tag.on {
+  background: $colorSuccess0;
+  border: 1px solid rgba(255, 255, 255, 1);
+
+  div {
+    border-left: 1px solid rgba(255, 255, 255, 1);
+    background: $colorSuccess0;
+  }
+}

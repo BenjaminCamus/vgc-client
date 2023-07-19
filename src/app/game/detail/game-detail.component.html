@@ -11,7 +11,7 @@
 
             <div class="col-md-8 bgblur">
                 <div class="title">
-                    <div class="navRight">
+                    <div *ngIf="userGame.user.username === currentUser.username" class="navRight">
                         <i *ngIf="!selectedGame" class="hovicon far fa-edit"
                            (click)="openForm('edit')"
                            pTooltip="{{ 'btn.edit' | translate }}"
@@ -43,9 +43,15 @@
                     <div class="row">
                         <div *ngFor="let colFields of userFields" class="col-md-4">
                             <table class="table static">
+                                <tr *ngIf="sameUserGame">
+                                    <td></td>
+                                    <td>{{userGame.user.username}}</td>
+                                    <td>{{sameUserGame.user.username}}</td>
+                                </tr>
                                 <tr *ngFor="let field of colFields">
                                     <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
                                     <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
+                                    <td *ngIf="sameUserGame" [innerHTML]="sameUserGame | userGameValue: field | translate | wrapValue: sameUserGame: field"></td>
                                 </tr>
                             </table>
                         </div>
@@ -56,9 +62,15 @@
                     <div class="row">
                         <div class="col-md-12">
                             <table class="table static">
+                                <tr *ngIf="sameUserGame">
+                                    <td></td>
+                                    <td>{{userGame.user.username}}</td>
+                                    <td>{{sameUserGame.user.username}}</td>
+                                </tr>
                                 <tr *ngFor="let field of gameFields">
                                     <td class="tdLabel"><label>{{ 'field.' + field | translate }}</label></td>
                                     <td [innerHTML]="userGame | userGameValue: field | translate | wrapValue: userGame: field"></td>
+                                    <td *ngIf="sameUserGame" [innerHTML]="sameUserGame | userGameValue: field | translate | wrapValue: sameUserGame: field"></td>
                                 </tr>
                             </table>
                         </div>

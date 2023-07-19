@@ -1,0 +1,36 @@
+$hovicon-size: 50px;
+
+.hovicon {
+  transition: all 1s ease;
+  display: inline-block;
+  font-size: 28px;
+  line-height: $hovicon-size;
+  cursor: pointer;
+  margin: 10px 5px;
+  width: $hovicon-size;
+  height: $hovicon-size;
+  text-align: center;
+  color: rgba(255,255,255,.7);
+  border-radius: 50%;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255,255,255,0);
+  overflow: hidden;
+  transform: scale(0.8);
+}
+
+.hovicon:hover {
+  background: $colorMain0;
+  color: #fff;
+  box-shadow: 0 0 0 2px $colorMain !important;
+  transform: scale(1);
+}
+
+.hovicon.i18n {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  z-index: 999;
+  top: calc(100vh - 70px);
+  left: calc(100vw - 70px);
+  box-shadow: 0 0 0 2px #fff;
+}

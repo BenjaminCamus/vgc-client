@@ -1,0 +1,139 @@
+input {
+  box-shadow: none; // bug fix red border when input invalid in firefox
+}
+
+.btn {
+  border: none;
+  border-radius: 0;
+  display: block;
+  width:100%;
+}
+
+.btn.fit {
+  width: calc(100% - 30px);
+  margin: 0 15px;
+}
+
+input:-webkit-autofill {
+  background: transparent !important;
+  -webkit-box-shadow:0 0 0 50px black inset;
+  -webkit-text-fill-color: #fff;
+}
+/* form starting stylings ------------------------------- */
+input, textarea, select {
+  margin-top: 30px;
+  resize: none;
+}
+.title input, .title select, .title .bar,
+.input input, .input select, .input .bar {
+  margin: 0;
+}
+input[type=text], input[type=date], input[type=password], textarea, select {
+  font-size: 14px;
+  display:block;
+  color: $colorTextMain;
+  background: transparent !important;
+  padding:10px 10px 10px 5px;
+  width:100%;
+  height: 46px;
+  border:none;
+  border-bottom:1px solid rgba(255, 255, 255, .1);
+
+}
+option {
+  background: rgba(0,0,0,.9);
+}
+textarea {
+  height: 106px;
+}
+input:focus, textarea:focus, select:focus {
+  color:#fff;
+  outline: none;
+}
+
+/* LABEL ======================================= */
+
+
+label, .label {
+  color: rgba(255, 255, 255, .5);
+}
+
+label {
+  font-weight: normal;
+  height: 20px;
+  margin-top: 10px;
+}
+input[type=text] ~ label, input[type=date] ~ label, input[type=password] ~ label, select ~ label  {
+  margin-top: -76px;
+  position: absolute;
+}
+textarea ~ label  {
+  margin-top: -136px;
+  position: absolute;
+}
+input[type=text]:focus ~ label, input[type=date]:focus ~ label, input[type=password]:focus ~ label, textarea:focus ~ label, select:focus ~ label,
+input[type=checkbox]:checked ~ label, input[type=radio][checked] ~ label {
+  color: white;
+}
+input[type=checkbox] {
+  vertical-align: text-bottom;
+}
+
+/* BOTTOM BARS ================================= */
+.bar {
+  position:relative;
+  display:block;
+  width:100%;
+  margin-bottom: 10px;
+}
+.bar:before, .bar:after 	{
+  content:'';
+  height:1px;
+  width:0;
+  bottom:1px;
+  position:absolute;
+  background:white;
+}
+.bar:before {
+  left:50%;
+}
+.bar:after {
+  right:50%;
+}
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after,
+textarea:focus ~ .bar:before, textarea:focus ~ .bar:after,
+select:focus ~ .bar:before, select:focus ~ .bar:after {
+  width:50%;
+}
+
+/* ng invalid */
+input.ng-invalid, textarea.ng-invalid, select.ng-invalid {
+  border-bottom:1px solid $colorError0;
+
+}
+input.ng-invalid ~ .bar:before, input.ng-invalid ~ .bar:after,
+textarea.ng-invalid ~ .bar:before, textarea.ng-invalid ~ .bar:after,
+select.ng-invalid ~ .bar:before, select.ng-invalid ~ .bar:after {
+  background: $colorError !important;
+}
+
+/* ng valid */
+input[required]:not(.ng-invalid), textarea[required]:not(.ng-invalid), select[required]:not(.ng-invalid) {
+  border-bottom:1px solid $colorSuccess0;
+
+}
+input[required]:not(.ng-invalid) ~ .bar:before, input[required]:not(.ng-invalid) ~ .bar:after,
+textarea[required]:not(.ng-invalid) ~ .bar:before, textarea[required]:not(.ng-invalid) ~ .bar:after,
+select[required]:not(.ng-invalid) ~ .bar:before, select[required]:not(.ng-invalid) ~ .bar:after {
+  background: $colorSuccess !important;
+}
+
+div.rating:before {
+  content: '/ 20';
+  position: absolute;
+  right: 38px;
+  top: 45px;
+  opacity: 0.5;
+}

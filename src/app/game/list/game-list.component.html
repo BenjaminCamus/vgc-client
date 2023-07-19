@@ -141,14 +141,14 @@
         </a>
 
         <label>Joueur</label>
-<!--        <select id="playerName"-->
-<!--                [(ngModel)]="playerName" name="playerName"-->
-<!--                #name="ngModel">-->
-<!--            <option value="{{ currentUser.username }}">{{ currentUser.username }}</option>-->
-<!--            <option *ngFor="let player of currentUser.players" [value]="player">-->
-<!--                {{ player }}-->
-<!--            </option>-->
-<!--        </select>-->
+        <!--        <select id="playerName"-->
+        <!--                [(ngModel)]="playerName" name="playerName"-->
+        <!--                #name="ngModel">-->
+        <!--            <option value="{{ currentUser.username }}">{{ currentUser.username }}</option>-->
+        <!--            <option *ngFor="let player of currentUser.players" [value]="player">-->
+        <!--                {{ player }}-->
+        <!--            </option>-->
+        <!--        </select>-->
 
         <a class="btn cool"
            [ngClass]="playerName === currentUser.username ? 'active' : ''"
@@ -623,7 +623,9 @@
            (click)="navigateUserGame(currentIndex + 1)"
            pTooltip="{{ 'btn.next' | translate }}"
            tooltipPosition="right"></i>
-
+        <span style="font-size: 24px">
+            {{userGames[currentIndex].user.username}}
+        </span>
         <div class="navRight"><i [routerLink]="'/games'" class="hovicon fas fa-times"
                                  pTooltip="{{ 'btn.close' | translate }}"
                                  tooltipPosition="left"></i></div>

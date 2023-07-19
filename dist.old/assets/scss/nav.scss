@@ -1,0 +1,142 @@
+.fakePage {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  padding-top: 0;
+  top: 0;
+  left: 0;
+  background: #111;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+game-list {
+  padding-bottom: 0 !important;
+}
+
+.topnav, .title {
+  font-size: 28px;
+  background: rgba(0, 0, 0, .8);
+  min-height: 70px;
+  line-height: 70px;
+  padding: 0 15px;
+  cursor: default;
+  text-align: left;
+}
+
+@media (min-width: 992px) {
+  .row .title {
+    margin: 0 -15px;
+  }
+
+  .titleText {
+    display: inline-block;
+    width: calc(100% - 210px);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.searchToolsBig {
+  display: none;
+}
+
+.searchToolsSmall {
+  display: none;
+}
+
+@media (min-width: 1110px) {
+  .searchToolsBig {
+    display: inline-block;
+  }
+
+  .filters .ui-tabview {
+    margin-top: 40px;
+  }
+}
+
+.platformLogo {
+  width: 70px;
+  margin-right: 15px;
+}
+
+.topnav {
+  top: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+  font-size: 0;
+  padding-right: 30px;
+}
+
+.topnav *, .title * {
+  vertical-align: middle;
+}
+
+.topnav form, .title form {
+  display: inline-block;
+}
+
+.navLeft {
+  float: left;
+}
+
+.navRight {
+  float: right;
+  text-align: right;
+}
+
+.syncDate {
+  display: inline-block;
+  font-size: 12px;
+  line-height: normal;
+  color: rgba(255, 255, 255, .5);
+}
+
+.input {
+  width: 300px;
+  max-width: 100%;
+  margin-right: 12px;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.filters {
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  margin: 0;
+  font-size: 12px;
+  line-height: 20px;
+  width: 100%;
+  height: calc(100vh - 70px);
+  overflow-y: auto;
+  position: fixed;
+  top: 70px;
+  left: 0;
+}
+
+.filters .container-fluid {
+  padding-bottom: 0;
+}
+
+@media (max-width: 600px) {
+
+  .topnav {
+    padding: 0;
+  }
+}
+
+  @media (max-width: 1109px) {
+
+  .title .table > tbody > tr > td, .title .table > tbody > tr > th, .title .table > tfoot > tr > td, .title .table > tfoot > tr > th, .title .table > thead > tr > td, .title .table > thead > tr > th {
+    padding: 0 3px;
+  }
+  .searchToolsSmall {
+    display: block;
+  }
+}

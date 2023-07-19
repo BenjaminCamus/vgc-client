@@ -1,0 +1,74 @@
+.gameBanner {
+  width: 100%;
+  height: 50vh;
+  display: block;
+  position: relative;
+}
+
+.gameBanner .gameBannerBg {
+  pointer-events: none;
+  width: 100%;
+  display: block;
+  height: 100vh;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: fixed;
+  z-index: -1;
+}
+
+.gameBannerMessage {
+  position: absolute;
+  top: 85px;
+  width: 100vw;
+  text-align: center;
+  font-size: 30px;
+  padding: 15px;
+  background: rgba(0, 0, 0, .3);
+}
+
+loading .gameBannerMessage {
+  background: rgba(0, 0, 0, .7);
+}
+
+.gameBannerVideo, .gameBannerVideo iframe {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.gameBannerVideo {
+  height: 300vh;
+  top: -100vh;
+  position: fixed;
+  z-index: -1;
+}
+
+.gameBannerTools {
+  transition: all 1s ease;
+  position: absolute;
+  top: 85px;
+  left: 0;
+  padding: 5px 15px;
+  border-radius: 0 15px 15px 0;
+
+  a {
+    margin-right: 5px;
+  }
+}
+
+.gameBannerTools:hover,
+.gameBanner:hover ~ .gameBannerTools {
+  background: rgba(0,0,0,.5);
+}
+
+@media (max-width: 992px) {
+  .gameBannerTools {
+    width: 100%;
+    border-radius: 0;
+    background: rgba(0,0,0,.5);
+  }
+}

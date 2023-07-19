@@ -164,6 +164,20 @@ export class GameLocalService {
         });
     }
 
+    getSameUserGame(gameId, platformId) {
+
+        console.log(this.userGames);
+        for (const userGame of this.userGames) {
+            console.log(userGame.game.id);
+            console.log(userGame.game.name);
+            if (gameId === userGame.game.id && platformId === userGame.platform.id) {
+                return userGame;
+            }
+        }
+
+        return null;
+    }
+
     setUserGame(userGame: UserGame) {
 
         const index = this.userGames.findIndex(function (cur) {

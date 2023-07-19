@@ -28,6 +28,7 @@ export class GameDetailComponent implements OnInit {
 
     currentUser;
     public userGame: UserGame;
+    public sameUserGame: UserGame;
 
     private selectedGame: Game = null;
     private selectedPlatform: Object;
@@ -46,8 +47,7 @@ export class GameDetailComponent implements OnInit {
 
     constructor(private router: Router,
                 private route: ActivatedRoute,
-                private injector: Injector,
-                private gameLocalService: GameLocalService) {
+                private injector: Injector) {
     }
 
     ngOnInit() {
@@ -64,6 +64,12 @@ export class GameDetailComponent implements OnInit {
                 this.router.navigate(['/games']);
             } else if (currentUserGame.user.username !== this.currentUser.username) {
                 this.userGame = currentUserGame;
+
+                console.log(currentUserGame.game.id);
+                console.log(currentUserGame.game.name);
+                this.sameUserGame = this.injector.get(GamesComponent).gameLocalService
+                    .getSameUserGame(currentUserGame.game.id, currentUserGame.platform.id);
+                console.log(this.sameUserGame);
             } else {
                 this.injector.get(GamesComponent).gameLocalService.getUserGame(id).then(
                     userGame => {

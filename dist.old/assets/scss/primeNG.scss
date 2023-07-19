@@ -1,0 +1,124 @@
+.ui-tabview.ui-tabview-top > .ui-tabview-nav {
+  padding: 0;
+  background: none;
+  border-bottom: 1px solid #3d3d3d;
+  font-weight: normal;
+  border-radius: 0;
+}
+
+.ui-widget-content {
+  border: none;
+  background: none;
+  color: inherit;
+}
+
+.ui-tabview.ui-tabview-top > .ui-tabview-nav li {
+  border: 0;
+  margin: 0 5px 1px 0;
+}
+
+.ui-widget {
+  font-family: inherit;
+}
+.ui-tooltip .ui-tooltip-text {
+  background: $colorMain0;
+}
+.ui-tooltip-right .ui-tooltip-arrow {
+  border-right-color: $colorMain0;
+}
+
+.ui-slider-horizontal .ui-slider-handle {
+  border: none;
+  border-radius: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+.ui-slider {
+  border: 1px solid rgba(255, 255, 255, .3);
+  background: $colorMain0;
+}
+
+.ui-inputtext {
+  margin: 30px 0 0;
+}
+
+.ui-inputtext {
+  background: #ffffff;
+  color: inherit;
+}
+
+.ui-widget-content {
+  background: #111;
+}
+
+.ui-tabview-panel, .ui-tabview {
+  background: none !important;
+}
+
+label.primeng {
+  margin-top: -76px;
+  position: absolute;
+}
+
+.ui-datepicker[style] {
+  width: 260px;
+  top: 76px !important;
+  border-top: 1px solid #fff;
+  border-radius: 0;
+  padding: 0;
+}
+
+.ui-widget-header {
+  font-weight: normal;
+  border-radius: 0;
+  background: none;
+  border: 0;
+}
+
+.ui-datepicker th {
+  font-weight: normal;
+}
+
+.ui-inputtext.ui-state-focus, .ui-inputtext:focus {
+  border-color: rgba(255, 255, 255, 0.1);
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.ui-inputtext:enabled:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.ui-datepicker select {
+  display: inline-block;
+  font-family: 'Share Tech Mono', monospace;
+  padding: 5px;
+  height: 36px;
+  margin: 0 !important;
+}
+
+.ui-datepicker select.ui-datepicker-year {
+  width: 70px;
+}
+
+.ui-datepicker select.ui-datepicker-month {
+  width: 100px;
+  margin-right: 10px !important;
+}
+
+.ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
+  position: absolute;
+  top: .125em;
+  width: 1.8em;
+  height: 1.8em;
+  top: 14px;
+}
+
+.paginator {
+  position: fixed;
+}
+.ui-widget-header {
+   display: inline-block;
+   text-align: left;
+ }
